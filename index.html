@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kristopher Gallow — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  /* Neutral / default accent */
+  --accent: #1A1916; --accent-2: #2D2B27; --accent-light: #F1EEE9; --accent-border: #D4D0C8;
+
+  /* Toast orange (Toast section) */
+  --toast: #FF6B00; --toast-dark: #D95A00; --toast-light: #FFF4EC; --toast-border: #FFCCA3;
+
+  /* Ghost Strategies — deep indigo */
+  --ghost: #4338CA; --ghost-dark: #3730A3; --ghost-light: #EEF0FE; --ghost-border: #C7CBF2;
+
+  /* About — warm amber */
+  --about: #B45309; --about-dark: #92400E; --about-light: #FEF6E4; --about-border: #F3D7A8;
+
+  /* Contact — fresh teal */
+  --contact: #0F766E; --contact-dark: #115E59; --contact-light: #E6F4F3; --contact-border: #A3D5CF;
+
+  --bg: #F4F3F0; --surface: #FFFFFF; --surface-2: #F9F8F6; --border: #E5E4E0;
+  --text: #1A1916; --text-2: #6B6A63; --text-3: #A09E98;
+  --green: #2D8A4E; --green-light: #EAF5EF; --green-border: #A3D9B4;
+  --blue: #185FA5; --blue-light: #EAF2FC;
+  --purple: #6E3EC1; --purple-light: #F3EEFF;
+  --orange: #C75A1E; --orange-light: #FAEDE1;
+  --radius: 8px; --radius-lg: 14px;
+  --mono: 'JetBrains Mono', 'Fira Code', Menlo, monospace;
+}
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; }
+
+/* ── Tab bar ── */
+.tab-bar-wrap { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; }
+.tab-bar { max-width: 920px; margin: 0 auto; padding: 0 24px; display: flex; gap: 0; overflow-x: auto; }
+.tab-btn { padding: 13px 20px; font-size: 13px; font-weight: 600; color: var(--text-3); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: color 0.15s, border-color 0.15s; white-space: nowrap; }
+.tab-btn:hover { color: var(--text-2); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ── Page ── */
+.page { max-width: 920px; margin: 0 auto; padding: 36px 24px 80px; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── Hero ── */
+.hero { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px 40px; margin-bottom: 28px; display: flex; align-items: flex-start; gap: 28px; }
+.hero-icon { width: 52px; height: 52px; flex-shrink: 0; background: var(--accent-light); border: 1px solid var(--accent-border); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600; color: var(--accent); }
+.eyebrow { font-size: 11px; font-weight: 600; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+.hero h1 { font-size: 24px; font-weight: 600; line-height: 1.25; margin-bottom: 8px; }
+.hero p { font-size: 14px; color: var(--text-2); max-width: 560px; }
+.hero-links { margin-top: 14px; display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-link { font-size: 13px; color: var(--text-2); text-decoration: none; border-bottom: 1px dotted var(--text-3); transition: color 0.15s; }
+.hero-link:hover { color: var(--accent); }
+
+/* ── Section label ── */
+.sec { font-size: 11px; font-weight: 600; color: var(--text-3); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 12px; padding-left: 2px; }
+
+/* ── Stats ── */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; text-align: center; }
+.stat-val { font-size: 28px; font-weight: 600; color: var(--accent); margin-bottom: 3px; }
+.stat-lbl { font-size: 12px; color: var(--text-2); }
+
+/* ── Project cards ── */
+.project-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 32px; }
+.project { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px 28px; transition: border-color 0.15s; }
+.project:hover { border-color: var(--accent-border); }
+.project-head { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 14px; }
+.project-icon { width: 40px; height: 40px; flex-shrink: 0; background: var(--accent-light); border: 1px solid var(--accent-border); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 600; color: var(--accent); }
+.project-title { font-size: 17px; font-weight: 600; line-height: 1.3; margin-bottom: 3px; }
+.project-org { font-size: 12px; color: var(--text-3); }
+.project-tag { margin-left: auto; flex-shrink: 0; padding: 4px 12px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 20px; font-size: 11px; color: var(--text-3); font-weight: 600; letter-spacing: 0.03em; }
+.project-summary { font-size: 13px; color: var(--text-2); margin-bottom: 14px; }
+.project-meta { display: flex; gap: 16px; flex-wrap: wrap; font-size: 11px; color: var(--text-3); }
+.project-meta b { font-weight: 600; color: var(--text-2); margin-right: 4px; }
+
+/* ── Mock UI screenshots ── */
+.mockup { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); margin: 16px 0; padding: 16px; font-family: var(--mono); font-size: 11px; color: var(--text-2); }
+.mockup-head { display: flex; align-items: center; gap: 8px; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text); font-family: 'Inter', sans-serif; font-size: 12px; }
+.mockup-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-3); }
+.mockup-row { display: grid; gap: 8px; padding: 6px 0; border-bottom: 1px dashed var(--border); }
+.mockup-row:last-child { border-bottom: none; }
+.mockup-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
+.mockup-kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 10px; }
+.mockup-kpi-val { font-size: 16px; font-weight: 600; color: var(--text); font-family: 'Inter', sans-serif; }
+.mockup-kpi-lbl { font-size: 10px; color: var(--text-3); margin-top: 2px; font-family: 'Inter', sans-serif; }
+.mockup-table { width: 100%; }
+.mockup-table th { text-align: left; padding: 6px 8px; background: var(--surface); border: 1px solid var(--border); font-size: 10px; font-weight: 600; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.04em; font-family: 'Inter', sans-serif; }
+.mockup-table td { padding: 6px 8px; background: var(--surface); border: 1px solid var(--border); font-size: 11px; color: var(--text-2); font-family: var(--mono); }
+.pill-green { display: inline-block; padding: 1px 8px; border-radius: 20px; background: var(--green-light); color: var(--green); font-size: 10px; font-weight: 600; border: 1px solid var(--green-border); font-family: 'Inter', sans-serif; }
+.pill-orange { display: inline-block; padding: 1px 8px; border-radius: 20px; background: var(--orange-light); color: var(--orange); font-size: 10px; font-weight: 600; border: 1px solid var(--accent-border); font-family: 'Inter', sans-serif; }
+.pill-blue { display: inline-block; padding: 1px 8px; border-radius: 20px; background: var(--blue-light); color: var(--blue); font-size: 10px; font-weight: 600; border: 1px solid #C5DAF0; font-family: 'Inter', sans-serif; }
+.pill-purple { display: inline-block; padding: 1px 8px; border-radius: 20px; background: var(--purple-light); color: var(--purple); font-size: 10px; font-weight: 600; border: 1px solid #D9C8F0; font-family: 'Inter', sans-serif; }
+.pill-gray { display: inline-block; padding: 1px 8px; border-radius: 20px; background: var(--surface-2); color: var(--text-3); font-size: 10px; font-weight: 600; border: 1px solid var(--border); font-family: 'Inter', sans-serif; }
+
+/* ── Detail sections ── */
+.detail { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px 28px; margin-bottom: 14px; }
+.detail h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.detail .sub { font-size: 12px; color: var(--text-3); margin-bottom: 16px; }
+.detail h4 { font-size: 12px; font-weight: 600; color: var(--text-3); letter-spacing: 0.06em; text-transform: uppercase; margin: 16px 0 8px; }
+.detail p { font-size: 13px; color: var(--text-2); margin-bottom: 10px; }
+.detail ul { margin: 8px 0 12px 0; padding-left: 0; list-style: none; }
+.detail li { font-size: 13px; color: var(--text-2); margin-bottom: 6px; padding-left: 16px; position: relative; }
+.detail li::before { content: '·'; position: absolute; left: 4px; color: var(--text-3); font-weight: 700; }
+.stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.stack-item { padding: 3px 9px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; font-size: 11px; font-family: var(--mono); color: var(--text-2); }
+
+/* ── Before/After ── */
+.ba { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.ba-card { padding: 16px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface-2); }
+.ba-card.after { background: var(--green-light); border-color: var(--green-border); }
+.ba-label { font-size: 11px; font-weight: 600; color: var(--text-3); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+.ba-card.after .ba-label { color: var(--green); }
+.ba-step { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 7px; font-size: 12px; color: var(--text-2); }
+.ba-num { width: 18px; height: 18px; flex-shrink: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: var(--text-3); }
+.ba-card.after .ba-num { background: var(--surface); border-color: var(--green-border); color: var(--green); }
+
+/* ── About ── */
+.about-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 32px; margin-bottom: 24px; }
+.about-card p { font-size: 14px; color: var(--text-2); margin-bottom: 12px; }
+.about-card p:last-child { margin-bottom: 0; }
+
+/* ── Contact ── */
+.contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 32px; }
+.contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 16px; }
+.contact-item { padding: 14px 16px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); }
+.contact-label { font-size: 11px; font-weight: 600; color: var(--text-3); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+.contact-value { font-size: 13px; color: var(--text); font-family: var(--mono); word-break: break-all; }
+.contact-value a { color: var(--text); text-decoration: none; }
+.contact-value a:hover { color: var(--accent); }
+.resume-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: var(--radius); background: var(--accent); color: var(--surface); font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.15s; margin-top: 16px; }
+.resume-btn:hover { background: var(--accent-2); }
+
+/* ── Footer ── */
+.footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; font-size: 12px; color: var(--text-3); }
+
+/* ── Section themes — color hero, icons, and detail headings per section ── */
+.theme-toast .hero-icon, .theme-toast .project-icon { background: var(--toast-light); border-color: var(--toast-border); color: var(--toast); }
+.theme-toast .eyebrow { color: var(--toast); }
+.theme-toast .detail h3 { color: var(--toast-dark); }
+.theme-toast .stat-val { color: var(--toast); }
+
+.theme-ghost .hero-icon, .theme-ghost .project-icon { background: var(--ghost-light); border-color: var(--ghost-border); color: var(--ghost); }
+.theme-ghost .eyebrow { color: var(--ghost); }
+.theme-ghost .detail h3 { color: var(--ghost-dark); }
+.theme-ghost .stat-val { color: var(--ghost); }
+
+.theme-about .hero-icon { background: var(--about-light); border-color: var(--about-border); color: var(--about); }
+.theme-about .eyebrow { color: var(--about); }
+
+.theme-contact .hero-icon { background: var(--contact-light); border-color: var(--contact-border); color: var(--contact); }
+.theme-contact .eyebrow { color: var(--contact); }
+.theme-contact .resume-btn { background: var(--contact); }
+.theme-contact .resume-btn:hover { background: var(--contact-dark); }
+
+/* Per-project-card color hints (overview tab) */
+.project[data-color="toast"] .project-icon { background: var(--toast-light); border-color: var(--toast-border); color: var(--toast); }
+.project[data-color="toast"] .project-tag { background: var(--toast-light); border-color: var(--toast-border); color: var(--toast); }
+.project[data-color="toast"]:hover { border-color: var(--toast-border); }
+.project[data-color="ghost"] .project-icon { background: var(--ghost-light); border-color: var(--ghost-border); color: var(--ghost); }
+.project[data-color="ghost"] .project-tag { background: var(--ghost-light); border-color: var(--ghost-border); color: var(--ghost); }
+.project[data-color="ghost"]:hover { border-color: var(--ghost-border); }
+
+/* Subtle left-border accents on detail cards */
+.theme-toast .detail { border-left: 3px solid var(--toast); }
+.theme-ghost .detail { border-left: 3px solid var(--ghost); }
+
+/* Tab buttons with hover/active color hint */
+.tab-btn[data-tab="toast"].active { color: var(--toast); border-bottom-color: var(--toast); }
+.tab-btn[data-tab="ghost"].active { color: var(--ghost); border-bottom-color: var(--ghost); }
+.tab-btn[data-tab="about"].active { color: var(--about); border-bottom-color: var(--about); }
+.tab-btn[data-tab="contact"].active { color: var(--contact); border-bottom-color: var(--contact); }
+@media (max-width: 700px) {
+  .stats { grid-template-columns: 1fr; }
+  .ba { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .mockup-kpis { grid-template-columns: repeat(2, 1fr); }
+  .hero { flex-direction: column; gap: 16px; padding: 24px 24px; }
+  .project { padding: 20px 22px; }
+  .project-head { flex-wrap: wrap; }
+  .project-tag { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Tab bar ── -->
+<div class="tab-bar-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="overview">Overview</button>
+    <button class="tab-btn" data-tab="toast">Toast Work</button>
+    <button class="tab-btn" data-tab="ghost">Ghost Strategies</button>
+    <button class="tab-btn" data-tab="about">About</button>
+    <button class="tab-btn" data-tab="contact">Contact</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ════════════════ OVERVIEW TAB ════════════════ -->
+  <div class="tab-panel active" id="tab-overview">
+
+    <div class="hero">
+      <div class="hero-icon">KG</div>
+      <div>
+        <div class="eyebrow">Portfolio</div>
+        <h1>Kristopher Gallow</h1>
+        <p>AI-native operator and systems builder. Senior Capital Underwriter with a Process Automation focus at Toast, plus four LLM-powered terminals shipped through Ghost Strategies LLC.</p>
+        <div class="hero-links">
+          <a class="hero-link" href="#" data-tab-link="contact">Get in touch</a>
+          <a class="hero-link" href="https://linkedin.com/in/kristophergallow" target="_blank">LinkedIn</a>
+          <a class="hero-link" href="https://github.com/KaeJhee" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-val" style="color: var(--toast);">7+</div>
+        <div class="stat-lbl">Years in financial services</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val" style="color: var(--ghost);">8</div>
+        <div class="stat-lbl">Production tools shipped</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val" style="color: var(--contact);">$400M+</div>
+        <div class="stat-lbl">Capital deployments supported</div>
+      </div>
+    </div>
+
+    <div class="sec">Featured work</div>
+    <div class="project-grid">
+      <div class="project" data-color="toast">
+        <div class="project-head">
+          <div class="project-icon">CM</div>
+          <div>
+            <div class="project-title">COO/COLE Case Management Dashboard</div>
+            <div class="project-org">Toast · 10-person underwriting team · 700+ active cases</div>
+          </div>
+          <div class="project-tag">Toast</div>
+        </div>
+        <div class="project-summary">Full-stack web app that replaced manual spreadsheet workflows. Real-time analytics scorecard (30-day, MoM, YTD, per-rep), Time-to-Decision distribution, Bizops pick-time attribution, fraud and TCA tabs, plus an Address Change tab with a five-status lifecycle.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Apps Script, JavaScript, Tailwind, Chart.js (custom plugin)</span>
+          <span><b>Users</b>10</span>
+        </div>
+      </div>
+
+      <div class="project" data-color="toast">
+        <div class="project-head">
+          <div class="project-icon">ET</div>
+          <div>
+            <div class="project-title">Email Template Automation Suite</div>
+            <div class="project-org">Toast · 14-person Capital Underwriting and Change of Ownership · 11 phases</div>
+          </div>
+          <div class="project-tag">Toast</div>
+        </div>
+        <div class="project-summary">Cross-platform desktop app that cut template retrieval from 30 seconds to under 3 seconds. Zero AI tokens consumed, zero customer data exposure by design. Includes a Salesforce-embedded NOIA generator concept and a stakeholder presentation.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Python, Flask, PowerShell, AppleScript, PyInstaller, pystray</span>
+          <span><b>Platforms</b>macOS + Windows</span>
+        </div>
+      </div>
+
+      <div class="project" data-color="toast">
+        <div class="project-head">
+          <div class="project-icon">FV</div>
+          <div>
+            <div class="project-title">Funding Verification Tool</div>
+            <div class="project-org">Toast · Capital Underwriting · in-browser data engineering</div>
+          </div>
+          <div class="project-tag">Toast</div>
+        </div>
+        <div class="project-summary">Single-file HTML application that replaced a fragile multi-source VLOOKUP chain in Google Sheets. In-browser four-source JOIN engine with processor-specific match logic, manual overrides, audit labels, and color-coded XLSX export.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Vanilla JavaScript, SheetJS, custom RFC 4180 parser</span>
+          <span><b>Sources</b>4-way JOIN</span>
+        </div>
+      </div>
+
+      <div class="project" data-color="toast">
+        <div class="project-head">
+          <div class="project-icon">CX</div>
+          <div>
+            <div class="project-title">CSV Column Extractor</div>
+            <div class="project-org">Toast · Bizops · 9-minute workflow cut to under 55 seconds</div>
+          </div>
+          <div class="project-tag">Toast</div>
+        </div>
+        <div class="project-summary">Single-file HTML tool for non-technical operations users. Streams 1M+ row spreadsheets via parallel Web Workers, with a pre-read and pre-warm pipeline that takes the full open-to-paste workflow from approximately nine minutes to under 55 seconds.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Vanilla JavaScript, Web Workers, Papa Parse, SheetJS, Promise.all</span>
+          <span><b>Scale</b>1M+ rows/file</span>
+        </div>
+      </div>
+
+      <div class="project" data-color="ghost">
+        <div class="project-head">
+          <div class="project-icon">GS</div>
+          <div>
+            <div class="project-title">Ghost Strategies Terminal Suite</div>
+            <div class="project-org">Ghost Strategies LLC · LLM-powered financial tooling</div>
+          </div>
+          <div class="project-tag">Independent</div>
+        </div>
+        <div class="project-summary">Four production terminals built with Anthropic's Claude: Wealth Compass (client-side financial planning), Training Terminal (Python and SQL learning environment), Garage Terminal (asset tracking on FastAPI), and Economic Indicators Terminal (BLS, BEA, FRED integration).</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Python, FastAPI, JavaScript, Pyodide, sql.js</span>
+          <span><b>Discipline</b>I own the logic, the LLM writes the code, I validate every output</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ════════════════ TOAST WORK TAB ════════════════ -->
+  <div class="tab-panel theme-toast" id="tab-toast">
+
+    <div class="hero">
+      <div class="hero-icon">T</div>
+      <div>
+        <div class="eyebrow">Toast Inc · Senior Capital Underwriter, Process Automation</div>
+        <h1>Toast Work</h1>
+        <p>Four production tools built for the Capital Underwriting and Change of Ownership teams. Each replaced a fragile or manual workflow with a self-contained, browser-based system.</p>
+      </div>
+    </div>
+
+    <!-- COO/COLE Dashboard -->
+    <div class="detail">
+      <h3>COO/COLE Case Management Dashboard</h3>
+      <div class="sub">Full-stack web app · 10-person underwriting team · 700+ active cases</div>
+
+      <p>A web application built on top of a live Google Sheet that replaced manual spreadsheet workflows for case tracking, analytics, and address-change requests. The Cases tab tracks the full lifecycle of underwriting cases, the Address Change tab manages a parallel five-status workflow on its own sheet, and the Analytics tab is an operational scorecard with team-level and individual-rep views.</p>
+
+      <h4>Mock view</h4>
+      <div class="mockup">
+        <div class="mockup-head">
+          <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+          <span>Case Management Dashboard · Cases (47 active · 3 picked today)</span>
+        </div>
+        <div class="mockup-kpis">
+          <div class="mockup-kpi"><div class="mockup-kpi-val">47</div><div class="mockup-kpi-lbl">Active Cases</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val">12</div><div class="mockup-kpi-lbl">Completed (7d)</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val">4.2</div><div class="mockup-kpi-lbl">Avg Days TTC</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val">98%</div><div class="mockup-kpi-lbl">SLA Met</div></div>
+        </div>
+        <table class="mockup-table">
+          <thead><tr><th>Case #</th><th>Restaurant</th><th>Source</th><th>Status</th><th>Days</th></tr></thead>
+          <tbody>
+            <tr><td>C-1042</td><td>[Redacted]</td><td>Bizops</td><td><span class="pill-blue">In Review</span></td><td>2</td></tr>
+            <tr><td>C-1041</td><td>[Redacted]</td><td>Collections</td><td><span class="pill-orange">Picked</span></td><td>1</td></tr>
+            <tr><td>C-1040</td><td>[Redacted]</td><td>Direct</td><td><span class="pill-green">Completed</span></td><td>3</td></tr>
+            <tr><td>C-1039</td><td>[Redacted]</td><td>Bizops</td><td><span class="pill-blue">In Review</span></td><td>5</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>Key features</h4>
+      <ul>
+        <li>Live case table backed by Google Sheets with inline edit drawer, add and delete modals, and a Settings panel for managers to self-serve configuration changes</li>
+        <li>Address Change tab on a separate sheet with five-status lifecycle (Pending, Submitted to Risk, Completed, Expired, Canceled), independent filter bar, and automatic date stamping for creation and completion</li>
+        <li>Analytics tab with 30-day, MoM, and YTD breakdowns; Time-to-Decision distribution buckets; and a Bizops pick-time attribution chart that correctly separates queue-wait time from rep turnaround time</li>
+        <li>Custom Chart.js plugin (barTotalsPlugin) for stacked-bar totals and individual bar labels in two render modes</li>
+        <li>Concurrency protection via LockService on case creation, deletion, and write operations</li>
+        <li>Idle-refresh banner after 30 minutes of inactivity and a version-update notification system that polls the deployed app version every 10 minutes</li>
+      </ul>
+
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Google Apps Script</span>
+        <span class="stack-item">HTML</span>
+        <span class="stack-item">CSS</span>
+        <span class="stack-item">JavaScript</span>
+        <span class="stack-item">Tailwind CSS</span>
+        <span class="stack-item">Chart.js v4</span>
+        <span class="stack-item">Google Sheets</span>
+        <span class="stack-item">Google OAuth</span>
+      </div>
+    </div>
+
+    <!-- Email Template Suite -->
+    <div class="detail">
+      <h3>Email Template Automation Suite</h3>
+      <div class="sub">11 phases · cross-platform desktop app · 14-person team · 30s to under 3s</div>
+
+      <p>A cross-platform desktop application that ships 20 pre-loaded email templates with rich-text formatting preserved on paste. Grew over 11 phases from a CLI tool to a full Flask web app, then to a PyInstaller-bundled native application with a system tray icon, and finally into a Salesforce-embedded NOIA generator concept presented to engineering stakeholders.</p>
+
+      <h4>Mock view</h4>
+      <div class="mockup">
+        <div class="mockup-head">
+          <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+          <span>Email Templates · 20 templates · 14-person team</span>
+        </div>
+        <div class="mockup-row">
+          <div><span class="pill-purple">Capital Underwriting</span> &nbsp; Received Response · Template ready · <span style="color:var(--green)">●</span> Copied</div>
+        </div>
+        <div class="mockup-row">
+          <div><span class="pill-orange">NOIA</span> &nbsp; NOIA MCA · {date} · {restaurant_name} · {source_of_debt}</div>
+        </div>
+        <div class="mockup-row">
+          <div><span class="pill-blue">Change of Ownership</span> &nbsp; COO DS Sent · {date} · {restaurant_name}</div>
+        </div>
+        <div class="mockup-row">
+          <div style="color:var(--text-3); font-size:10px;">Retrieval: avg 2.1s · Tokens consumed: 0 · Customer data sent to model: 0</div>
+        </div>
+      </div>
+
+      <h4>Phase progression</h4>
+      <ul>
+        <li>Phases 1 to 3: CLI tool, cross-platform GUI launcher, then a full Flask web app</li>
+        <li>Phase 4: Dark mode, brand logo, and accordion drawer system for the editor</li>
+        <li>Phase 5: PyInstaller-bundled standalone executable with platform-appropriate data directories (macOS app support, Windows AppData), port discovery to dodge AirPlay on macOS, and a system tray icon for clean exits</li>
+        <li>Phase 6: Salesforce-embedded NOIA template generator concept, with function-based template rendering (eight templates, conditional logic for variable-length entity lists)</li>
+        <li>Phases 7 to 9: Placeholder fill modal with confirmation toasts, multi-line field support, two-panel preview modal, and product demo enhancements</li>
+        <li>Phase 10: Template-sync bug fix (silent failure mode on every launch caught and resolved)</li>
+        <li>Phase 11: Stakeholder presentation HTML with Apps Script architecture diagrams and a NOIA automation proposal for engineering review</li>
+      </ul>
+
+      <h4>Engineering decisions</h4>
+      <ul>
+        <li>Zero AI tokens consumed by design: templates use placeholders that the user fills locally, so no customer data ever leaves the machine</li>
+        <li>Cross-platform clipboard formatting: macOS uses AppleScript with the «class HTML» format; Windows uses CF_HTML byte-offset headers with precise UTF-8 byte counting</li>
+        <li>15KB Flask app deliverable instead of a 150 to 200MB Electron bundle, deliberately avoiding the Apple Developer Program signing requirement</li>
+        <li>Per-machine identity: no authentication needed, each install is local-only</li>
+      </ul>
+
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Python</span>
+        <span class="stack-item">Flask</span>
+        <span class="stack-item">Bash</span>
+        <span class="stack-item">PowerShell</span>
+        <span class="stack-item">JavaScript</span>
+        <span class="stack-item">AppleScript</span>
+        <span class="stack-item">Quill.js</span>
+        <span class="stack-item">PyInstaller</span>
+        <span class="stack-item">pystray</span>
+        <span class="stack-item">Pillow</span>
+      </div>
+    </div>
+
+    <!-- Funding Verification Tool -->
+    <div class="detail">
+      <h3>Funding Verification Tool</h3>
+      <div class="sub">Single-file HTML · in-browser four-source JOIN engine</div>
+
+      <p>A single-file HTML application that replaced a fragile VLOOKUP chain in Google Sheets used to verify merchant banking data for capital deployments. Performs an in-browser JOIN across four sources (New Funding file, Snowflake export, Original CSV funding records, and DSL bank files), produces match results with processor-specific logic, and exports a color-coded XLSX with audit labels.</p>
+
+      <h4>Before and after</h4>
+      <div class="ba">
+        <div class="ba-card">
+          <div class="ba-label">Before</div>
+          <div class="ba-step"><div class="ba-num">1</div><div>Manually maintain VLOOKUP chains across four Google Sheets</div></div>
+          <div class="ba-step"><div class="ba-num">2</div><div>#N/A errors propagate when Snowflake data is delayed</div></div>
+          <div class="ba-step"><div class="ba-num">3</div><div>No audit trail for manual SPA verifications</div></div>
+          <div class="ba-step"><div class="ba-num">4</div><div>WORLDPAY and CHASE rules embedded in formulas, easily broken</div></div>
+        </div>
+        <div class="ba-card after">
+          <div class="ba-label">After</div>
+          <div class="ba-step"><div class="ba-num">1</div><div>Drag-drop four files, JOIN runs in milliseconds</div></div>
+          <div class="ba-step"><div class="ba-num">2</div><div>Manual Overrides tab surfaces Check Data rows</div></div>
+          <div class="ba-step"><div class="ba-num">3</div><div>Toast Checking and Verified in Merchant labels persist</div></div>
+          <div class="ba-step"><div class="ba-num">4</div><div>Processor logic in code, color-coded XLSX export</div></div>
+        </div>
+      </div>
+
+      <h4>Mock view</h4>
+      <div class="mockup">
+        <div class="mockup-head">
+          <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+          <span>Funding Verification · Ops SPA Deals (12 rows)</span>
+        </div>
+        <table class="mockup-table">
+          <thead><tr><th>Ext ID</th><th>Proc</th><th>Match R</th><th>Match A</th><th>Label</th></tr></thead>
+          <tbody>
+            <tr><td>EXT-8821</td><td>WORLDPAY</td><td><span class="pill-green">YES</span></td><td><span class="pill-green">YES</span></td><td><span class="pill-blue">Toast Checking</span></td></tr>
+            <tr><td>EXT-8820</td><td>CHASE</td><td><span class="pill-green">YES</span></td><td><span class="pill-orange">Check Data</span></td><td><span class="pill-gray">Pending</span></td></tr>
+            <tr><td>EXT-8819</td><td>WORLDPAY</td><td><span class="pill-orange">NO</span></td><td><span class="pill-green">YES</span></td><td><span class="pill-green">Verified</span></td></tr>
+            <tr><td>EXT-8818</td><td>CHASE</td><td><span class="pill-green">YES</span></td><td><span class="pill-green">YES</span></td><td><span class="pill-green">Verified</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>Key engineering decisions</h4>
+      <ul>
+        <li>Custom RFC 4180 CSV parser written from scratch to replace SheetJS's unreliable CSV mode (BOM stripping, mixed line endings, embedded quotes)</li>
+        <li>MID normalization for JavaScript scientific notation: Snowflake XLSX exports return Merchant IDs as 1.23E+9, breaking direct string compares</li>
+        <li>Hash-join via Map objects: equivalent to NewFunding LEFT JOIN Snowflake LEFT JOIN OriginalCsv LEFT JOIN DSL, executes in milliseconds for hundreds of thousands of rows</li>
+        <li>Processor-specific match logic isolated in code: WORLDPAY requires exact DSL-to-file match; CHASE requires file value to differ from a known placeholder</li>
+        <li>Labels and overrides keyed to External ID, survive re-uploads of any source file within the same session</li>
+        <li>Color-coded XLSX export via SheetJS cell-level styling (YES, NO, Check Data each get a distinct cell fill in the audit file)</li>
+      </ul>
+
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">SheetJS 0.18.5</span>
+        <span class="stack-item">Custom CSV parser</span>
+        <span class="stack-item">Web FileReader API</span>
+        <span class="stack-item">Clipboard API</span>
+      </div>
+    </div>
+
+    <!-- CSV Column Extractor -->
+    <div class="detail">
+      <h3>CSV Column Extractor</h3>
+      <div class="sub">Single-file HTML · 9-minute workflow cut to under 55 seconds</div>
+
+      <p>A single-file HTML dashboard for combining up to five large spreadsheet files, each potentially exceeding one million rows, and extracting three specific columns for paste into a destination Google Sheet. Iterative performance engineering took the full open-to-paste workflow on three 25MB XLSX files from approximately nine minutes (manual baseline) to under 55 seconds.</p>
+
+      <h4>Before and after</h4>
+      <div class="ba">
+        <div class="ba-card">
+          <div class="ba-label">Before · ~9 minutes</div>
+          <div class="ba-step"><div class="ba-num">1</div><div>Open three files sequentially in Excel or Sheets</div></div>
+          <div class="ba-step"><div class="ba-num">2</div><div>Manually select and copy three columns from each file</div></div>
+          <div class="ba-step"><div class="ba-num">3</div><div>Paste each chunk into the destination sheet, watch for cell-limit failures</div></div>
+          <div class="ba-step"><div class="ba-num">4</div><div>Retry failed pastes after Google Sheets silently truncates</div></div>
+        </div>
+        <div class="ba-card after">
+          <div class="ba-label">After · under 55 seconds</div>
+          <div class="ba-step"><div class="ba-num">1</div><div>Drag-drop all three files into the tool</div></div>
+          <div class="ba-step"><div class="ba-num">2</div><div>Pre-read and pre-warm pipeline starts in the background</div></div>
+          <div class="ba-step"><div class="ba-num">3</div><div>Auto-parse fires 400ms after the last file, all three parse in parallel</div></div>
+          <div class="ba-step"><div class="ba-num">4</div><div>Copy each column with one click, live cell-limit warnings prevent silent failures</div></div>
+        </div>
+      </div>
+
+      <h4>Mock view</h4>
+      <div class="mockup">
+        <div class="mockup-head">
+          <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+          <span>CSV Column Extractor · 3 files queued · auto-parse in 0.4s</span>
+        </div>
+        <div class="mockup-kpis">
+          <div class="mockup-kpi"><div class="mockup-kpi-val">847,302</div><div class="mockup-kpi-lbl">Total Rows</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val">3</div><div class="mockup-kpi-lbl">Files Parsed</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val">~22s</div><div class="mockup-kpi-lbl">Parse Time</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val">3.9M</div><div class="mockup-kpi-lbl">Cells / Chunk</div></div>
+        </div>
+        <table class="mockup-table">
+          <thead><tr><th>Column</th><th>Rows</th><th>Cell Estimate</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Column B (MID)</td><td>847,302</td><td>22.0M cells</td><td><span class="pill-orange">Chunk Required</span></td></tr>
+            <tr><td>Column L (R&amp;T)</td><td>847,302</td><td>22.0M cells</td><td><span class="pill-orange">Chunk Required</span></td></tr>
+            <tr><td>Column M (DDA)</td><td>847,302</td><td>22.0M cells</td><td><span class="pill-orange">Chunk Required</span></td></tr>
+            <tr><td colspan="4" style="text-align:center; color:var(--text-3); font-family:'Inter', sans-serif; font-size:10px;">Chunk size 150K rows · 6 chunks per column · safely under 10M cell limit</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>Performance pipeline</h4>
+      <ul>
+        <li>Parallel parsing via Promise.all: all files parse simultaneously in independent workers with local accumulators, merged in original file order after all Promises resolve</li>
+        <li>Pre-read FileReader cache: readAsArrayBuffer fires the moment a file enters the queue, not when Parse is clicked, eliminating I/O wait from the critical path</li>
+        <li>Pre-warmed worker pool: a Web Worker is spawned per XLSX file on drop, compiling SheetJS (about 500KB) inside the worker during the user's file-review window</li>
+        <li>Auto-parse with 400ms debounce: no Parse button click required, handles single-file and multi-file drops uniformly, guards against re-triggering once results are displayed</li>
+        <li>Selective XLSX cell extraction: the worker constructs only three required cell addresses per row (B+n, L+n, M+n) instead of allocating the full 2D array via sheet_to_json</li>
+        <li>Batch and chunk sizes increased 4x: worker message batches went from 25K to 100K rows; CSV chunk size went from 5MB to 20MB, reducing postMessage round-trips proportionally</li>
+      </ul>
+
+      <h4>Base engineering decisions</h4>
+      <ul>
+        <li>Papa Parse with worker: true for CSV streaming; hand-written Blob Worker for SheetJS XLSX parsing to keep the UI responsive during 1M+ row binary parses</li>
+        <li>ArrayBuffer transferred via postMessage transferables to eliminate the memory cost of a second copy on large files</li>
+        <li>150K-row clipboard chunks: 150K rows times 26 default Google Sheets columns equals 3.9M cells, safely under the 10M limit</li>
+        <li>Push-in-loop array construction instead of spread or push.apply, avoiding call-stack overflow on arrays exceeding 125K elements</li>
+        <li>Three primary copy buttons (one per column) because the destination sheet uses non-adjacent columns; combined tab-separated copy preserved as a secondary option</li>
+      </ul>
+
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">Web Workers</span>
+        <span class="stack-item">Papa Parse 5.4.1</span>
+        <span class="stack-item">SheetJS 0.18.5</span>
+        <span class="stack-item">Blob Workers</span>
+        <span class="stack-item">Promise.all parallelism</span>
+        <span class="stack-item">FileReader API</span>
+        <span class="stack-item">Clipboard API</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ════════════════ GHOST STRATEGIES TAB ════════════════ -->
+  <div class="tab-panel theme-ghost" id="tab-ghost">
+
+    <div class="hero">
+      <div class="hero-icon">GS</div>
+      <div>
+        <div class="eyebrow">Ghost Strategies LLC · Independent</div>
+        <h1>Ghost Strategies</h1>
+        <p>Four LLM-powered financial tools built independently. Every project ships with the same discipline: I own the logic and architecture, the LLM writes the code, I validate every output, and I only prompt with test or sample data so no proprietary information ever enters the model.</p>
+      </div>
+    </div>
+
+    <div class="detail">
+      <h3>Wealth Compass Terminal</h3>
+      <div class="sub">Client-side financial planning dashboard</div>
+      <p>A client-facing financial planning dashboard that parses a 13-sheet workbook with 755 formulas entirely client-side. All data stays on the user's device. No backend, no data transmission, no model exposure to client information.</p>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">JavaScript</span>
+        <span class="stack-item">HTML</span>
+        <span class="stack-item">SheetJS</span>
+        <span class="stack-item">Custom formula engine</span>
+      </div>
+    </div>
+
+    <div class="detail">
+      <h3>Training Terminal</h3>
+      <div class="sub">Gamified Python and SQL learning environment</div>
+      <p>A single-file static web app for practicing Python and SQL in the browser. Runs real Python through Pyodide and real SQL through sql.js. Includes 100 hand-authored questions across five gated tiers (Introductory through Master), live KPIs for accuracy, streaks, and session time, and localStorage-persisted progression.</p>
+      <h4>What's unique</h4>
+      <ul>
+        <li>Every question hand-authored and calibrated to a specific concept at a specific difficulty</li>
+        <li>Tier gates force learners to demonstrate mastery before moving up</li>
+        <li>Deployed as a single static file, no backend</li>
+      </ul>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">JavaScript</span>
+        <span class="stack-item">Pyodide</span>
+        <span class="stack-item">sql.js</span>
+        <span class="stack-item">localStorage</span>
+      </div>
+    </div>
+
+    <div class="detail">
+      <h3>Garage Terminal</h3>
+      <div class="sub">Multi-asset tracker · Python FastAPI backend</div>
+      <p>A personal asset tracking terminal with a Python FastAPI backend and an automated data pipeline using GitHub Actions for weekly serverless CI/CD workflows. Pulls valuation data, refreshes the dashboard, and exposes a clean read API.</p>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Python</span>
+        <span class="stack-item">FastAPI</span>
+        <span class="stack-item">GitHub Actions</span>
+        <span class="stack-item">JavaScript</span>
+        <span class="stack-item">Serverless CI/CD</span>
+      </div>
+    </div>
+
+    <div class="detail">
+      <h3>Economic Indicators Terminal</h3>
+      <div class="sub">BLS, BEA, FRED API integration</div>
+      <p>A macroeconomic data terminal that integrates with three public US government economic data sources (BLS, BEA, FRED) via a Python proxy. Surfaces unified indicators (inflation, employment, GDP, regional metrics) in a single dashboard.</p>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Python</span>
+        <span class="stack-item">BLS API</span>
+        <span class="stack-item">BEA API</span>
+        <span class="stack-item">FRED API</span>
+        <span class="stack-item">Proxy server</span>
+      </div>
+    </div>
+
+    <div class="detail">
+      <h3>AI-Assisted Financial Modeling Suite</h3>
+      <div class="sub">Dynamic financial engines built with Claude</div>
+      <p>A separate workstream under Ghost Strategies focused on financial modeling rather than terminal apps. Includes a probability-weighted valuation model and a $3M TRS retirement planner. I own the financial logic and architecture while directing Claude to generate the code. Every output is validated against standard financial formulas before being trusted, and I only prompt with test or sample data to keep any real client information out of the model.</p>
+    </div>
+
+  </div>
+
+  <!-- ════════════════ ABOUT TAB ════════════════ -->
+  <div class="tab-panel theme-about" id="tab-about">
+
+    <div class="hero">
+      <div class="hero-icon">KG</div>
+      <div>
+        <div class="eyebrow">About</div>
+        <h1>Background and operating model</h1>
+        <p>How I work and what I'm looking for.</p>
+      </div>
+    </div>
+
+    <div class="about-card">
+      <p>I'm a Senior Capital Underwriter at Toast, where I support over $400M in active capital deployments and operate inside a fintech that scaled from $100M to over $2B in annual volume during my tenure. My day-to-day is capital decisions, customer health monitoring, and scenario planning, but my distinguishing work is building the systems and tools that operate alongside that core function.</p>
+      <p>I'm part of Toast's Claude Code and Cowork rollout to a select group of process automation specialists. I built a multi-agent system with an orchestrator that routes work to specialized sub-agents (workflow automation, code audit, technical project management, devops, technical writing), each with its own system prompt, scoped tool access, and isolated context. The same architecture is replicated as Skills in Cowork.</p>
+      <p>Outside of Toast, I run Ghost Strategies LLC, where I ship LLM-powered financial tools. My operating discipline across every project is consistent: I own the logic and architecture, the LLM writes the code, I validate every output before I trust it, and I never feed proprietary data to a model.</p>
+      <p>I'm based in San Antonio, Texas, and I work remote-only. I'm targeting Senior Manager-track or Senior IC roles in strategy, operations, risk, or AI-process work at companies where the AI-native operating model is the default, not the exception.</p>
+    </div>
+
+    <div class="sec">Core stack</div>
+    <div class="about-card">
+      <div class="stack">
+        <span class="stack-item">SQL (Snowflake)</span>
+        <span class="stack-item">Salesforce</span>
+        <span class="stack-item">Python</span>
+        <span class="stack-item">JavaScript</span>
+        <span class="stack-item">Google Apps Script</span>
+        <span class="stack-item">Hex</span>
+        <span class="stack-item">Excel and Google Sheets</span>
+        <span class="stack-item">Claude Code</span>
+        <span class="stack-item">Cowork</span>
+        <span class="stack-item">Multi-Agent Systems</span>
+        <span class="stack-item">Flask</span>
+        <span class="stack-item">FastAPI</span>
+        <span class="stack-item">Chart.js</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ════════════════ CONTACT TAB ════════════════ -->
+  <div class="tab-panel theme-contact" id="tab-contact">
+
+    <div class="hero">
+      <div class="hero-icon">KG</div>
+      <div>
+        <div class="eyebrow">Contact</div>
+        <h1>Get in touch</h1>
+        <p>Best ways to reach me. I respond to email and LinkedIn within a business day.</p>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <div class="sec">Direct</div>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <div class="contact-label">Email</div>
+          <div class="contact-value"><a href="mailto:krisgallow918@gmail.com">krisgallow918@gmail.com</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">Phone</div>
+          <div class="contact-value">832-233-9437</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-value"><a href="https://linkedin.com/in/kristophergallow" target="_blank">linkedin.com/in/kristophergallow</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">GitHub</div>
+          <div class="contact-value"><a href="https://github.com/KaeJhee" target="_blank">github.com/KaeJhee</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">Location</div>
+          <div class="contact-value" style="font-family: 'Inter', sans-serif;">San Antonio, TX (Remote)</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">Side project</div>
+          <div class="contact-value"><a href="mailto:kris@ghoststrategies.io">kris@ghoststrategies.io</a></div>
+        </div>
+      </div>
+
+      <a class="resume-btn" href="Gallow_K_Resume.pdf" download>↓ Download resume (AI &amp; Insights variant)</a>
+    </div>
+
+    <div class="footer">© Kristopher Gallow · Portfolio built with HTML, CSS, and JavaScript · Single-file, no framework</div>
+
+  </div>
+
+</div>
+
+<script>
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tab = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + tab));
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+});
+
+// Inline tab links (e.g., "Get in touch" in hero)
+document.querySelectorAll('[data-tab-link]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const tab = link.dataset.tabLink;
+    document.querySelector(`[data-tab="${tab}"]`).click();
+  });
+});
+</script>
+
+</body>
+</html>
