@@ -272,14 +272,14 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           <div class="project-icon">FV</div>
           <div>
             <div class="project-title">Funding Verification Tool</div>
-            <div class="project-org">Toast · Capital Underwriting · in-browser data engineering</div>
+            <div class="project-org">Toast · Capital Underwriting · 20-30 minute workflow cut to 56 seconds</div>
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">Single-file HTML application that replaced a fragile multi-source VLOOKUP chain in Google Sheets. In-browser four-source JOIN engine with processor-specific match logic, manual overrides, audit labels, and color-coded XLSX export.</div>
+        <div class="project-summary">Single-file HTML application that replaced a fragile multi-source VLOOKUP chain in Google Sheets. In-browser four-source JOIN engine with processor-specific match logic, manual overrides, audit labels, and a template-based 4-sheet XLSX export that preserves the master sheet's conditional formatting.</div>
         <div class="project-meta">
           <span><b>Stack</b>Vanilla JavaScript, SheetJS, custom RFC 4180 parser</span>
-          <span><b>Sources</b>4-way JOIN</span>
+          <span><b>Sources</b>4-way JOIN across 8 tabs</span>
         </div>
       </div>
 
@@ -447,25 +447,25 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <!-- Funding Verification Tool -->
     <div class="detail">
       <h3>Funding Verification Tool</h3>
-      <div class="sub">Single-file HTML · in-browser four-source JOIN engine</div>
+      <div class="sub">Single-file HTML · 20-30 minute workflow cut to 56 seconds</div>
 
-      <p>A single-file HTML application that replaced a fragile VLOOKUP chain in Google Sheets used to verify merchant banking data for capital deployments. Performs an in-browser JOIN across four sources (New Funding file, Snowflake export, Original CSV funding records, and DSL bank files), produces match results with processor-specific logic, and exports a color-coded XLSX with audit labels.</p>
+      <p>A single-file HTML application that replaced a fragile VLOOKUP chain in Google Sheets used to verify merchant banking data for capital deployments. Performs an in-browser JOIN across four sources (New Funding file, Snowflake export, Original CSV funding records, and DSL bank files), produces match results with processor-specific logic, supports real-time manual overrides, and exports a 4-sheet XLSX workbook from a bundled template that preserves the master sheet's conditional formatting. The full funding verification workflow used to take 20 to 30 minutes per batch; latest time test clocked it at 56 seconds end-to-end.</p>
 
       <h4>Before and after</h4>
       <div class="ba">
         <div class="ba-card">
-          <div class="ba-label">Before</div>
+          <div class="ba-label">Before · 20-30 minutes</div>
           <div class="ba-step"><div class="ba-num">1</div><div>Manually maintain VLOOKUP chains across four Google Sheets</div></div>
-          <div class="ba-step"><div class="ba-num">2</div><div>#N/A errors propagate when Snowflake data is delayed</div></div>
-          <div class="ba-step"><div class="ba-num">3</div><div>No audit trail for manual SPA verifications</div></div>
+          <div class="ba-step"><div class="ba-num">2</div><div>#N/A errors propagate when Snowflake data is delayed, no path to manual fix</div></div>
+          <div class="ba-step"><div class="ba-num">3</div><div>No audit trail for manual SPA verifications or Toast Checking accounts</div></div>
           <div class="ba-step"><div class="ba-num">4</div><div>WORLDPAY and CHASE rules embedded in formulas, easily broken</div></div>
         </div>
         <div class="ba-card after">
-          <div class="ba-label">After</div>
-          <div class="ba-step"><div class="ba-num">1</div><div>Drag-drop four files, JOIN runs in milliseconds</div></div>
-          <div class="ba-step"><div class="ba-num">2</div><div>Manual Overrides tab surfaces Check Data rows</div></div>
-          <div class="ba-step"><div class="ba-num">3</div><div>Toast Checking and Verified in Merchant labels persist</div></div>
-          <div class="ba-step"><div class="ba-num">4</div><div>Processor logic in code, color-coded XLSX export</div></div>
+          <div class="ba-label">After · 56 seconds</div>
+          <div class="ba-step"><div class="ba-num">1</div><div>Drag-drop four files, JOIN runs in milliseconds across 8 tabs</div></div>
+          <div class="ba-step"><div class="ba-num">2</div><div>Manual Overrides tab surfaces Check Data rows, recompute on entry</div></div>
+          <div class="ba-step"><div class="ba-num">3</div><div>Toast Checking and Verified in Merchant labels persist across re-uploads</div></div>
+          <div class="ba-step"><div class="ba-num">4</div><div>Processor logic in code, 4-sheet XLSX export preserves master sheet formatting</div></div>
         </div>
       </div>
 
@@ -492,16 +492,21 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <li>MID normalization for JavaScript scientific notation: Snowflake XLSX exports return Merchant IDs as 1.23E+9, breaking direct string compares</li>
         <li>Hash-join via Map objects: equivalent to NewFunding LEFT JOIN Snowflake LEFT JOIN OriginalCsv LEFT JOIN DSL, executes in milliseconds for hundreds of thousands of rows</li>
         <li>Processor-specific match logic isolated in code: WORLDPAY requires exact DSL-to-file match; CHASE requires file value to differ from a known placeholder</li>
+        <li>Real-time override injection: when a Snowflake lookup misses, manual GUID/MID/Proc Partner entry constructs a synthetic Snowflake-like object and the JOIN re-runs without a page refresh</li>
         <li>Labels and overrides keyed to External ID, survive re-uploads of any source file within the same session</li>
-        <li>Color-coded XLSX export via SheetJS cell-level styling (YES, NO, Check Data each get a distinct cell fill in the audit file)</li>
+        <li>Template-based XLSX export: the tool bundles the master Google Sheet's exact conditional formatting rules in a base64 template and writes the live data into it, preserving every YES/NO/Check Data cell fill from the original</li>
+        <li>Multi-sheet audit export: 4 sheets in one workbook (Ops SPA Deals + Original CSV + New Funding + Refi), each filename-stamped MMDDYYYY-Funding Verification Tool.xlsx</li>
+        <li>8-tab structure: Ops SPA Deals (primary output with stat-pill filter shortcuts), four source upload tabs, Separated External IDs, Refi, Manual Overrides</li>
       </ul>
 
       <h4>Stack</h4>
       <div class="stack">
         <span class="stack-item">Vanilla JavaScript</span>
         <span class="stack-item">SheetJS 0.18.5</span>
-        <span class="stack-item">Custom CSV parser</span>
+        <span class="stack-item">Custom RFC 4180 parser</span>
+        <span class="stack-item">Web Workers</span>
         <span class="stack-item">Web FileReader API</span>
+        <span class="stack-item">Base64 template embedding</span>
         <span class="stack-item">Clipboard API</span>
       </div>
     </div>
