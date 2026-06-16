@@ -499,7 +499,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <li>TCA Check subsystem: auto-detects the canonical Toast GUID column per source using a UUID-density times uniqueness score, auto-flags Toast Checking accounts from the Original CSV, and matches Slack-pasted GUIDs against in-batch records with per-loan and per-merchant dedup modes</li>
         <li>Refi lineage tracking: the External MCA Refi tab links each refi loan to its original (matching the External ID minus its suffix) and highlights the original loans magenta in the XLSX export</li>
         <li>Multi-sheet audit export: one workbook with the Ops sheet plus additional audit sheets, each filename-stamped MMDDYYYY-Funding Verification Tool.xlsx</li>
-        <li>9-tab structure: Ops SPA Deals (primary output with stat-pill filter shortcuts), four source upload tabs (Original CSV, New Funding, Snowflake, DSL), TCA Check, Refi, External MCA Refi, Manual Overrides</li>
+        <li>9-tab structure: Ops SPA Deals (primary output with stat-pill filter shortcuts), four source upload tabs, TCA Check, Refi, External MCA Refi, and Manual Overrides</li>
+        <li>Ships with two companion artifacts: a 13-page Standard Operating Procedure (built with a python-docx script, 11 embedded screenshots, data-flow diagram, troubleshooting guide, and a domain glossary), and a standalone Funding File Validator that round-trip-checks the exported file against the source before handoff</li>
       </ul>
 
       <h4>Stack</h4>
