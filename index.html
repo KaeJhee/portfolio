@@ -308,7 +308,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Independent</div>
         </div>
-        <div class="project-summary">Four production terminals built with Anthropic's Claude: Wealth Compass (client-side financial planning), Training Terminal (Python and SQL learning environment), Garage Terminal (asset tracking on FastAPI), and Economic Indicators Terminal (BLS, BEA, FRED integration).</div>
+        <div class="project-summary">Four production terminals built with Anthropic's Claude: Wealth Compass (client-side financial planning), Training Terminal (Python, SQL, JavaScript, and Rust learning terminal), Garage Terminal (asset tracking on FastAPI), and Economic Indicators Terminal (BLS, BEA, FRED integration).</div>
         <div class="project-meta">
           <span><b>Stack</b>Python, FastAPI, JavaScript, Pyodide, sql.js</span>
           <span><b>Discipline</b>I own the logic, the LLM writes the code, I validate every output</span>
@@ -625,19 +625,22 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
     <div class="detail">
       <h3>Training Terminal</h3>
-      <div class="sub">Gamified Python and SQL learning environment</div>
-      <p>A single-file static web app for practicing Python and SQL in the browser. Runs real Python through Pyodide and real SQL through sql.js. Includes 100 hand-authored questions across five gated tiers (Introductory through Master), live KPIs for accuracy, streaks, and session time, and localStorage-persisted progression.</p>
+      <div class="sub">Gamified four-language coding terminal · Python, SQL, JavaScript, Rust</div>
+      <p>A single-file, browser-based coding terminal (xterm.js) for practicing Python, SQL, JavaScript, and Rust. Runs real Python through Pyodide, real SQL through sql.js against a seeded relational database, and grades JavaScript inside a network- and storage-stripped Web Worker sandbox; Rust is graded by a literal-preserving structural matcher that accepts equivalent syntax. 200 hand-authored questions — 50 per track across five gated tiers (Introductory, Amateur, Intermediate, Experienced, Master), 10 questions per gate — with localStorage-persisted progression and live tier and engine-status KPIs.</p>
       <h4>What's unique</h4>
       <ul>
-        <li>Every question hand-authored and calibrated to a specific concept at a specific difficulty</li>
-        <li>Tier gates force learners to demonstrate mastery before moving up</li>
-        <li>Deployed as a single static file, no backend</li>
+        <li>Four grading paths in one static file: Pyodide (Python), sql.js on a seeded auto-rebuilt database (SQL), an isolated Web Worker with network and storage APIs removed (JavaScript), and a structural normalizer with a syntax-equivalence system (Rust)</li>
+        <li>Real xterm.js REPL: a command bar (start, hint, concepts, cheatsheet, examples, schema, reset, export/import), multi-line editing, command history, and emacs-style key bindings</li>
+        <li>Learning layer baked in — per-tier concepts auto-surface on first entry, a toggleable cheatsheet panel, worked examples, and per-question hints</li>
+        <li>200 questions calibrated by concept and difficulty; 10-question tier gates force mastery before the next rank unlocks, all persisted with no backend</li>
       </ul>
       <h4>Stack</h4>
       <div class="stack">
-        <span class="stack-item">JavaScript</span>
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">xterm.js</span>
         <span class="stack-item">Pyodide</span>
         <span class="stack-item">sql.js</span>
+        <span class="stack-item">Web Workers</span>
         <span class="stack-item">localStorage</span>
       </div>
     </div>
