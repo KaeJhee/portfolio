@@ -224,7 +224,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="stat-lbl">Years in financial services</div>
       </div>
       <div class="stat">
-        <div class="stat-val" style="color: var(--ghost);">8</div>
+        <div class="stat-val" style="color: var(--ghost);">9</div>
         <div class="stat-lbl">Production tools shipped</div>
       </div>
       <div class="stat">
@@ -296,6 +296,22 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-meta">
           <span><b>Stack</b>Vanilla JavaScript, Web Workers, Papa Parse, SheetJS, Promise.all</span>
           <span><b>Scale</b>1M+ rows/file</span>
+        </div>
+      </div>
+
+      <div class="project" data-color="toast">
+        <div class="project-head">
+          <div class="project-icon">LN</div>
+          <div>
+            <div class="project-title">Lien Review &amp; App-Triage Toolkit</div>
+            <div class="project-org">Toast · Capital Underwriting &amp; Collections</div>
+          </div>
+          <div class="project-tag">Toast</div>
+        </div>
+        <div class="project-summary">Zero-dependency, client-side tools that replaced a brittle spreadsheet macro for lien review and application triage — parse, de-dupe, recency-filter, and classify third-party UCC/tax-lien records, or get a color-coded routing recommendation, all in-browser with no data transmitted.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>React, Vanilla JS, Bookmarklets</span>
+          <span><b>Impact</b>Part of a toolset that cut review time ~60%</span>
         </div>
       </div>
 
@@ -593,6 +609,30 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Promise.all parallelism</span>
         <span class="stack-item">FileReader API</span>
         <span class="stack-item">Clipboard API</span>
+      </div>
+    </div>
+
+    <!-- Lien Review & App-Triage Toolkit -->
+    <div class="detail">
+      <h3>Lien Review &amp; App-Triage Toolkit</h3>
+      <div class="sub">Client-side underwriting tools · React + vanilla-JS bookmarklets</div>
+      <p>A suite of zero-dependency, browser-based tools that replaced a brittle spreadsheet macro for lien review and application triage. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details, and get parsed, de-duplicated, recency-filtered, type-classified output — or a color-coded routing recommendation — to drop straight into notes. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
+      <h4>What's unique</h4>
+      <ul>
+        <li>Lien Docket Dashboard: ingests pasted card text or raw API JSON, extracts per-filing fields, de-dupes, sorts newest-first, applies recency windows, and tags each filing by type with per-row badges so misclassification is obvious at a glance; summary metrics, diagnostics for excluded and unreadable-date rows, one-click copy, and .txt/.csv export</li>
+        <li>Two browser bookmarklets: a lien scraper that runs the identical parse/classify engine in-page against the logged-in provider (sidestepping cross-origin and authentication limits), and an App Router that reads live application fields and renders a color-coded review-depth recommendation</li>
+        <li>One shared parse/classify/format engine across the dashboard and bookmarklet, so results never diverge between tools</li>
+        <li>Fail-loud design: unreadable dates are kept and flagged rather than dropped, and every result surfaces the raw inputs it was derived from for analyst sanity-checks</li>
+        <li>Config over hard-coding: keyword lists, recency windows, routing thresholds, and field labels live in editable config blocks so rule changes don't touch the logic</li>
+      </ul>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">React 18</span>
+        <span class="stack-item">Babel Standalone</span>
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">Bookmarklets</span>
+        <span class="stack-item">Clipboard API</span>
+        <span class="stack-item">Blob/URL export</span>
       </div>
     </div>
 
