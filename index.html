@@ -301,14 +301,14 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
       <div class="project" data-color="toast">
         <div class="project-head">
-          <div class="project-icon">LN</div>
+          <div class="project-icon">UC</div>
           <div>
-            <div class="project-title">Lien Review &amp; App-Triage Toolkit</div>
+            <div class="project-title">Underwriting &amp; Collections Toolkit</div>
             <div class="project-org">Toast · Capital Underwriting &amp; Collections</div>
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">Zero-dependency, client-side tools that replaced a brittle spreadsheet macro for lien review and application triage — parse, de-dupe, recency-filter, and classify third-party UCC/tax-lien records, or get a color-coded routing recommendation, all in-browser with no data transmitted.</div>
+        <div class="project-summary">A suite of zero-dependency, client-side tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history — parse/de-dupe/classify UCC &amp; tax-lien filings, get color-coded application-routing recommendations, and extract parent-account default &amp; churn from a virtualized grid into paste-ready summaries, all in-browser with no data transmitted.</div>
         <div class="project-meta">
           <span><b>Stack</b>React, Vanilla JS, Bookmarklets</span>
           <span><b>Impact</b>Part of a toolset that cut review time ~60%</span>
@@ -628,17 +628,17 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
 
-    <!-- Lien Review & App-Triage Toolkit -->
+    <!-- Underwriting & Collections Toolkit -->
     <div class="detail">
-      <h3>Lien Review &amp; App-Triage Toolkit</h3>
-      <div class="sub">Client-side underwriting tools · React + vanilla-JS bookmarklets</div>
-      <p>A suite of zero-dependency, browser-based tools that replaced a brittle spreadsheet macro for lien review and application triage. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details, and get parsed, de-duplicated, recency-filtered, type-classified output — or a color-coded routing recommendation — to drop straight into notes. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
+      <h3>Underwriting &amp; Collections Toolkit</h3>
+      <div class="sub">Client-side underwriting &amp; collections tools · React + vanilla-JS bookmarklets</div>
+      <p>A suite of zero-dependency, browser-based tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details and get parsed, de-duplicated, recency-filtered, type-classified output — or a color-coded routing recommendation — to drop straight into notes. The same shared-engine pattern was extended to collections, extracting parent-account default and churn history from a virtualized data grid into a standardized, paste-ready summary. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
       <h4>What's unique</h4>
       <ul>
-        <li>Lien Docket Dashboard: ingests pasted card text or raw API JSON, extracts per-filing fields, de-dupes, sorts newest-first, applies recency windows, and tags each filing by type with per-row badges so misclassification is obvious at a glance; summary metrics, diagnostics for excluded and unreadable-date rows, one-click copy, and .txt/.csv export</li>
-        <li>Two browser bookmarklets: a lien scraper that runs the identical parse/classify engine in-page against the logged-in provider (sidestepping cross-origin and authentication limits), and an App Router that reads live application fields and renders a color-coded review-depth recommendation</li>
-        <li>One shared parse/classify/format engine across the dashboard and bookmarklet, so results never diverge between tools</li>
-        <li>Fail-loud design: unreadable dates are kept and flagged rather than dropped, and every result surfaces the raw inputs it was derived from for analyst sanity-checks</li>
+        <li>Lien Docket Dashboard: ingests pasted card text or raw API JSON, extracts per-filing fields, de-dupes, sorts newest-first, applies recency windows, and tags each filing by type with per-row badges so misclassification is obvious at a glance; summary metrics, diagnostics, one-click copy, and .txt/.csv export</li>
+        <li>Two decision-support bookmarklets: a lien scraper that runs the identical parse/classify engine in-page against the logged-in provider (sidestepping cross-origin and authentication limits), and an App Router that reads live application fields and renders a color-coded review-depth recommendation</li>
+        <li>Parent Default &amp; Churn Extractor: reads parent-account default and churn history from a virtualized AG-Grid tracker into a standardized, paste-ready summary — defeating row- and column-virtualization by stitching cells into whole rows by stable column ID (not screen position), with a paste fallback that record-splits multi-line, JSON-valued cells; the grid was reverse-engineered first with a read-only DOM probe</li>
+        <li>One shared parse/classify/format engine across every tool, so results never diverge; fail-loud by design — unreadable dates are kept and flagged, never silently dropped</li>
         <li>Config over hard-coding: keyword lists, recency windows, routing thresholds, and field labels live in editable config blocks so rule changes don't touch the logic</li>
       </ul>
       <h4>Stack</h4>
@@ -647,6 +647,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Babel Standalone</span>
         <span class="stack-item">Vanilla JavaScript</span>
         <span class="stack-item">Bookmarklets</span>
+        <span class="stack-item">AG-Grid extraction</span>
         <span class="stack-item">Clipboard API</span>
         <span class="stack-item">Blob/URL export</span>
       </div>
