@@ -224,7 +224,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="stat-lbl">Years in financial services</div>
       </div>
       <div class="stat">
-        <div class="stat-val" style="color: var(--ghost);">9</div>
+        <div class="stat-val" style="color: var(--ghost);">10</div>
         <div class="stat-lbl">Production tools shipped</div>
       </div>
       <div class="stat">
@@ -312,6 +312,22 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-meta">
           <span><b>Stack</b>React, Vanilla JS, Bookmarklets</span>
           <span><b>Impact</b>Part of a toolset that cut review time ~60%</span>
+        </div>
+      </div>
+
+      <div class="project" data-color="toast">
+        <div class="project-head">
+          <div class="project-icon">SQ</div>
+          <div>
+            <div class="project-title">Self-Serve Snowflake Query Helper</div>
+            <div class="project-org">Toast · Capital Underwriting</div>
+          </div>
+          <div class="project-tag">Toast</div>
+        </div>
+        <div class="project-summary">A teaching-oriented text-to-SQL tool that lets non-analysts draft schema-aware Snowflake queries in plain English — and learn the SQL as they go — removing the ad-hoc-query bottleneck on senior analysts. It never connects to Snowflake and sends only schema metadata; all LLM traffic routes through a server-side proxy that normalizes nine providers and keeps API keys out of the client.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Vanilla JS, Cloudflare Workers, 9-provider LLM proxy</span>
+          <span><b>Design</b>Metadata-only · keys server-side</span>
         </div>
       </div>
 
@@ -633,6 +649,30 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Bookmarklets</span>
         <span class="stack-item">Clipboard API</span>
         <span class="stack-item">Blob/URL export</span>
+      </div>
+    </div>
+
+    <!-- Self-Serve Snowflake Query Helper -->
+    <div class="detail">
+      <h3>Self-Serve Snowflake Query Helper</h3>
+      <div class="sub">Teaching-oriented text-to-SQL · single-file frontend + Cloudflare Worker proxy</div>
+      <p>A browser tool that lets non-analyst teammates draft accurate, schema-aware Snowflake queries in plain English — and learn the SQL as they go, through an explicit phrase-to-clause mapping. It removes the bottleneck of senior analysts writing every ad-hoc query while keeping execution in the user's own Snowflake session. By design it never connects to Snowflake and never sees a row of data: it handles only schema metadata (table and column names, types, comments) plus the user's generic natural-language ask. All model calls route through a Cloudflare Worker that holds provider keys server-side and normalizes nine LLM providers behind one contract.</p>
+      <h4>What's unique</h4>
+      <ul>
+        <li>Multi-provider proxy: one normalized request/response contract over nine LLM providers (Anthropic, OpenAI, Gemini, xAI, DeepSeek, Moonshot, Zhipu, Mistral, Qwen) via an adapter pattern — seven OpenAI-compatible plus dedicated Anthropic and Gemini adapters — resolving browser CORS and removing API keys from the client</li>
+        <li>Self-updating model discovery: queries each provider's live model endpoint and merges it with a curated overlay (24-hour TTL), so newly released models appear automatically with no code edits — built on the insight that model names churn but API families stay stable</li>
+        <li>One Low/Medium/High effort control mapped per model family to three distinct mechanisms (reasoning-effort enum, thinking-token budget, or omitted), and auto-disabled when the selected model can't reason</li>
+        <li>Teaching layer: every result returns the SQL plus a plain-English explanation and a three-column phrase → clause → why mapping table, reframing a query generator into a learning tool</li>
+        <li>Compliance-driven design: no database connection, metadata-only prompts, provider keys held as server-side secrets, and a client-side PII/MNPI pre-flight that warns on emails, phone numbers, GUIDs, and account-ID-shaped strings</li>
+      </ul>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">Cloudflare Workers</span>
+        <span class="stack-item">Tailwind (CDN)</span>
+        <span class="stack-item">Prism.js</span>
+        <span class="stack-item">localStorage</span>
+        <span class="stack-item">9-provider LLM proxy</span>
       </div>
     </div>
 
