@@ -324,10 +324,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">A teaching-oriented text-to-SQL tool that lets non-analysts draft schema-aware Snowflake queries in plain English — and learn the SQL as they go — removing the ad-hoc-query bottleneck on senior analysts. It never connects to Snowflake and sends only schema metadata; all LLM traffic routes through a server-side proxy that normalizes nine providers and keeps API keys out of the client.</div>
+        <div class="project-summary">A teaching-oriented text-to-SQL tool that lets non-analysts draft schema-aware Snowflake queries in plain English — and learn the SQL as they go — removing the ad-hoc-query bottleneck on senior analysts. It never connects to Snowflake and sends only schema metadata; all LLM traffic routes through a server-side proxy that normalizes nine providers and keeps API keys out of the client. Runs as a shared team tool or personally with your own key.</div>
         <div class="project-meta">
           <span><b>Stack</b>Vanilla JS, Cloudflare Workers, 9-provider LLM proxy</span>
-          <span><b>Design</b>Metadata-only · keys server-side</span>
+          <span><b>Modes</b>Team proxy or personal (BYO-key)</span>
         </div>
       </div>
 
@@ -661,10 +661,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <h4>What's unique</h4>
       <ul>
         <li>Multi-provider proxy: one normalized request/response contract over nine LLM providers (Anthropic, OpenAI, Gemini, xAI, DeepSeek, Moonshot, Zhipu, Mistral, Qwen) via an adapter pattern — seven OpenAI-compatible plus dedicated Anthropic and Gemini adapters — resolving browser CORS and removing API keys from the client</li>
+        <li>Personal or organizational: a first-run selector configures either an organizational mode (shared team Worker, provider keys as server-side secrets, gated by a Bearer token) or a personal mode — bring-your-own-key, calling Anthropic or Gemini directly from the browser, or your own proxy for all nine providers</li>
         <li>Self-updating model discovery: queries each provider's live model endpoint and merges it with a curated overlay (24-hour TTL), so newly released models appear automatically with no code edits — built on the insight that model names churn but API families stay stable</li>
         <li>One Low/Medium/High effort control mapped per model family to three distinct mechanisms (reasoning-effort enum, thinking-token budget, or omitted), and auto-disabled when the selected model can't reason</li>
         <li>Teaching layer: every result returns the SQL plus a plain-English explanation and a three-column phrase → clause → why mapping table, reframing a query generator into a learning tool</li>
-        <li>Compliance-driven design: no database connection, metadata-only prompts, provider keys held as server-side secrets, and a client-side PII/MNPI pre-flight that warns on emails, phone numbers, GUIDs, and account-ID-shaped strings</li>
+        <li>Compliance-driven design: no database connection, metadata-only prompts, provider keys held as server-side secrets behind a token-gated, fail-closed proxy, and a client-side PII/MNPI pre-flight that warns on emails, phone numbers, GUIDs, and account-ID-shaped strings</li>
       </ul>
       <h4>Stack</h4>
       <div class="stack">
