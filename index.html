@@ -244,9 +244,9 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">Full-stack web app that replaced manual spreadsheet workflows. Real-time analytics scorecard (30-day, MoM, YTD, per-rep), Time-to-Decision distribution, Bizops pick-time attribution, fraud and TCA tabs, plus an Address Change tab with a five-status lifecycle.</div>
+        <div class="project-summary">Full-stack web app on a live Google Sheet (no backend) that replaced manual spreadsheet workflows. Real-time analytics scorecard (30-day, MoM, YTD, per-rep), Time-to-Decision buckets, a cohort-bucketed Bizops funnel, a per-rep diagnostics and count-audit panel, fraud and TCA tabs, plus an Address Change tab with a five-status lifecycle.</div>
         <div class="project-meta">
-          <span><b>Stack</b>Apps Script, JavaScript, Tailwind, Chart.js (custom plugin)</span>
+          <span><b>Stack</b>Apps Script, JavaScript, Tailwind, Chart.js (2 custom plugins)</span>
           <span><b>Users</b>10</span>
         </div>
       </div>
@@ -367,7 +367,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <h3>COO/COLE Case Management Dashboard</h3>
       <div class="sub">Full-stack web app · 10-person underwriting team · 700+ active cases</div>
 
-      <p>A web application built on top of a live Google Sheet that replaced manual spreadsheet workflows for case tracking, analytics, and address-change requests. The Cases tab tracks the full lifecycle of underwriting cases, the Address Change tab manages a parallel five-status workflow on its own sheet, and the Analytics tab is an operational scorecard with team-level and individual-rep views.</p>
+      <p>A full-stack web application built on top of a live Google Sheet — no separate backend or hosting — that replaced manual spreadsheet workflows for case tracking, analytics, and address-change requests across a 10-person team and 700+ cases. The Cases tab tracks the full lifecycle with optimistic-UI edits written straight back to the sheet, the Address Change tab manages a parallel five-status workflow on its own sheet, and the Analytics tab is an operational scorecard with team-level, per-rep, and Bizops-funnel views.</p>
 
       <h4>Mock view</h4>
       <div class="mockup">
@@ -394,12 +394,15 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
       <h4>Key features</h4>
       <ul>
-        <li>Live case table backed by Google Sheets with inline edit drawer, add and delete modals, and a Settings panel for managers to self-serve configuration changes</li>
-        <li>Address Change tab on a separate sheet with five-status lifecycle (Pending, Submitted to Risk, Completed, Expired, Canceled), independent filter bar, and automatic date stamping for creation and completion</li>
-        <li>Analytics tab with 30-day, MoM, and YTD breakdowns; Time-to-Decision distribution buckets; and a Bizops pick-time attribution chart that correctly separates queue-wait time from rep turnaround time</li>
-        <li>Custom Chart.js plugin (barTotalsPlugin) for stacked-bar totals and individual bar labels in two render modes</li>
-        <li>Concurrency protection via LockService on case creation, deletion, and write operations</li>
-        <li>Idle-refresh banner after 30 minutes of inactivity and a version-update notification system that polls the deployed app version every 10 minutes</li>
+        <li>Live case table backed by Google Sheets with an inline edit drawer, add/delete modals, and a manager Settings panel for self-serve config — plus a gated "Edit Case Details" mode that locks structural fields (Case #, Source, Type) behind an explicit toggle while status, rep, and notes stay instantly editable</li>
+        <li>Auto-expires stale cases in place: "Info Gathering Sent" cases past 14 days flip to Expired, get date-stamped, and return corrected in the same read (a single flush fires only when a row actually changed)</li>
+        <li>Analytics tab (30-day, MoM, YTD) with Time-to-Decision buckets and a Bizops/Collections funnel of three cohort-bucketed nested-bar charts (Created → Picked → Decided) that surface each month's open WIP as a visible band, separating queue-wait from rep turnaround</li>
+        <li>Inherited-case days rebasing: for handoff cases, rep-time metrics are recomputed in-memory as (final date − pick date) so team and per-rep averages reflect rep-controlled time, not queue inflation — while system-time charts re-derive from raw dates and stay unaffected</li>
+        <li>Rep Diagnostics panel: a per-rep deep dive (as submitter and as assigned rep) built to reconcile dashboard chart counts against sheet countifs, with row-level raw-value dumps that expose the hidden whitespace and casing that break exact-match counts</li>
+        <li>Two custom Chart.js v4 plugins — barTotalsPlugin (per-bar and stacked totals) and nestedBarLabelsPlugin ("inner / outer" cohort labels) — with disciplined chart-instance teardown to avoid canvas-reuse leaks</li>
+        <li>Hardened Sheets-as-database layer: a bottom-up last-row scan so appends never land at row 4,000+, LockService on concurrent writes, VLOOKUP formula copy + flush before read-back, UTC date normalization, and same-day 0-day clamping</li>
+        <li>Address Change tab on its own sheet — five-status lifecycle, full add-request parity (mark Complete and "Checked in Clear" at creation), idempotent status-column and data-validation auto-creation, and unified GUID search across both workflows</li>
+        <li>Idle-refresh banner after 30 minutes of inactivity and a version-update notifier that polls the deployed app version every 10 minutes</li>
       </ul>
 
       <h4>Stack</h4>
@@ -411,6 +414,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Tailwind CSS</span>
         <span class="stack-item">Chart.js v4</span>
         <span class="stack-item">Google Sheets</span>
+        <span class="stack-item">google.script.run</span>
+        <span class="stack-item">LockService</span>
         <span class="stack-item">Google OAuth</span>
       </div>
     </div>
