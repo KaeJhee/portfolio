@@ -324,10 +324,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">A teaching-oriented text-to-SQL tool that lets non-analysts draft schema-aware Snowflake queries in plain English — and learn the SQL as they go — removing the ad-hoc-query bottleneck on senior analysts. It never connects to Snowflake and sends only schema metadata; all LLM traffic routes through a server-side proxy that normalizes nine providers and keeps API keys out of the client. Runs as a shared team tool or personally with your own key.</div>
+        <div class="project-summary">A teaching-oriented text-to-SQL tool that lets non-analysts draft schema-aware Snowflake queries in plain English — and learn the SQL as they go — removing the ad-hoc-query bottleneck on senior analysts. It never connects to Snowflake and sends only schema metadata; all LLM traffic routes through a server-side proxy that normalizes nine providers and keeps API keys out of the client. Runs as a shared team tool, personally with your own key, or fully local via Ollama — and also ships as a Cowork skill and a claude.ai artifact that run on existing Claude seats and subscriptions with no API keys at all.</div>
         <div class="project-meta">
-          <span><b>Stack</b>Vanilla JS, Cloudflare Workers, 9-provider LLM proxy</span>
-          <span><b>Modes</b>Team proxy or personal (BYO-key)</span>
+          <span><b>Stack</b>Vanilla JS, Cloudflare Workers, 9-provider LLM proxy, Ollama</span>
+          <span><b>Forms</b>Web app · Cowork skill · Claude artifact</span>
         </div>
       </div>
 
@@ -661,12 +661,13 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <!-- Self-Serve Snowflake Query Helper -->
     <div class="detail">
       <h3>Self-Serve Snowflake Query Helper</h3>
-      <div class="sub">Teaching-oriented text-to-SQL · single-file frontend + Cloudflare Worker proxy</div>
-      <p>A browser tool that lets non-analyst teammates draft accurate, schema-aware Snowflake queries in plain English — and learn the SQL as they go, through an explicit phrase-to-clause mapping. It removes the bottleneck of senior analysts writing every ad-hoc query while keeping execution in the user's own Snowflake session. By design it never connects to Snowflake and never sees a row of data: it handles only schema metadata (table and column names, types, comments) plus the user's generic natural-language ask. All model calls route through a Cloudflare Worker that holds provider keys server-side and normalizes nine LLM providers behind one contract.</p>
+      <div class="sub">Teaching-oriented text-to-SQL · web app + Worker proxy · Cowork skill · Claude artifact</div>
+      <p>A browser tool that lets non-analyst teammates draft accurate, schema-aware Snowflake queries in plain English — and learn the SQL as they go, through an explicit phrase-to-clause mapping. It removes the bottleneck of senior analysts writing every ad-hoc query while keeping execution in the user's own Snowflake session. By design it never connects to Snowflake and never sees a row of data: it handles only schema metadata (table and column names, types, comments) plus the user's generic natural-language ask. All model calls route through a Cloudflare Worker that holds provider keys server-side and normalizes nine LLM providers behind one contract. The same schema-plus-teaching engine ships in three forms: the full web app, a Cowork skill that runs on the team's existing Claude seats, and a claude.ai artifact that runs on the viewer's own subscription — the last two with no API keys or infrastructure at all.</p>
       <h4>What's unique</h4>
       <ul>
         <li>Multi-provider proxy: one normalized request/response contract over nine LLM providers (Anthropic, OpenAI, Gemini, xAI, DeepSeek, Moonshot, Zhipu, Mistral, Qwen) via an adapter pattern — seven OpenAI-compatible plus dedicated Anthropic and Gemini adapters — resolving browser CORS and removing API keys from the client</li>
-        <li>Personal or organizational: a first-run selector configures either an organizational mode (shared team Worker, provider keys as server-side secrets, gated by a Bearer token) or a personal mode — bring-your-own-key, calling Anthropic or Gemini directly from the browser, or your own proxy for all nine providers</li>
+        <li>Personal or organizational: a first-run selector configures either an organizational mode (shared team Worker, provider keys as server-side secrets, gated by a Bearer token) or a personal mode — bring-your-own-key (Anthropic or Gemini directly from the browser), your own proxy for all nine providers, or fully local via Ollama with installed-model detection and nothing leaving the machine</li>
+        <li>Zero-key distribution: the engine also ships as a Cowork skill (runs on existing Claude seats, with adversarially hardened guardrails — execution and file-write bans plus a non-waivable PII pre-flight) and as a claude.ai artifact powered by the artifact runtime's completion API, billing the viewer's own subscription with zero infrastructure</li>
         <li>Self-updating model discovery: queries each provider's live model endpoint and merges it with a curated overlay (24-hour TTL), so newly released models appear automatically with no code edits — built on the insight that model names churn but API families stay stable</li>
         <li>One Low/Medium/High effort control mapped per model family to three distinct mechanisms (reasoning-effort enum, thinking-token budget, or omitted), and auto-disabled when the selected model can't reason</li>
         <li>Teaching layer: every result returns the SQL plus a plain-English explanation and a three-column phrase → clause → why mapping table, reframing a query generator into a learning tool</li>
@@ -680,6 +681,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Prism.js</span>
         <span class="stack-item">localStorage</span>
         <span class="stack-item">9-provider LLM proxy</span>
+        <span class="stack-item">Ollama</span>
+        <span class="stack-item">React (artifact)</span>
       </div>
     </div>
 
