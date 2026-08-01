@@ -224,7 +224,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="stat-lbl">Years in financial services</div>
       </div>
       <div class="stat">
-        <div class="stat-val" style="color: var(--ghost);">10</div>
+        <div class="stat-val" style="color: var(--ghost);">11</div>
         <div class="stat-lbl">Production tools shipped</div>
       </div>
       <div class="stat">
@@ -340,7 +340,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Independent</div>
         </div>
-        <div class="project-summary">Four production terminals built with Anthropic's Claude: Wealth Compass (client-side financial planning), Training Terminal (Python, SQL, JavaScript, and Rust learning terminal), Garage Terminal (asset tracking on FastAPI), and Economic Indicators Terminal (BLS, BEA, FRED integration).</div>
+        <div class="project-summary">Five production tools built with Anthropic's Claude: Wealth Compass (client-side financial planning), Training Terminal (Python, SQL, JavaScript, and Rust learning terminal), Garage Terminal (asset tracking on FastAPI), Economic Indicators Terminal (BLS, BEA, FRED integration), and Ghost Lead Terminal (single-file CRM running the practice's pipeline under a governed, human-in-the-loop agent operating model).</div>
         <div class="project-meta">
           <span><b>Stack</b>Python, FastAPI, JavaScript, Pyodide, sql.js</span>
           <span><b>Discipline</b>I own the logic, the LLM writes the code, I validate every output</span>
@@ -696,7 +696,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <div>
         <div class="eyebrow">Ghost Strategies LLC · Independent</div>
         <h1>Ghost Strategies</h1>
-        <p>Four LLM-powered financial tools built independently. Every project ships with the same discipline: I own the logic and architecture, the LLM writes the code, I validate every output, and I only prompt with test or sample data so no proprietary information ever enters the model.</p>
+        <p>Five LLM-powered tools built independently — and a practice that runs on them, under a governed multi-agent operating model. Every project ships with the same discipline: I own the logic and architecture, the LLM writes the code, I validate every output, and I only prompt with test or sample data so no proprietary information ever enters the model.</p>
       </div>
     </div>
 
@@ -760,6 +760,49 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">BEA API</span>
         <span class="stack-item">FRED API</span>
         <span class="stack-item">Proxy server</span>
+      </div>
+    </div>
+
+    <div class="detail">
+      <h3>Ghost Lead Terminal</h3>
+      <div class="sub">Single-file CRM · pipeline, outreach, and a validated import gate</div>
+      <p>A single-file HTML CRM that runs the practice's client pipeline end to end: a kanban board by stage, a sortable table with a full record drawer, a Today view for due and stale follow-ups, and a dashboard with honest funnel math. Data lives in a synced JSON file — no backend, no vendor lock — with conflict-merge prompts when two devices disagree. Agent-produced lead batches can only enter through a validated import gate, and outreach ships through a template system with a Gmail handoff and an explicit send-confirmation step, so nothing leaves without a human action.</p>
+      <h4>What's unique</h4>
+      <ul>
+        <li>Validated import gate with dedupe: agent research lands as schema-checked batch files, reviewed and merged deliberately — agents never write to the live data file</li>
+        <li>Sync-aware single file: JSON data file synced across devices with a conflict-merge prompt instead of silent last-write-wins</li>
+        <li>Two-click outreach flow: template fill → Gmail handoff → explicit "Email Submitted" confirmation, keeping the human send gate permanent</li>
+        <li>Source attribution built into the schema so inbound-channel funnel math stays honest</li>
+        <li>24-check smoke-test suite beside the tool; schema field names treated as an additive-only contract</li>
+      </ul>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">Single-file HTML</span>
+        <span class="stack-item">Synced JSON store</span>
+        <span class="stack-item">Smoke-test suite</span>
+      </div>
+    </div>
+
+    <div class="detail">
+      <h3>Agent-Operated Practice</h3>
+      <div class="sub">Operating model · a one-person practice run on a governed agent fleet</div>
+      <p>Ghost Strategies runs its operations — research, drafting, content preparation, and tooling — on a fleet of AI agents spanning multiple runtimes (Claude Code and Cowork among them, including a self-hosted research agent), designed around one constraint: the owner's review minutes are the bottleneck, so every lane minimizes them rather than maximizing agent output. Total planned operating overhead: about 80 minutes a week.</p>
+      <h4>Governance rules (the point of the system)</h4>
+      <ul>
+        <li>A human stands between generation and the public: agents research, draft, and package — nothing sends, posts, or publishes without an explicit human action</li>
+        <li>Zero client PII to any model, any lane, any purpose — agents work from public data and tokenized templates only</li>
+        <li>Verification over volume: a small batch of sourced, cited leads beats a large unverifiable one, and every factual claim in content carries the same bar</li>
+        <li>Agents write batch files and drafts only; the CRM's validated import gate and human review are the only doors into the system of record</li>
+        <li>Budget discipline: agent lanes run on capped, monitored spend — overruns are fixed with output limits and model routing, not more money</li>
+      </ul>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Claude Code</span>
+        <span class="stack-item">Cowork</span>
+        <span class="stack-item">Multi-runtime agents</span>
+        <span class="stack-item">Cron scheduling</span>
+        <span class="stack-item">Human-in-the-loop gates</span>
       </div>
     </div>
 
