@@ -224,7 +224,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="stat-lbl">Years in financial services</div>
       </div>
       <div class="stat">
-        <div class="stat-val" style="color: var(--ghost);">11</div>
+        <div class="stat-val" style="color: var(--ghost);">12</div>
         <div class="stat-lbl">Production tools shipped</div>
       </div>
       <div class="stat">
@@ -340,7 +340,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Independent</div>
         </div>
-        <div class="project-summary">Five production tools built with Anthropic's Claude: Wealth Compass (client-side financial planning), Training Terminal (Python, SQL, JavaScript, and Rust learning terminal), Garage Terminal (asset tracking on FastAPI), Economic Indicators Terminal (BLS, BEA, FRED integration), and Ghost Lead Terminal (single-file CRM running the practice's pipeline under a governed, human-in-the-loop agent operating model).</div>
+        <div class="project-summary">Six production tools built with Anthropic's Claude: Wealth Compass (client-side financial planning), Training Terminal (Python, SQL, JavaScript, and Rust learning terminal), Garage Terminal (asset tracking on FastAPI), Economic Indicators Terminal (Bloomberg-style macro dashboard with a grounded LLM research desk), Model Bench Terminal (blind LLM evaluation bench), and Ghost Lead Terminal (single-file CRM running the practice's pipeline under a governed, human-in-the-loop agent operating model).</div>
         <div class="project-meta">
           <span><b>Stack</b>Python, FastAPI, JavaScript, Pyodide, sql.js</span>
           <span><b>Discipline</b>I own the logic, the LLM writes the code, I validate every output</span>
@@ -702,7 +702,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <div>
         <div class="eyebrow">Ghost Strategies LLC · Independent</div>
         <h1>Ghost Strategies</h1>
-        <p>Five LLM-powered tools built independently — and a practice that runs on them, under a governed multi-agent operating model. Every project ships with the same discipline: I own the logic and architecture, the LLM writes the code, I validate every output, and I only prompt with test or sample data so no proprietary information ever enters the model.</p>
+        <p>Six LLM-powered tools built independently — and a practice that runs on them, under a governed multi-agent operating model. Every project ships with the same discipline: I own the logic and architecture, the LLM writes the code, I validate every output, and I only prompt with test or sample data so no proprietary information ever enters the model.</p>
       </div>
     </div>
 
@@ -757,15 +757,51 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
     <div class="detail">
       <h3>Economic Indicators Terminal</h3>
-      <div class="sub">BLS, BEA, FRED API integration</div>
-      <p>A macroeconomic data terminal that integrates with three public US government economic data sources (BLS, BEA, FRED) via a Python proxy. Surfaces unified indicators (inflation, employment, GDP, regional metrics) in a single dashboard.</p>
+      <div class="sub">Bloomberg-style macro dashboard · grounded LLM research desk · single HTML file</div>
+      <p>A dark, data-dense economic terminal with seven views — CPI and PPI deep dives, employment, projections with confidence bands, a cross-indicator correlation matrix, and a News &amp; Analysis research desk — delivered as one ~3,500-line HTML file. It boots instantly from embedded data and upgrades itself to live FRED/BEA feeds when API keys are present, degrading gracefully: no keys, no network, and it still renders. The research desk is governed by one architectural law: <em>the model never produces a number that gets charted, and never states a fact without a source.</em></p>
+      <h4>What's unique</h4>
+      <ul>
+        <li>Grounded LLM pipeline: a cheap router model classifies each question into a structured plan, deterministic JavaScript fetches the prices and computes every statistic (returns, CAGR, volatility, drawdowns, divergence windows), and a web-grounded narrator explains the exact date windows the math found — cited, streamed token-by-token, with the chart shading those windows</li>
+        <li>Tiered model routing by query difficulty — fast, standard, or frontier narrator chosen per question; every answer names its model and shows its cost (typical queries under five cents)</li>
+        <li>Provider fallback with honesty guarantees: three price providers behind one interface, failures named in the UI with reasons; mismatched price-adjustment bases refuse pair statistics rather than chart a distorted comparison</li>
+        <li>IndexedDB caching with a 20-hour TTL makes repeat research free; the offline shell explains its state instead of erroring</li>
+        <li>Security as a first-class constraint: keys runtime-only in localStorage with a pre-push scan, escape-first markdown rendering with scheme-validated source links, and prompt-injection resistance instructed in both system prompts</li>
+        <li>23-case embedded test suite against hand-verified fixtures, re-runnable in production; a formal adversarial audit of the data layer caught an XSS vector and a silent stats-corruption bug before anything was built on top of it</li>
+      </ul>
       <h4>Stack</h4>
       <div class="stack">
-        <span class="stack-item">Python</span>
-        <span class="stack-item">BLS API</span>
-        <span class="stack-item">BEA API</span>
-        <span class="stack-item">FRED API</span>
-        <span class="stack-item">Proxy server</span>
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">Chart.js 4</span>
+        <span class="stack-item">IndexedDB</span>
+        <span class="stack-item">OpenRouter (multi-model)</span>
+        <span class="stack-item">FRED / BEA APIs</span>
+        <span class="stack-item">3 price providers</span>
+        <span class="stack-item">Python CORS proxy</span>
+        <span class="stack-item">Cloudflare Workers</span>
+      </div>
+    </div>
+
+    <div class="detail">
+      <h3>Model Bench Terminal</h3>
+      <div class="sub">Blind LLM evaluation bench · model selection as recorded evidence</div>
+      <p>A single-file evaluation bench that turns model selection from vibes into recorded evidence. One prompt broadcasts to 2–4 models chosen from a live catalog of ~340; responses stream side by side with live time-to-first-token, throughput, and cost; quality ratings are collected <em>blind</em> (panes shuffled and anonymized until the rating locks); and every run writes a schema-versioned ledger row to IndexedDB, accumulating a private leaderboard of win rates by task tag with a cost-vs-win-rate scatter. The models that earn default slots in the other Ghost tools now earn them on the record.</p>
+      <h4>What's unique</h4>
+      <ul>
+        <li>Blind integrity treated as a security property, not a UI feature: every channel that leaks model identity — control-rail slugs, provider error text, history markers — is masked until reveal (blanked, not blurred, which survives select-copy)</li>
+        <li>A cost chain that refuses to guess silently: exact stream usage → generation-endpoint lookup (captures web-search fees and pre-abort billing) → catalog estimate visibly tilde-marked; unknown costs render as "—", never a confident $0.0000</li>
+        <li>Ledger schema designed to be frozen: schema version and UUID from day one, per-pane finish reason and serving provider captured because they can't be backfilled, and win-rate semantics pinned before any data accumulated</li>
+        <li>Structured-output mode validates each response against an attached JSON schema client-side (a ~60-line purpose-built validator instead of a 120KB dependency) — how router-stage candidates for the other tools get vetted</li>
+        <li>Hand-rolled SSE streaming with a per-pane AbortController and Promise.allSettled isolation, so one pane's mid-stream network death can't block or corrupt its siblings; escape-first rendering keeps hostile completions inert</li>
+        <li>Audited and tested before first real use: independent code audit (15 findings resolved, including three schema gaps that would have been unrecoverable after data accumulated), headless end-to-end simulation against a stubbed API, and adversarial unit tests for the validator and renderer</li>
+      </ul>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">OpenRouter API</span>
+        <span class="stack-item">IndexedDB</span>
+        <span class="stack-item">Chart.js</span>
+        <span class="stack-item">SSE streaming</span>
+        <span class="stack-item">Zero build step</span>
       </div>
     </div>
 
