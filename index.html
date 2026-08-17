@@ -244,7 +244,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Independent</div>
         </div>
-        <div class="project-summary">A LangGraph state machine that behaves like an analyst, not a script: a router inspects each earnings release at run time and sends clean data down a free deterministic path while messy prose goes to the LLM. Every extracted figure is validated by real code — failures loop back with the errors injected into the retry prompt, capped at three attempts before failing loud to a human. Nothing ships without explicit approval; the graph pauses to ask. Live market data flows in from multiple providers, including yfinance and Alpha Vantage.</div>
+        <div class="project-summary">A LangGraph state machine that behaves like an analyst, not a script: a router inspects each earnings release at run time and sends clean data down a free deterministic path while messy prose goes to the LLM. Every extracted figure is validated by real code — failures loop back with the errors injected into the retry prompt, capped at three attempts before failing loud to a human. Nothing ships without explicit approval; the graph pauses to ask. Live market data flows in from multiple providers — yfinance, Alpha Vantage, and Polygon.</div>
         <div class="project-meta">
           <span><b>Stack</b>Python, LangGraph, LangChain, OpenRouter</span>
           <span><b>Design</b>Code-validated · bounded retries · human-approved</span>
@@ -834,7 +834,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <li>The model generates; code judges — the AI never grades its own homework</li>
         <li>Human-in-the-loop by construction: the graph pauses (interrupt_before) and shows the numbers for approval; rejecting ships nothing</li>
         <li>Chooses its own path: a router inspects the data shape at run time — clean structured data takes a free deterministic path, messy prose goes to the LLM — the difference between a fixed script and an agent</li>
-        <li>Production-shaped: refactored from a Jupyter prototype into a clean multi-file Python project (state, nodes, graph, CLI) with live market data from multiple providers (yfinance, Alpha Vantage); the portfolio-terminal integration runs the reasoning model through OpenRouter, keeping it multi-model swappable without touching the graph</li>
+        <li>Production-shaped: refactored from a Jupyter prototype into a clean multi-file Python project (state, nodes, graph, CLI) with live market data from multiple providers (yfinance, Alpha Vantage, Polygon); the portfolio-terminal integration runs the reasoning model through OpenRouter, keeping it multi-model swappable without touching the graph</li>
         <li>Self-directed and documented: authored the build plan, a full written case study, and an interactive architecture walkthrough of the graph and every design decision</li>
       </ul>
       <h4>Stack</h4>
@@ -846,6 +846,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">OpenRouter</span>
         <span class="stack-item">yfinance</span>
         <span class="stack-item">Alpha Vantage</span>
+        <span class="stack-item">Polygon</span>
         <span class="stack-item">Human-in-the-loop</span>
         <span class="stack-item">CLI</span>
       </div>
