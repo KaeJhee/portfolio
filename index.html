@@ -235,6 +235,22 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
     <div class="sec">Featured work</div>
     <div class="project-grid">
+      <div class="project" data-color="ghost">
+        <div class="project-head">
+          <div class="project-icon">EA</div>
+          <div>
+            <div class="project-title">Earnings Analysis AI Agent</div>
+            <div class="project-org">Ghost Strategies · Autonomous LangGraph agent</div>
+          </div>
+          <div class="project-tag">Independent</div>
+        </div>
+        <div class="project-summary">An autonomous "earnings analyst" that decides how to parse a release, extracts the figures, validates them with deterministic code, retries with the errors fed back into the prompt, and pauses for human approval before shipping a beat/miss summary — built to make LLM output trustworthy, not just fast.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Python, LangGraph, LangChain, OpenRouter</span>
+          <span><b>Design</b>Code-validated · bounded retries · human-approved</span>
+        </div>
+      </div>
+
       <div class="project" data-color="toast">
         <div class="project-head">
           <div class="project-icon">CM</div>
@@ -248,54 +264,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-meta">
           <span><b>Stack</b>Apps Script, JavaScript, Tailwind, Chart.js (2 custom plugins)</span>
           <span><b>Users</b>10</span>
-        </div>
-      </div>
-
-      <div class="project" data-color="toast">
-        <div class="project-head">
-          <div class="project-icon">ET</div>
-          <div>
-            <div class="project-title">Email Template Automation Suite</div>
-            <div class="project-org">Toast · 14-person Capital Underwriting and Change of Ownership · 11 phases</div>
-          </div>
-          <div class="project-tag">Toast</div>
-        </div>
-        <div class="project-summary">Cross-platform desktop app that cut template retrieval from 30 seconds to under 3 seconds. Zero AI tokens consumed, zero customer data exposure by design. Includes a Salesforce-embedded NOIA generator concept and a stakeholder presentation.</div>
-        <div class="project-meta">
-          <span><b>Stack</b>Python, Flask, PowerShell, AppleScript, PyInstaller, pystray</span>
-          <span><b>Platforms</b>macOS + Windows</span>
-        </div>
-      </div>
-
-      <div class="project" data-color="toast">
-        <div class="project-head">
-          <div class="project-icon">FV</div>
-          <div>
-            <div class="project-title">Funding Verification Tool</div>
-            <div class="project-org">Toast · Capital Underwriting · 20-35 minute workflow cut to 40 seconds</div>
-          </div>
-          <div class="project-tag">Toast</div>
-        </div>
-        <div class="project-summary">Single-file HTML application that replaced a fragile multi-source VLOOKUP chain in Google Sheets. In-browser four-source JOIN engine with processor-specific match logic, manual overrides, audit labels, and a template-based 4-sheet XLSX export that preserves the master sheet's conditional formatting.</div>
-        <div class="project-meta">
-          <span><b>Stack</b>Vanilla JavaScript, SheetJS, custom RFC 4180 parser</span>
-          <span><b>Sources</b>4-way JOIN across 9 tabs</span>
-        </div>
-      </div>
-
-      <div class="project" data-color="toast">
-        <div class="project-head">
-          <div class="project-icon">CX</div>
-          <div>
-            <div class="project-title">CSV Column Extractor</div>
-            <div class="project-org">Toast · Bizops · 9-minute workflow cut to under 55 seconds</div>
-          </div>
-          <div class="project-tag">Toast</div>
-        </div>
-        <div class="project-summary">Single-file HTML tool for non-technical operations users. Streams 1M+ row spreadsheets via parallel Web Workers, with a pre-read and pre-warm pipeline that takes the full open-to-paste workflow from approximately nine minutes to under 55 seconds.</div>
-        <div class="project-meta">
-          <span><b>Stack</b>Vanilla JavaScript, Web Workers, Papa Parse, SheetJS, Promise.all</span>
-          <span><b>Scale</b>1M+ rows/file</span>
         </div>
       </div>
 
@@ -331,6 +299,22 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         </div>
       </div>
 
+      <div class="project" data-color="toast">
+        <div class="project-head">
+          <div class="project-icon">FV</div>
+          <div>
+            <div class="project-title">Funding Verification Tool</div>
+            <div class="project-org">Toast · Capital Underwriting · 20-35 minute workflow cut to 40 seconds</div>
+          </div>
+          <div class="project-tag">Toast</div>
+        </div>
+        <div class="project-summary">Single-file HTML application that replaced a fragile multi-source VLOOKUP chain in Google Sheets. In-browser four-source JOIN engine with processor-specific match logic, manual overrides, audit labels, and a template-based 4-sheet XLSX export that preserves the master sheet's conditional formatting.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Vanilla JavaScript, SheetJS, custom RFC 4180 parser</span>
+          <span><b>Sources</b>4-way JOIN across 9 tabs</span>
+        </div>
+      </div>
+
       <div class="project" data-color="ghost">
         <div class="project-head">
           <div class="project-icon">GS</div>
@@ -344,6 +328,38 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-meta">
           <span><b>Stack</b>Python, FastAPI, JavaScript, Pyodide, sql.js</span>
           <span><b>Discipline</b>I own the logic, the LLM writes the code, I validate every output</span>
+        </div>
+      </div>
+
+      <div class="project" data-color="toast">
+        <div class="project-head">
+          <div class="project-icon">CX</div>
+          <div>
+            <div class="project-title">CSV Column Extractor</div>
+            <div class="project-org">Toast · Bizops · 9-minute workflow cut to under 55 seconds</div>
+          </div>
+          <div class="project-tag">Toast</div>
+        </div>
+        <div class="project-summary">Single-file HTML tool for non-technical operations users. Streams 1M+ row spreadsheets via parallel Web Workers, with a pre-read and pre-warm pipeline that takes the full open-to-paste workflow from approximately nine minutes to under 55 seconds.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Vanilla JavaScript, Web Workers, Papa Parse, SheetJS, Promise.all</span>
+          <span><b>Scale</b>1M+ rows/file</span>
+        </div>
+      </div>
+
+      <div class="project" data-color="toast">
+        <div class="project-head">
+          <div class="project-icon">ET</div>
+          <div>
+            <div class="project-title">Email Template Automation Suite</div>
+            <div class="project-org">Toast · 14-person Capital Underwriting and Change of Ownership · 11 phases</div>
+          </div>
+          <div class="project-tag">Toast</div>
+        </div>
+        <div class="project-summary">Cross-platform desktop app that cut template retrieval from 30 seconds to under 3 seconds. Zero AI tokens consumed, zero customer data exposure by design. Includes a Salesforce-embedded NOIA generator concept and a stakeholder presentation.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Python, Flask, PowerShell, AppleScript, PyInstaller, pystray</span>
+          <span><b>Platforms</b>macOS + Windows</span>
         </div>
       </div>
     </div>
@@ -818,7 +834,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <li>The model generates; code judges — the AI never grades its own homework</li>
         <li>Human-in-the-loop by construction: the graph pauses (interrupt_before) and shows the numbers for approval; rejecting ships nothing</li>
         <li>Chooses its own path: a router inspects the data shape at run time — clean structured data takes a free deterministic path, messy prose goes to the LLM — the difference between a fixed script and an agent</li>
-        <li>Production-shaped: refactored from a Jupyter prototype into a clean multi-file Python project (state, nodes, graph, CLI) with live market data via yfinance; a multi-model swap through OpenRouter is documented in the case study</li>
+        <li>Production-shaped: refactored from a Jupyter prototype into a clean multi-file Python project (state, nodes, graph, CLI) with live market data via yfinance; the portfolio-terminal integration runs the reasoning model through OpenRouter, keeping it multi-model swappable without touching the graph</li>
         <li>Self-directed and documented: authored the build plan, a full written case study, and an interactive architecture walkthrough — all shipped in the repo</li>
       </ul>
       <h4>Stack</h4>
@@ -827,6 +843,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">LangGraph</span>
         <span class="stack-item">LangChain</span>
         <span class="stack-item">Anthropic Claude</span>
+        <span class="stack-item">OpenRouter</span>
         <span class="stack-item">yfinance</span>
         <span class="stack-item">Human-in-the-loop</span>
         <span class="stack-item">CLI</span>
