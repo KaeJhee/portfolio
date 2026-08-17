@@ -244,7 +244,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Independent</div>
         </div>
-        <div class="project-summary">An autonomous "earnings analyst" that decides how to parse a release, extracts the figures, validates them with deterministic code, retries with the errors fed back into the prompt, and pauses for human approval before shipping a beat/miss summary — built to make LLM output trustworthy, not just fast.</div>
+        <div class="project-summary">A LangGraph state machine that behaves like an analyst, not a script: a router inspects each earnings release at run time and sends clean data down a free deterministic path while messy prose goes to the LLM. Every extracted figure is validated by real code — failures loop back with the errors injected into the retry prompt, capped at three attempts before failing loud to a human. Nothing ships without explicit approval; the graph pauses to ask. Live market data via yfinance, open source on GitHub.</div>
         <div class="project-meta">
           <span><b>Stack</b>Python, LangGraph, LangChain, OpenRouter</span>
           <span><b>Design</b>Code-validated · bounded retries · human-approved</span>
@@ -260,7 +260,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">Full-stack web app on a live Google Sheet (no backend) that replaced manual spreadsheet workflows — and evolved into a largely self-running system: fully configurable by non-technical leads with zero code changes, cached and year-scoped analytics, nightly and monthly scheduled jobs, and a Needs Attention view that surfaces slipping work. Real-time scorecard (30-day, MoM, YTD, per-rep), cohort-bucketed Bizops funnel, per-rep diagnostics, fraud and TCA tabs, plus an Address Change workflow.</div>
+        <div class="project-summary">The team's 700+ row spreadsheet became a full application without leaving Google Workspace: a live case table with optimistic-UI edits, 15+ chart analytics including a cohort-bucketed Bizops funnel that separates queue-wait from rep turnaround, and a per-rep diagnostics panel that reconciles dashboard counts against raw sheet countifs. It now largely runs itself — nightly auto-expiry and monthly history snapshots on scheduled triggers, a Needs Attention queue for slipping cases, and no-code configuration so team leads administer everything from Settings without a developer in the loop.</div>
         <div class="project-meta">
           <span><b>Stack</b>Apps Script, JavaScript, Tailwind, Chart.js (2 custom plugins)</span>
           <span><b>Users</b>10</span>
@@ -276,7 +276,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">A suite of zero-dependency, client-side tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history — parse/de-dupe/classify UCC &amp; tax-lien filings, get color-coded application-routing recommendations, and extract parent-account default &amp; churn from a virtualized grid into paste-ready summaries, all in-browser with no data transmitted.</div>
+        <div class="project-summary">Four client-side tools sharing one parse/classify engine so results never diverge: a lien docket dashboard that de-dupes and type-classifies UCC &amp; tax-lien filings with per-row badges, in-page bookmarklets running the identical engine against the logged-in data provider, a color-coded application-routing advisor, and a collections extractor that defeats an AG-Grid's row and column virtualization by stitching cells into whole rows by stable column ID — with a paste fallback that parses multi-line, JSON-valued cells. All in-browser, nothing transmitted; part of a toolset that cut review time ~60%.</div>
         <div class="project-meta">
           <span><b>Stack</b>React, Vanilla JS, Bookmarklets</span>
           <span><b>Impact</b>Part of a toolset that cut review time ~60%</span>
@@ -292,7 +292,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">A teaching-oriented text-to-SQL tool that lets non-analysts draft schema-aware Snowflake queries in plain English — and learn the SQL as they go — removing the ad-hoc-query bottleneck on senior analysts. It never connects to Snowflake and sends only schema metadata; all LLM traffic routes through a server-side proxy that normalizes nine providers and keeps API keys out of the client. Runs as a shared team tool, personally with your own key, or fully local via Ollama — and also ships as a Cowork skill and a claude.ai artifact that run on existing Claude seats and subscriptions with no API keys at all.</div>
+        <div class="project-summary">Plain English in, Snowflake SQL out — with a teaching layer that maps each phrase of the request to the exact clause it became, so non-analysts learn while the ad-hoc-query bottleneck on senior analysts disappears. Under the hood: one normalized contract over nine LLM providers with live model discovery (new models appear with zero code changes), a single effort control translated per model family into three different reasoning mechanisms, and a token-gated, fail-closed proxy that sends only schema metadata — never a row of data. The same engine ships three ways: web app (including a fully local Ollama mode), Cowork skill, and a claude.ai artifact that bills the viewer's own subscription.</div>
         <div class="project-meta">
           <span><b>Stack</b>Vanilla JS, Cloudflare Workers, 9-provider LLM proxy, Ollama</span>
           <span><b>Forms</b>Web app · Cowork skill · Claude artifact</span>
@@ -308,7 +308,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">Single-file HTML application that replaced a fragile multi-source VLOOKUP chain in Google Sheets. In-browser four-source JOIN engine with processor-specific match logic, manual overrides, audit labels, and a template-based 4-sheet XLSX export that preserves the master sheet's conditional formatting.</div>
+        <div class="project-summary">A single HTML file that replaced a fragile VLOOKUP chain: drag in four source files and a hash-join engine reconciles hundreds of thousands of rows in milliseconds across nine tabs, with processor-specific match logic isolated in code instead of formulas. Large bank files parse through a persistent three-worker pool with zero-copy transfers; exports edit a bundled template's XML at runtime so the master sheet's conditional formatting survives; and a TCA subsystem auto-detects the canonical GUID column by scoring UUID density against uniqueness. A 20–35 minute batch became 40 seconds.</div>
         <div class="project-meta">
           <span><b>Stack</b>Vanilla JavaScript, SheetJS, custom RFC 4180 parser</span>
           <span><b>Sources</b>4-way JOIN across 9 tabs</span>
@@ -324,7 +324,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Independent</div>
         </div>
-        <div class="project-summary">Six production tools built with Anthropic's Claude: Wealth Compass (client-side financial planning), Training Terminal (Python, SQL, JavaScript, and Rust learning terminal), Garage Terminal (asset tracking on FastAPI), Economic Indicators Terminal (Bloomberg-style macro dashboard with a grounded LLM research desk), Model Bench Terminal (blind LLM evaluation bench), and Ghost Lead Terminal (single-file CRM running the practice's pipeline under a governed, human-in-the-loop agent operating model).</div>
+        <div class="project-summary">Six production tools built with Anthropic's Claude, plus the practice that runs on them: Wealth Compass (a 13-sheet, 755-formula workbook parsed entirely client-side — no data leaves the device), Training Terminal (real Python, SQL, JavaScript, and Rust execution in the browser, 200 curated questions over five gated tiers), Model Bench Terminal (blind LLM evaluation feeding a cost-vs-win-rate leaderboard that assigns the other tools' model slots), Economic Indicators Terminal (a macro dashboard whose research desk never lets the model produce a charted number or an unsourced fact), Garage Terminal (FastAPI asset tracking with scheduled CI/CD pipelines), and Ghost Lead Terminal (the CRM behind a governed, human-in-the-loop agent operating model).</div>
         <div class="project-meta">
           <span><b>Stack</b>Python, FastAPI, JavaScript, Pyodide, sql.js</span>
           <span><b>Discipline</b>I own the logic, the LLM writes the code, I validate every output</span>
@@ -340,7 +340,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">Single-file HTML tool for non-technical operations users. Streams 1M+ row spreadsheets via parallel Web Workers, with a pre-read and pre-warm pipeline that takes the full open-to-paste workflow from approximately nine minutes to under 55 seconds.</div>
+        <div class="project-summary">Performance engineering wrapped in a tool simple enough for non-technical operations users: streams 1M+ row spreadsheets through parallel Web Workers, with a pipeline that starts file I/O the moment a file lands and pre-warms workers by compiling SheetJS during the user's review window. The parser constructs only the three needed cell addresses per row instead of materializing full sheets, and clipboard output ships in 150K-row chunks calibrated to stay under Google Sheets' 10-million-cell limit. A nine-minute open-to-paste workflow now takes under 55 seconds.</div>
         <div class="project-meta">
           <span><b>Stack</b>Vanilla JavaScript, Web Workers, Papa Parse, SheetJS, Promise.all</span>
           <span><b>Scale</b>1M+ rows/file</span>
@@ -356,7 +356,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">Cross-platform desktop app that cut template retrieval from 30 seconds to under 3 seconds. Zero AI tokens consumed, zero customer data exposure by design. Includes a Salesforce-embedded NOIA generator concept and a stakeholder presentation.</div>
+        <div class="project-summary">Eleven phases from CLI script to native-feeling desktop app for a 14-person team: 20 pre-loaded templates that copy with rich formatting intact — via AppleScript's «class HTML» on macOS and hand-built CF_HTML byte-offset headers on Windows — cutting retrieval from 30 seconds to under 3. Deliberately shipped as a 15KB Flask app instead of a 200MB Electron bundle, with zero AI tokens consumed and zero customer data exposure by design: placeholders fill locally, so nothing ever leaves the machine. Grew into a Salesforce-embedded generator concept presented to engineering stakeholders.</div>
         <div class="project-meta">
           <span><b>Stack</b>Python, Flask, PowerShell, AppleScript, PyInstaller, pystray</span>
           <span><b>Platforms</b>macOS + Windows</span>
