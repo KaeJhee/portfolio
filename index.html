@@ -806,6 +806,34 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
 
     <div class="detail">
+      <h3>Earnings Analysis AI Agent</h3>
+      <div class="sub">Autonomous LangGraph agent · validate in code, retry with feedback, human-approve · <a href="https://github.com/KaeJhee/earnings-agent" target="_blank" style="color: var(--ghost); text-decoration: none; border-bottom: 1px dotted var(--ghost);">github.com/KaeJhee/earnings-agent</a></div>
+      <p>An autonomous "earnings analyst" built as a self-directed project (2026): give it a ticker and it fetches live earnings data, decides on its own how to parse it, extracts revenue and EPS, validates the numbers with deterministic code, retries on failure with the errors fed into the next prompt, and pauses for human approval before shipping a beat/miss summary. It demonstrates the part of AI engineering that matters in production — not calling a model, but making its output trustworthy. Being rolled into the portfolio-analysis platform as its earnings-analysis module, scoped to public earnings data only.</p>
+      <div class="mockup" style="padding: 12px 16px;">
+        <span style="font-family: var(--mono); font-size: 12px;">START → fetch → route_by_shape → (format_fast | extract) → validate ⟲ → human checkpoint → synthesize → END</span>
+      </div>
+      <h4>What's unique</h4>
+      <ul>
+        <li>Self-correcting, not one-shot: deterministic validation checks every extracted figure, and failures loop back to the extractor with the errors injected into the retry prompt — capped at 3 attempts, then it fails loud to a human instead of shipping a wrong number</li>
+        <li>The model generates; code judges — the AI never grades its own homework</li>
+        <li>Human-in-the-loop by construction: the graph pauses (interrupt_before) and shows the numbers for approval; rejecting ships nothing</li>
+        <li>Chooses its own path: a router inspects the data shape at run time — clean structured data takes a free deterministic path, messy prose goes to the LLM — the difference between a fixed script and an agent</li>
+        <li>Production-shaped: refactored from a Jupyter prototype into a clean multi-file Python project (state, nodes, graph, CLI) with live market data via yfinance; a multi-model swap through OpenRouter is documented in the case study</li>
+        <li>Self-directed and documented: authored the build plan, a full written case study, and an interactive architecture walkthrough — all shipped in the repo</li>
+      </ul>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Python</span>
+        <span class="stack-item">LangGraph</span>
+        <span class="stack-item">LangChain</span>
+        <span class="stack-item">Anthropic Claude</span>
+        <span class="stack-item">yfinance</span>
+        <span class="stack-item">Human-in-the-loop</span>
+        <span class="stack-item">CLI</span>
+      </div>
+    </div>
+
+    <div class="detail">
       <h3>Ghost Lead Terminal</h3>
       <div class="sub">Single-file CRM · pipeline, outreach, and a validated import gate</div>
       <p>A single-file HTML CRM that runs the practice's client pipeline end to end: a kanban board by stage, a sortable table with a full record drawer, a Today view for due and stale follow-ups, and a dashboard with honest funnel math. Data lives in a synced JSON file — no backend, no vendor lock — with conflict-merge prompts when two devices disagree. Agent-produced lead batches can only enter through a validated import gate, and outreach ships through a template system with a Gmail handoff and an explicit send-confirmation step, so nothing leaves without a human action.</p>
