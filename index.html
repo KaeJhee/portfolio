@@ -442,64 +442,56 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
 
-    <!-- Email Template Suite -->
+    <!-- Underwriting & Collections Toolkit -->
     <div class="detail">
-      <h3>Email Template Automation Suite</h3>
-      <div class="sub">11 phases · cross-platform desktop app · 14-person team · 30s to under 3s</div>
-
-      <p>A cross-platform desktop application that ships 20 pre-loaded email templates with rich-text formatting preserved on paste. Grew over 11 phases from a CLI tool to a full Flask web app, then to a PyInstaller-bundled native application with a system tray icon, and finally into a Salesforce-embedded NOIA generator concept presented to engineering stakeholders.</p>
-
-      <h4>Mock view</h4>
-      <div class="mockup">
-        <div class="mockup-head">
-          <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
-          <span>Email Templates · 20 templates · 14-person team</span>
-        </div>
-        <div class="mockup-row">
-          <div><span class="pill-purple">Capital Underwriting</span> &nbsp; Received Response · Template ready · <span style="color:var(--green)">●</span> Copied</div>
-        </div>
-        <div class="mockup-row">
-          <div><span class="pill-orange">NOIA</span> &nbsp; NOIA MCA · {date} · {restaurant_name} · {source_of_debt}</div>
-        </div>
-        <div class="mockup-row">
-          <div><span class="pill-blue">Change of Ownership</span> &nbsp; COO DS Sent · {date} · {restaurant_name}</div>
-        </div>
-        <div class="mockup-row">
-          <div style="color:var(--text-3); font-size:10px;">Retrieval: avg 2.1s · Tokens consumed: 0 · Customer data sent to model: 0</div>
-        </div>
-      </div>
-
-      <h4>Phase progression</h4>
+      <h3>Underwriting &amp; Collections Toolkit</h3>
+      <div class="sub">Client-side underwriting &amp; collections tools · React + vanilla-JS bookmarklets</div>
+      <p>A suite of zero-dependency, browser-based tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details and get parsed, de-duplicated, recency-filtered, type-classified output — or a color-coded routing recommendation — to drop straight into notes. The same shared-engine pattern was extended to collections, extracting parent-account default and churn history from a virtualized data grid into a standardized, paste-ready summary. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
+      <h4>What's unique</h4>
       <ul>
-        <li>Phases 1 to 3: CLI tool, cross-platform GUI launcher, then a full Flask web app</li>
-        <li>Phase 4: Dark mode, brand logo, and accordion drawer system for the editor</li>
-        <li>Phase 5: PyInstaller-bundled standalone executable with platform-appropriate data directories (macOS app support, Windows AppData), port discovery to dodge AirPlay on macOS, and a system tray icon for clean exits</li>
-        <li>Phase 6: Salesforce-embedded NOIA template generator concept, with function-based template rendering (eight templates, conditional logic for variable-length entity lists)</li>
-        <li>Phases 7 to 9: Placeholder fill modal with confirmation toasts, multi-line field support, two-panel preview modal, and product demo enhancements</li>
-        <li>Phase 10: Template-sync bug fix (silent failure mode on every launch caught and resolved)</li>
-        <li>Phase 11: Stakeholder presentation HTML with Apps Script architecture diagrams and a NOIA automation proposal for engineering review</li>
+        <li>Lien Docket Dashboard: ingests pasted card text or raw API JSON, extracts per-filing fields, de-dupes, sorts newest-first, applies recency windows, and tags each filing by type with per-row badges so misclassification is obvious at a glance; summary metrics, diagnostics, one-click copy, and .txt/.csv export</li>
+        <li>Two decision-support bookmarklets: a lien scraper that runs the identical parse/classify engine in-page against the logged-in provider (sidestepping cross-origin and authentication limits), and an App Router that reads live application fields and renders a color-coded review-depth recommendation</li>
+        <li>Parent Default &amp; Churn Extractor: reads parent-account default and churn history from a virtualized AG-Grid tracker into a standardized, paste-ready summary — defeating row- and column-virtualization by stitching cells into whole rows by stable column ID (not screen position), with a paste fallback that record-splits multi-line, JSON-valued cells; the grid was reverse-engineered first with a read-only DOM probe</li>
+        <li>One shared parse/classify/format engine across every tool, so results never diverge; fail-loud by design — unreadable dates are kept and flagged, never silently dropped</li>
+        <li>Config over hard-coding: keyword lists, recency windows, routing thresholds, and field labels live in editable config blocks so rule changes don't touch the logic</li>
       </ul>
-
-      <h4>Engineering decisions</h4>
-      <ul>
-        <li>Zero AI tokens consumed by design: templates use placeholders that the user fills locally, so no customer data ever leaves the machine</li>
-        <li>Cross-platform clipboard formatting: macOS uses AppleScript with the «class HTML» format; Windows uses CF_HTML byte-offset headers with precise UTF-8 byte counting</li>
-        <li>15KB Flask app deliverable instead of a 150 to 200MB Electron bundle, deliberately avoiding the Apple Developer Program signing requirement</li>
-        <li>Per-machine identity: no authentication needed, each install is local-only</li>
-      </ul>
-
       <h4>Stack</h4>
       <div class="stack">
-        <span class="stack-item">Python</span>
-        <span class="stack-item">Flask</span>
-        <span class="stack-item">Bash</span>
-        <span class="stack-item">PowerShell</span>
-        <span class="stack-item">JavaScript</span>
-        <span class="stack-item">AppleScript</span>
-        <span class="stack-item">Quill.js</span>
-        <span class="stack-item">PyInstaller</span>
-        <span class="stack-item">pystray</span>
-        <span class="stack-item">Pillow</span>
+        <span class="stack-item">React 18</span>
+        <span class="stack-item">Babel Standalone</span>
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">Bookmarklets</span>
+        <span class="stack-item">AG-Grid extraction</span>
+        <span class="stack-item">Clipboard API</span>
+        <span class="stack-item">Blob/URL export</span>
+      </div>
+    </div>
+
+    <!-- Self-Serve Snowflake Query Helper -->
+    <div class="detail">
+      <h3>Self-Serve Snowflake Query Helper</h3>
+      <div class="sub">Teaching-oriented text-to-SQL · web app + Worker proxy · Cowork skill · Claude artifact</div>
+      <p>A browser tool that lets non-analyst teammates draft accurate, schema-aware Snowflake queries in plain English — and learn the SQL as they go, through an explicit phrase-to-clause mapping. It removes the bottleneck of senior analysts writing every ad-hoc query while keeping execution in the user's own Snowflake session. By design it never connects to Snowflake and never sees a row of data: it handles only schema metadata (table and column names, types, comments) plus the user's generic natural-language ask. All model calls route through a Cloudflare Worker that holds provider keys server-side and normalizes nine LLM providers behind one contract. The same schema-plus-teaching engine ships in three forms: the full web app, a Cowork skill that runs on the team's existing Claude seats, and a claude.ai artifact that runs on the viewer's own subscription — the last two with no API keys or infrastructure at all.</p>
+      <h4>What's unique</h4>
+      <ul>
+        <li>Multi-provider proxy: one normalized request/response contract over nine LLM providers (Anthropic, OpenAI, Gemini, xAI, DeepSeek, Moonshot, Zhipu, Mistral, Qwen) via an adapter pattern — seven OpenAI-compatible plus dedicated Anthropic and Gemini adapters — resolving browser CORS and removing API keys from the client</li>
+        <li>Personal or organizational: a first-run selector configures either an organizational mode (shared team Worker, provider keys as server-side secrets, gated by a Bearer token) or a personal mode — bring-your-own-key (Anthropic or Gemini directly from the browser), your own proxy for all nine providers, or fully local via Ollama with installed-model detection and nothing leaving the machine</li>
+        <li>Zero-key distribution: the engine also ships as a Cowork skill (runs on existing Claude seats, with adversarially hardened guardrails — execution and file-write bans plus a non-waivable PII pre-flight) and as a claude.ai artifact powered by the artifact runtime's completion API, billing the viewer's own subscription with zero infrastructure</li>
+        <li>Self-updating model discovery: queries each provider's live model endpoint and merges it with a curated overlay (24-hour TTL), so newly released models appear automatically with no code edits — built on the insight that model names churn but API families stay stable</li>
+        <li>One Low/Medium/High effort control mapped per model family to three distinct mechanisms (reasoning-effort enum, thinking-token budget, or omitted), and auto-disabled when the selected model can't reason</li>
+        <li>Teaching layer: every result returns the SQL plus a plain-English explanation and a three-column phrase → clause → why mapping table, reframing a query generator into a learning tool</li>
+        <li>Compliance-driven design: no database connection, metadata-only prompts, provider keys held as server-side secrets behind a token-gated, fail-closed proxy, and a client-side PII/MNPI pre-flight that warns on emails, phone numbers, GUIDs, and account-ID-shaped strings</li>
+      </ul>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">Cloudflare Workers</span>
+        <span class="stack-item">Tailwind (CDN)</span>
+        <span class="stack-item">Prism.js</span>
+        <span class="stack-item">localStorage</span>
+        <span class="stack-item">9-provider LLM proxy</span>
+        <span class="stack-item">Ollama</span>
+        <span class="stack-item">React (artifact)</span>
       </div>
     </div>
 
@@ -655,56 +647,64 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
 
-    <!-- Underwriting & Collections Toolkit -->
+    <!-- Email Template Suite -->
     <div class="detail">
-      <h3>Underwriting &amp; Collections Toolkit</h3>
-      <div class="sub">Client-side underwriting &amp; collections tools · React + vanilla-JS bookmarklets</div>
-      <p>A suite of zero-dependency, browser-based tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details and get parsed, de-duplicated, recency-filtered, type-classified output — or a color-coded routing recommendation — to drop straight into notes. The same shared-engine pattern was extended to collections, extracting parent-account default and churn history from a virtualized data grid into a standardized, paste-ready summary. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
-      <h4>What's unique</h4>
-      <ul>
-        <li>Lien Docket Dashboard: ingests pasted card text or raw API JSON, extracts per-filing fields, de-dupes, sorts newest-first, applies recency windows, and tags each filing by type with per-row badges so misclassification is obvious at a glance; summary metrics, diagnostics, one-click copy, and .txt/.csv export</li>
-        <li>Two decision-support bookmarklets: a lien scraper that runs the identical parse/classify engine in-page against the logged-in provider (sidestepping cross-origin and authentication limits), and an App Router that reads live application fields and renders a color-coded review-depth recommendation</li>
-        <li>Parent Default &amp; Churn Extractor: reads parent-account default and churn history from a virtualized AG-Grid tracker into a standardized, paste-ready summary — defeating row- and column-virtualization by stitching cells into whole rows by stable column ID (not screen position), with a paste fallback that record-splits multi-line, JSON-valued cells; the grid was reverse-engineered first with a read-only DOM probe</li>
-        <li>One shared parse/classify/format engine across every tool, so results never diverge; fail-loud by design — unreadable dates are kept and flagged, never silently dropped</li>
-        <li>Config over hard-coding: keyword lists, recency windows, routing thresholds, and field labels live in editable config blocks so rule changes don't touch the logic</li>
-      </ul>
-      <h4>Stack</h4>
-      <div class="stack">
-        <span class="stack-item">React 18</span>
-        <span class="stack-item">Babel Standalone</span>
-        <span class="stack-item">Vanilla JavaScript</span>
-        <span class="stack-item">Bookmarklets</span>
-        <span class="stack-item">AG-Grid extraction</span>
-        <span class="stack-item">Clipboard API</span>
-        <span class="stack-item">Blob/URL export</span>
-      </div>
-    </div>
+      <h3>Email Template Automation Suite</h3>
+      <div class="sub">11 phases · cross-platform desktop app · 14-person team · 30s to under 3s</div>
 
-    <!-- Self-Serve Snowflake Query Helper -->
-    <div class="detail">
-      <h3>Self-Serve Snowflake Query Helper</h3>
-      <div class="sub">Teaching-oriented text-to-SQL · web app + Worker proxy · Cowork skill · Claude artifact</div>
-      <p>A browser tool that lets non-analyst teammates draft accurate, schema-aware Snowflake queries in plain English — and learn the SQL as they go, through an explicit phrase-to-clause mapping. It removes the bottleneck of senior analysts writing every ad-hoc query while keeping execution in the user's own Snowflake session. By design it never connects to Snowflake and never sees a row of data: it handles only schema metadata (table and column names, types, comments) plus the user's generic natural-language ask. All model calls route through a Cloudflare Worker that holds provider keys server-side and normalizes nine LLM providers behind one contract. The same schema-plus-teaching engine ships in three forms: the full web app, a Cowork skill that runs on the team's existing Claude seats, and a claude.ai artifact that runs on the viewer's own subscription — the last two with no API keys or infrastructure at all.</p>
-      <h4>What's unique</h4>
+      <p>A cross-platform desktop application that ships 20 pre-loaded email templates with rich-text formatting preserved on paste. Grew over 11 phases from a CLI tool to a full Flask web app, then to a PyInstaller-bundled native application with a system tray icon, and finally into a Salesforce-embedded NOIA generator concept presented to engineering stakeholders.</p>
+
+      <h4>Mock view</h4>
+      <div class="mockup">
+        <div class="mockup-head">
+          <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+          <span>Email Templates · 20 templates · 14-person team</span>
+        </div>
+        <div class="mockup-row">
+          <div><span class="pill-purple">Capital Underwriting</span> &nbsp; Received Response · Template ready · <span style="color:var(--green)">●</span> Copied</div>
+        </div>
+        <div class="mockup-row">
+          <div><span class="pill-orange">NOIA</span> &nbsp; NOIA MCA · {date} · {restaurant_name} · {source_of_debt}</div>
+        </div>
+        <div class="mockup-row">
+          <div><span class="pill-blue">Change of Ownership</span> &nbsp; COO DS Sent · {date} · {restaurant_name}</div>
+        </div>
+        <div class="mockup-row">
+          <div style="color:var(--text-3); font-size:10px;">Retrieval: avg 2.1s · Tokens consumed: 0 · Customer data sent to model: 0</div>
+        </div>
+      </div>
+
+      <h4>Phase progression</h4>
       <ul>
-        <li>Multi-provider proxy: one normalized request/response contract over nine LLM providers (Anthropic, OpenAI, Gemini, xAI, DeepSeek, Moonshot, Zhipu, Mistral, Qwen) via an adapter pattern — seven OpenAI-compatible plus dedicated Anthropic and Gemini adapters — resolving browser CORS and removing API keys from the client</li>
-        <li>Personal or organizational: a first-run selector configures either an organizational mode (shared team Worker, provider keys as server-side secrets, gated by a Bearer token) or a personal mode — bring-your-own-key (Anthropic or Gemini directly from the browser), your own proxy for all nine providers, or fully local via Ollama with installed-model detection and nothing leaving the machine</li>
-        <li>Zero-key distribution: the engine also ships as a Cowork skill (runs on existing Claude seats, with adversarially hardened guardrails — execution and file-write bans plus a non-waivable PII pre-flight) and as a claude.ai artifact powered by the artifact runtime's completion API, billing the viewer's own subscription with zero infrastructure</li>
-        <li>Self-updating model discovery: queries each provider's live model endpoint and merges it with a curated overlay (24-hour TTL), so newly released models appear automatically with no code edits — built on the insight that model names churn but API families stay stable</li>
-        <li>One Low/Medium/High effort control mapped per model family to three distinct mechanisms (reasoning-effort enum, thinking-token budget, or omitted), and auto-disabled when the selected model can't reason</li>
-        <li>Teaching layer: every result returns the SQL plus a plain-English explanation and a three-column phrase → clause → why mapping table, reframing a query generator into a learning tool</li>
-        <li>Compliance-driven design: no database connection, metadata-only prompts, provider keys held as server-side secrets behind a token-gated, fail-closed proxy, and a client-side PII/MNPI pre-flight that warns on emails, phone numbers, GUIDs, and account-ID-shaped strings</li>
+        <li>Phases 1 to 3: CLI tool, cross-platform GUI launcher, then a full Flask web app</li>
+        <li>Phase 4: Dark mode, brand logo, and accordion drawer system for the editor</li>
+        <li>Phase 5: PyInstaller-bundled standalone executable with platform-appropriate data directories (macOS app support, Windows AppData), port discovery to dodge AirPlay on macOS, and a system tray icon for clean exits</li>
+        <li>Phase 6: Salesforce-embedded NOIA template generator concept, with function-based template rendering (eight templates, conditional logic for variable-length entity lists)</li>
+        <li>Phases 7 to 9: Placeholder fill modal with confirmation toasts, multi-line field support, two-panel preview modal, and product demo enhancements</li>
+        <li>Phase 10: Template-sync bug fix (silent failure mode on every launch caught and resolved)</li>
+        <li>Phase 11: Stakeholder presentation HTML with Apps Script architecture diagrams and a NOIA automation proposal for engineering review</li>
       </ul>
+
+      <h4>Engineering decisions</h4>
+      <ul>
+        <li>Zero AI tokens consumed by design: templates use placeholders that the user fills locally, so no customer data ever leaves the machine</li>
+        <li>Cross-platform clipboard formatting: macOS uses AppleScript with the «class HTML» format; Windows uses CF_HTML byte-offset headers with precise UTF-8 byte counting</li>
+        <li>15KB Flask app deliverable instead of a 150 to 200MB Electron bundle, deliberately avoiding the Apple Developer Program signing requirement</li>
+        <li>Per-machine identity: no authentication needed, each install is local-only</li>
+      </ul>
+
       <h4>Stack</h4>
       <div class="stack">
-        <span class="stack-item">Vanilla JavaScript</span>
-        <span class="stack-item">Cloudflare Workers</span>
-        <span class="stack-item">Tailwind (CDN)</span>
-        <span class="stack-item">Prism.js</span>
-        <span class="stack-item">localStorage</span>
-        <span class="stack-item">9-provider LLM proxy</span>
-        <span class="stack-item">Ollama</span>
-        <span class="stack-item">React (artifact)</span>
+        <span class="stack-item">Python</span>
+        <span class="stack-item">Flask</span>
+        <span class="stack-item">Bash</span>
+        <span class="stack-item">PowerShell</span>
+        <span class="stack-item">JavaScript</span>
+        <span class="stack-item">AppleScript</span>
+        <span class="stack-item">Quill.js</span>
+        <span class="stack-item">PyInstaller</span>
+        <span class="stack-item">pystray</span>
+        <span class="stack-item">Pillow</span>
       </div>
     </div>
 
@@ -723,51 +723,33 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
 
     <div class="detail">
-      <h3>Wealth Compass Terminal</h3>
-      <div class="sub">Client-side financial planning dashboard</div>
-      <p>A client-facing financial planning dashboard that parses a 13-sheet workbook with 755 formulas entirely client-side. All data stays on the user's device. No backend, no data transmission, no model exposure to client information.</p>
-      <h4>Stack</h4>
-      <div class="stack">
-        <span class="stack-item">JavaScript</span>
-        <span class="stack-item">HTML</span>
-        <span class="stack-item">SheetJS</span>
-        <span class="stack-item">Custom formula engine</span>
+      <h3>Earnings Analysis AI Agent</h3>
+      <div class="sub">Autonomous LangGraph agent · validate in code, retry with feedback, human-approve</div>
+      <p>An autonomous "earnings analyst" built as a self-directed project (2026): give it a ticker and it fetches live earnings data, decides on its own how to parse it, extracts revenue and EPS, validates the numbers with deterministic code, retries on failure with the errors fed into the next prompt, and pauses for human approval before shipping a beat/miss summary. It demonstrates the part of AI engineering that matters in production — not calling a model, but making its output trustworthy. Being rolled into the portfolio-analysis platform as its earnings-analysis module, scoped to public earnings data only.</p>
+      <div class="mockup" style="padding: 12px 16px;">
+        <span style="font-family: var(--mono); font-size: 12px;">START → fetch → route_by_shape → (format_fast | extract) → validate ⟲ → human checkpoint → synthesize → END</span>
       </div>
-    </div>
-
-    <div class="detail">
-      <h3>Training Terminal</h3>
-      <div class="sub">Gamified four-language coding terminal · Python, SQL, JavaScript, Rust</div>
-      <p>A single-file, browser-based coding terminal (xterm.js) for practicing Python, SQL, JavaScript, and Rust. Runs real Python through Pyodide, real SQL through sql.js against a seeded relational database, and grades JavaScript inside a network- and storage-stripped Web Worker sandbox; Rust is graded by a literal-preserving structural matcher that accepts equivalent syntax. 200 curated questions — 50 per track across five gated tiers (Introductory, Amateur, Intermediate, Experienced, Master), 10 questions per gate — with localStorage-persisted progression and live tier and engine-status KPIs.</p>
       <h4>What's unique</h4>
       <ul>
-        <li>Four grading paths in one static file: Pyodide (Python), sql.js on a seeded auto-rebuilt database (SQL), an isolated Web Worker with network and storage APIs removed (JavaScript), and a structural normalizer with a syntax-equivalence system (Rust)</li>
-        <li>Real xterm.js REPL: a command bar (start, hint, concepts, cheatsheet, examples, schema, reset, export/import), multi-line editing, command history, and emacs-style key bindings</li>
-        <li>Learning layer baked in — per-tier concepts auto-surface on first entry, a toggleable cheatsheet panel, worked examples, and per-question hints</li>
-        <li>200 questions reviewed and calibrated by concept and difficulty; 10-question tier gates force mastery before the next rank unlocks, all persisted with no backend</li>
+        <li>Self-correcting, not one-shot: deterministic validation checks every extracted figure, and failures loop back to the extractor with the errors injected into the retry prompt — capped at 3 attempts, then it fails loud to a human instead of shipping a wrong number</li>
+        <li>The model generates; code judges — the AI never grades its own homework</li>
+        <li>Human-in-the-loop by construction: the graph pauses (interrupt_before) and shows the numbers for approval; rejecting ships nothing</li>
+        <li>Chooses its own path: a router inspects the data shape at run time — clean structured data takes a free deterministic path, messy prose goes to the LLM — the difference between a fixed script and an agent</li>
+        <li>Production-shaped: refactored from a Jupyter prototype into a clean multi-file Python project (state, nodes, graph, CLI) with live market data from multiple providers (yfinance, Alpha Vantage, Polygon); the portfolio-terminal integration runs the reasoning model through OpenRouter, keeping it multi-model swappable without touching the graph</li>
+        <li>Self-directed and documented: authored the build plan, a full written case study, and an interactive architecture walkthrough of the graph and every design decision</li>
       </ul>
       <h4>Stack</h4>
       <div class="stack">
-        <span class="stack-item">Vanilla JavaScript</span>
-        <span class="stack-item">xterm.js</span>
-        <span class="stack-item">Pyodide</span>
-        <span class="stack-item">sql.js</span>
-        <span class="stack-item">Web Workers</span>
-        <span class="stack-item">localStorage</span>
-      </div>
-    </div>
-
-    <div class="detail">
-      <h3>Garage Terminal</h3>
-      <div class="sub">Multi-asset tracker · Python FastAPI backend</div>
-      <p>A personal asset tracking terminal with a Python FastAPI backend and an automated data pipeline using GitHub Actions for weekly serverless CI/CD workflows. Pulls valuation data, refreshes the dashboard, and exposes a clean read API.</p>
-      <h4>Stack</h4>
-      <div class="stack">
         <span class="stack-item">Python</span>
-        <span class="stack-item">FastAPI</span>
-        <span class="stack-item">GitHub Actions</span>
-        <span class="stack-item">JavaScript</span>
-        <span class="stack-item">Serverless CI/CD</span>
+        <span class="stack-item">LangGraph</span>
+        <span class="stack-item">LangChain</span>
+        <span class="stack-item">Anthropic Claude</span>
+        <span class="stack-item">OpenRouter</span>
+        <span class="stack-item">yfinance</span>
+        <span class="stack-item">Alpha Vantage</span>
+        <span class="stack-item">Polygon</span>
+        <span class="stack-item">Human-in-the-loop</span>
+        <span class="stack-item">CLI</span>
       </div>
     </div>
 
@@ -822,33 +804,24 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
 
     <div class="detail">
-      <h3>Earnings Analysis AI Agent</h3>
-      <div class="sub">Autonomous LangGraph agent · validate in code, retry with feedback, human-approve</div>
-      <p>An autonomous "earnings analyst" built as a self-directed project (2026): give it a ticker and it fetches live earnings data, decides on its own how to parse it, extracts revenue and EPS, validates the numbers with deterministic code, retries on failure with the errors fed into the next prompt, and pauses for human approval before shipping a beat/miss summary. It demonstrates the part of AI engineering that matters in production — not calling a model, but making its output trustworthy. Being rolled into the portfolio-analysis platform as its earnings-analysis module, scoped to public earnings data only.</p>
-      <div class="mockup" style="padding: 12px 16px;">
-        <span style="font-family: var(--mono); font-size: 12px;">START → fetch → route_by_shape → (format_fast | extract) → validate ⟲ → human checkpoint → synthesize → END</span>
-      </div>
+      <h3>Training Terminal</h3>
+      <div class="sub">Gamified four-language coding terminal · Python, SQL, JavaScript, Rust</div>
+      <p>A single-file, browser-based coding terminal (xterm.js) for practicing Python, SQL, JavaScript, and Rust. Runs real Python through Pyodide, real SQL through sql.js against a seeded relational database, and grades JavaScript inside a network- and storage-stripped Web Worker sandbox; Rust is graded by a literal-preserving structural matcher that accepts equivalent syntax. 200 curated questions — 50 per track across five gated tiers (Introductory, Amateur, Intermediate, Experienced, Master), 10 questions per gate — with localStorage-persisted progression and live tier and engine-status KPIs.</p>
       <h4>What's unique</h4>
       <ul>
-        <li>Self-correcting, not one-shot: deterministic validation checks every extracted figure, and failures loop back to the extractor with the errors injected into the retry prompt — capped at 3 attempts, then it fails loud to a human instead of shipping a wrong number</li>
-        <li>The model generates; code judges — the AI never grades its own homework</li>
-        <li>Human-in-the-loop by construction: the graph pauses (interrupt_before) and shows the numbers for approval; rejecting ships nothing</li>
-        <li>Chooses its own path: a router inspects the data shape at run time — clean structured data takes a free deterministic path, messy prose goes to the LLM — the difference between a fixed script and an agent</li>
-        <li>Production-shaped: refactored from a Jupyter prototype into a clean multi-file Python project (state, nodes, graph, CLI) with live market data from multiple providers (yfinance, Alpha Vantage, Polygon); the portfolio-terminal integration runs the reasoning model through OpenRouter, keeping it multi-model swappable without touching the graph</li>
-        <li>Self-directed and documented: authored the build plan, a full written case study, and an interactive architecture walkthrough of the graph and every design decision</li>
+        <li>Four grading paths in one static file: Pyodide (Python), sql.js on a seeded auto-rebuilt database (SQL), an isolated Web Worker with network and storage APIs removed (JavaScript), and a structural normalizer with a syntax-equivalence system (Rust)</li>
+        <li>Real xterm.js REPL: a command bar (start, hint, concepts, cheatsheet, examples, schema, reset, export/import), multi-line editing, command history, and emacs-style key bindings</li>
+        <li>Learning layer baked in — per-tier concepts auto-surface on first entry, a toggleable cheatsheet panel, worked examples, and per-question hints</li>
+        <li>200 questions reviewed and calibrated by concept and difficulty; 10-question tier gates force mastery before the next rank unlocks, all persisted with no backend</li>
       </ul>
       <h4>Stack</h4>
       <div class="stack">
-        <span class="stack-item">Python</span>
-        <span class="stack-item">LangGraph</span>
-        <span class="stack-item">LangChain</span>
-        <span class="stack-item">Anthropic Claude</span>
-        <span class="stack-item">OpenRouter</span>
-        <span class="stack-item">yfinance</span>
-        <span class="stack-item">Alpha Vantage</span>
-        <span class="stack-item">Polygon</span>
-        <span class="stack-item">Human-in-the-loop</span>
-        <span class="stack-item">CLI</span>
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">xterm.js</span>
+        <span class="stack-item">Pyodide</span>
+        <span class="stack-item">sql.js</span>
+        <span class="stack-item">Web Workers</span>
+        <span class="stack-item">localStorage</span>
       </div>
     </div>
 
@@ -896,9 +869,36 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
 
     <div class="detail">
+      <h3>Wealth Compass Terminal</h3>
+      <div class="sub">Client-side financial planning dashboard</div>
+      <p>A client-facing financial planning dashboard that parses a 13-sheet workbook with 755 formulas entirely client-side. All data stays on the user's device. No backend, no data transmission, no model exposure to client information.</p>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">JavaScript</span>
+        <span class="stack-item">HTML</span>
+        <span class="stack-item">SheetJS</span>
+        <span class="stack-item">Custom formula engine</span>
+      </div>
+    </div>
+
+    <div class="detail">
       <h3>AI-Assisted Financial Modeling Suite</h3>
       <div class="sub">Dynamic financial engines built with Claude</div>
       <p>A separate workstream under Ghost Strategies focused on financial modeling rather than terminal apps. Includes a probability-weighted valuation model and a $3M TRS retirement planner. I own the financial logic and architecture while directing Claude to generate the code. Every output is validated against standard financial formulas before being trusted, and I only prompt with test or sample data to keep any real client information out of the model.</p>
+    </div>
+
+    <div class="detail">
+      <h3>Garage Terminal</h3>
+      <div class="sub">Multi-asset tracker · Python FastAPI backend</div>
+      <p>A personal asset tracking terminal with a Python FastAPI backend and an automated data pipeline using GitHub Actions for weekly serverless CI/CD workflows. Pulls valuation data, refreshes the dashboard, and exposes a clean read API.</p>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Python</span>
+        <span class="stack-item">FastAPI</span>
+        <span class="stack-item">GitHub Actions</span>
+        <span class="stack-item">JavaScript</span>
+        <span class="stack-item">Serverless CI/CD</span>
+      </div>
     </div>
 
   </div>
