@@ -308,10 +308,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">A single HTML file that replaced a fragile VLOOKUP chain: drag in four source files and a hash-join engine reconciles hundreds of thousands of rows in milliseconds across nine tabs, with processor-specific match logic isolated in code instead of formulas. Large bank files parse through a persistent three-worker pool with zero-copy transfers; exports edit a bundled template's XML at runtime so the master sheet's conditional formatting survives; and a TCA subsystem auto-detects the canonical GUID column by scoring UUID density against uniqueness. A 20–35 minute batch became 40 seconds.</div>
+        <div class="project-summary">A single HTML file that replaced a fragile VLOOKUP chain: drag in four source files and a hash-join engine reconciles hundreds of thousands of rows in milliseconds across ten tabs, with processor-specific match logic isolated in code instead of formulas. Large bank files parse through a persistent three-worker pool with zero-copy transfers, and exports edit a bundled template's XML at runtime so the master sheet's conditional formatting survives. Successive automation passes then closed the manual gaps: a worklist that finds every row still carrying placeholder banking data, routing numbers checksum-validated and resolved to bank names in-app, and account flags applied straight from the source file instead of by hand. A 20–35 minute batch became 40 seconds.</div>
         <div class="project-meta">
           <span><b>Stack</b>Vanilla JavaScript, SheetJS, custom RFC 4180 parser</span>
-          <span><b>Sources</b>4-way JOIN across 9 tabs</span>
+          <span><b>Sources</b>4-way JOIN across 10 tabs</span>
         </div>
       </div>
 
@@ -500,7 +500,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <h3>Funding Verification Tool</h3>
       <div class="sub">Single-file HTML · 20-35 minute workflow cut to 40 seconds</div>
 
-      <p>A single-file HTML application that replaced a fragile VLOOKUP chain in Google Sheets used to verify merchant banking data for capital deployments. Performs an in-browser JOIN across four sources (New Funding file, Snowflake export, Original CSV funding records, and DSL bank files), produces match results with processor-specific logic, supports real-time manual overrides, and exports a multi-sheet XLSX workbook from a bundled template that preserves the master sheet's conditional formatting. The tool grew to 9 tabs, including a TCA Check tab that auto-flags Toast Checking accounts and matches Slack-pasted GUIDs against an auto-detected canonical GUID column, and an External MCA Refi tab that tracks refi lineage between loans. The full funding verification workflow used to take 20 to 35 minutes per batch; the latest measured time (June 2026) clocked it at 40 seconds end-to-end.</p>
+      <p>A single-file HTML application that replaced a fragile VLOOKUP chain in Google Sheets used to verify merchant banking data for capital deployments. Performs an in-browser JOIN across four sources (New Funding file, Snowflake export, Original CSV funding records, and DSL bank files), produces match results with processor-specific logic, supports real-time manual overrides, and exports a multi-sheet XLSX workbook from a bundled template that preserves the master sheet's conditional formatting. The tool grew to 10 tabs, including a TCA Check tab that auto-flags Toast Checking accounts and matches pasted GUIDs against an auto-detected canonical GUID column, an External MCA Refi tab that tracks refi lineage between loans, and a Funding Edits tab that turns every row still holding placeholder banking data into an editable worklist with routing-number validation and bank lookup built in. The full funding verification workflow used to take 20 to 35 minutes per batch; the latest measured time (June 2026) clocked it at 40 seconds end-to-end.</p>
 
       <h4>Before and after</h4>
       <div class="ba">
@@ -513,7 +513,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         </div>
         <div class="ba-card after">
           <div class="ba-label">After · 40 seconds</div>
-          <div class="ba-step"><div class="ba-num">1</div><div>Drag-drop four files, JOIN runs in milliseconds across 9 tabs</div></div>
+          <div class="ba-step"><div class="ba-num">1</div><div>Drag-drop four files, JOIN runs in milliseconds across 10 tabs</div></div>
           <div class="ba-step"><div class="ba-num">2</div><div>Manual Overrides tab surfaces Check Data rows, recompute on entry</div></div>
           <div class="ba-step"><div class="ba-num">3</div><div>Toast Checking and Verified in Merchant labels persist across re-uploads</div></div>
           <div class="ba-step"><div class="ba-num">4</div><div>Processor logic in code, 4-sheet XLSX export preserves master sheet formatting</div></div>
@@ -547,10 +547,13 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <li>Real-time override injection: when a Snowflake lookup misses, manual GUID/MID/Proc Partner entry constructs a synthetic Snowflake-like object and the JOIN re-runs without a page refresh</li>
         <li>Labels and overrides keyed to External ID, survive re-uploads of any source file within the same session</li>
         <li>Template-based XLSX export: bundles the master Google Sheet's exact conditional formatting rules in a base64 template and edits the template XML at runtime via JSZip to inject the live data, preserving every YES/NO/Check Data cell fill from the original</li>
-        <li>TCA Check subsystem: auto-detects the canonical Toast GUID column per source using a UUID-density times uniqueness score, auto-flags Toast Checking accounts from the Original CSV, and matches Slack-pasted GUIDs against in-batch records with per-loan and per-merchant dedup modes</li>
+        <li>TCA Check subsystem: auto-detects the canonical Toast GUID column per source using a UUID-density times uniqueness score, and matches pasted GUIDs against in-batch records with per-loan and per-merchant dedup modes</li>
+        <li>Automatic TCA labeling: rows whose source record already carries the balance-account tag are cross-referenced against the current batch and flagged Toast Checking on load — the paste path is now the exception, not the default, and out-of-batch records are deliberately left alone</li>
+        <li>Funding Edits worklist: scans the source funding file for every row still carrying placeholder banking data — unresolved routing and account values, bank names left as a placeholder, and external MCA refi rows — classifies each by type, opens only the cells that type is allowed to edit, and tracks per-row completion so a row clears only once its placeholders are genuinely replaced rather than merely touched. Finished rows export in one click for the tracker</li>
+        <li>Routing-number validation and bank lookup: entries are checksum-validated in the browser with the standard ABA algorithm before any network call is made, then resolved to a bank name through a three-tier source chain (same-origin, local proxy, public API) with per-session caching so repeat lookups cost nothing, and a configurable routing number is flagged on sight</li>
         <li>Refi lineage tracking: the External MCA Refi tab links each refi loan to its original (matching the External ID minus its suffix) and highlights the original loans magenta in the XLSX export</li>
-        <li>Multi-sheet audit export: one workbook with the Ops sheet plus additional audit sheets, each filename-stamped MMDDYYYY-Funding Verification Tool.xlsx</li>
-        <li>9-tab structure: Ops SPA Deals (primary output with stat-pill filter shortcuts), four source upload tabs, TCA Check, Refi, External MCA Refi, and Manual Overrides</li>
+        <li>Dual audit export: a multi-sheet XLSX workbook (Ops sheet plus additional audit sheets) and a landscape PDF audit record that reproduces the on-screen match colors and row tints for reviewers who never open the spreadsheet — both date-stamped at export</li>
+        <li>10-tab structure: Ops SPA Deals (primary output with stat-pill filter shortcuts), four source upload tabs, TCA Check, Refi, External MCA Refi, Manual Overrides, and Funding Edits</li>
         <li>Ships with two companion artifacts: a 13-page Standard Operating Procedure (built with a python-docx script, 11 embedded screenshots, data-flow diagram, troubleshooting guide, and a domain glossary), and a standalone Funding File Validator that round-trip-checks the exported file against the source before handoff</li>
       </ul>
 
@@ -559,7 +562,9 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Vanilla JavaScript</span>
         <span class="stack-item">SheetJS 0.18.5</span>
         <span class="stack-item">JSZip 3.10.1</span>
+        <span class="stack-item">jsPDF</span>
         <span class="stack-item">Custom RFC 4180 parser</span>
+        <span class="stack-item">ABA checksum validation</span>
         <span class="stack-item">Web Worker pool</span>
         <span class="stack-item">Web FileReader API</span>
         <span class="stack-item">Base64 template embedding</span>
