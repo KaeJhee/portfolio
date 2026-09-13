@@ -269,6 +269,22 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
       <div class="project" data-color="toast">
         <div class="project-head">
+          <div class="project-icon">FV</div>
+          <div>
+            <div class="project-title">Funding Verification Tool</div>
+            <div class="project-org">Toast · Capital Underwriting · 20-35 minute workflow cut to 40 seconds</div>
+          </div>
+          <div class="project-tag">Toast</div>
+        </div>
+        <div class="project-summary">A single HTML file that replaced a fragile VLOOKUP chain: drag in four source files and a hash-join engine reconciles hundreds of thousands of rows in milliseconds across ten tabs, with processor-specific match logic isolated in code instead of formulas. Large bank files parse through a persistent three-worker pool with zero-copy transfers, and exports edit a bundled template's XML at runtime so the master sheet's conditional formatting survives. Successive automation passes then closed the manual gaps: a worklist that finds every row still carrying placeholder banking data, routing numbers checksum-validated and resolved to bank names in-app, and account flags applied straight from the source file instead of by hand. A 20–35 minute batch became 40 seconds.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Vanilla JavaScript, SheetJS, custom RFC 4180 parser</span>
+          <span><b>Sources</b>4-way JOIN across 10 tabs</span>
+        </div>
+      </div>
+
+      <div class="project" data-color="toast">
+        <div class="project-head">
           <div class="project-icon">UC</div>
           <div>
             <div class="project-title">Underwriting &amp; Collections Toolkit</div>
@@ -296,22 +312,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-meta">
           <span><b>Stack</b>Vanilla JS, Cloudflare Workers, 9-provider LLM proxy, Ollama</span>
           <span><b>Forms</b>Web app · Cowork skill · Claude artifact</span>
-        </div>
-      </div>
-
-      <div class="project" data-color="toast">
-        <div class="project-head">
-          <div class="project-icon">FV</div>
-          <div>
-            <div class="project-title">Funding Verification Tool</div>
-            <div class="project-org">Toast · Capital Underwriting · 20-35 minute workflow cut to 40 seconds</div>
-          </div>
-          <div class="project-tag">Toast</div>
-        </div>
-        <div class="project-summary">A single HTML file that replaced a fragile VLOOKUP chain: drag in four source files and a hash-join engine reconciles hundreds of thousands of rows in milliseconds across ten tabs, with processor-specific match logic isolated in code instead of formulas. Large bank files parse through a persistent three-worker pool with zero-copy transfers, and exports edit a bundled template's XML at runtime so the master sheet's conditional formatting survives. Successive automation passes then closed the manual gaps: a worklist that finds every row still carrying placeholder banking data, routing numbers checksum-validated and resolved to bank names in-app, and account flags applied straight from the source file instead of by hand. A 20–35 minute batch became 40 seconds.</div>
-        <div class="project-meta">
-          <span><b>Stack</b>Vanilla JavaScript, SheetJS, custom RFC 4180 parser</span>
-          <span><b>Sources</b>4-way JOIN across 10 tabs</span>
         </div>
       </div>
 
@@ -442,59 +442,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
 
-    <!-- Underwriting & Collections Toolkit -->
-    <div class="detail">
-      <h3>Underwriting &amp; Collections Toolkit</h3>
-      <div class="sub">Client-side underwriting &amp; collections tools · React + vanilla-JS bookmarklets</div>
-      <p>A suite of zero-dependency, browser-based tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details and get parsed, de-duplicated, recency-filtered, type-classified output — or a color-coded routing recommendation — to drop straight into notes. The same shared-engine pattern was extended to collections, extracting parent-account default and churn history from a virtualized data grid into a standardized, paste-ready summary. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
-      <h4>What's unique</h4>
-      <ul>
-        <li>Lien Docket Dashboard: ingests pasted card text or raw API JSON, extracts per-filing fields, de-dupes, sorts newest-first, applies recency windows, and tags each filing by type with per-row badges so misclassification is obvious at a glance; summary metrics, diagnostics, one-click copy, and .txt/.csv export</li>
-        <li>Two decision-support bookmarklets: a lien scraper that runs the identical parse/classify engine in-page against the logged-in provider (sidestepping cross-origin and authentication limits), and an App Router that reads live application fields and renders a color-coded review-depth recommendation</li>
-        <li>Parent Default &amp; Churn Extractor: reads parent-account default and churn history from a virtualized AG-Grid tracker into a standardized, paste-ready summary — defeating row- and column-virtualization by stitching cells into whole rows by stable column ID (not screen position), with a paste fallback that record-splits multi-line, JSON-valued cells; the grid was reverse-engineered first with a read-only DOM probe</li>
-        <li>One shared parse/classify/format engine across every tool, so results never diverge; fail-loud by design — unreadable dates are kept and flagged, never silently dropped</li>
-        <li>Config over hard-coding: keyword lists, recency windows, routing thresholds, and field labels live in editable config blocks so rule changes don't touch the logic</li>
-      </ul>
-      <h4>Stack</h4>
-      <div class="stack">
-        <span class="stack-item">React 18</span>
-        <span class="stack-item">Babel Standalone</span>
-        <span class="stack-item">Vanilla JavaScript</span>
-        <span class="stack-item">Bookmarklets</span>
-        <span class="stack-item">AG-Grid extraction</span>
-        <span class="stack-item">Clipboard API</span>
-        <span class="stack-item">Blob/URL export</span>
-      </div>
-    </div>
-
-    <!-- Self-Serve Snowflake Query Helper -->
-    <div class="detail">
-      <h3>Self-Serve Snowflake Query Helper</h3>
-      <div class="sub">Teaching-oriented text-to-SQL · web app + Worker proxy · Cowork skill · Claude artifact</div>
-      <p>A browser tool that lets non-analyst teammates draft accurate, schema-aware Snowflake queries in plain English — and learn the SQL as they go, through an explicit phrase-to-clause mapping. It removes the bottleneck of senior analysts writing every ad-hoc query while keeping execution in the user's own Snowflake session. By design it never connects to Snowflake and never sees a row of data: it handles only schema metadata (table and column names, types, comments) plus the user's generic natural-language ask. All model calls route through a Cloudflare Worker that holds provider keys server-side and normalizes nine LLM providers behind one contract. The same schema-plus-teaching engine ships in three forms: the full web app, a Cowork skill that runs on the team's existing Claude seats, and a claude.ai artifact that runs on the viewer's own subscription — the last two with no API keys or infrastructure at all.</p>
-      <h4>What's unique</h4>
-      <ul>
-        <li>Multi-provider proxy: one normalized request/response contract over nine LLM providers (Anthropic, OpenAI, Gemini, xAI, DeepSeek, Moonshot, Zhipu, Mistral, Qwen) via an adapter pattern — seven OpenAI-compatible plus dedicated Anthropic and Gemini adapters — resolving browser CORS and removing API keys from the client</li>
-        <li>Personal or organizational: a first-run selector configures either an organizational mode (shared team Worker, provider keys as server-side secrets, gated by a Bearer token) or a personal mode — bring-your-own-key (Anthropic or Gemini directly from the browser), your own proxy for all nine providers, or fully local via Ollama with installed-model detection and nothing leaving the machine</li>
-        <li>Zero-key distribution: the engine also ships as a Cowork skill (runs on existing Claude seats, with adversarially hardened guardrails — execution and file-write bans plus a non-waivable PII pre-flight) and as a claude.ai artifact powered by the artifact runtime's completion API, billing the viewer's own subscription with zero infrastructure</li>
-        <li>Self-updating model discovery: queries each provider's live model endpoint and merges it with a curated overlay (24-hour TTL), so newly released models appear automatically with no code edits — built on the insight that model names churn but API families stay stable</li>
-        <li>One Low/Medium/High effort control mapped per model family to three distinct mechanisms (reasoning-effort enum, thinking-token budget, or omitted), and auto-disabled when the selected model can't reason</li>
-        <li>Teaching layer: every result returns the SQL plus a plain-English explanation and a three-column phrase → clause → why mapping table, reframing a query generator into a learning tool</li>
-        <li>Compliance-driven design: no database connection, metadata-only prompts, provider keys held as server-side secrets behind a token-gated, fail-closed proxy, and a client-side PII/MNPI pre-flight that warns on emails, phone numbers, GUIDs, and account-ID-shaped strings</li>
-      </ul>
-      <h4>Stack</h4>
-      <div class="stack">
-        <span class="stack-item">Vanilla JavaScript</span>
-        <span class="stack-item">Cloudflare Workers</span>
-        <span class="stack-item">Tailwind (CDN)</span>
-        <span class="stack-item">Prism.js</span>
-        <span class="stack-item">localStorage</span>
-        <span class="stack-item">9-provider LLM proxy</span>
-        <span class="stack-item">Ollama</span>
-        <span class="stack-item">React (artifact)</span>
-      </div>
-    </div>
-
     <!-- Funding Verification Tool -->
     <div class="detail">
       <h3>Funding Verification Tool</h3>
@@ -569,6 +516,59 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Web FileReader API</span>
         <span class="stack-item">Base64 template embedding</span>
         <span class="stack-item">Clipboard API</span>
+      </div>
+    </div>
+
+    <!-- Underwriting & Collections Toolkit -->
+    <div class="detail">
+      <h3>Underwriting &amp; Collections Toolkit</h3>
+      <div class="sub">Client-side underwriting &amp; collections tools · React + vanilla-JS bookmarklets</div>
+      <p>A suite of zero-dependency, browser-based tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details and get parsed, de-duplicated, recency-filtered, type-classified output — or a color-coded routing recommendation — to drop straight into notes. The same shared-engine pattern was extended to collections, extracting parent-account default and churn history from a virtualized data grid into a standardized, paste-ready summary. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
+      <h4>What's unique</h4>
+      <ul>
+        <li>Lien Docket Dashboard: ingests pasted card text or raw API JSON, extracts per-filing fields, de-dupes, sorts newest-first, applies recency windows, and tags each filing by type with per-row badges so misclassification is obvious at a glance; summary metrics, diagnostics, one-click copy, and .txt/.csv export</li>
+        <li>Two decision-support bookmarklets: a lien scraper that runs the identical parse/classify engine in-page against the logged-in provider (sidestepping cross-origin and authentication limits), and an App Router that reads live application fields and renders a color-coded review-depth recommendation</li>
+        <li>Parent Default &amp; Churn Extractor: reads parent-account default and churn history from a virtualized AG-Grid tracker into a standardized, paste-ready summary — defeating row- and column-virtualization by stitching cells into whole rows by stable column ID (not screen position), with a paste fallback that record-splits multi-line, JSON-valued cells; the grid was reverse-engineered first with a read-only DOM probe</li>
+        <li>One shared parse/classify/format engine across every tool, so results never diverge; fail-loud by design — unreadable dates are kept and flagged, never silently dropped</li>
+        <li>Config over hard-coding: keyword lists, recency windows, routing thresholds, and field labels live in editable config blocks so rule changes don't touch the logic</li>
+      </ul>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">React 18</span>
+        <span class="stack-item">Babel Standalone</span>
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">Bookmarklets</span>
+        <span class="stack-item">AG-Grid extraction</span>
+        <span class="stack-item">Clipboard API</span>
+        <span class="stack-item">Blob/URL export</span>
+      </div>
+    </div>
+
+    <!-- Self-Serve Snowflake Query Helper -->
+    <div class="detail">
+      <h3>Self-Serve Snowflake Query Helper</h3>
+      <div class="sub">Teaching-oriented text-to-SQL · web app + Worker proxy · Cowork skill · Claude artifact</div>
+      <p>A browser tool that lets non-analyst teammates draft accurate, schema-aware Snowflake queries in plain English — and learn the SQL as they go, through an explicit phrase-to-clause mapping. It removes the bottleneck of senior analysts writing every ad-hoc query while keeping execution in the user's own Snowflake session. By design it never connects to Snowflake and never sees a row of data: it handles only schema metadata (table and column names, types, comments) plus the user's generic natural-language ask. All model calls route through a Cloudflare Worker that holds provider keys server-side and normalizes nine LLM providers behind one contract. The same schema-plus-teaching engine ships in three forms: the full web app, a Cowork skill that runs on the team's existing Claude seats, and a claude.ai artifact that runs on the viewer's own subscription — the last two with no API keys or infrastructure at all.</p>
+      <h4>What's unique</h4>
+      <ul>
+        <li>Multi-provider proxy: one normalized request/response contract over nine LLM providers (Anthropic, OpenAI, Gemini, xAI, DeepSeek, Moonshot, Zhipu, Mistral, Qwen) via an adapter pattern — seven OpenAI-compatible plus dedicated Anthropic and Gemini adapters — resolving browser CORS and removing API keys from the client</li>
+        <li>Personal or organizational: a first-run selector configures either an organizational mode (shared team Worker, provider keys as server-side secrets, gated by a Bearer token) or a personal mode — bring-your-own-key (Anthropic or Gemini directly from the browser), your own proxy for all nine providers, or fully local via Ollama with installed-model detection and nothing leaving the machine</li>
+        <li>Zero-key distribution: the engine also ships as a Cowork skill (runs on existing Claude seats, with adversarially hardened guardrails — execution and file-write bans plus a non-waivable PII pre-flight) and as a claude.ai artifact powered by the artifact runtime's completion API, billing the viewer's own subscription with zero infrastructure</li>
+        <li>Self-updating model discovery: queries each provider's live model endpoint and merges it with a curated overlay (24-hour TTL), so newly released models appear automatically with no code edits — built on the insight that model names churn but API families stay stable</li>
+        <li>One Low/Medium/High effort control mapped per model family to three distinct mechanisms (reasoning-effort enum, thinking-token budget, or omitted), and auto-disabled when the selected model can't reason</li>
+        <li>Teaching layer: every result returns the SQL plus a plain-English explanation and a three-column phrase → clause → why mapping table, reframing a query generator into a learning tool</li>
+        <li>Compliance-driven design: no database connection, metadata-only prompts, provider keys held as server-side secrets behind a token-gated, fail-closed proxy, and a client-side PII/MNPI pre-flight that warns on emails, phone numbers, GUIDs, and account-ID-shaped strings</li>
+      </ul>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">Cloudflare Workers</span>
+        <span class="stack-item">Tailwind (CDN)</span>
+        <span class="stack-item">Prism.js</span>
+        <span class="stack-item">localStorage</span>
+        <span class="stack-item">9-provider LLM proxy</span>
+        <span class="stack-item">Ollama</span>
+        <span class="stack-item">React (artifact)</span>
       </div>
     </div>
 
