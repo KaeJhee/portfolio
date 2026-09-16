@@ -209,7 +209,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <div>
         <div class="eyebrow">Portfolio</div>
         <h1>Kristopher Gallow</h1>
-        <p>AI-native operator and systems builder. Senior Capital Underwriter with a Process Automation focus at Toast, plus four LLM-powered terminals shipped through Ghost Strategies LLC.</p>
+        <p>AI-native operator and systems builder. Senior Capital Underwriter with a Process Automation focus at Toast, plus seven LLM-powered terminals shipped through Ghost Strategies LLC.</p>
         <div class="hero-links">
           <a class="hero-link" href="#" data-tab-link="contact">Get in touch</a>
           <a class="hero-link" href="https://linkedin.com/in/kristophergallow" target="_blank">LinkedIn</a>
@@ -224,7 +224,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="stat-lbl">Years in financial services</div>
       </div>
       <div class="stat">
-        <div class="stat-val" style="color: var(--ghost);">12</div>
+        <div class="stat-val" style="color: var(--ghost);">13</div>
         <div class="stat-lbl">Production tools shipped</div>
       </div>
       <div class="stat">
@@ -248,6 +248,22 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-meta">
           <span><b>Stack</b>Python, LangGraph, LangChain, OpenRouter</span>
           <span><b>Design</b>Code-validated · bounded retries · human-approved</span>
+        </div>
+      </div>
+
+      <div class="project" data-color="ghost">
+        <div class="project-head">
+          <div class="project-icon">PT</div>
+          <div>
+            <div class="project-title">Ghost Strategies Portfolio Terminal</div>
+            <div class="project-org">Ghost Strategies LLC · RIA portfolio analysis · three-part system, v1.6</div>
+          </div>
+          <div class="project-tag">Independent</div>
+        </div>
+        <div class="project-summary">A Bloomberg-style portfolio analysis terminal for a registered investment advisory practice, built as three parts: a single-file HTML terminal (~4,400 lines, six tabs) that ingests holdings from a workbook or raw brokerage exports and computes returns, beta, correlation-matrix standard deviation, Sharpe, drift, look-through concentration, tax-aware rebalance moves, and 2008/2000/2020/2022 stress scenarios entirely client-side; a Cloudflare Worker that fronts four market-data providers and five AI providers (eight models) behind token auth and KV caching; and a Python ingest pipeline that pulls ten years of price history and writes the results into the HTML in place. The AI Analysis tab renders a severity-sorted signal board and narrative beside a data rail drawn only from the terminal's own numbers, under an analysis-not-advice compliance frame. Verified by 111 headless assertions and a 130-agent adversarial audit that surfaced and fixed 56 defects.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Vanilla JS, SheetJS, Cloudflare Workers, Python (yfinance, pandas)</span>
+          <span><b>Verification</b>111 automated checks · 56 audit findings fixed</span>
         </div>
       </div>
 
@@ -723,7 +739,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <div>
         <div class="eyebrow">Ghost Strategies LLC · Independent</div>
         <h1>Ghost Strategies</h1>
-        <p>Six LLM-powered tools built independently — and a practice that runs on them, under a governed multi-agent operating model. Every project ships with the same discipline: I own the logic and architecture, the LLM writes the code, I validate every output, and I only prompt with test or sample data so no proprietary information ever enters the model.</p>
+        <p>Seven LLM-powered tools built independently — and a practice that runs on them, under a governed multi-agent operating model. Every project ships with the same discipline: I own the logic and architecture, the LLM writes the code, I validate every output, and I only prompt with test or sample data so no proprietary information ever enters the model.</p>
       </div>
     </div>
 
@@ -755,6 +771,41 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Polygon</span>
         <span class="stack-item">Human-in-the-loop</span>
         <span class="stack-item">CLI</span>
+      </div>
+    </div>
+
+    <div class="detail">
+      <h3>Ghost Strategies Portfolio Terminal</h3>
+      <div class="sub">Bloomberg-style RIA portfolio analysis · client-side engine + Cloudflare Worker + Python ingest · v1.6</div>
+      <p>An internal terminal for reviewing client portfolios against target allocations and the current market environment, built for a registered investment advisory practice with privacy as a hard constraint: holdings are parsed and computed in the browser, nothing but the client name and proxy settings touches browser storage, and the only network traffic is an explicit, button-triggered call to the firm's own proxy. It is a sibling of Wealth Compass — the same client-side architecture, pointed at portfolio analytics instead of planning — and grew from v1.0 to v1.6 across a multi-session build driven by written handoff specifications with phased build orders, acceptance tests, and mock fixtures for keyless development.</p>
+      <div class="mockup" style="padding: 12px 16px;">
+        <span style="font-family: var(--mono); font-size: 12px;">workbook · brokerage CSV/XLSX · manual · session.json → review grid → compute (returns · beta · σ · Sharpe · drift · look-through · rebalance · stress) → AI Analysis → Worker proxy → 8 models</span>
+      </div>
+      <h4>Key features</h4>
+      <ul>
+        <li>Four import paths: a structured Excel workbook, a built-in sample, manual ticker entry, and multi-file brokerage exports (CSV/TSV/XLSX) with header-alias column detection across major custodian layouts, preamble and footer skipping, per-$100 bond quoting, cash sweep lines kept as CASH holdings, and an editable review grid where nothing is committed until the advisor confirms; a session file captures portfolio, targets, workbench proposal, and AI runs for drop-to-resume</li>
+        <li>Computation engine, all client-side: weighted returns across five horizons, portfolio beta, standard deviation via the full correlation-matrix formula, Sharpe, weighted expense ratio, and target-versus-actual drift by asset class, category, sector, geography, and account, with per-account drill-down that recomputes every metric</li>
+        <li>Look-through concentration: direct position weight plus the same name held inside index funds, flagging names that breach the threshold only through fund overlap</li>
+        <li>Tax-aware rebalance engine that pairs overweight and underweight categories into dollar moves, trims tax-advantaged accounts first and then the smallest unrealized gain, and never takes more from a position than it holds; scenario stress tests (2008, 2000, 2020, 2022) applied by asset class, both index-based and beta-adjusted</li>
+        <li>AI Analysis tab: the computed portfolio state plus live quotes and news go to a user-selected model — Claude Opus 5, Sonnet 5, or Fable 5.1 (with web search), GPT-6 Astra, Grok 4.6, Kimi K3, DeepSeek V4.1 Flash or V4 Pro — which returns five fixed sections plus a structured JSON appendix, rendered as a severity-sorted signal board with ticker and category chips that jump to the relevant tab; every chart comes from the terminal's own calculations, never the model</li>
+        <li>Adjustment workbench: per-category target sliders with live drift bars and implied dollar moves through the same rebalance engine, applied as clearly labeled session targets so every tab and the next AI run reason about the proposed shape; run history keeps ten runs with side-by-side comparison, plus Markdown, standalone HTML, and print export</li>
+        <li>Compliance by construction: a verbatim analysis-not-advice system prompt, a non-dismissible internal-use banner, a footer on every result and export, news passed to the model inside explicit untrusted-text delimiters, and no automatic model calls anywhere</li>
+        <li>Cloudflare Worker proxy: four market-data providers and five AI providers behind shared-token auth and encrypted secrets, KV caching that never caches empty results, ticker validation and encoding, provider fallback chains for quotes, refusal and truncation surfaced from every model provider, and a health endpoint the terminal uses to gate model choices</li>
+        <li>Verification: two headless Node harnesses (111 assertions) covering parsing, computation, tax-aware rebalancing, look-through, stress scenarios, and structured-output parsing; then a 130-agent adversarial audit — nine parallel reviewers, each finding challenged by two independent verifiers — confirming 56 defects, all fixed and reproduced by a second pass, including escaping every render sink that carries imported or model text and validating session files on restore</li>
+      </ul>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">JavaScript</span>
+        <span class="stack-item">HTML</span>
+        <span class="stack-item">SheetJS</span>
+        <span class="stack-item">Cloudflare Workers</span>
+        <span class="stack-item">Workers KV</span>
+        <span class="stack-item">Python</span>
+        <span class="stack-item">yfinance</span>
+        <span class="stack-item">pandas / numpy</span>
+        <span class="stack-item">Anthropic Claude</span>
+        <span class="stack-item">Multi-model routing</span>
+        <span class="stack-item">Node test harness</span>
       </div>
     </div>
 
