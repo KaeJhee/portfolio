@@ -340,7 +340,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Independent</div>
         </div>
-        <div class="project-summary">Six production tools built with Anthropic's Claude, plus the practice that runs on them: Wealth Compass (a 13-sheet, 755-formula workbook parsed entirely client-side — no data leaves the device), Training Terminal (real Python, SQL, JavaScript, and Rust execution in the browser, 200 curated questions over five gated tiers), Model Bench Terminal (blind LLM evaluation feeding a cost-vs-win-rate leaderboard that assigns the other tools' model slots), Economic Indicators Terminal (a macro dashboard whose research desk never lets the model produce a charted number or an unsourced fact), Garage Terminal (FastAPI asset tracking with scheduled CI/CD pipelines), and Ghost Lead Terminal (the CRM behind a governed, human-in-the-loop agent operating model).</div>
+        <div class="project-summary">Six production tools built with Anthropic's Claude, plus the practice that runs on them: Wealth Compass (a 13-sheet, 755-formula workbook parsed entirely client-side — no data leaves the device), Training Terminal (real Python, SQL, JavaScript, and Rust execution in the browser, 200 curated questions over five gated tiers), Model Bench Terminal (blind LLM evaluation feeding a cost-vs-win-rate leaderboard that assigns the other tools' model slots), Economic Indicators Terminal (a macro dashboard whose research desk never charts a number the model wrote; the page computes the statistics), Garage Terminal (FastAPI asset tracking with scheduled CI/CD pipelines), and Ghost Lead Terminal (the CRM behind a governed, human-in-the-loop agent operating model).</div>
         <div class="project-meta">
           <span><b>Stack</b>Python, FastAPI, JavaScript, Pyodide, sql.js</span>
           <span><b>Discipline</b>I own the logic, the LLM writes the code, I validate every output</span>
@@ -811,27 +811,29 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
     <div class="detail">
       <h3>Economic Indicators Terminal</h3>
-      <div class="sub">Bloomberg-style macro dashboard · grounded LLM research desk · single HTML file</div>
-      <p>A dark, data-dense economic terminal with seven views — CPI and PPI deep dives, employment, projections with confidence bands, a cross-indicator correlation matrix, and a News &amp; Analysis research desk — delivered as one ~3,500-line HTML file. It boots instantly from embedded data and upgrades itself to live FRED/BEA feeds when API keys are present, degrading gracefully: no keys, no network, and it still renders. The research desk is governed by one architectural law: <em>the model never produces a number that gets charted, and never states a fact without a source.</em></p>
+      <div class="sub">Bloomberg-style macro dashboard · grounded LLM research desk · single HTML file · v2.2</div>
+      <p>A dark, data-dense economic terminal with seven views — Overview, CPI detail, PPI detail, employment, projections, a correlation matrix, and a News &amp; Analysis research desk — in one HTML file of about 3,900 lines. It boots from an embedded snapshot of official releases and can replace the headline series with live FRED when a key is saved. The correlation matrix is computed in the page from the quarterly levels it is showing. Chart.js 4.4.1 ships in the repo, so the charts render without the CDN. The research desk follows one rule: <em>the model never supplies a number that gets charted. Statistics are computed in the page.</em></p>
       <h4>What's unique</h4>
       <ul>
-        <li>Grounded LLM pipeline: a cheap router model classifies each question into a structured plan, deterministic JavaScript fetches the prices and computes every statistic (returns, CAGR, volatility, drawdowns, divergence windows), and a web-grounded narrator explains the exact date windows the math found — cited, streamed token-by-token, with the chart shading those windows</li>
-        <li>Tiered model routing by query difficulty — fast, standard, or frontier narrator chosen per question; every answer names its model and shows its cost (typical queries under five cents)</li>
-        <li>Provider fallback with honesty guarantees: three price providers behind one interface, failures named in the UI with reasons; mismatched price-adjustment bases refuse pair statistics rather than chart a distorted comparison</li>
-        <li>IndexedDB caching with a 20-hour TTL makes repeat research free; the offline shell explains its state instead of erroring</li>
-        <li>Security as a first-class constraint: keys runtime-only in localStorage with a pre-push scan, escape-first markdown rendering with scheme-validated source links, and prompt-injection resistance instructed in both system prompts</li>
-        <li>23-case embedded test suite against hand-verified fixtures, re-runnable in production; a formal adversarial audit of the data layer caught an XSS vector and a silent stats-corruption bug before anything was built on top of it</li>
+        <li>Headline cards are the latest monthly observation, not a quarterly average. FRED dates are parsed from the YYYY-MM-DD string, so the calendar month stays put west of UTC. Real GDP is on the page from BEA's series as carried on FRED; the badge says BEA only after the BEA API returns NIPA T10101 line 1. The six summary cards are August 2026. JOLTS in the snapshot is July 2026, and real GDP runs through 2026-Q2. CPI Education, Recreation, and Other Goods, most PPI component rows, and the employment sector table are still March 2026 and are labeled on the page</li>
+        <li>Grounded LLM pipeline: a router classifies each question into a structured plan, the page fetches prices and computes every statistic (returns, CAGR, volatility, drawdowns, divergence windows), and a web-grounded narrator explains those date windows — cited, streamed token-by-token, with the chart shading the windows the math found. Current-events claims need a source. With no OpenRouter key, the tab explains that design and shows a labeled example layout. No recorded News run is embedded</li>
+        <li>Tiered routing by query difficulty — fast, standard, or deep narrator chosen per question. After a real run, the answer names its model and shows that query's cost</li>
+        <li>Price history tries Twelve Data first, then Alpha Vantage compact (about the last 100 sessions), then Stooq on localhost only. Each provider failure is named with the reason. Mismatched price-adjustment bases skip pair statistics rather than chart a distorted comparison. Projection bands are a fixed illustrative formula and are labeled that way on the chart</li>
+        <li>The News tab caches the price and FRED series it fetched in IndexedDB for 20 hours. The dashboard refresh does not. A News answer stays in memory and does not survive a reload. Google Fonts still come from Google; the charts do not</li>
+        <li>Keys stay in localStorage. Connection-test errors are escaped, and News markdown is escaped before links render (http and https only). Both system prompts tell the model to ignore instructions embedded in the question or in web results. GitHub Actions runs a secret scan and the 37 embedded tests, with the suite in America/Chicago. The pre-push hook stays off until you run sh scripts/install-hooks.sh. The Cloudflare Worker in the repo is an example template for the live site; it is not deployed from the project. On localhost, server.py proxies FRED</li>
       </ul>
       <h4>Stack</h4>
       <div class="stack">
         <span class="stack-item">Vanilla JavaScript</span>
-        <span class="stack-item">Chart.js 4</span>
+        <span class="stack-item">Chart.js 4.4.1 (vendored)</span>
         <span class="stack-item">IndexedDB</span>
-        <span class="stack-item">OpenRouter (multi-model)</span>
+        <span class="stack-item">OpenRouter</span>
         <span class="stack-item">FRED / BEA APIs</span>
-        <span class="stack-item">3 price providers</span>
-        <span class="stack-item">Python CORS proxy</span>
-        <span class="stack-item">Cloudflare Workers</span>
+        <span class="stack-item">Twelve Data</span>
+        <span class="stack-item">Alpha Vantage compact</span>
+        <span class="stack-item">Stooq (localhost)</span>
+        <span class="stack-item">Python localhost proxy</span>
+        <span class="stack-item">Example Worker template</span>
       </div>
     </div>
 
