@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kristopher Gallow — Portfolio</title>
+<title>Kristopher Gallow · Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -79,7 +79,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .project-meta b { font-weight: 600; color: var(--text-2); margin-right: 4px; }
 
 /* ── Mock UI screenshots ── */
-.mockup { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); margin: 16px 0; padding: 16px; font-family: var(--mono); font-size: 11px; color: var(--text-2); }
+.mockup { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); margin: 16px 0; padding: 16px; font-family: var(--mono); font-size: 11px; color: var(--text-2); overflow-x: auto; }
 .mockup-head { display: flex; align-items: center; gap: 8px; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text); font-family: 'Inter', sans-serif; font-size: 12px; }
 .mockup-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-3); }
 .mockup-row { display: grid; gap: 8px; padding: 6px 0; border-bottom: 1px dashed var(--border); }
@@ -198,7 +198,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .jump-item.sel { background: var(--accent-light); }
 .jump-empty { padding: 14px; font-size: 13px; color: var(--text-3); }
 .jump-foot { display: flex; gap: 14px; flex-wrap: wrap; border-top: 1px solid var(--border); padding: 8px 14px; font-size: 11px; color: var(--text-3); }
-.detail, .about-card, .sec, .demo, .project { scroll-margin-top: 64px; }
+.detail, .about-card, .sec, .demo, .project, .hero { scroll-margin-top: 64px; }
 .jump-flash { animation: jumpflash 1.6s ease-out; }
 @keyframes jumpflash { 0% { box-shadow: 0 0 0 4px var(--accent-border); } 100% { box-shadow: 0 0 0 4px transparent; } }
 
@@ -299,6 +299,14 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .about-card .loop-panel p.loop-example { font-size: 13px; margin-bottom: 0; }
 .loop-example b { color: var(--about-dark); }
 
+/* ── Addresses and links ── */
+[tabindex="-1"]:focus:not(:focus-visible) { outline: none; }
+.project-link { color: inherit; text-decoration: none; }
+.project-link::after { content: "\2192"; content: "\2192" / ""; display: inline-block; margin-left: 6px; font-weight: 500; color: var(--text-3); }
+.project-link:hover, .project-link:focus-visible { text-decoration: underline; text-decoration-color: var(--text-3); text-underline-offset: 3px; }
+.project-link:hover::after, .project-link:focus-visible::after { color: var(--text); }
+.print-only { display: none; }
+
 @media (prefers-reduced-motion: reduce) {
   .jump-flash { animation: none; }
   .vol-track span, .chip, .loop-step { transition: none; }
@@ -307,6 +315,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   .filter-bar, .jump-btn, .jump-overlay, .race-btn, .demo-controls { display: none !important; }
   .project.is-hidden { display: block !important; }
   .loop-panel[hidden] { display: block !important; }
+  .project-link::after { content: none; }
+  .hero-link[download] { display: none !important; }
+  .print-only { display: block !important; }
+  .demo-live { margin-top: 10px; font-size: 11px; color: var(--text-2); text-decoration: underline; text-decoration-color: var(--text-3); text-underline-offset: 2px; }
 }
 @media (max-width: 700px) {
   .aba-grid { gap: 3px; }
@@ -357,9 +369,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <div>
         <div class="eyebrow">Portfolio</div>
         <h1>Kristopher Gallow</h1>
-        <p>AI-native operator and systems builder. Senior Capital Underwriter with a Process Automation focus at Toast, plus seven LLM-powered terminals shipped through Ghost Strategies LLC.</p>
+        <p>AI-native operator and systems builder. Senior Capital Underwriter with a Process Automation focus at Toast, now on its Non-R&amp;D AI Initiatives team, plus seven LLM-powered terminals shipped through Ghost Strategies LLC.</p>
         <div class="hero-links">
           <a class="hero-link" href="#" data-tab-link="contact">Get in touch</a>
+          <a class="hero-link" href="Gallow_K_Resume.pdf" download>Resume (PDF)</a>
           <a class="hero-link" href="https://linkedin.com/in/kristophergallow" target="_blank">LinkedIn</a>
           <a class="hero-link" href="https://github.com/KaeJhee" target="_blank">GitHub</a>
         </div>
@@ -398,7 +411,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-head">
           <div class="project-icon">EA</div>
           <div>
-            <div class="project-title">Earnings Analysis AI Agent</div>
+            <div class="project-title"><a class="project-link" href="#earnings-analysis-ai-agent">Earnings Analysis AI Agent</a></div>
             <div class="project-org">Ghost Strategies · Autonomous LangGraph agent</div>
           </div>
           <div class="project-tag">Independent</div>
@@ -414,7 +427,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-head">
           <div class="project-icon">PT</div>
           <div>
-            <div class="project-title">Ghost Strategies Portfolio Terminal</div>
+            <div class="project-title"><a class="project-link" href="#ghost-strategies-portfolio-terminal">Ghost Strategies Portfolio Terminal</a></div>
             <div class="project-org">Ghost Strategies LLC · RIA portfolio analysis · three-part system, v1.6</div>
           </div>
           <div class="project-tag">Independent</div>
@@ -430,7 +443,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-head">
           <div class="project-icon">CM</div>
           <div>
-            <div class="project-title">COO/COLE Case Management Dashboard</div>
+            <div class="project-title"><a class="project-link" href="#coo-cole-case-management-dashboard">COO/COLE Case Management Dashboard</a></div>
             <div class="project-org">Toast · 10-person underwriting team · 700+ active cases</div>
           </div>
           <div class="project-tag">Toast</div>
@@ -446,7 +459,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-head">
           <div class="project-icon">FV</div>
           <div>
-            <div class="project-title">Funding Verification Tool</div>
+            <div class="project-title"><a class="project-link" href="#funding-verification-tool">Funding Verification Tool</a></div>
             <div class="project-org">Toast · Capital Underwriting · 20-35 minute workflow cut to 40 seconds</div>
           </div>
           <div class="project-tag">Toast</div>
@@ -463,7 +476,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-head">
           <div class="project-icon">UC</div>
           <div>
-            <div class="project-title">Underwriting &amp; Collections Toolkit</div>
+            <div class="project-title"><a class="project-link" href="#underwriting-collections-toolkit">Underwriting &amp; Collections Toolkit</a></div>
             <div class="project-org">Toast · Capital Underwriting &amp; Collections</div>
           </div>
           <div class="project-tag">Toast</div>
@@ -479,7 +492,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-head">
           <div class="project-icon">SQ</div>
           <div>
-            <div class="project-title">Self-Serve Snowflake Query Helper</div>
+            <div class="project-title"><a class="project-link" href="#self-serve-snowflake-query-helper">Self-Serve Snowflake Query Helper</a></div>
             <div class="project-org">Toast · Capital Underwriting</div>
           </div>
           <div class="project-tag">Toast</div>
@@ -495,7 +508,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-head">
           <div class="project-icon">GS</div>
           <div>
-            <div class="project-title">Ghost Strategies Terminal Suite</div>
+            <div class="project-title"><a class="project-link" href="#ghost-strategies">Ghost Strategies Terminal Suite</a></div>
             <div class="project-org">Ghost Strategies LLC · LLM-powered financial tooling</div>
           </div>
           <div class="project-tag">Independent</div>
@@ -511,7 +524,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-head">
           <div class="project-icon">CX</div>
           <div>
-            <div class="project-title">CSV Column Extractor</div>
+            <div class="project-title"><a class="project-link" href="#csv-column-extractor">CSV Column Extractor</a></div>
             <div class="project-org">Toast · Bizops · 9-minute workflow cut to under 55 seconds</div>
           </div>
           <div class="project-tag">Toast</div>
@@ -528,7 +541,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-head">
           <div class="project-icon">ET</div>
           <div>
-            <div class="project-title">Email Template Automation Suite</div>
+            <div class="project-title"><a class="project-link" href="#email-template-automation-suite">Email Template Automation Suite</a></div>
             <div class="project-org">Toast · 14-person Capital Underwriting and Change of Ownership · 11 phases</div>
           </div>
           <div class="project-tag">Toast</div>
@@ -557,14 +570,14 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
 
     <!-- COO/COLE Dashboard -->
-    <div class="detail">
+    <div class="detail" id="coo-cole-case-management-dashboard">
       <h3>COO/COLE Case Management Dashboard</h3>
       <div class="sub">Full-stack web app · 10-person underwriting team · 700+ active cases · self-running</div>
 
       <p>A full-stack web application built on top of a live Google Sheet — no separate backend or hosting — that replaced manual spreadsheet workflows for case tracking, analytics, and address-change requests across a 10-person team and 700+ cases. The Cases tab tracks the full lifecycle with optimistic-UI edits written straight back to the sheet, the Address Change tab manages a parallel five-status workflow on its own sheet, and the Analytics tab is an operational scorecard with team-level, per-rep, and Bizops-funnel views — all scopeable by year from a single header filter. Over successive iterations the tool evolved from a case tracker into a largely self-running system: non-technical leads administer it with zero code changes, it runs its own scheduled maintenance, and it documents itself for whoever maintains it next.</p>
 
       <h4>Mock view</h4>
-      <div class="mockup">
+      <div class="mockup" tabindex="0" role="region" aria-label="Case Management Dashboard mock view">
         <div class="mockup-head">
           <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
           <span>Case Management Dashboard · Cases (47 active · 3 picked today)</span>
@@ -621,7 +634,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
 
     <!-- Funding Verification Tool -->
-    <div class="detail">
+    <div class="detail" id="funding-verification-tool">
       <h3>Funding Verification Tool</h3>
       <div class="sub">Single-file HTML · 20-35 minute workflow cut to 40 seconds</div>
 
@@ -662,10 +675,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="aba-grid" aria-hidden="true"></div>
         <div class="aba-legend">Each digit is multiplied by its weight (3, 7, 1, repeating) and the products are summed. A routing number is well-formed only when that sum ends in 0.</div>
         <div class="demo-status" id="aba-status" role="status"></div>
+        <a class="print-only demo-live" href="https://kaejhee.github.io/portfolio/#demo-aba">Try it live: kaejhee.github.io/portfolio/#demo-aba</a>
       </div>
 
       <h4>Mock view</h4>
-      <div class="mockup">
+      <div class="mockup" tabindex="0" role="region" aria-label="Funding Verification Tool mock view">
         <div class="mockup-head">
           <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
           <span>Funding Verification · Ops SPA Deals (12 rows)</span>
@@ -717,7 +731,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
 
     <!-- Underwriting & Collections Toolkit -->
-    <div class="detail">
+    <div class="detail" id="underwriting-collections-toolkit">
       <h3>Underwriting &amp; Collections Toolkit</h3>
       <div class="sub">Client-side underwriting &amp; collections tools · React + vanilla-JS bookmarklets</div>
       <p>A suite of zero-dependency, browser-based tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details and get parsed, de-duplicated, recency-filtered, type-classified output — or a color-coded routing recommendation — to drop straight into notes. The same shared-engine pattern was extended to collections, extracting parent-account default and churn history from a virtualized data grid into a standardized, paste-ready summary. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
@@ -742,7 +756,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
 
     <!-- Self-Serve Snowflake Query Helper -->
-    <div class="detail">
+    <div class="detail" id="self-serve-snowflake-query-helper">
       <h3>Self-Serve Snowflake Query Helper</h3>
       <div class="sub">Teaching-oriented text-to-SQL · web app + Worker proxy · Cowork skill · Claude artifact</div>
       <p>A browser tool that lets non-analyst teammates draft accurate, schema-aware Snowflake queries in plain English — and learn the SQL as they go, through an explicit phrase-to-clause mapping. It removes the bottleneck of senior analysts writing every ad-hoc query while keeping execution in the user's own Snowflake session. By design it never connects to Snowflake and never sees a row of data: it handles only schema metadata (table and column names, types, comments) plus the user's generic natural-language ask. All model calls route through a Cloudflare Worker that holds provider keys server-side and normalizes nine LLM providers behind one contract. The same schema-plus-teaching engine ships in three forms: the full web app, a Cowork skill that runs on the team's existing Claude seats, and a claude.ai artifact that runs on the viewer's own subscription — the last two with no API keys or infrastructure at all.</p>
@@ -770,7 +784,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
 
     <!-- CSV Column Extractor -->
-    <div class="detail">
+    <div class="detail" id="csv-column-extractor">
       <h3>CSV Column Extractor</h3>
       <div class="sub">Single-file HTML · 9-minute workflow cut to under 55 seconds</div>
 
@@ -796,7 +810,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
 
       <h4>Mock view</h4>
-      <div class="mockup">
+      <div class="mockup" tabindex="0" role="region" aria-label="CSV Column Extractor mock view">
         <div class="mockup-head">
           <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
           <span>CSV Column Extractor · 3 files queued · auto-parse in 0.4s</span>
@@ -851,7 +865,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
 
     <!-- Email Template Suite -->
-    <div class="detail">
+    <div class="detail" id="email-template-automation-suite">
       <h3>Email Template Automation Suite</h3>
       <div class="sub">11 phases · cross-platform desktop app · 14-person team · 30s to under 3s</div>
 
@@ -919,7 +933,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   <!-- ════════════════ GHOST STRATEGIES TAB ════════════════ -->
   <div class="tab-panel theme-ghost" id="tab-ghost">
 
-    <div class="hero">
+    <div class="hero" id="ghost-strategies">
       <div class="hero-icon">GS</div>
       <div>
         <div class="eyebrow">Ghost Strategies LLC · Independent</div>
@@ -928,7 +942,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
 
-    <div class="detail">
+    <div class="detail" id="earnings-analysis-ai-agent">
       <h3>Earnings Analysis AI Agent</h3>
       <div class="sub">Autonomous LangGraph agent · validate in code, retry with feedback, human-approve</div>
       <p>An autonomous "earnings analyst" built as a self-directed project (2026): give it a ticker and it fetches live earnings data, decides on its own how to parse it, extracts revenue and EPS, validates the numbers with deterministic code, retries on failure with the errors fed into the next prompt, and pauses for human approval before shipping a beat/miss summary. It demonstrates the part of AI engineering that matters in production — not calling a model, but making its output trustworthy. Being rolled into the portfolio-analysis platform as its earnings-analysis module, scoped to public earnings data only.</p>
@@ -954,6 +968,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           <button class="demo-btn" type="button" data-agent="reject" hidden>Reject</button>
           <button class="demo-btn" type="button" data-agent="restart">Restart</button>
         </div>
+        <a class="print-only demo-live" href="https://kaejhee.github.io/portfolio/#demo-agent">Try it live: kaejhee.github.io/portfolio/#demo-agent</a>
       </div>
       <h4>What's unique</h4>
       <ul>
@@ -979,7 +994,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
 
-    <div class="detail">
+    <div class="detail" id="ghost-strategies-portfolio-terminal">
       <h3>Ghost Strategies Portfolio Terminal</h3>
       <div class="sub">Bloomberg-style RIA portfolio analysis · client-side engine + Cloudflare Worker + Python ingest · v1.6</div>
       <p>An internal terminal for reviewing client portfolios against target allocations and the current market environment, built for a registered investment advisory practice with privacy as a hard constraint: holdings are parsed and computed in the browser, nothing but the client name and proxy settings touches browser storage, and the only network traffic is an explicit, button-triggered call to the firm's own proxy. It is a sibling of Wealth Compass — the same client-side architecture, pointed at portfolio analytics instead of planning — and grew from v1.0 to v1.6 across a multi-session build driven by written handoff specifications with phased build orders, acceptance tests, and mock fixtures for keyless development.</p>
@@ -1010,6 +1025,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         </div>
         <div class="demo-status ok" data-num="gap" role="status"></div>
         <div class="vol-formula">σₚ = √( Σᵢ Σⱼ wᵢ wⱼ σᵢ σⱼ ρᵢⱼ ) · σ: US 16%, Intl 17%, Bonds 6% · ρ: US/Intl 0.80, US/Bonds 0.20, Intl/Bonds 0.25</div>
+        <a class="print-only demo-live" href="https://kaejhee.github.io/portfolio/#demo-vol">Try it live: kaejhee.github.io/portfolio/#demo-vol</a>
       </div>
       <h4>Key features</h4>
       <ul>
@@ -1039,7 +1055,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
 
-    <div class="detail">
+    <div class="detail" id="economic-indicators-terminal">
       <h3>Economic Indicators Terminal</h3>
       <div class="sub">Bloomberg-style macro dashboard · grounded LLM research desk · single HTML file · v2.2</div>
       <p>A dark, data-dense economic terminal with seven views — Overview, CPI detail, PPI detail, employment, projections, a correlation matrix, and a News &amp; Analysis research desk — in one HTML file of about 3,900 lines. It boots from an embedded snapshot of official releases and can replace the headline series with live FRED when a key is saved. The correlation matrix is computed in the page from the quarterly levels it is showing. Chart.js 4.4.1 ships in the repo, so the charts render without the CDN. The research desk follows one rule: <em>the model never supplies a number that gets charted. Statistics are computed in the page.</em></p>
@@ -1067,7 +1083,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
 
-    <div class="detail">
+    <div class="detail" id="model-bench-terminal">
       <h3>Model Bench Terminal</h3>
       <div class="sub">Blind LLM evaluation bench · model selection as recorded evidence</div>
       <p>A single-file evaluation bench that turns model selection from vibes into recorded evidence. One prompt broadcasts to 2–4 models chosen from a live catalog of ~340; responses stream side by side with live time-to-first-token, throughput, and cost; quality ratings are collected <em>blind</em> (panes shuffled and anonymized until the rating locks); and every run writes a schema-versioned ledger row to IndexedDB, accumulating a private leaderboard of win rates by task tag with a cost-vs-win-rate scatter. The models that earn default slots in the other Ghost tools now earn them on the record.</p>
@@ -1091,7 +1107,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
 
-    <div class="detail">
+    <div class="detail" id="training-terminal">
       <h3>Training Terminal</h3>
       <div class="sub">Gamified four-language coding terminal · Python, SQL, JavaScript, Rust</div>
       <p>A single-file, browser-based coding terminal (xterm.js) for practicing Python, SQL, JavaScript, and Rust. Runs real Python through Pyodide, real SQL through sql.js against a seeded relational database, and grades JavaScript inside a network- and storage-stripped Web Worker sandbox; Rust is graded by a literal-preserving structural matcher that accepts equivalent syntax. 200 curated questions — 50 per track across five gated tiers (Introductory, Amateur, Intermediate, Experienced, Master), 10 questions per gate — with localStorage-persisted progression and live tier and engine-status KPIs.</p>
@@ -1113,7 +1129,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
 
-    <div class="detail">
+    <div class="detail" id="ghost-lead-terminal">
       <h3>Ghost Lead Terminal</h3>
       <div class="sub">Single-file CRM · pipeline, outreach, and a validated import gate</div>
       <p>A single-file HTML CRM that runs the practice's client pipeline end to end: a kanban board by stage, a sortable table with a full record drawer, a Today view for due and stale follow-ups, and a dashboard with honest funnel math. Data lives in a synced JSON file — no backend, no vendor lock — with conflict-merge prompts when two devices disagree. Agent-produced lead batches can only enter through a validated import gate, and outreach ships through a template system with a Gmail handoff and an explicit send-confirmation step, so nothing leaves without a human action.</p>
@@ -1134,7 +1150,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
 
-    <div class="detail">
+    <div class="detail" id="agent-operated-practice">
       <h3>Agent-Operated Practice</h3>
       <div class="sub">Operating model · a one-person practice run on a governed agent fleet</div>
       <p>Ghost Strategies runs its operations — research, drafting, content preparation, and tooling — on a fleet of AI agents spanning multiple runtimes (Claude Code and Cowork among them, including a self-hosted research agent), designed around one constraint: the owner's review minutes are the bottleneck, so every lane minimizes them rather than maximizing agent output. Total planned operating overhead: about 80 minutes a week.</p>
@@ -1156,7 +1172,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
 
-    <div class="detail">
+    <div class="detail" id="wealth-compass-terminal">
       <h3>Wealth Compass Terminal</h3>
       <div class="sub">Client-side financial planning dashboard</div>
       <p>A client-facing financial planning dashboard that parses a 13-sheet workbook with 755 formulas entirely client-side. All data stays on the user's device. No backend, no data transmission, no model exposure to client information.</p>
@@ -1169,13 +1185,13 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
 
-    <div class="detail">
+    <div class="detail" id="ai-assisted-financial-modeling-suite">
       <h3>AI-Assisted Financial Modeling Suite</h3>
       <div class="sub">Dynamic financial engines built with Claude</div>
       <p>A separate workstream under Ghost Strategies focused on financial modeling rather than terminal apps. Includes a probability-weighted valuation model and a $3M TRS retirement planner. I own the financial logic and architecture while directing Claude to generate the code. Every output is validated against standard financial formulas before being trusted, and I only prompt with test or sample data to keep any real client information out of the model.</p>
     </div>
 
-    <div class="detail">
+    <div class="detail" id="garage-terminal">
       <h3>Garage Terminal</h3>
       <div class="sub">Multi-asset tracker · Python FastAPI backend</div>
       <p>A personal asset tracking terminal with a Python FastAPI backend and an automated data pipeline using GitHub Actions for weekly serverless CI/CD workflows. Pulls valuation data, refreshes the dashboard, and exposes a clean read API.</p>
@@ -1314,7 +1330,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         </div>
         <div class="contact-item">
           <div class="contact-label">Phone</div>
-          <div class="contact-value">832-233-9437</div>
+          <div class="contact-value"><a href="tel:+18322339437">832-233-9437</a></div>
         </div>
         <div class="contact-item">
           <div class="contact-label">LinkedIn</div>
@@ -1353,22 +1369,118 @@ function el(tag, cls, text) {
   return n;
 }
 
+const TAB_NAMES = { overview: 'Overview', toast: 'Toast Work', ghost: 'Ghost Strategies', about: 'About', contact: 'Contact' };
+let scrollGoal = null, scrollGoalAt = 0, userMoved = false;
+
 // Tab switching
 function showTab(tab, scrollTop = true) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    const on = b.dataset.tab === tab;
+    b.classList.toggle('active', on);
+    if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+  });
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + tab));
+  document.title = tab === 'overview' ? 'Kristopher Gallow · Portfolio' : TAB_NAMES[tab] + ' · Kristopher Gallow';
+  // Keep the active tab visible when the tab bar overflows on narrow screens
+  const bar = document.querySelector('.tab-bar'), a = bar.querySelector('.tab-btn.active');
+  if (a && bar.scrollWidth > bar.clientWidth) {
+    const x = a.offsetLeft - bar.offsetLeft;
+    if (x < bar.scrollLeft || x + a.offsetWidth > bar.scrollLeft + bar.clientWidth) bar.scrollLeft = x - 24;
+  }
+  // A tab switch smooth-scrolls to the top; remember the destination so a quick
+  // second click saves where the reader was headed, not a mid-animation position
+  scrollGoal = scrollTop && window.scrollY > 0 ? 0 : null;
+  scrollGoalAt = performance.now();
   if (scrollTop) window.scrollTo({top: 0, behavior: REDUCED_MOTION ? 'auto' : 'smooth'});
 }
+
+// Addresses: every tab (#toast) and project or demo (#funding-verification-tool) has a URL,
+// so Back, Forward, refresh, and shared links land in the right place
+const isTab = key => Object.prototype.hasOwnProperty.call(TAB_NAMES, key);
+function hashKey() {
+  try { return decodeURIComponent(location.hash.slice(1)); } catch (e) { return ''; }
+}
+// The goal only stands in for scrollY while that one smooth scroll is still running
+const goalY = () => scrollGoal != null && performance.now() - scrollGoalAt < 1500 ? scrollGoal : null;
+function saveState(extra) {
+  try { history.replaceState(Object.assign({}, history.state, { y: goalY() ?? window.scrollY }, extra), ''); } catch (e) {}
+}
+function reveal(t, instant) {
+  scrollGoal = null;
+  t.scrollIntoView({ behavior: instant || REDUCED_MOTION ? 'auto' : 'smooth', block: 'start' });
+  t.classList.remove('jump-flash'); void t.offsetWidth; t.classList.add('jump-flash');
+  if (t.tabIndex < 0) t.setAttribute('tabindex', '-1');
+  t.focus({ preventScroll: true });
+}
+function route(o = {}) {
+  const key = hashKey();
+  const tabKey = isTab(key);
+  const t = key && !tabKey ? document.getElementById(key) : null;
+  const panel = t && t.closest('.tab-panel');
+  const tab = tabKey ? key : panel ? panel.id.slice(4) : 'overview';
+  const had = document.activeElement;
+  showTab(tab, !panel && o.y == null && !o.instant);
+  if (o.y != null) {
+    window.scrollTo(0, o.y);
+    if (o.f && o.f.getClientRects().length) { o.f.focus({ preventScroll: true }); return; }
+  } else if (panel) {
+    requestAnimationFrame(() => reveal(t, o.instant));
+    return;
+  }
+  // Focus sat inside a panel that just closed: hand it to the new panel rather than dropping it to <body>
+  if (had && had !== document.body && !had.getClientRects().length) {
+    const p = document.getElementById('tab-' + tab);
+    p.setAttribute('tabindex', '-1');
+    p.focus({ preventScroll: true });
+  }
+}
+// Each history entry remembers its scroll position and, for this session, the element that had focus
+const leftFrom = new Map();
+const SESSION = Math.random().toString(36).slice(2);
+let navSeq = 0;
+function setUrl(key) {
+  const want = key && key !== 'overview' ? '#' + key : '';
+  if (location.hash === want) return;
+  const k = SESSION + ':' + (++navSeq);
+  leftFrom.set(k, document.activeElement);
+  saveState({ k });
+  history.pushState(null, '', want || location.pathname + location.search);
+}
+function nav(key) { setUrl(key); route(); }
+
+let saveTimer, lastY = window.scrollY;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  // Arrived, or something moved the page away from the goal: the reader's position is real again
+  if (scrollGoal != null && (Math.abs(y - scrollGoal) < 1 || Math.abs(y - scrollGoal) > Math.abs(lastY - scrollGoal))) scrollGoal = null;
+  lastY = y;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => saveState(), 150);
+}, { passive: true });
+['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(ev =>
+  window.addEventListener(ev, () => { scrollGoal = null; userMoved = true; }, { passive: true }));
+
 document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => showTab(btn.dataset.tab));
+  btn.addEventListener('click', () => nav(btn.dataset.tab));
 });
 
 // Inline tab links (e.g., "Get in touch" in hero)
 document.querySelectorAll('[data-tab-link]').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
-    showTab(link.dataset.tabLink);
+    nav(link.dataset.tabLink);
   });
+});
+
+// In-page #links (Featured titles and any future ones) route instead of jumping;
+// modifier-clicks fall through so Cmd/Ctrl-click still opens a new tab
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  const key = a.getAttribute('href').slice(1);
+  if (!key) return;
+  e.preventDefault();
+  nav(key);
 });
 
 // ── Featured work: skill filter chips ──
@@ -1571,7 +1683,9 @@ document.querySelectorAll('[data-tab-link]').forEach(link => {
     const steps = SCENARIOS[scenario].steps;
     setGate(false);
     if (approved) {
-      line({ node: 'synthesize', tag: 'synthesize', text: `Revenue $4.20B, EPS $1.31. Extraction validation in ${SCENARIOS[scenario].attempts} attempt(s).`, cls: 'ok' });
+      const n = SCENARIOS[scenario].attempts;
+      const check = n === 0 ? 'Validated on the fast path, no model call.' : `Extraction validation in ${n} attempt(s).`;
+      line({ node: 'synthesize', tag: 'synthesize', text: `Revenue $4.20B, EPS $1.31. ${check}`, cls: 'ok' });
       highlight(steps, i, 'synthesize');
     } else {
       line({ text: 'Rejected. Nothing shipped.', cls: 'err' });
@@ -1667,7 +1781,6 @@ document.querySelectorAll('[data-tab-link]').forEach(link => {
   const kbd = openBtn.querySelector('.jump-kbd');
   if (window.matchMedia('(pointer: coarse)').matches || window.matchMedia('(hover: none)').matches) kbd.textContent = 'Search';
   else if (!isMac) kbd.textContent = 'Ctrl K';
-  const TAB_NAMES = { overview: 'Overview', toast: 'Toast Work', ghost: 'Ghost Strategies', about: 'About', contact: 'Contact' };
 
   // Index built from the page itself, so it never drifts from the content
   const items = [];
@@ -1753,18 +1866,15 @@ document.querySelectorAll('[data-tab-link]').forEach(link => {
   function close() {
     input.blur();
     overlay.hidden = true;
-    if (lastFocus && lastFocus !== document.body && lastFocus.focus) lastFocus.focus();
+    if (lastFocus && lastFocus !== document.body && lastFocus.focus) lastFocus.focus({ preventScroll: true });
   }
   function go(it) {
     close();
-    showTab(it.tab, !it.target);
-    if (!it.target) return;
-    requestAnimationFrame(() => {
-      it.target.scrollIntoView({ behavior: REDUCED_MOTION ? 'auto' : 'smooth', block: 'start' });
-      it.target.classList.remove('jump-flash');
-      void it.target.offsetWidth;
-      it.target.classList.add('jump-flash');
-    });
+    if (!it.target || it.target.id) { nav(it.target ? it.target.id : it.tab); return; }
+    // Targets without an id (About section labels, resume button): address the tab, then scroll
+    setUrl(it.tab);
+    showTab(it.tab, false);
+    requestAnimationFrame(() => reveal(it.target));
   }
 
   openBtn.addEventListener('click', open);
@@ -1783,6 +1893,26 @@ document.querySelectorAll('[data-tab-link]').forEach(link => {
     else if (e.key === '/' && !typing && overlay.hidden) { e.preventDefault(); open(); }
   });
 })();
+
+// Route last, so race bars and demos are rendered before we scroll to them
+history.scrollRestoration = 'manual';
+window.addEventListener('popstate', e => {
+  const s = e.state || {};
+  route({ y: s.y, f: s.k != null ? leftFrom.get(s.k) : null });
+});
+// A reload returns to the reading position; a fresh visit routes to the address
+const savedY = history.state && history.state.y;
+route(savedY != null ? { y: savedY } : { instant: true });
+// Web fonts can shift layout after a deep-link landing: re-align once, unless the reader has already moved
+if (savedY == null && location.hash && document.fonts) {
+  const landed = location.hash;
+  document.fonts.ready.then(() => {
+    if (userMoved || location.hash !== landed) return;
+    const key = hashKey();
+    const t = !isTab(key) && document.getElementById(key);
+    if (t && t.closest('.tab-panel')) t.scrollIntoView({ block: 'start' });
+  });
+}
 </script>
 
 </body>
