@@ -251,7 +251,18 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .lookup-step.ok { color: var(--green); background: var(--green-light); border-color: var(--green-border); }
 .lookup-step.fail { color: #B42318; background: #FDECEC; border-color: #F5C2C2; }
 .lookup-dir { margin-top: 12px; }
+.demo-why { font-size: 12px; color: var(--text-2); margin-bottom: 10px; }
+.demo-why .ph, .arrival .ph { color: var(--orange); font-weight: 600; }
+.arrival { margin-bottom: 14px; }
 .lookup-dir caption { caption-side: top; text-align: left; font-size: 11px; color: var(--text-3); padding-bottom: 6px; }
+.arrival td.act { width: 1%; white-space: nowrap; text-align: right; }
+.arrival .fill-btn { font-size: 11px; padding: 2px 10px; }
+.arrival td.bank.filled { color: var(--green); animation: fillflash 1.2s ease-out; }
+@keyframes fillflash { from { background: var(--green-light); } to { background: var(--surface); } }
+.arrival tr.working td { background: var(--toast-light); }
+.arrival-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; font-size: 11px; color: var(--text-3); }
+.arrival .was { display: block; font-size: 10px; color: var(--text-3); }
+.demo-sub { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); margin-bottom: 8px; }
 .lookup-dir tr.hit td { background: var(--green-light); color: var(--green); }
 
 /* Agent run replay */
@@ -325,14 +336,17 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 @media (prefers-reduced-motion: reduce) {
   .jump-flash { animation: none; }
   .vol-track span, .chip, .loop-step { transition: none; }
+  .arrival td.bank.filled { animation: none; }
 }
 @media print {
-  .filter-bar, .jump-btn, .jump-overlay, .race-btn, .demo-controls { display: none !important; }
+  .filter-bar, .jump-btn, .jump-overlay, .race-btn, .demo-controls, .fill-btn, .sim-btn, .demo-sub { display: none !important; }
   .project.is-hidden { display: block !important; }
   .loop-panel[hidden] { display: block !important; }
   .project-link::after { content: none; }
   .hero-link[download] { display: none !important; }
   .print-only { display: block !important; }
+  .arrival td.act { width: auto; text-align: left; }
+  .fill-after { color: var(--green); font-weight: 600; }
   .demo-live { margin-top: 10px; font-size: 11px; color: var(--text-2); text-decoration: underline; text-decoration-color: var(--text-3); text-underline-offset: 2px; }
 }
 @media (max-width: 700px) {
@@ -678,6 +692,17 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           <div class="demo-title">Routing-number lookup</div>
           <div class="demo-note">A handful of real routing numbers. The real tool searches the Fed's full FedACH directory through a local Python service.</div>
         </div>
+        <p class="demo-why"><b>Why it exists:</b> funding files often arrive with a real routing number but no bank name. The Bank column reads <span class="ph">Unavailable</span>, <span class="ph">External</span>, or <span class="ph">UNKNOWN</span>, and each one used to mean a manual search to find the bank. Now the tool looks it up in place.</p>
+        <div class="arrival-head"><span>A funding file as it arrives</span><button class="demo-btn primary sim-btn" type="button" data-simulate>▶ Simulate the fill</button></div>
+        <table class="mockup-table arrival">
+          <thead><tr><th>Routing</th><th>Bank</th><th><span class="sr-only">Action</span><span class="print-only">After lookup</span></th></tr></thead>
+          <tbody>
+            <tr><td>021000021</td><td class="bank"><span class="ph">Unavailable</span></td><td class="act"><button class="demo-btn fill-btn" type="button" data-fill>Look up</button><span class="print-only fill-after">JPMorgan Chase Bank, NA</span></td></tr>
+            <tr><td>026009593</td><td class="bank"><span class="ph">External</span></td><td class="act"><button class="demo-btn fill-btn" type="button" data-fill>Look up</button><span class="print-only fill-after">Bank of America, N.A.</span></td></tr>
+            <tr><td>121000248</td><td class="bank"><span class="ph">UNKNOWN</span></td><td class="act"><button class="demo-btn fill-btn" type="button" data-fill>Look up</button><span class="print-only fill-after">Wells Fargo Bank, NA</span></td></tr>
+          </tbody>
+        </table>
+        <div class="demo-sub">Or try any routing number</div>
         <div class="demo-controls">
           <label class="sr-only" for="aba-input">Nine-digit routing number</label>
           <input id="aba-input" class="aba-input" type="text" inputmode="numeric" maxlength="9" autocomplete="off" spellcheck="false" value="021000021" aria-describedby="aba-status">
@@ -731,7 +756,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <li>TCA Check subsystem: auto-detects the canonical Toast GUID column per source using a UUID-density times uniqueness score, and matches pasted GUIDs against in-batch records with per-loan and per-merchant dedup modes</li>
         <li>Automatic TCA labeling: rows whose source record already carries the balance-account tag are cross-referenced against the current batch and flagged Toast Checking on load; the paste path is now the exception, not the default, and out-of-batch records are deliberately left alone</li>
         <li>Funding Edits worklist: scans the source funding file for every row still carrying placeholder banking data (unresolved routing and account values, bank names left as a placeholder, and external MCA refi rows), classifies each by type, opens only the cells that type is allowed to edit, and tracks per-row completion so a row clears only once its placeholders are genuinely replaced rather than merely touched. Finished rows export in one click for the tracker</li>
-        <li>Routing-number verification against the FedACH directory: a local Python service loads the Federal Reserve's FedACH and Fedwire directories, so each routing number is confirmed as a real ACH participant and resolved to its bank name, with a public routing API as a fallback. Routing and bank pairs already in the batch file answer first at no cost, results are cached per session, a quick checksum catches mistyped numbers before any lookup, and a configurable routing number is flagged on sight</li>
+        <li>Routing-number verification against the FedACH directory: bank names that arrive as Unavailable, External, or UNKNOWN no longer need a manual search. A local Python service loads the Federal Reserve's FedACH and Fedwire directories, so each routing number is confirmed as a real ACH participant and resolved to its bank name, with a public routing API as a fallback. Routing and bank pairs already in the batch file answer first at no cost, results are cached per session, a quick checksum catches mistyped numbers before any lookup, and a configurable routing number is flagged on sight</li>
         <li>Refi lineage tracking: the External MCA Refi tab links each refi loan to its original (matching the External ID minus its suffix) and highlights the original loans magenta in the XLSX export</li>
         <li>Dual audit export: a multi-sheet XLSX workbook (Ops sheet plus additional audit sheets) and a landscape PDF audit record that reproduces the on-screen match colors and row tints for reviewers who never open the spreadsheet. Both are date-stamped at export</li>
         <li>10-tab structure: Ops SPA Deals (primary output with stat-pill filter shortcuts), four source upload tabs, TCA Check, Refi, External MCA Refi, Manual Overrides, and Funding Edits</li>
@@ -1606,11 +1631,70 @@ document.addEventListener('click', e => {
     if (bank) {
       mark('dir', 'ok');
       rows.find(r => r.cells[0].textContent.trim() === rt).classList.add('hit');
-      show('ok', `Found: ${bank}. Confirmed ACH participant, with its bank name ready to apply.`);
+      show('ok', `Found: ${bank.replace(/\.$/, '')}. Confirmed ACH participant, with its bank name ready to apply.`);
     } else {
       mark('dir', 'fail');
       show('bad', 'Not among this demo\'s directory entries. The real tool searches the full FedACH directory, and a number it does not list for ACH is flagged to confirm eligibility before funding.');
     }
+  }
+  // "As it arrives" rows: each lookup runs the same typo check and directory search as the
+  // box below, then replaces the placeholder in the Bank cell
+  const arrival = [...box.querySelectorAll('.arrival tbody tr')];
+  arrival.forEach(tr => { tr.dataset.was = tr.querySelector('td.bank').textContent.trim(); });
+  const simBtn = box.querySelector('[data-simulate]');
+  const pause = ms => REDUCED_MOTION ? Promise.resolve() : new Promise(r => setTimeout(r, ms));
+  let running = false, played = false;
+
+  function resetArrival() {
+    arrival.forEach(tr => {
+      const cell = tr.querySelector('td.bank');
+      cell.className = 'bank';
+      cell.replaceChildren(el('span', 'ph', tr.dataset.was));
+      const b = tr.querySelector('[data-fill]');
+      b.textContent = 'Look up';
+      b.disabled = false;
+      tr.classList.remove('working');
+    });
+  }
+  async function fillRow(tr) {
+    const cell = tr.querySelector('td.bank'), btn = tr.querySelector('[data-fill]');
+    if (cell.classList.contains('filled')) return;
+    tr.classList.add('working');
+    btn.disabled = true;
+    input.value = tr.cells[0].textContent.trim();
+    check();            // step 1 lights up: typo check
+    await pause(550);
+    lookup();           // step 2 lights up: directory search
+    await pause(400);
+    tr.classList.remove('working');
+    const bank = DIRECTORY.get(input.value);
+    if (!bank) { btn.disabled = false; return; }
+    cell.classList.add('filled');
+    cell.replaceChildren(document.createTextNode(bank), el('span', 'was', 'was ' + tr.dataset.was));
+    btn.textContent = 'Filled';
+  }
+  async function simulate() {
+    if (running) return;
+    running = played = true;
+    simBtn.disabled = true;
+    resetArrival();
+    for (const tr of arrival) { await fillRow(tr); await pause(250); }
+    show('ok', `${arrival.length} bank names filled straight from their routing numbers, with no manual searches.`);
+    simBtn.textContent = '↺ Replay';
+    simBtn.disabled = false;
+    running = false;
+  }
+  box.querySelectorAll('[data-fill]').forEach(btn => btn.addEventListener('click', () => { if (!running) fillRow(btn.closest('tr')); }));
+  simBtn.addEventListener('click', simulate);
+  // Play once, the first time the table is actually on screen in the open Toast tab
+  if ('IntersectionObserver' in window && !REDUCED_MOTION) {
+    const io = new IntersectionObserver(entries => {
+      if (played || !entries.some(e => e.isIntersecting)) return;
+      if (!box.closest('.tab-panel').classList.contains('active')) return;
+      io.disconnect();
+      simulate();
+    }, { threshold: 0.6 });
+    io.observe(box.querySelector('.arrival'));
   }
   input.addEventListener('input', check);
   input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); lookup(); } });
