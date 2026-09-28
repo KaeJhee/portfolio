@@ -1820,6 +1820,7 @@ document.addEventListener('click', e => {
   function setGate(open) {
     btn('approve').hidden = !open;
     btn('reject').hidden = !open;
+    btn('approve').classList.toggle('primary', open);
   }
   function reset(name) {
     scenario = name;
@@ -1837,7 +1838,7 @@ document.addEventListener('click', e => {
     const step = steps[i++];
     line(step);
     highlight(steps, i);
-    if (step.gate) { setGate(true); btn('next').disabled = true; }
+    if (step.gate) { line({ text: 'Approve? (y/n)', cls: 'pause' }); setGate(true); btn('next').disabled = true; }
     if (step.end || i >= steps.length) btn('next').disabled = true;
   }
   function decide(approved) {
@@ -1853,16 +1854,41 @@ document.addEventListener('click', e => {
     }
   }
 
-  box.querySelectorAll('[data-scenario]').forEach(b => b.addEventListener('click', () => reset(b.dataset.scenario)));
-  btn('next').addEventListener('click', next);
-  btn('approve').addEventListener('click', () => decide(true));
-  btn('reject').addEventListener('click', () => decide(false));
-  btn('restart').addEventListener('click', () => reset(scenario));
+  // Autoplay steps through the prose run and stops at the approval gate, so the visitor makes the call
+  let autoTimer = null;
+  function stopAuto() { clearTimeout(autoTimer); autoTimer = null; }
+  function autoplay() {
+    stopAuto();
+    reset('prose');
+    const tick = () => {
+      if (btn('next').disabled) { autoTimer = null; return; }   // reached the gate
+      next();
+      autoTimer = setTimeout(tick, 700);
+    };
+    autoTimer = setTimeout(tick, 400);
+  }
+  // Any click takes over from autoplay
+  const manual = fn => () => { stopAuto(); fn(); };
+  box.querySelectorAll('[data-scenario]').forEach(b => b.addEventListener('click', manual(() => reset(b.dataset.scenario))));
+  btn('next').addEventListener('click', manual(next));
+  btn('approve').addEventListener('click', manual(() => decide(true)));
+  btn('reject').addEventListener('click', manual(() => decide(false)));
+  btn('restart').addEventListener('click', manual(() => reset(scenario)));
 
   // Default view: the prose run played through and approved, so the full trace reads at a glance (and in print)
   reset('prose');
   while (!btn('next').disabled) next();
   decide(true);
+  // The first time it is actually on screen in the open Ghost tab, replay it live up to the gate
+  if ('IntersectionObserver' in window && !REDUCED_MOTION) {
+    let played = false;
+    const io = new IntersectionObserver(entries => {
+      if (played || !entries.some(e => e.isIntersecting)) return;
+      if (!box.closest('.tab-panel').classList.contains('active')) return;
+      played = true; io.disconnect(); autoplay();
+    }, { threshold: 0.5 });
+    io.observe(log);
+  }
 })();
 
 // ── Portfolio volatility: weighted average vs correlation-matrix formula ──
