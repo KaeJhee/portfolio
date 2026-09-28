@@ -340,7 +340,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Independent</div>
         </div>
-        <div class="project-summary">Six production tools built with Anthropic's Claude, plus the practice that runs on them: Wealth Compass (a 13-sheet, 755-formula workbook parsed entirely client-side — no data leaves the device), Training Terminal (real Python, SQL, JavaScript, and Rust execution in the browser, 200 curated questions over five gated tiers), Model Bench Terminal (blind LLM evaluation feeding a cost-vs-win-rate leaderboard that assigns the other tools' model slots), Economic Indicators Terminal (a macro dashboard whose research desk never charts a number the model wrote; the page computes the statistics), Garage Terminal (FastAPI asset tracking with scheduled CI/CD pipelines), and Ghost Lead Terminal (the CRM behind a governed, human-in-the-loop agent operating model).</div>
+        <div class="project-summary">Six production tools built with Anthropic's Claude, plus the practice that runs on them: Wealth Compass (a 13-sheet, 755-formula workbook parsed entirely client-side — no data leaves the device), Training Terminal (SQL, Python, JavaScript, and Rust, 200 questions graded in the page; Rust is checked against a canonical answer and is not compiled), Model Bench Terminal (blind LLM evaluation feeding a cost-vs-win-rate leaderboard that assigns the other tools' model slots), Economic Indicators Terminal (a macro dashboard whose research desk never charts a number the model wrote; the page computes the statistics), Garage Terminal (FastAPI asset tracking with scheduled CI/CD pipelines), and Ghost Lead Terminal (the CRM behind a governed, human-in-the-loop agent operating model).</div>
         <div class="project-meta">
           <span><b>Stack</b>Python, FastAPI, JavaScript, Pyodide, sql.js</span>
           <span><b>Discipline</b>I own the logic, the LLM writes the code, I validate every output</span>
@@ -863,14 +863,14 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
     <div class="detail">
       <h3>Training Terminal</h3>
-      <div class="sub">Gamified four-language coding terminal · Python, SQL, JavaScript, Rust</div>
-      <p>A single-file, browser-based coding terminal (xterm.js) for practicing Python, SQL, JavaScript, and Rust. Runs real Python through Pyodide, real SQL through sql.js against a seeded relational database, and grades JavaScript inside a network- and storage-stripped Web Worker sandbox; Rust is graded by a literal-preserving structural matcher that accepts equivalent syntax. 200 curated questions — 50 per track across five gated tiers (Introductory, Amateur, Intermediate, Experienced, Master), 10 questions per gate — with localStorage-persisted progression and live tier and engine-status KPIs.</p>
+      <div class="sub">Browser coding trainer · SQL, Python, JavaScript, Rust</div>
+      <p>A browser coding terminal (xterm.js) for SQL, Python, JavaScript, and Rust. 200 questions — 50 per track across five gated tiers (Introductory, Amateur, Intermediate, Experienced, Master), 10 questions per gate — are graded in the page. SQL runs through sql.js against a seeded database that is rebuilt between the answer and the expected query. Python runs through Pyodide in a worker, loaded only when that track starts. JavaScript answers run in a fresh worker. Network and storage APIs are deleted on the worker global and its prototypes before the answer runs, and the page's Content-Security-Policy limits connections to this site and jsDelivr. It is a practice sandbox, not a sealed one, and not a place to paste secrets. Rust is checked against a canonical answer after whitespace, comments, and a few equivalent spellings are normalized. It is not compiled. Progress, attempts, accuracy, and streak stay in localStorage, with a this-session clock and an engine-status header. Educational coding tool, not investment advice.</p>
       <h4>What's unique</h4>
       <ul>
-        <li>Four grading paths in one static file: Pyodide (Python), sql.js on a seeded auto-rebuilt database (SQL), an isolated Web Worker with network and storage APIs removed (JavaScript), and a structural normalizer with a syntax-equivalence system (Rust)</li>
+        <li>Four grading paths, all in the page: sql.js on a seeded database rebuilt between the answer and the expected query (SQL), Pyodide in a worker that loads only for that track (Python), a fresh Web Worker per JavaScript attempt, and a canonical-string compare for Rust, with no compiler in the page</li>
         <li>Real xterm.js REPL: a command bar (start, hint, concepts, cheatsheet, examples, schema, reset, export/import), multi-line editing, command history, and emacs-style key bindings</li>
         <li>Learning layer baked in — per-tier concepts auto-surface on first entry, a toggleable cheatsheet panel, worked examples, and per-question hints</li>
-        <li>200 questions reviewed and calibrated by concept and difficulty; 10-question tier gates force mastery before the next rank unlocks, all persisted with no backend</li>
+        <li>Written with AI coding agents and checked by programs: CI grades the SQL, Python, and JavaScript answer keys in the real engines, and Rust's 319 accept/reject cases run through the same grader the page uses. Ten-question gates unlock the next rank. Progress stays in this browser, with no backend</li>
       </ul>
       <h4>Stack</h4>
       <div class="stack">
