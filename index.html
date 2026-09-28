@@ -14,13 +14,13 @@
   /* Toast orange (Toast section) */
   --toast: #FF6B00; --toast-dark: #D95A00; --toast-light: #FFF4EC; --toast-border: #FFCCA3;
 
-  /* Ghost Strategies — deep indigo */
+  /* Ghost Strategies: deep indigo */
   --ghost: #4338CA; --ghost-dark: #3730A3; --ghost-light: #EEF0FE; --ghost-border: #C7CBF2;
 
-  /* About — warm amber */
+  /* About: warm amber */
   --about: #B45309; --about-dark: #92400E; --about-light: #FEF6E4; --about-border: #F3D7A8;
 
-  /* Contact — fresh teal */
+  /* Contact: fresh teal */
   --contact: #0F766E; --contact-dark: #115E59; --contact-light: #E6F4F3; --contact-border: #A3D5CF;
 
   --bg: #F4F3F0; --surface: #FFFFFF; --surface-2: #F9F8F6; --border: #E5E4E0;
@@ -147,7 +147,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 /* ── Footer ── */
 .footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; font-size: 12px; color: var(--text-3); }
 
-/* ── Section themes — color hero, icons, and detail headings per section ── */
+/* ── Section themes: color hero, icons, and detail headings per section ── */
 .theme-toast .hero-icon, .theme-toast .project-icon { background: var(--toast-light); border-color: var(--toast-border); color: var(--toast); }
 .theme-toast .eyebrow { color: var(--toast); }
 .theme-toast .detail h3 { color: var(--toast-dark); }
@@ -198,7 +198,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .jump-item.sel { background: var(--accent-light); }
 .jump-empty { padding: 14px; font-size: 13px; color: var(--text-3); }
 .jump-foot { display: flex; gap: 14px; flex-wrap: wrap; border-top: 1px solid var(--border); padding: 8px 14px; font-size: 11px; color: var(--text-3); }
-.detail, .about-card, .sec, .demo, .project, .hero { scroll-margin-top: 64px; }
+.detail, .about-card, .sec, .demo, .project, .hero, .ghost-note { scroll-margin-top: 64px; }
 .jump-flash { animation: jumpflash 1.6s ease-out; }
 @keyframes jumpflash { 0% { box-shadow: 0 0 0 4px var(--accent-border); } 100% { box-shadow: 0 0 0 4px transparent; } }
 
@@ -243,15 +243,16 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .demo-status.ok { background: var(--green-light); border-color: var(--green-border); color: var(--green); }
 .demo-status.bad { background: #FDECEC; border-color: #F5C2C2; color: #B42318; }
 
-/* Routing-number checksum */
+/* Routing-number lookup */
 .aba-input { font-family: var(--mono); font-size: 16px; letter-spacing: 0.2em; width: 156px; padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); }
 .aba-input:focus { outline: 2px solid var(--toast-border); outline-offset: 1px; }
-.aba-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 4px; margin-top: 12px; }
-.aba-col { display: flex; flex-direction: column; align-items: center; padding: 6px 0; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; font-family: var(--mono); }
-.aba-d { font-size: 15px; font-weight: 600; color: var(--text); }
-.aba-w { font-size: 10px; color: var(--toast-dark); }
-.aba-p { font-size: 11px; color: var(--text-2); border-top: 1px dashed var(--border); margin-top: 3px; padding-top: 2px; width: 70%; text-align: center; }
-.aba-legend { font-size: 11px; color: var(--text-3); margin-top: 8px; }
+.lookup-path { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-top: 12px; font-family: var(--mono); font-size: 11px; }
+.lookup-step { padding: 3px 8px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); color: var(--text-3); }
+.lookup-step.ok { color: var(--green); background: var(--green-light); border-color: var(--green-border); }
+.lookup-step.fail { color: #B42318; background: #FDECEC; border-color: #F5C2C2; }
+.lookup-dir { margin-top: 12px; }
+.lookup-dir caption { caption-side: top; text-align: left; font-size: 11px; color: var(--text-3); padding-bottom: 6px; }
+.lookup-dir tr.hit td { background: var(--green-light); color: var(--green); }
 
 /* Agent run replay */
 .agent-rail { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-bottom: 10px; font-family: var(--mono); font-size: 11px; }
@@ -299,6 +300,20 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .about-card .loop-panel p.loop-example { font-size: 13px; margin-bottom: 0; }
 .loop-example b { color: var(--about-dark); }
 
+/* ── Ghost Strategies practice note (context, not a tool) ── */
+.ghost-note { background: var(--ghost-light); border: 1px solid var(--ghost-border); border-radius: var(--radius-lg); padding: 18px 22px; margin-bottom: 28px; }
+.ghost-note-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ghost-dark); margin-bottom: 6px; }
+.ghost-note p { font-size: 13px; color: var(--text-2); margin-bottom: 8px; }
+.ghost-note ul { list-style: none; }
+.ghost-note li { font-size: 13px; color: var(--text-2); margin-bottom: 5px; padding-left: 16px; position: relative; }
+.ghost-note li::before { content: '·'; position: absolute; left: 4px; color: var(--ghost); font-weight: 700; }
+
+/* ── Source links (public repos) ── */
+.source-row { margin: -8px 0 14px; }
+.source-link { font-family: var(--mono); font-size: 11px; color: var(--text-2); text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
+.source-link:hover, .source-link:focus-visible { color: var(--text); text-decoration-color: var(--text-3); }
+.theme-ghost .source-link:hover { color: var(--ghost); }
+
 /* ── Addresses and links ── */
 [tabindex="-1"]:focus:not(:focus-visible) { outline: none; }
 .project-link { color: inherit; text-decoration: none; }
@@ -321,8 +336,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   .demo-live { margin-top: 10px; font-size: 11px; color: var(--text-2); text-decoration: underline; text-decoration-color: var(--text-3); text-underline-offset: 2px; }
 }
 @media (max-width: 700px) {
-  .aba-grid { gap: 3px; }
-  .aba-d { font-size: 13px; }
   .demo { padding: 14px 12px; }
   .vol-sliders { grid-template-columns: 1fr; }
   .vol-row { grid-template-columns: 1fr 52px; }
@@ -369,7 +382,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <div>
         <div class="eyebrow">Portfolio</div>
         <h1>Kristopher Gallow</h1>
-        <p>AI-native operator and systems builder. Senior Capital Underwriter with a Process Automation focus at Toast, now on its Non-R&amp;D AI Initiatives team, plus seven LLM-powered terminals shipped through Ghost Strategies LLC.</p>
+        <p>AI-native operator and systems builder. Senior Capital Underwriter with a Process Automation focus at Toast, now on its Non-R&amp;D AI Initiatives team, plus nine LLM-powered tools shipped through Ghost Strategies LLC.</p>
         <div class="hero-links">
           <a class="hero-link" href="#" data-tab-link="contact">Get in touch</a>
           <a class="hero-link" href="Gallow_K_Resume.pdf" download>Resume (PDF)</a>
@@ -385,7 +398,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="stat-lbl">Years in financial services</div>
       </div>
       <div class="stat">
-        <div class="stat-val" style="color: var(--ghost);">15</div>
+        <div class="stat-val" style="color: var(--ghost);">17</div>
         <div class="stat-lbl">Production tools shipped</div>
       </div>
       <div class="stat">
@@ -416,7 +429,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Independent</div>
         </div>
-        <div class="project-summary">A LangGraph state machine that behaves like an analyst, not a script: a router inspects each earnings release at run time and sends clean data down a free deterministic path while messy prose goes to the LLM. Every extracted figure is validated by real code — failures loop back with the errors injected into the retry prompt, capped at three attempts before failing loud to a human. Nothing ships without explicit approval; the graph pauses to ask. Live market data flows in from multiple providers — yfinance, Alpha Vantage, and Polygon.</div>
+        <div class="project-summary">A LangGraph state machine that behaves like an analyst, not a script: a router inspects each earnings release at run time and sends clean data down a free deterministic path while messy prose goes to the LLM. Every extracted figure is validated by real code. Failures loop back with the errors injected into the retry prompt, capped at three attempts before failing loud to a human. Nothing ships without explicit approval; the graph pauses to ask. Live market data flows in from multiple providers: yfinance, Alpha Vantage, and Polygon.</div>
         <div class="project-meta">
           <span><b>Stack</b>Python, LangGraph, LangChain, OpenRouter</span>
           <span><b>Design</b>Code-validated · bounded retries · human-approved</span>
@@ -448,7 +461,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">The team's 700+ row spreadsheet became a full application without leaving Google Workspace: a live case table with optimistic-UI edits, 15+ chart analytics including a cohort-bucketed Bizops funnel that separates queue-wait from rep turnaround, and a per-rep diagnostics panel that reconciles dashboard counts against raw sheet countifs. It now largely runs itself — nightly auto-expiry and monthly history snapshots on scheduled triggers, a Needs Attention queue for slipping cases, and no-code configuration so team leads administer everything from Settings without a developer in the loop.</div>
+        <div class="project-summary">The team's 700+ row spreadsheet became a full application without leaving Google Workspace: a live case table with optimistic-UI edits, 15+ chart analytics including a cohort-bucketed Bizops funnel that separates queue-wait from rep turnaround, and a per-rep diagnostics panel that reconciles dashboard counts against raw sheet countifs. It now largely runs itself: nightly auto-expiry and monthly history snapshots on scheduled triggers, a Needs Attention queue for slipping cases, and no-code configuration so team leads administer everything from Settings without a developer in the loop.</div>
         <div class="project-meta">
           <span><b>Stack</b>Apps Script, JavaScript, Tailwind, Chart.js (2 custom plugins)</span>
           <span><b>Users</b>10</span>
@@ -464,7 +477,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">A single HTML file that replaced a fragile VLOOKUP chain: drag in four source files and a hash-join engine reconciles hundreds of thousands of rows in milliseconds across ten tabs, with processor-specific match logic isolated in code instead of formulas. Large bank files parse through a persistent three-worker pool with zero-copy transfers, and exports edit a bundled template's XML at runtime so the master sheet's conditional formatting survives. Successive automation passes then closed the manual gaps: a worklist that finds every row still carrying placeholder banking data, routing numbers checksum-validated and resolved to bank names in-app, and account flags applied straight from the source file instead of by hand. A 20–35 minute batch became 40 seconds.</div>
+        <div class="project-summary">A single HTML file that replaced a fragile VLOOKUP chain: drag in four source files and a hash-join engine reconciles hundreds of thousands of rows in milliseconds across ten tabs, with processor-specific match logic isolated in code instead of formulas. Large bank files parse through a persistent three-worker pool with zero-copy transfers, and exports edit a bundled template's XML at runtime so the master sheet's conditional formatting survives. Successive automation passes then closed the manual gaps: a worklist that finds every row still carrying placeholder banking data, routing numbers verified against the Federal Reserve's FedACH directory and resolved to bank names in-app, and account flags applied straight from the source file instead of by hand. A 20–35 minute batch became 40 seconds.</div>
         <div class="race" data-race="fv"></div>
         <div class="project-meta">
           <span><b>Stack</b>Vanilla JavaScript, SheetJS, custom RFC 4180 parser</span>
@@ -481,7 +494,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">Four client-side tools sharing one parse/classify engine so results never diverge: a lien docket dashboard that de-dupes and type-classifies UCC &amp; tax-lien filings with per-row badges, in-page bookmarklets running the identical engine against the logged-in data provider, a color-coded application-routing advisor, and a collections extractor that defeats an AG-Grid's row and column virtualization by stitching cells into whole rows by stable column ID — with a paste fallback that parses multi-line, JSON-valued cells. All in-browser, nothing transmitted; part of a toolset that cut review time ~60%.</div>
+        <div class="project-summary">Three client-side tools: a lien docket tool that de-dupes and type-classifies UCC &amp; tax-lien filings with per-row badges, shipped as both a dashboard and an in-page bookmarklet that run the identical parse/classify engine so results never diverge (the bookmarklet runs it against the logged-in data provider); a color-coded application-routing advisor; and a collections extractor that defeats an AG-Grid's row and column virtualization by stitching cells into whole rows by stable column ID, with a paste fallback that parses multi-line, JSON-valued cells. All in-browser, nothing transmitted; part of a toolset that cut review time ~60%.</div>
         <div class="project-meta">
           <span><b>Stack</b>React, Vanilla JS, Bookmarklets</span>
           <span><b>Impact</b>Part of a toolset that cut review time ~60%</span>
@@ -497,7 +510,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">Plain English in, Snowflake SQL out — with a teaching layer that maps each phrase of the request to the exact clause it became, so non-analysts learn while the ad-hoc-query bottleneck on senior analysts disappears. Under the hood: one normalized contract over nine LLM providers with live model discovery (new models appear with zero code changes), a single effort control translated per model family into three different reasoning mechanisms, and a token-gated, fail-closed proxy that sends only schema metadata — never a row of data. The same engine ships three ways: web app (including a fully local Ollama mode), Cowork skill, and a claude.ai artifact that bills the viewer's own subscription.</div>
+        <div class="project-summary">Plain English in, Snowflake SQL out. A teaching layer maps each phrase of the request to the exact clause it became, so non-analysts learn while the ad-hoc-query bottleneck on senior analysts disappears. Under the hood: one normalized contract over nine LLM providers with live model discovery (new models appear with zero code changes), a single effort control translated per model family into three different reasoning mechanisms, and a token-gated, fail-closed proxy that sends only schema metadata, never a row of data. The same engine ships three ways: web app (including a fully local Ollama mode), Cowork skill, and a claude.ai artifact that bills the viewer's own subscription.</div>
         <div class="project-meta">
           <span><b>Stack</b>Vanilla JS, Cloudflare Workers, 9-provider LLM proxy, Ollama</span>
           <span><b>Forms</b>Web app · Cowork skill · Claude artifact</span>
@@ -513,9 +526,9 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Independent</div>
         </div>
-        <div class="project-summary">Six production tools built with Anthropic's Claude, plus the practice that runs on them: Wealth Compass (a 13-sheet, 755-formula workbook parsed entirely client-side — no data leaves the device), Training Terminal (real Python, SQL, JavaScript, and Rust execution in the browser, 200 curated questions over five gated tiers), Model Bench Terminal (blind LLM evaluation feeding a cost-vs-win-rate leaderboard that assigns the other tools' model slots), Economic Indicators Terminal (a macro dashboard whose research desk never charts a number the model wrote; the page computes the statistics), Garage Terminal (FastAPI asset tracking with scheduled CI/CD pipelines), and Ghost Lead Terminal (the CRM behind a governed, human-in-the-loop agent operating model).</div>
+        <div class="project-summary">Six production tools built with Anthropic's Claude, plus the practice that runs on them: Wealth Compass (a 13-sheet, 755-formula workbook parsed entirely client-side; no data leaves the device), Training Terminal (real Python, SQL, and JavaScript execution in the browser, with Rust graded by structural matching; 200 curated questions over five gated tiers), Model Bench Terminal (blind LLM evaluation feeding a cost-vs-win-rate leaderboard that assigns the other tools' model slots), Economic Indicators Terminal (a macro dashboard whose research desk never charts a number the model wrote; the page computes the statistics), Garage Terminal (collector car market prices refreshed by a weekly GitHub Actions scrape), and Ghost Lead Terminal (the CRM behind a governed, human-in-the-loop agent operating model).</div>
         <div class="project-meta">
-          <span><b>Stack</b>Python, FastAPI, JavaScript, Pyodide, sql.js</span>
+          <span><b>Stack</b>Python, JavaScript, GitHub Actions, Pyodide, sql.js</span>
           <span><b>Discipline</b>I own the logic, the LLM writes the code, I validate every output</span>
         </div>
       </div>
@@ -546,7 +559,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">Eleven phases from CLI script to native-feeling desktop app for a 14-person team: 20 pre-loaded templates that copy with rich formatting intact — via AppleScript's «class HTML» on macOS and hand-built CF_HTML byte-offset headers on Windows — cutting retrieval from 30 seconds to under 3. Deliberately shipped as a 15KB Flask app instead of a 200MB Electron bundle, with zero AI tokens consumed and zero customer data exposure by design: placeholders fill locally, so nothing ever leaves the machine. Grew into a Salesforce-embedded generator concept presented to engineering stakeholders.</div>
+        <div class="project-summary">Eleven phases from CLI script to native-feeling desktop app for a 14-person team: 20 pre-loaded templates that copy with rich formatting intact (via AppleScript's «class HTML» on macOS and hand-built CF_HTML byte-offset headers on Windows), cutting retrieval from 30 seconds to under 3. Deliberately shipped as a 15KB Flask app instead of a 200MB Electron bundle, with zero AI tokens consumed and zero customer data exposure by design: placeholders fill locally, so nothing ever leaves the machine. Grew into a Salesforce-embedded generator concept presented to engineering stakeholders.</div>
         <div class="race" data-race="et"></div>
         <div class="project-meta">
           <span><b>Stack</b>Python, Flask, PowerShell, AppleScript, PyInstaller, pystray</span>
@@ -565,7 +578,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <div>
         <div class="eyebrow">Toast Inc · Senior Capital Underwriter, Process Automation</div>
         <h1>Toast Work</h1>
-        <p>Six production tools built for the Capital Underwriting and Change of Ownership teams. Each replaced a fragile or manual workflow with a self-contained, browser-based system.</p>
+        <p>Eight production tools across six projects, built for Capital Underwriting, Change of Ownership, Collections, and Bizops. Each replaced a fragile or manual workflow with a self-contained, browser-based system.</p>
       </div>
     </div>
 
@@ -574,7 +587,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <h3>COO/COLE Case Management Dashboard</h3>
       <div class="sub">Full-stack web app · 10-person underwriting team · 700+ active cases · self-running</div>
 
-      <p>A full-stack web application built on top of a live Google Sheet — no separate backend or hosting — that replaced manual spreadsheet workflows for case tracking, analytics, and address-change requests across a 10-person team and 700+ cases. The Cases tab tracks the full lifecycle with optimistic-UI edits written straight back to the sheet, the Address Change tab manages a parallel five-status workflow on its own sheet, and the Analytics tab is an operational scorecard with team-level, per-rep, and Bizops-funnel views — all scopeable by year from a single header filter. Over successive iterations the tool evolved from a case tracker into a largely self-running system: non-technical leads administer it with zero code changes, it runs its own scheduled maintenance, and it documents itself for whoever maintains it next.</p>
+      <p>A full-stack web application built on top of a live Google Sheet (no separate backend or hosting) that replaced manual spreadsheet workflows for case tracking, analytics, and address-change requests across a 10-person team and 700+ cases. The Cases tab tracks the full lifecycle with optimistic-UI edits written straight back to the sheet, the Address Change tab manages a parallel five-status workflow on its own sheet, and the Analytics tab is an operational scorecard with team-level, per-rep, and Bizops-funnel views, all scopeable by year from a single header filter. Over successive iterations the tool evolved from a case tracker into a largely self-running system: non-technical leads administer it with zero code changes, it runs its own scheduled maintenance, and it documents itself for whoever maintains it next.</p>
 
       <h4>Mock view</h4>
       <div class="mockup" tabindex="0" role="region" aria-label="Case Management Dashboard mock view">
@@ -601,19 +614,19 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
       <h4>Key features</h4>
       <ul>
-        <li>Live case table backed by Google Sheets with an inline edit drawer, add/delete modals, and a manager Settings panel for self-serve config — plus a gated "Edit Case Details" mode that locks structural fields (Case #, Source, Type) behind an explicit toggle while status, rep, and notes stay instantly editable</li>
-        <li>No-code administration: reps, submitters, statuses, case types, sources, address-change statuses, and the auto-expire/staleness thresholds all live in a Config tab edited through Settings — with self-healing hash-derived badge colors for newly added values, transparent schema backfills on upgrade, and off-list legacy values preserved (marked "legacy") rather than silently clobbered</li>
+        <li>Live case table backed by Google Sheets with an inline edit drawer, add/delete modals, and a manager Settings panel for self-serve config, plus a gated "Edit Case Details" mode that locks structural fields (Case #, Source, Type) behind an explicit toggle while status, rep, and notes stay instantly editable</li>
+        <li>No-code administration: reps, submitters, statuses, case types, sources, address-change statuses, and the auto-expire/staleness thresholds all live in a Config tab edited through Settings, with self-healing hash-derived badge colors for newly added values, transparent schema backfills on upgrade, and off-list legacy values preserved (marked "legacy") rather than silently clobbered</li>
         <li>Scheduled autonomy: stale-case auto-expiry runs as a nightly time-driven trigger (moved out of the read path so reads stay write-free and cacheable), a monthly job appends summary snapshots to an auto-created History tab for durable trend and audit history, and a "Needs Attention" tab surfaces open cases past a configurable staleness threshold with a live count badge</li>
-        <li>Performance pass: page load collapsed from four serial RPCs into one bundled call with graceful fallback, and a short-TTL server-side analytics cache keyed per year and explicitly invalidated by every write — fast, without ever serving stale numbers</li>
+        <li>Performance pass: page load collapsed from four serial RPCs into one bundled call with graceful fallback, and a short-TTL server-side analytics cache keyed per year and explicitly invalidated by every write, so it stays fast without ever serving stale numbers</li>
         <li>Year filter: one header dropdown (YTD, All Time, or any year auto-discovered from the data) scopes both the case table and the full analytics engine, which rebases its year boundaries so past years render complete pictures; rolling 7/30-day lookbacks deliberately stay anchored to today and are labeled as such</li>
         <li>Analytics tab (30-day, MoM, YTD) with Time-to-Decision buckets and a Bizops/Collections funnel of three cohort-bucketed nested-bar charts (Created → Picked → Decided) that surface each month's open WIP as a visible band, separating queue-wait from rep turnaround</li>
-        <li>Inherited-case days rebasing: for handoff cases, rep-time metrics are recomputed in-memory as (final date − pick date) so team and per-rep averages reflect rep-controlled time, not queue inflation — while system-time charts re-derive from raw dates and stay unaffected</li>
+        <li>Inherited-case days rebasing: for handoff cases, rep-time metrics are recomputed in-memory as (final date − pick date) so team and per-rep averages reflect rep-controlled time, not queue inflation, while system-time charts re-derive from raw dates and stay unaffected</li>
         <li>Rep Diagnostics panel: a per-rep deep dive (as submitter and as assigned rep) built to reconcile dashboard chart counts against sheet countifs, with row-level raw-value dumps that expose the hidden whitespace and casing that break exact-match counts</li>
-        <li>Two custom Chart.js v4 plugins — barTotalsPlugin (per-bar and stacked totals) and nestedBarLabelsPlugin ("inner / outer" cohort labels) — with disciplined chart-instance teardown to avoid canvas-reuse leaks</li>
-        <li>Hardened Sheets-as-database layer: a bottom-up last-row scan so appends never land at row 4,000+, LockService on concurrent writes (with try/finally lock release), VLOOKUP formula copy + flush before read-back, UTC date normalization, same-day 0-day clamping, and server-side status normalization — case-insensitive canonicalization against the config list — that eliminated an entire class of data-validation rejections</li>
-        <li>Address Change tab on its own sheet — five-status lifecycle, full add-request parity (mark Complete and "Checked in Clear" at creation), idempotent status-column and data-validation auto-creation, and unified GUID search across both workflows</li>
+        <li>Two custom Chart.js v4 plugins, barTotalsPlugin (per-bar and stacked totals) and nestedBarLabelsPlugin ("inner / outer" cohort labels), with disciplined chart-instance teardown to avoid canvas-reuse leaks</li>
+        <li>Hardened Sheets-as-database layer: a bottom-up last-row scan so appends never land at row 4,000+, LockService on concurrent writes (with try/finally lock release), VLOOKUP formula copy + flush before read-back, UTC date normalization, same-day 0-day clamping, and server-side status normalization (case-insensitive canonicalization against the config list) that eliminated an entire class of data-validation rejections</li>
+        <li>Address Change tab on its own sheet: five-status lifecycle, full add-request parity (mark Complete and "Checked in Clear" at creation), idempotent status-column and data-validation auto-creation, and unified GUID search across both workflows</li>
         <li>Idle-refresh banner after 30 minutes of inactivity and a version-update notifier that polls the deployed app version every 10 minutes</li>
-        <li>Self-documenting: an in-app About/Maintenance panel carries the deploy steps, scheduled-job reminders, and conventions a successor needs, and a Help modal explains every tab and automatic behavior — the institutional knowledge lives in the app, not in one person's head</li>
+        <li>Self-documenting: an in-app About/Maintenance panel carries the deploy steps, scheduled-job reminders, and conventions a successor needs, and a Help modal explains every tab and automatic behavior; the institutional knowledge lives in the app, not in one person's head</li>
       </ul>
 
       <h4>Stack</h4>
@@ -638,7 +651,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <h3>Funding Verification Tool</h3>
       <div class="sub">Single-file HTML · 20-35 minute workflow cut to 40 seconds</div>
 
-      <p>A single-file HTML application that replaced a fragile VLOOKUP chain in Google Sheets used to verify merchant banking data for capital deployments. Performs an in-browser JOIN across four sources (New Funding file, Snowflake export, Original CSV funding records, and DSL bank files), produces match results with processor-specific logic, supports real-time manual overrides, and exports a multi-sheet XLSX workbook from a bundled template that preserves the master sheet's conditional formatting. The tool grew to 10 tabs, including a TCA Check tab that auto-flags Toast Checking accounts and matches pasted GUIDs against an auto-detected canonical GUID column, an External MCA Refi tab that tracks refi lineage between loans, and a Funding Edits tab that turns every row still holding placeholder banking data into an editable worklist with routing-number validation and bank lookup built in. The full funding verification workflow used to take 20 to 35 minutes per batch; the latest measured time (June 2026) clocked it at 40 seconds end-to-end.</p>
+      <p>A single-file HTML application that replaced a fragile VLOOKUP chain in Google Sheets used to verify merchant banking data for capital deployments. Performs an in-browser JOIN across four sources (New Funding file, Snowflake export, Original CSV funding records, and DSL bank files), produces match results with processor-specific logic, supports real-time manual overrides, and exports a multi-sheet XLSX workbook from a bundled template that preserves the master sheet's conditional formatting. The tool grew to 10 tabs, including a TCA Check tab that auto-flags Toast Checking accounts and matches pasted GUIDs against an auto-detected canonical GUID column, an External MCA Refi tab that tracks refi lineage between loans, and a Funding Edits tab that turns every row still holding placeholder banking data into an editable worklist with FedACH routing-number verification and bank lookup built in. The full funding verification workflow used to take 20 to 35 minutes per batch; the latest measured time (June 2026) clocked it at 40 seconds end-to-end.</p>
 
       <h4>Before and after</h4>
       <div class="race" data-race="fv"></div>
@@ -662,18 +675,28 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <h4>Try the logic</h4>
       <div class="demo" id="demo-aba">
         <div class="demo-head">
-          <div class="demo-title">Routing-number checksum</div>
-          <div class="demo-note">Runs in your browser. The real tool runs this check before any bank lookup.</div>
+          <div class="demo-title">Routing-number lookup</div>
+          <div class="demo-note">A handful of real routing numbers. The real tool searches the Fed's full FedACH directory through a local Python service.</div>
         </div>
         <div class="demo-controls">
           <label class="sr-only" for="aba-input">Nine-digit routing number</label>
-          <input id="aba-input" class="aba-input" type="text" inputmode="numeric" maxlength="9" autocomplete="off" spellcheck="false" value="123456780" aria-describedby="aba-status">
-          <button class="demo-btn" type="button" data-aba="123456780">Sample: valid</button>
-          <button class="demo-btn" type="button" data-aba="123456789">Sample: one digit off</button>
-          <button class="demo-btn" type="button" data-aba="123456870">Sample: two digits swapped</button>
+          <input id="aba-input" class="aba-input" type="text" inputmode="numeric" maxlength="9" autocomplete="off" spellcheck="false" value="021000021" aria-describedby="aba-status">
+          <button class="demo-btn primary" type="button" data-lookup>Look up</button>
+          <button class="demo-btn" type="button" data-aba="021000021">Sample: ACH participant</button>
+          <button class="demo-btn" type="button" data-aba="555555550">Sample: not in FedACH</button>
+          <button class="demo-btn" type="button" data-aba="021000012">Sample: mistyped</button>
         </div>
-        <div class="aba-grid" aria-hidden="true"></div>
-        <div class="aba-legend">Each digit is multiplied by its weight (3, 7, 1, repeating) and the products are summed. A routing number is well-formed only when that sum ends in 0.</div>
+        <div class="lookup-path" aria-hidden="true"><span class="lookup-step" data-step="typo">1 · Typo check</span><span class="agent-sep">→</span><span class="lookup-step" data-step="dir">2 · FedACH directory</span></div>
+        <table class="mockup-table lookup-dir">
+          <caption>Directory entries used in this demo</caption>
+          <thead><tr><th>Routing</th><th>Bank</th><th>Location</th></tr></thead>
+          <tbody>
+            <tr><td>021000021</td><td>JPMorgan Chase Bank, NA</td><td>New York, NY</td></tr>
+            <tr><td>021000089</td><td>Citibank, N.A.</td><td>New York, NY</td></tr>
+            <tr><td>026009593</td><td>Bank of America, N.A.</td><td>New York, NY</td></tr>
+            <tr><td>121000248</td><td>Wells Fargo Bank, NA</td><td>San Francisco, CA</td></tr>
+          </tbody>
+        </table>
         <div class="demo-status" id="aba-status" role="status"></div>
         <a class="print-only demo-live" href="https://kaejhee.github.io/portfolio/#demo-aba">Try it live: kaejhee.github.io/portfolio/#demo-aba</a>
       </div>
@@ -706,11 +729,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <li>Labels and overrides keyed to External ID, survive re-uploads of any source file within the same session</li>
         <li>Template-based XLSX export: bundles the master Google Sheet's exact conditional formatting rules in a base64 template and edits the template XML at runtime via JSZip to inject the live data, preserving every YES/NO/Check Data cell fill from the original</li>
         <li>TCA Check subsystem: auto-detects the canonical Toast GUID column per source using a UUID-density times uniqueness score, and matches pasted GUIDs against in-batch records with per-loan and per-merchant dedup modes</li>
-        <li>Automatic TCA labeling: rows whose source record already carries the balance-account tag are cross-referenced against the current batch and flagged Toast Checking on load — the paste path is now the exception, not the default, and out-of-batch records are deliberately left alone</li>
-        <li>Funding Edits worklist: scans the source funding file for every row still carrying placeholder banking data — unresolved routing and account values, bank names left as a placeholder, and external MCA refi rows — classifies each by type, opens only the cells that type is allowed to edit, and tracks per-row completion so a row clears only once its placeholders are genuinely replaced rather than merely touched. Finished rows export in one click for the tracker</li>
-        <li>Routing-number validation and bank lookup: entries are checksum-validated in the browser with the standard ABA algorithm before any network call is made, then resolved to a bank name through a three-tier source chain (same-origin, local proxy, public API) with per-session caching so repeat lookups cost nothing, and a configurable routing number is flagged on sight</li>
+        <li>Automatic TCA labeling: rows whose source record already carries the balance-account tag are cross-referenced against the current batch and flagged Toast Checking on load; the paste path is now the exception, not the default, and out-of-batch records are deliberately left alone</li>
+        <li>Funding Edits worklist: scans the source funding file for every row still carrying placeholder banking data (unresolved routing and account values, bank names left as a placeholder, and external MCA refi rows), classifies each by type, opens only the cells that type is allowed to edit, and tracks per-row completion so a row clears only once its placeholders are genuinely replaced rather than merely touched. Finished rows export in one click for the tracker</li>
+        <li>Routing-number verification against the FedACH directory: a local Python service loads the Federal Reserve's FedACH and Fedwire directories, so each routing number is confirmed as a real ACH participant and resolved to its bank name, with a public routing API as a fallback. Routing and bank pairs already in the batch file answer first at no cost, results are cached per session, a quick checksum catches mistyped numbers before any lookup, and a configurable routing number is flagged on sight</li>
         <li>Refi lineage tracking: the External MCA Refi tab links each refi loan to its original (matching the External ID minus its suffix) and highlights the original loans magenta in the XLSX export</li>
-        <li>Dual audit export: a multi-sheet XLSX workbook (Ops sheet plus additional audit sheets) and a landscape PDF audit record that reproduces the on-screen match colors and row tints for reviewers who never open the spreadsheet — both date-stamped at export</li>
+        <li>Dual audit export: a multi-sheet XLSX workbook (Ops sheet plus additional audit sheets) and a landscape PDF audit record that reproduces the on-screen match colors and row tints for reviewers who never open the spreadsheet. Both are date-stamped at export</li>
         <li>10-tab structure: Ops SPA Deals (primary output with stat-pill filter shortcuts), four source upload tabs, TCA Check, Refi, External MCA Refi, Manual Overrides, and Funding Edits</li>
         <li>Ships with two companion artifacts: a 13-page Standard Operating Procedure (built with a python-docx script, 11 embedded screenshots, data-flow diagram, troubleshooting guide, and a domain glossary), and a standalone Funding File Validator that round-trip-checks the exported file against the source before handoff</li>
       </ul>
@@ -722,7 +745,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">JSZip 3.10.1</span>
         <span class="stack-item">jsPDF</span>
         <span class="stack-item">Custom RFC 4180 parser</span>
-        <span class="stack-item">ABA checksum validation</span>
+        <span class="stack-item">FedACH directory lookup (Python)</span>
         <span class="stack-item">Web Worker pool</span>
         <span class="stack-item">Web FileReader API</span>
         <span class="stack-item">Base64 template embedding</span>
@@ -734,13 +757,13 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div class="detail" id="underwriting-collections-toolkit">
       <h3>Underwriting &amp; Collections Toolkit</h3>
       <div class="sub">Client-side underwriting &amp; collections tools · React + vanilla-JS bookmarklets</div>
-      <p>A suite of zero-dependency, browser-based tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details and get parsed, de-duplicated, recency-filtered, type-classified output — or a color-coded routing recommendation — to drop straight into notes. The same shared-engine pattern was extended to collections, extracting parent-account default and churn history from a virtualized data grid into a standardized, paste-ready summary. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
+      <p>A suite of zero-dependency, browser-based tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details and get parsed, de-duplicated, recency-filtered, type-classified output (or a color-coded routing recommendation) to drop straight into notes. The same shared-engine pattern was extended to collections, extracting parent-account default and churn history from a virtualized data grid into a standardized, paste-ready summary. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
       <h4>What's unique</h4>
       <ul>
-        <li>Lien Docket Dashboard: ingests pasted card text or raw API JSON, extracts per-filing fields, de-dupes, sorts newest-first, applies recency windows, and tags each filing by type with per-row badges so misclassification is obvious at a glance; summary metrics, diagnostics, one-click copy, and .txt/.csv export</li>
-        <li>Two decision-support bookmarklets: a lien scraper that runs the identical parse/classify engine in-page against the logged-in provider (sidestepping cross-origin and authentication limits), and an App Router that reads live application fields and renders a color-coded review-depth recommendation</li>
-        <li>Parent Default &amp; Churn Extractor: reads parent-account default and churn history from a virtualized AG-Grid tracker into a standardized, paste-ready summary — defeating row- and column-virtualization by stitching cells into whole rows by stable column ID (not screen position), with a paste fallback that record-splits multi-line, JSON-valued cells; the grid was reverse-engineered first with a read-only DOM probe</li>
-        <li>One shared parse/classify/format engine across every tool, so results never diverge; fail-loud by design — unreadable dates are kept and flagged, never silently dropped</li>
+        <li>Lien Docket, one tool in two forms: the dashboard ingests pasted card text or raw API JSON, extracts per-filing fields, de-dupes, sorts newest-first, applies recency windows, and tags each filing by type with per-row badges so misclassification is obvious at a glance, with summary metrics, diagnostics, one-click copy, and .txt/.csv export; the bookmarklet runs the identical parse/classify engine in-page against the logged-in provider, sidestepping cross-origin and authentication limits</li>
+        <li>App Router: a decision-support bookmarklet that reads live application fields and renders a color-coded review-depth recommendation</li>
+        <li>Parent Default &amp; Churn Extractor: reads parent-account default and churn history from a virtualized AG-Grid tracker into a standardized, paste-ready summary. It defeats row- and column-virtualization by stitching cells into whole rows by stable column ID (not screen position), with a paste fallback that record-splits multi-line, JSON-valued cells; the grid was reverse-engineered first with a read-only DOM probe</li>
+        <li>Shared engines, not copies: the Lien Docket's dashboard and bookmarklet run one parse/classify/format engine, and the Churn Extractor's bookmarklet and paste paths share one format engine, so results never diverge; fail-loud by design: unreadable dates are kept and flagged, never silently dropped</li>
         <li>Config over hard-coding: keyword lists, recency windows, routing thresholds, and field labels live in editable config blocks so rule changes don't touch the logic</li>
       </ul>
       <h4>Stack</h4>
@@ -759,13 +782,13 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div class="detail" id="self-serve-snowflake-query-helper">
       <h3>Self-Serve Snowflake Query Helper</h3>
       <div class="sub">Teaching-oriented text-to-SQL · web app + Worker proxy · Cowork skill · Claude artifact</div>
-      <p>A browser tool that lets non-analyst teammates draft accurate, schema-aware Snowflake queries in plain English — and learn the SQL as they go, through an explicit phrase-to-clause mapping. It removes the bottleneck of senior analysts writing every ad-hoc query while keeping execution in the user's own Snowflake session. By design it never connects to Snowflake and never sees a row of data: it handles only schema metadata (table and column names, types, comments) plus the user's generic natural-language ask. All model calls route through a Cloudflare Worker that holds provider keys server-side and normalizes nine LLM providers behind one contract. The same schema-plus-teaching engine ships in three forms: the full web app, a Cowork skill that runs on the team's existing Claude seats, and a claude.ai artifact that runs on the viewer's own subscription — the last two with no API keys or infrastructure at all.</p>
+      <p>A browser tool that lets non-analyst teammates draft accurate, schema-aware Snowflake queries in plain English, and learn the SQL as they go, through an explicit phrase-to-clause mapping. It removes the bottleneck of senior analysts writing every ad-hoc query while keeping execution in the user's own Snowflake session. By design it never connects to Snowflake and never sees a row of data: it handles only schema metadata (table and column names, types, comments) plus the user's generic natural-language ask. All model calls route through a Cloudflare Worker that holds provider keys server-side and normalizes nine LLM providers behind one contract. The same schema-plus-teaching engine ships in three forms: the full web app, a Cowork skill that runs on the team's existing Claude seats, and a claude.ai artifact that runs on the viewer's own subscription. The last two run with no API keys or infrastructure at all.</p>
       <h4>What's unique</h4>
       <ul>
-        <li>Multi-provider proxy: one normalized request/response contract over nine LLM providers (Anthropic, OpenAI, Gemini, xAI, DeepSeek, Moonshot, Zhipu, Mistral, Qwen) via an adapter pattern — seven OpenAI-compatible plus dedicated Anthropic and Gemini adapters — resolving browser CORS and removing API keys from the client</li>
-        <li>Personal or organizational: a first-run selector configures either an organizational mode (shared team Worker, provider keys as server-side secrets, gated by a Bearer token) or a personal mode — bring-your-own-key (Anthropic or Gemini directly from the browser), your own proxy for all nine providers, or fully local via Ollama with installed-model detection and nothing leaving the machine</li>
-        <li>Zero-key distribution: the engine also ships as a Cowork skill (runs on existing Claude seats, with adversarially hardened guardrails — execution and file-write bans plus a non-waivable PII pre-flight) and as a claude.ai artifact powered by the artifact runtime's completion API, billing the viewer's own subscription with zero infrastructure</li>
-        <li>Self-updating model discovery: queries each provider's live model endpoint and merges it with a curated overlay (24-hour TTL), so newly released models appear automatically with no code edits — built on the insight that model names churn but API families stay stable</li>
+        <li>Multi-provider proxy: one normalized request/response contract over nine LLM providers (Anthropic, OpenAI, Gemini, xAI, DeepSeek, Moonshot, Zhipu, Mistral, Qwen) via an adapter pattern (seven OpenAI-compatible plus dedicated Anthropic and Gemini adapters), resolving browser CORS and removing API keys from the client</li>
+        <li>Personal or organizational: a first-run selector configures either an organizational mode (shared team Worker, provider keys as server-side secrets, gated by a Bearer token) or a personal mode: bring-your-own-key (Anthropic or Gemini directly from the browser), your own proxy for all nine providers, or fully local via Ollama with installed-model detection and nothing leaving the machine</li>
+        <li>Zero-key distribution: the engine also ships as a Cowork skill (runs on existing Claude seats, with adversarially hardened guardrails: execution and file-write bans plus a non-waivable PII pre-flight) and as a claude.ai artifact powered by the artifact runtime's completion API, billing the viewer's own subscription with zero infrastructure</li>
+        <li>Self-updating model discovery: queries each provider's live model endpoint and merges it with a curated overlay (24-hour TTL), so newly released models appear automatically with no code edits, an approach built on the insight that model names churn but API families stay stable</li>
         <li>One Low/Medium/High effort control mapped per model family to three distinct mechanisms (reasoning-effort enum, thinking-token budget, or omitted), and auto-disabled when the selected model can't reason</li>
         <li>Teaching layer: every result returns the SQL plus a plain-English explanation and a three-column phrase → clause → why mapping table, reframing a query generator into a learning tool</li>
         <li>Compliance-driven design: no database connection, metadata-only prompts, provider keys held as server-side secrets behind a token-gated, fail-closed proxy, and a client-side PII/MNPI pre-flight that warns on emails, phone numbers, GUIDs, and account-ID-shaped strings</li>
@@ -938,14 +961,26 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <div>
         <div class="eyebrow">Ghost Strategies LLC · Independent</div>
         <h1>Ghost Strategies</h1>
-        <p>Seven LLM-powered tools built independently — and a practice that runs on them, under a governed multi-agent operating model. Every project ships with the same discipline: I own the logic and architecture, the LLM writes the code, I validate every output, and I only prompt with test or sample data so no proprietary information ever enters the model.</p>
+        <p>Nine LLM-powered tools built independently, and a practice that runs on them under a governed multi-agent operating model. Every project ships with the same discipline: I own the logic and architecture, the LLM writes the code, I validate every output, and I only prompt with test or sample data so no proprietary information ever enters the model.</p>
       </div>
+    </div>
+
+    <div class="ghost-note" id="agent-operated-practice">
+      <div class="ghost-note-label">How the practice runs</div>
+      <p>Ghost Strategies runs its own operations (research, drafting, content preparation, and tooling) on a fleet of AI agents across multiple runtimes, including Claude Code, Cowork, and a self-hosted research agent. It is designed around one constraint: my review minutes are the bottleneck, so every lane minimizes them rather than maximizing agent output. Total planned operating overhead is about 80 minutes a week.</p>
+      <ul>
+        <li>A human stands between generation and the public: agents research, draft, and package, and nothing sends, posts, or publishes without an explicit human action</li>
+        <li>Zero client PII to any model, in any lane, for any purpose; agents work from public data and tokenized templates only</li>
+        <li>Verification over volume: a small batch of sourced, cited leads beats a large unverifiable one, and every factual claim in content meets the same bar</li>
+        <li>Agents write batch files and drafts only; the CRM's validated import gate and human review are the only ways into the system of record</li>
+        <li>Budget discipline: agent lanes run on capped, monitored spend, and overruns are fixed with output limits and model routing, not more money</li>
+      </ul>
     </div>
 
     <div class="detail" id="earnings-analysis-ai-agent">
       <h3>Earnings Analysis AI Agent</h3>
       <div class="sub">Autonomous LangGraph agent · validate in code, retry with feedback, human-approve</div>
-      <p>An autonomous "earnings analyst" built as a self-directed project (2026): give it a ticker and it fetches live earnings data, decides on its own how to parse it, extracts revenue and EPS, validates the numbers with deterministic code, retries on failure with the errors fed into the next prompt, and pauses for human approval before shipping a beat/miss summary. It demonstrates the part of AI engineering that matters in production — not calling a model, but making its output trustworthy. Being rolled into the portfolio-analysis platform as its earnings-analysis module, scoped to public earnings data only.</p>
+      <p>An autonomous "earnings analyst" built as a self-directed project (2026): give it a ticker and it fetches live earnings data, decides on its own how to parse it, extracts revenue and EPS, validates the numbers with deterministic code, retries on failure with the errors fed into the next prompt, and pauses for human approval before shipping a beat/miss summary. It demonstrates the part of AI engineering that matters in production: not calling a model, but making its output trustworthy. Being rolled into the portfolio-analysis platform as its earnings-analysis module, scoped to public earnings data only.</p>
       <div class="mockup" style="padding: 12px 16px;">
         <span style="font-family: var(--mono); font-size: 12px;">START → fetch → route_by_shape → (format_fast | extract) → validate ⟲ → human checkpoint → synthesize → END</span>
       </div>
@@ -972,10 +1007,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
       <h4>What's unique</h4>
       <ul>
-        <li>Self-correcting, not one-shot: deterministic validation checks every extracted figure, and failures loop back to the extractor with the errors injected into the retry prompt — capped at 3 attempts, then it fails loud to a human instead of shipping a wrong number</li>
-        <li>The model generates; code judges — the AI never grades its own homework</li>
+        <li>Self-correcting, not one-shot: deterministic validation checks every extracted figure, and failures loop back to the extractor with the errors injected into the retry prompt, capped at 3 attempts; after that it fails loud to a human instead of shipping a wrong number</li>
+        <li>The model generates; code judges. The AI never grades its own homework</li>
         <li>Human-in-the-loop by construction: the graph pauses (interrupt_before) and shows the numbers for approval; rejecting ships nothing</li>
-        <li>Chooses its own path: a router inspects the data shape at run time — clean structured data takes a free deterministic path, messy prose goes to the LLM — the difference between a fixed script and an agent</li>
+        <li>Chooses its own path: a router inspects the data shape at run time (clean structured data takes a free deterministic path, messy prose goes to the LLM). That is the difference between a fixed script and an agent</li>
         <li>Production-shaped: refactored from a Jupyter prototype into a clean multi-file Python project (state, nodes, graph, CLI) with live market data from multiple providers (yfinance, Alpha Vantage, Polygon); the portfolio-terminal integration runs the reasoning model through OpenRouter, keeping it multi-model swappable without touching the graph</li>
         <li>Self-directed and documented: authored the build plan, a full written case study, and an interactive architecture walkthrough of the graph and every design decision</li>
       </ul>
@@ -997,7 +1032,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div class="detail" id="ghost-strategies-portfolio-terminal">
       <h3>Ghost Strategies Portfolio Terminal</h3>
       <div class="sub">Bloomberg-style RIA portfolio analysis · client-side engine + Cloudflare Worker + Python ingest · v1.6</div>
-      <p>An internal terminal for reviewing client portfolios against target allocations and the current market environment, built for a registered investment advisory practice with privacy as a hard constraint: holdings are parsed and computed in the browser, nothing but the client name and proxy settings touches browser storage, and the only network traffic is an explicit, button-triggered call to the firm's own proxy. It is a sibling of Wealth Compass — the same client-side architecture, pointed at portfolio analytics instead of planning — and grew from v1.0 to v1.6 across a multi-session build driven by written handoff specifications with phased build orders, acceptance tests, and mock fixtures for keyless development.</p>
+      <p>An internal terminal for reviewing client portfolios against target allocations and the current market environment, built for a registered investment advisory practice with privacy as a hard constraint: holdings are parsed and computed in the browser, nothing but the client name and proxy settings touches browser storage, and the only network traffic is an explicit, button-triggered call to the firm's own proxy. It is a sibling of Wealth Compass (the same client-side architecture, pointed at portfolio analytics instead of planning) and grew from v1.0 to v1.6 across a multi-session build driven by written handoff specifications with phased build orders, acceptance tests, and mock fixtures for keyless development.</p>
       <div class="mockup" style="padding: 12px 16px;">
         <span style="font-family: var(--mono); font-size: 12px;">workbook · brokerage CSV/XLSX · manual · session.json → review grid → compute (returns · beta · σ · Sharpe · drift · look-through · rebalance · stress) → AI Analysis → Worker proxy → 8 models</span>
       </div>
@@ -1033,11 +1068,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <li>Computation engine, all client-side: weighted returns across five horizons, portfolio beta, standard deviation via the full correlation-matrix formula, Sharpe, weighted expense ratio, and target-versus-actual drift by asset class, category, sector, geography, and account, with per-account drill-down that recomputes every metric</li>
         <li>Look-through concentration: direct position weight plus the same name held inside index funds, flagging names that breach the threshold only through fund overlap</li>
         <li>Tax-aware rebalance engine that pairs overweight and underweight categories into dollar moves, trims tax-advantaged accounts first and then the smallest unrealized gain, and never takes more from a position than it holds; scenario stress tests (2008, 2000, 2020, 2022) applied by asset class, both index-based and beta-adjusted</li>
-        <li>AI Analysis tab: the computed portfolio state plus live quotes and news go to a user-selected model — Claude Opus 5, Sonnet 5, or Fable 5.1 (with web search), GPT-6 Astra, Grok 4.6, Kimi K3, DeepSeek V4.1 Flash or V4 Pro — which returns five fixed sections plus a structured JSON appendix, rendered as a severity-sorted signal board with ticker and category chips that jump to the relevant tab; every chart comes from the terminal's own calculations, never the model</li>
+        <li>AI Analysis tab: the computed portfolio state plus live quotes and news go to a user-selected model. The choices are Claude Opus 5, Sonnet 5, or Fable 5.1 (with web search), GPT-6 Astra, Grok 4.6, Kimi K3, DeepSeek V4.1 Flash or V4 Pro. The model returns five fixed sections plus a structured JSON appendix, rendered as a severity-sorted signal board with ticker and category chips that jump to the relevant tab; every chart comes from the terminal's own calculations, never the model</li>
         <li>Adjustment workbench: per-category target sliders with live drift bars and implied dollar moves through the same rebalance engine, applied as clearly labeled session targets so every tab and the next AI run reason about the proposed shape; run history keeps ten runs with side-by-side comparison, plus Markdown, standalone HTML, and print export</li>
         <li>Compliance by construction: a verbatim analysis-not-advice system prompt, a non-dismissible internal-use banner, a footer on every result and export, news passed to the model inside explicit untrusted-text delimiters, and no automatic model calls anywhere</li>
         <li>Cloudflare Worker proxy: four market-data providers and five AI providers behind shared-token auth and encrypted secrets, KV caching that never caches empty results, ticker validation and encoding, provider fallback chains for quotes, refusal and truncation surfaced from every model provider, and a health endpoint the terminal uses to gate model choices</li>
-        <li>Verification: two headless Node harnesses (111 assertions) covering parsing, computation, tax-aware rebalancing, look-through, stress scenarios, and structured-output parsing; then a 130-agent adversarial audit — nine parallel reviewers, each finding challenged by two independent verifiers — confirming 56 defects, all fixed and reproduced by a second pass, including escaping every render sink that carries imported or model text and validating session files on restore</li>
+        <li>Verification: two headless Node harnesses (111 assertions) covering parsing, computation, tax-aware rebalancing, look-through, stress scenarios, and structured-output parsing; then a 130-agent adversarial audit (nine parallel reviewers, each finding challenged by two independent verifiers) confirming 56 defects, all fixed and reproduced by a second pass, including escaping every render sink that carries imported or model text and validating session files on restore</li>
       </ul>
       <h4>Stack</h4>
       <div class="stack">
@@ -1058,12 +1093,13 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div class="detail" id="economic-indicators-terminal">
       <h3>Economic Indicators Terminal</h3>
       <div class="sub">Bloomberg-style macro dashboard · grounded LLM research desk · single HTML file · v2.2</div>
-      <p>A dark, data-dense economic terminal with seven views — Overview, CPI detail, PPI detail, employment, projections, a correlation matrix, and a News &amp; Analysis research desk — in one HTML file of about 3,900 lines. It boots from an embedded snapshot of official releases and can replace the headline series with live FRED when a key is saved. The correlation matrix is computed in the page from the quarterly levels it is showing. Chart.js 4.4.1 ships in the repo, so the charts render without the CDN. The research desk follows one rule: <em>the model never supplies a number that gets charted. Statistics are computed in the page.</em></p>
+      <div class="source-row"><a class="source-link" href="https://github.com/KaeJhee/economic-terminal" target="_blank" rel="noopener">View source on GitHub: KaeJhee/economic-terminal ↗</a></div>
+      <p>A dark, data-dense economic terminal with seven views (Overview, CPI detail, PPI detail, employment, projections, a correlation matrix, and a News &amp; Analysis research desk) in one HTML file of about 3,900 lines. It boots from an embedded snapshot of official releases and can replace the headline series with live FRED when a key is saved. The correlation matrix is computed in the page from the quarterly levels it is showing. Chart.js 4.4.1 ships in the repo, so the charts render without the CDN. The research desk follows one rule: <em>the model never supplies a number that gets charted. Statistics are computed in the page.</em></p>
       <h4>What's unique</h4>
       <ul>
         <li>Headline cards are the latest monthly observation, not a quarterly average. FRED dates are parsed from the YYYY-MM-DD string, so the calendar month stays put west of UTC. Real GDP is on the page from BEA's series as carried on FRED; the badge says BEA only after the BEA API returns NIPA T10101 line 1. The six summary cards are August 2026. JOLTS in the snapshot is July 2026, and real GDP runs through 2026-Q2. CPI Education, Recreation, and Other Goods, most PPI component rows, and the employment sector table are still March 2026 and are labeled on the page</li>
-        <li>Grounded LLM pipeline: a router classifies each question into a structured plan, the page fetches prices and computes every statistic (returns, CAGR, volatility, drawdowns, divergence windows), and a web-grounded narrator explains those date windows — cited, streamed token-by-token, with the chart shading the windows the math found. Current-events claims need a source. With no OpenRouter key, the tab explains that design and shows a labeled example layout. No recorded News run is embedded</li>
-        <li>Tiered routing by query difficulty — fast, standard, or deep narrator chosen per question. After a real run, the answer names its model and shows that query's cost</li>
+        <li>Grounded LLM pipeline: a router classifies each question into a structured plan, the page fetches prices and computes every statistic (returns, CAGR, volatility, drawdowns, divergence windows), and a web-grounded narrator explains those date windows, cited and streamed token-by-token, with the chart shading the windows the math found. Current-events claims need a source. With no OpenRouter key, the tab explains that design and shows a labeled example layout. No recorded News run is embedded</li>
+        <li>Tiered routing by query difficulty: fast, standard, or deep narrator chosen per question. After a real run, the answer names its model and shows that query's cost</li>
         <li>Price history tries Twelve Data first, then Alpha Vantage compact (about the last 100 sessions), then Stooq on localhost only. Each provider failure is named with the reason. Mismatched price-adjustment bases skip pair statistics rather than chart a distorted comparison. Projection bands are a fixed illustrative formula and are labeled that way on the chart</li>
         <li>The News tab caches the price and FRED series it fetched in IndexedDB for 20 hours. The dashboard refresh does not. A News answer stays in memory and does not survive a reload. Google Fonts still come from Google; the charts do not</li>
         <li>Keys stay in localStorage. Connection-test errors are escaped, and News markdown is escaped before links render (http and https only). Both system prompts tell the model to ignore instructions embedded in the question or in web results. GitHub Actions runs a secret scan and the 37 embedded tests, with the suite in America/Chicago. The pre-push hook stays off until you run sh scripts/install-hooks.sh. The Cloudflare Worker in the repo is an example template for the live site; it is not deployed from the project. On localhost, server.py proxies FRED</li>
@@ -1089,10 +1125,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <p>A single-file evaluation bench that turns model selection from vibes into recorded evidence. One prompt broadcasts to 2–4 models chosen from a live catalog of ~340; responses stream side by side with live time-to-first-token, throughput, and cost; quality ratings are collected <em>blind</em> (panes shuffled and anonymized until the rating locks); and every run writes a schema-versioned ledger row to IndexedDB, accumulating a private leaderboard of win rates by task tag with a cost-vs-win-rate scatter. The models that earn default slots in the other Ghost tools now earn them on the record.</p>
       <h4>What's unique</h4>
       <ul>
-        <li>Blind integrity treated as a security property, not a UI feature: every channel that leaks model identity — control-rail slugs, provider error text, history markers — is masked until reveal (blanked, not blurred, which survives select-copy)</li>
-        <li>A cost chain that refuses to guess silently: exact stream usage → generation-endpoint lookup (captures web-search fees and pre-abort billing) → catalog estimate visibly tilde-marked; unknown costs render as "—", never a confident $0.0000</li>
+        <li>Blind integrity treated as a security property, not a UI feature: every channel that leaks model identity (control-rail slugs, provider error text, history markers) is masked until reveal (blanked, not blurred, which survives select-copy)</li>
+        <li>A cost chain that refuses to guess silently: exact stream usage → generation-endpoint lookup (captures web-search fees and pre-abort billing) → catalog estimate visibly tilde-marked; unknown costs render as a dash, never a confident $0.0000</li>
         <li>Ledger schema designed to be frozen: schema version and UUID from day one, per-pane finish reason and serving provider captured because they can't be backfilled, and win-rate semantics pinned before any data accumulated</li>
-        <li>Structured-output mode validates each response against an attached JSON schema client-side (a ~60-line purpose-built validator instead of a 120KB dependency) — how router-stage candidates for the other tools get vetted</li>
+        <li>Structured-output mode validates each response against an attached JSON schema client-side (a ~60-line purpose-built validator instead of a 120KB dependency), which is how router-stage candidates for the other tools get vetted</li>
         <li>Hand-rolled SSE streaming with a per-pane AbortController and Promise.allSettled isolation, so one pane's mid-stream network death can't block or corrupt its siblings; escape-first rendering keeps hostile completions inert</li>
         <li>Audited and tested before first real use: independent code audit (15 findings resolved, including three schema gaps that would have been unrecoverable after data accumulated), headless end-to-end simulation against a stubbed API, and adversarial unit tests for the validator and renderer</li>
       </ul>
@@ -1110,12 +1146,13 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div class="detail" id="training-terminal">
       <h3>Training Terminal</h3>
       <div class="sub">Gamified four-language coding terminal · Python, SQL, JavaScript, Rust</div>
-      <p>A single-file, browser-based coding terminal (xterm.js) for practicing Python, SQL, JavaScript, and Rust. Runs real Python through Pyodide, real SQL through sql.js against a seeded relational database, and grades JavaScript inside a network- and storage-stripped Web Worker sandbox; Rust is graded by a literal-preserving structural matcher that accepts equivalent syntax. 200 curated questions — 50 per track across five gated tiers (Introductory, Amateur, Intermediate, Experienced, Master), 10 questions per gate — with localStorage-persisted progression and live tier and engine-status KPIs.</p>
+      <div class="source-row"><a class="source-link" href="https://github.com/KaeJhee/training-terminal" target="_blank" rel="noopener">View source on GitHub: KaeJhee/training-terminal ↗</a></div>
+      <p>A browser-based coding terminal (xterm.js) for practicing Python, SQL, JavaScript, and Rust. Runs real Python through Pyodide, real SQL through sql.js against a seeded relational database, and grades JavaScript inside a Web Worker with network and storage APIs stripped; Rust is graded by a literal-preserving structural matcher that accepts equivalent syntax. 200 curated questions: 50 per track across five gated tiers (Introductory, Amateur, Intermediate, Experienced, Master) at 10 questions per gate, with localStorage-persisted progression and live tier and engine-status KPIs.</p>
       <h4>What's unique</h4>
       <ul>
-        <li>Four grading paths in one static file: Pyodide (Python), sql.js on a seeded auto-rebuilt database (SQL), an isolated Web Worker with network and storage APIs removed (JavaScript), and a structural normalizer with a syntax-equivalence system (Rust)</li>
+        <li>Four grading paths, all in the browser: Pyodide (Python), sql.js on a seeded auto-rebuilt database (SQL), an isolated Web Worker with network and storage APIs removed (JavaScript), and a structural normalizer with a syntax-equivalence system (Rust)</li>
         <li>Real xterm.js REPL: a command bar (start, hint, concepts, cheatsheet, examples, schema, reset, export/import), multi-line editing, command history, and emacs-style key bindings</li>
-        <li>Learning layer baked in — per-tier concepts auto-surface on first entry, a toggleable cheatsheet panel, worked examples, and per-question hints</li>
+        <li>Learning layer baked in: per-tier concepts auto-surface on first entry, a toggleable cheatsheet panel, worked examples, and per-question hints</li>
         <li>200 questions reviewed and calibrated by concept and difficulty; 10-question tier gates force mastery before the next rank unlocks, all persisted with no backend</li>
       </ul>
       <h4>Stack</h4>
@@ -1132,10 +1169,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div class="detail" id="ghost-lead-terminal">
       <h3>Ghost Lead Terminal</h3>
       <div class="sub">Single-file CRM · pipeline, outreach, and a validated import gate</div>
-      <p>A single-file HTML CRM that runs the practice's client pipeline end to end: a kanban board by stage, a sortable table with a full record drawer, a Today view for due and stale follow-ups, and a dashboard with honest funnel math. Data lives in a synced JSON file — no backend, no vendor lock — with conflict-merge prompts when two devices disagree. Agent-produced lead batches can only enter through a validated import gate, and outreach ships through a template system with a Gmail handoff and an explicit send-confirmation step, so nothing leaves without a human action.</p>
+      <p>A single-file HTML CRM that runs the practice's client pipeline end to end: a kanban board by stage, a sortable table with a full record drawer, a Today view for due and stale follow-ups, and a dashboard with honest funnel math. Data lives in a synced JSON file (no backend, no vendor lock), with conflict-merge prompts when two devices disagree. Agent-produced lead batches can only enter through a validated import gate, and outreach ships through a template system with a Gmail handoff and an explicit send-confirmation step, so nothing leaves without a human action.</p>
       <h4>What's unique</h4>
       <ul>
-        <li>Validated import gate with dedupe: agent research lands as schema-checked batch files, reviewed and merged deliberately — agents never write to the live data file</li>
+        <li>Validated import gate with dedupe: agent research lands as schema-checked batch files, reviewed and merged deliberately; agents never write to the live data file</li>
         <li>Sync-aware single file: JSON data file synced across devices with a conflict-merge prompt instead of silent last-write-wins</li>
         <li>Two-click outreach flow: template fill → Gmail handoff → explicit "Email Submitted" confirmation, keeping the human send gate permanent</li>
         <li>Source attribution built into the schema so inbound-channel funnel math stays honest</li>
@@ -1147,28 +1184,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Single-file HTML</span>
         <span class="stack-item">Synced JSON store</span>
         <span class="stack-item">Smoke-test suite</span>
-      </div>
-    </div>
-
-    <div class="detail" id="agent-operated-practice">
-      <h3>Agent-Operated Practice</h3>
-      <div class="sub">Operating model · a one-person practice run on a governed agent fleet</div>
-      <p>Ghost Strategies runs its operations — research, drafting, content preparation, and tooling — on a fleet of AI agents spanning multiple runtimes (Claude Code and Cowork among them, including a self-hosted research agent), designed around one constraint: the owner's review minutes are the bottleneck, so every lane minimizes them rather than maximizing agent output. Total planned operating overhead: about 80 minutes a week.</p>
-      <h4>Governance rules (the point of the system)</h4>
-      <ul>
-        <li>A human stands between generation and the public: agents research, draft, and package — nothing sends, posts, or publishes without an explicit human action</li>
-        <li>Zero client PII to any model, any lane, any purpose — agents work from public data and tokenized templates only</li>
-        <li>Verification over volume: a small batch of sourced, cited leads beats a large unverifiable one, and every factual claim in content carries the same bar</li>
-        <li>Agents write batch files and drafts only; the CRM's validated import gate and human review are the only doors into the system of record</li>
-        <li>Budget discipline: agent lanes run on capped, monitored spend — overruns are fixed with output limits and model routing, not more money</li>
-      </ul>
-      <h4>Stack</h4>
-      <div class="stack">
-        <span class="stack-item">Claude Code</span>
-        <span class="stack-item">Cowork</span>
-        <span class="stack-item">Multi-runtime agents</span>
-        <span class="stack-item">Cron scheduling</span>
-        <span class="stack-item">Human-in-the-loop gates</span>
       </div>
     </div>
 
@@ -1188,20 +1203,24 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <div class="detail" id="ai-assisted-financial-modeling-suite">
       <h3>AI-Assisted Financial Modeling Suite</h3>
       <div class="sub">Dynamic financial engines built with Claude</div>
+      <div class="source-row"><a class="source-link" href="https://github.com/KaeJhee/valuation-model" target="_blank" rel="noopener">Valuation model source: KaeJhee/valuation-model ↗</a></div>
       <p>A separate workstream under Ghost Strategies focused on financial modeling rather than terminal apps. Includes a probability-weighted valuation model and a $3M TRS retirement planner. I own the financial logic and architecture while directing Claude to generate the code. Every output is validated against standard financial formulas before being trusted, and I only prompt with test or sample data to keep any real client information out of the model.</p>
     </div>
 
     <div class="detail" id="garage-terminal">
       <h3>Garage Terminal</h3>
-      <div class="sub">Multi-asset tracker · Python FastAPI backend</div>
-      <p>A personal asset tracking terminal with a Python FastAPI backend and an automated data pipeline using GitHub Actions for weekly serverless CI/CD workflows. Pulls valuation data, refreshes the dashboard, and exposes a clean read API.</p>
+      <div class="sub">Collector car market tracker · static dashboard refreshed by a weekly GitHub Actions scrape</div>
+      <div class="source-row"><a class="source-link" href="https://github.com/KaeJhee/garage-terminal" target="_blank" rel="noopener">View source on GitHub: KaeJhee/garage-terminal ↗</a></div>
+      <p>A Bloomberg-style dashboard that tracks market prices for 37 collector and exotic cars across JDM, exotic, European, muscle, and Chinese EV segments. A weekly GitHub Actions pipeline scrapes recent auction results with Python, commits the refreshed data, and updates the static dashboard, so it stays current with no server to run.</p>
       <h4>Stack</h4>
       <div class="stack">
         <span class="stack-item">Python</span>
-        <span class="stack-item">FastAPI</span>
+        <span class="stack-item">BeautifulSoup</span>
+        <span class="stack-item">httpx</span>
         <span class="stack-item">GitHub Actions</span>
         <span class="stack-item">JavaScript</span>
-        <span class="stack-item">Serverless CI/CD</span>
+        <span class="stack-item">Chart.js</span>
+        <span class="stack-item">Static hosting</span>
       </div>
     </div>
 
@@ -1225,7 +1244,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <p>I'm now on Toast's Non-R&amp;D AI Initiatives team, bringing that build-and-validate approach to AI work in the functions outside R&amp;D. I work through a multi-agent system I built: an orchestrator routes each task to one of eight specialized agents (workflow automation, code audit, two project management roles, devops, technical writing, product demos, and QA evaluation), each with its own system prompt, scoped tool access, and isolated context. It ships as a single plugin, so the same agents run as sub-agents in Claude Code and as Skills in Cowork, and every tool I ship goes through it to be audited, tested, and documented with its own SOP. I've also packaged reusable skills for SOP generation and product demo builds for Toast's internal plugin marketplace.</p>
       <p>On the team side, I oversee two teammates on daily funding execution, trained five through onboarding, and built the team's new-hire program, policy and SOP index, and training video library. I'm the operational point of contact across Sales, Risk, and Operations on capital decisions, and I ran the time study and ROI analysis behind a 0-to-1 operational strategy that shipped a 70% improvement with Product, Engineering, and Operations.</p>
       <p>Before Toast, I spent four years at Torres Financial Services in San Antonio, moving from Junior Analyst to Portfolio Management Advisor, where I built KPI dashboards for risk, budgeting, and long-term planning and worked with compliance teams on financial regulations.</p>
-      <p>Outside of Toast, I founded Ghost Strategies LLC in November 2023, a registered investment advisory practice where I build LLM-powered financial tools: a portfolio analysis terminal for client reviews, a macro research terminal, a blind model evaluation bench, a LangGraph earnings agent, and an agent-operated practice that requires human approval before anything is sent or published.</p>
+      <p>Outside of Toast, I founded Ghost Strategies LLC in November 2023, a registered investment advisory practice where I build LLM-powered financial tools: a portfolio analysis terminal for client reviews, a macro research terminal, a blind model evaluation bench, and a LangGraph earnings agent. The practice itself runs on a governed multi-agent operating model that requires human approval before anything is sent or published.</p>
       <p>I'm based in San Antonio, Texas, and I work remote-only. I'm targeting Senior Manager-track or Senior IC roles in strategy, operations, risk, or AI-process work at companies where the AI-native operating model is the default, not the exception.</p>
     </div>
 
@@ -1353,7 +1372,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <a class="resume-btn" href="Gallow_K_Resume.pdf" download>↓ Download resume (AI &amp; Insights variant)</a>
     </div>
 
-    <div class="footer">© Kristopher Gallow · Portfolio built with HTML, CSS, and JavaScript · Single-file, no framework</div>
+    <div class="footer">© Kristopher Gallow · Portfolio built with HTML, CSS, and JavaScript · Single-file, no framework · <a class="source-link" href="https://github.com/KaeJhee/portfolio" target="_blank" rel="noopener">Source ↗</a></div>
 
   </div>
 
@@ -1555,41 +1574,49 @@ document.addEventListener('click', e => {
   });
 })();
 
-// ── Routing-number checksum (ABA 3-7-1) ──
+// ── Routing-number lookup: a quick typo check, then the FedACH directory ──
 (function () {
   const box = document.getElementById('demo-aba');
   if (!box) return;
   const input = box.querySelector('#aba-input');
-  const grid = box.querySelector('.aba-grid');
   const status = box.querySelector('#aba-status');
+  const steps = { typo: box.querySelector('[data-step="typo"]'), dir: box.querySelector('[data-step="dir"]') };
+  const rows = [...box.querySelectorAll('.lookup-dir tbody tr')];
+  // The directory is read from the table on screen, so what you see is exactly what gets searched
+  const DIRECTORY = new Map(rows.map(r => [r.cells[0].textContent.trim(), r.cells[1].textContent.trim()]));
   const W = [3, 7, 1, 3, 7, 1, 3, 7, 1];
+  const typoOk = rt => W.reduce((sum, w, i) => sum + w * rt[i], 0) % 10 === 0;
+  const mark = (step, state) => { steps[step].className = 'lookup-step' + (state ? ' ' + state : ''); };
+  const show = (cls, text) => { status.className = 'demo-status' + (cls ? ' ' + cls : ''); status.textContent = text; };
 
-  function render() {
-    const digits = input.value.replace(/\D/g, '').slice(0, 9);
-    if (input.value !== digits) input.value = digits;
-    grid.replaceChildren();
-    let sum = 0;
-    W.forEach((w, i) => {
-      const d = digits[i];
-      const col = el('div', 'aba-col');
-      col.append(el('span', 'aba-d', d ?? '·'), el('span', 'aba-w', '×' + w), el('span', 'aba-p', d != null ? String(d * w) : ''));
-      if (d != null) sum += d * w;
-      grid.appendChild(col);
-    });
-    if (digits.length < 9) {
-      status.className = 'demo-status';
-      status.textContent = `Enter ${9 - digits.length} more digit${digits.length === 8 ? '' : 's'}.`;
-    } else if (sum % 10 === 0) {
-      status.className = 'demo-status ok';
-      status.textContent = `Sum ${sum} ends in 0. Checksum passes, so the tool goes on to look up the bank.`;
+  function check() {
+    const rt = input.value.replace(/\D/g, '').slice(0, 9);
+    if (input.value !== rt) input.value = rt;
+    mark('typo'); mark('dir'); rows.forEach(r => r.classList.remove('hit'));
+    if (rt.length < 9) { show('', `Enter ${9 - rt.length} more digit${rt.length === 8 ? '' : 's'}.`); return null; }
+    if (!typoOk(rt)) { mark('typo', 'fail'); show('bad', 'Fails the typo check, so it never reaches the directory. Fix the number and try again.'); return null; }
+    mark('typo', 'ok');
+    show('', 'Passes the typo check. Press Look up to search the demo directory.');
+    return rt;
+  }
+  function lookup() {
+    const rt = check();
+    if (!rt) return;
+    const bank = DIRECTORY.get(rt);
+    if (bank) {
+      mark('dir', 'ok');
+      rows.find(r => r.cells[0].textContent.trim() === rt).classList.add('hit');
+      show('ok', `Found: ${bank}. Confirmed ACH participant, with its bank name ready to apply.`);
     } else {
-      status.className = 'demo-status bad';
-      status.textContent = `Sum ${sum} ends in ${sum % 10}. Checksum fails, so the typo is caught before any lookup is made.`;
+      mark('dir', 'fail');
+      show('bad', 'Not among this demo\'s directory entries. The real tool searches the full FedACH directory, and a number it does not list for ACH is flagged to confirm eligibility before funding.');
     }
   }
-  input.addEventListener('input', render);
-  box.querySelectorAll('[data-aba]').forEach(b => b.addEventListener('click', () => { input.value = b.dataset.aba; render(); }));
-  render();
+  input.addEventListener('input', check);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); lookup(); } });
+  box.querySelector('[data-lookup]').addEventListener('click', lookup);
+  box.querySelectorAll('[data-aba]').forEach(b => b.addEventListener('click', () => { input.value = b.dataset.aba; lookup(); }));
+  lookup();
 })();
 
 // ── Earnings agent: scripted replay of the LangGraph run ──
@@ -1793,7 +1820,7 @@ document.addEventListener('click', e => {
       items.push({ title: h.textContent, where: TAB_NAMES[tab], tab, target: d, keys });
     });
   });
-  [['demo-aba', 'Try: routing-number checksum', 'toast'], ['demo-agent', 'Try: replay the earnings agent', 'ghost'], ['demo-vol', 'Try: portfolio volatility math', 'ghost']].forEach(([id, title, tab]) => {
+  [['demo-aba', 'Try: routing-number lookup', 'toast'], ['demo-agent', 'Try: replay the earnings agent', 'ghost'], ['demo-vol', 'Try: portfolio volatility math', 'ghost'], ['agent-operated-practice', 'How the Ghost Strategies practice runs', 'ghost']].forEach(([id, title, tab]) => {
     const t = document.getElementById(id);
     if (t) items.push({ title, where: TAB_NAMES[tab], tab, target: t, keys: 'demo interactive' });
   });
