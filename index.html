@@ -969,15 +969,39 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <div>
         <div class="eyebrow">About</div>
         <h1>Background and operating model</h1>
-        <p>How I work and what I'm looking for.</p>
+        <p>Where I've worked, how I build, and what I'm looking for.</p>
       </div>
     </div>
 
+    <div class="sec">Background</div>
     <div class="about-card">
-      <p>I'm a Senior Capital Underwriter at Toast, where I support over $500M in active capital deployments and operate inside a fintech that scaled from $100M to over $2B in annual volume during my tenure. My day-to-day is capital decisions, customer health monitoring, and scenario planning, but my distinguishing work is building the systems and tools that operate alongside that core function. Ten of those tools are now in daily use across underwriting and collections, replacing manual workflows that used to consume hours of recurring team effort each week.</p>
-      <p>I'm part of Toast's Claude Code and Cowork rollout to a select group of process automation specialists. I built a multi-agent system with an orchestrator that routes work to specialized sub-agents (workflow automation, code audit, technical project management, devops, technical writing), each with its own system prompt, scoped tool access, and isolated context. The same architecture is replicated as Skills in Cowork.</p>
-      <p>Outside of Toast, I run Ghost Strategies LLC, where I ship LLM-powered financial tools. My operating discipline across every project is consistent: I own the logic and architecture, the LLM writes the code, I validate every output before I trust it, and I never feed proprietary data to a model.</p>
+      <p>I'm a Senior Capital Underwriter, Process Automation at Toast, where I support over $500M in capital deployments inside Toast Capital, which scaled from $100M to over $2B in annual volume during my tenure. My core work is capital decisions, customer health monitoring, and scenario planning. What sets my work apart is the systems I build alongside it: eight tools now in daily use across Toast, replacing manual workflows that used to take hours of recurring team effort each week.</p>
+      <p>I'm now on Toast's Non-R&amp;D AI Initiatives team, bringing that build-and-validate approach to AI work in the functions outside R&amp;D. I work through a multi-agent system I built: an orchestrator routes each task to one of eight specialized agents (workflow automation, code audit, two project management roles, devops, technical writing, product demos, and QA evaluation), each with its own system prompt, scoped tool access, and isolated context. It ships as a single plugin, so the same agents run as sub-agents in Claude Code and as Skills in Cowork, and every tool I ship goes through it to be audited, tested, and documented with its own SOP. I've also packaged reusable skills for SOP generation and product demo builds for Toast's internal plugin marketplace.</p>
+      <p>On the team side, I oversee two teammates on daily funding execution, trained five through onboarding, and built the team's new-hire program, policy and SOP index, and training video library. I'm the operational point of contact across Sales, Risk, and Operations on capital decisions, and I ran the time study and ROI analysis behind a 0-to-1 operational strategy that shipped a 70% improvement with Product, Engineering, and Operations.</p>
+      <p>Before Toast, I spent four years at Torres Financial Services in San Antonio, moving from Junior Analyst to Portfolio Management Advisor, where I built KPI dashboards for risk, budgeting, and long-term planning and worked with compliance teams on financial regulations.</p>
+      <p>Outside of Toast, I founded Ghost Strategies LLC in November 2023, a registered investment advisory practice where I build LLM-powered financial tools: a portfolio analysis terminal for client reviews, a macro research terminal, a blind model evaluation bench, a LangGraph earnings agent, and an agent-operated practice that requires human approval before anything is sent or published.</p>
       <p>I'm based in San Antonio, Texas, and I work remote-only. I'm targeting Senior Manager-track or Senior IC roles in strategy, operations, risk, or AI-process work at companies where the AI-native operating model is the default, not the exception.</p>
+    </div>
+
+    <div class="sec">How I work</div>
+    <div class="about-card">
+      <p><b>I own the logic and architecture.</b> I decide what a tool does, how the data flows, and what counts as a correct result.</p>
+      <p><b>The LLM writes the code.</b> Claude is my primary builder, and which model fills which slot in my tools is decided by recorded evidence from my own blind evaluation bench, not habit.</p>
+      <p><b>I validate every output before I trust it.</b> Deterministic checks judge model output, tools ship with test harnesses, and larger builds go through adversarial multi-agent audits. The Portfolio Terminal's audit surfaced and fixed 56 defects before it was trusted with real work.</p>
+      <p><b>No proprietary data reaches a model.</b> I prompt with test or sample data only, so no proprietary or client information enters a model while I build.</p>
+    </div>
+
+    <div class="sec">Experience</div>
+    <div class="about-card">
+      <p><b>Toast Inc</b> · Senior Capital Underwriter, Process Automation · December 2021 to present<br>Non-R&amp;D AI Initiatives team</p>
+      <p><b>Ghost Strategies LLC</b> · Founder, Registered Investment Advisor · November 2023 to present</p>
+      <p><b>Torres Financial Services</b> · Portfolio Management Advisor, 2019 to 2021 · Junior Analyst, 2017 to 2019</p>
+    </div>
+
+    <div class="sec">Education and certifications</div>
+    <div class="about-card">
+      <p><b>Bachelor of Business Administration in Finance</b> · The University of Texas at San Antonio</p>
+      <p><b>Google Data Analytics Certification</b></p>
     </div>
 
     <div class="sec">Core stack</div>
@@ -987,12 +1011,15 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Salesforce</span>
         <span class="stack-item">Python</span>
         <span class="stack-item">JavaScript</span>
+        <span class="stack-item">React</span>
         <span class="stack-item">Google Apps Script</span>
         <span class="stack-item">Hex</span>
         <span class="stack-item">Excel and Google Sheets</span>
         <span class="stack-item">Claude Code</span>
         <span class="stack-item">Cowork</span>
         <span class="stack-item">Multi-Agent Systems</span>
+        <span class="stack-item">LangGraph</span>
+        <span class="stack-item">Cloudflare Workers</span>
         <span class="stack-item">Flask</span>
         <span class="stack-item">FastAPI</span>
         <span class="stack-item">Chart.js</span>
