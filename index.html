@@ -183,6 +183,142 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .tab-btn[data-tab="ghost"].active { color: var(--ghost); border-bottom-color: var(--ghost); }
 .tab-btn[data-tab="about"].active { color: var(--about); border-bottom-color: var(--about); }
 .tab-btn[data-tab="contact"].active { color: var(--contact); border-bottom-color: var(--contact); }
+
+/* ── Jump menu (⌘K) ── */
+.jump-btn { margin-left: auto; align-self: center; flex-shrink: 0; display: flex; align-items: center; gap: 6px; font: inherit; font-size: 12px; color: var(--text-3); background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 4px 6px 4px 10px; cursor: pointer; white-space: nowrap; }
+.jump-btn:hover { color: var(--text); border-color: var(--accent-border); }
+.jump-btn kbd, .jump-foot kbd { font-family: var(--mono); font-size: 10px; padding: 1px 5px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); color: var(--text-2); }
+.jump-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(26, 25, 22, 0.35); display: flex; justify-content: center; align-items: flex-start; padding: 12vh 16px 16px; }
+.jump-overlay[hidden] { display: none; }
+.jump-box { width: 100%; max-width: 540px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18); overflow: hidden; }
+.jump-input { width: 100%; border: none; border-bottom: 1px solid var(--border); padding: 14px 16px; font: inherit; font-size: 15px; color: var(--text); outline: none; background: var(--surface); }
+.jump-list { list-style: none; max-height: 50vh; overflow-y: auto; padding: 6px; }
+.jump-item { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 8px 10px; border-radius: 8px; cursor: pointer; font-size: 13px; color: var(--text); }
+.jump-item .where { font-size: 11px; color: var(--text-3); white-space: nowrap; }
+.jump-item.sel { background: var(--accent-light); }
+.jump-empty { padding: 14px; font-size: 13px; color: var(--text-3); }
+.jump-foot { display: flex; gap: 14px; flex-wrap: wrap; border-top: 1px solid var(--border); padding: 8px 14px; font-size: 11px; color: var(--text-3); }
+.detail, .about-card, .sec, .demo, .project { scroll-margin-top: 64px; }
+.jump-flash { animation: jumpflash 1.6s ease-out; }
+@keyframes jumpflash { 0% { box-shadow: 0 0 0 4px var(--accent-border); } 100% { box-shadow: 0 0 0 4px transparent; } }
+
+/* ── Featured filter chips ── */
+.filter-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 14px; }
+.chip { font: inherit; font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-2); cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; }
+.chip:hover { border-color: var(--accent-border); color: var(--text); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.filter-status { font-size: 11px; color: var(--text-3); margin-left: 4px; }
+.project.is-hidden { display: none; }
+
+/* ── Workflow race bars ── */
+.race { margin: 0 0 14px; padding: 12px 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); }
+.race-row { display: grid; grid-template-columns: 52px 1fr 48px; align-items: center; gap: 10px; margin-bottom: 6px; }
+.race-name { font-size: 10px; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; }
+.race-track { height: 8px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.race-fill { height: 100%; width: 0; background: var(--text-3); border-radius: 999px; }
+.race-fill.after { background: var(--green); }
+.race-time { font-family: var(--mono); font-size: 11px; color: var(--text-2); text-align: right; }
+.race-row.done .race-time { color: var(--green); font-weight: 600; }
+.race-foot { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.race-btn { font: inherit; font-size: 12px; font-weight: 600; padding: 3px 12px; border-radius: 999px; border: 1px solid var(--toast-border); background: var(--toast-light); color: var(--toast-dark); cursor: pointer; }
+.race-btn:hover { border-color: var(--toast); }
+.race-btn:disabled { opacity: 0.55; cursor: default; }
+.race-note { font-size: 11px; color: var(--text-3); }
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* ── Try-the-logic demos (shared) ── */
+.demo { margin: 14px 0 16px; padding: 16px 18px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); }
+.demo-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.demo-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.demo-note { font-size: 11px; color: var(--text-3); }
+.demo-controls { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.demo-btn { font: inherit; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-2); cursor: pointer; }
+.demo-btn:hover { color: var(--text); border-color: var(--accent-border); }
+.demo-btn:disabled { opacity: 0.45; cursor: default; }
+.theme-toast .demo-btn.primary { background: var(--toast); border-color: var(--toast); color: #fff; }
+.theme-ghost .demo-btn.primary { background: var(--ghost); border-color: var(--ghost); color: #fff; }
+.theme-ghost .demo-btn[aria-pressed="true"] { background: var(--ghost-light); border-color: var(--ghost-border); color: var(--ghost-dark); }
+.demo-status { font-size: 13px; padding: 8px 12px; border-radius: var(--radius); margin-top: 12px; border: 1px solid var(--border); background: var(--surface); color: var(--text-3); }
+.demo-status.ok { background: var(--green-light); border-color: var(--green-border); color: var(--green); }
+.demo-status.bad { background: #FDECEC; border-color: #F5C2C2; color: #B42318; }
+
+/* Routing-number checksum */
+.aba-input { font-family: var(--mono); font-size: 16px; letter-spacing: 0.2em; width: 156px; padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); }
+.aba-input:focus { outline: 2px solid var(--toast-border); outline-offset: 1px; }
+.aba-grid { display: grid; grid-template-columns: repeat(9, 1fr); gap: 4px; margin-top: 12px; }
+.aba-col { display: flex; flex-direction: column; align-items: center; padding: 6px 0; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; font-family: var(--mono); }
+.aba-d { font-size: 15px; font-weight: 600; color: var(--text); }
+.aba-w { font-size: 10px; color: var(--toast-dark); }
+.aba-p { font-size: 11px; color: var(--text-2); border-top: 1px dashed var(--border); margin-top: 3px; padding-top: 2px; width: 70%; text-align: center; }
+.aba-legend { font-size: 11px; color: var(--text-3); margin-top: 8px; }
+
+/* Agent run replay */
+.agent-rail { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-bottom: 10px; font-family: var(--mono); font-size: 11px; }
+.agent-node { padding: 3px 8px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); color: var(--text-3); }
+.agent-node.done { color: var(--ghost-dark); background: var(--ghost-light); border-color: var(--ghost-border); }
+.agent-node.active { color: #fff; background: var(--ghost); border-color: var(--ghost); }
+.agent-node.fail { color: #B42318; background: #FDECEC; border-color: #F5C2C2; }
+.agent-sep { color: var(--text-3); }
+.agent-log { font-family: var(--mono); font-size: 11.5px; line-height: 1.55; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; min-height: 120px; }
+.log-line { color: var(--text-2); white-space: pre-wrap; word-break: break-word; }
+.log-line .tag { color: var(--ghost); font-weight: 600; }
+.log-line.err { color: #B42318; }
+.log-line.ok { color: var(--green); }
+.log-line.pause { color: var(--about-dark); font-weight: 600; }
+.log-line.muted { color: var(--text-3); }
+.agent-controls { margin-top: 10px; }
+
+/* Portfolio volatility */
+.vol-sliders { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 20px; }
+.vol-slider label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-2); margin-bottom: 4px; }
+.vol-slider label b { font-family: var(--mono); font-weight: 600; color: var(--text); }
+.vol-slider input[type="range"] { width: 100%; accent-color: var(--ghost); }
+.vol-mix { display: flex; height: 10px; border-radius: 999px; overflow: hidden; margin: 14px 0 6px; background: var(--border); }
+.vol-mix span { display: block; height: 100%; }
+.vol-legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 11px; color: var(--text-2); }
+.vol-legend i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; vertical-align: 0; }
+.vol-out { margin-top: 14px; display: grid; gap: 8px; }
+.vol-row { display: grid; grid-template-columns: minmax(0, 1fr) 2fr 52px; align-items: center; gap: 10px; font-size: 12px; color: var(--text-2); }
+.vol-track { height: 8px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.vol-track span { display: block; height: 100%; border-radius: 999px; transition: width 0.2s; }
+.vol-num { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--text); text-align: right; }
+.vol-formula { font-family: var(--mono); font-size: 11px; color: var(--text-3); margin-top: 10px; }
+
+/* About: operating loop */
+.loop { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 12px; }
+.loop-step { position: relative; font: inherit; text-align: left; padding: 12px 14px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface-2); cursor: pointer; transition: background 0.15s, border-color 0.15s; }
+.loop-step:hover { border-color: var(--about-border); }
+.loop-step:not(:last-child)::after { content: '→'; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--text-3); }
+.loop-step .n { display: block; font-family: var(--mono); font-size: 11px; color: var(--about); margin-bottom: 2px; }
+.loop-step .t { display: block; font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.35; }
+.loop-step[aria-selected="true"] { background: var(--about-light); border-color: var(--about-border); }
+.loop-back { font-size: 11px; color: var(--text-3); margin-bottom: 14px; }
+.loop-panel { padding: 14px 16px; background: var(--surface-2); border-left: 3px solid var(--about); border-radius: 0 var(--radius) var(--radius) 0; margin-bottom: 14px; }
+.about-card .loop-panel p { margin-bottom: 8px; }
+.about-card .loop-panel p.loop-example { font-size: 13px; margin-bottom: 0; }
+.loop-example b { color: var(--about-dark); }
+
+@media (prefers-reduced-motion: reduce) {
+  .jump-flash { animation: none; }
+  .vol-track span, .chip, .loop-step { transition: none; }
+}
+@media print {
+  .filter-bar, .jump-btn, .jump-overlay, .race-btn, .demo-controls { display: none !important; }
+  .project.is-hidden { display: block !important; }
+  .loop-panel[hidden] { display: block !important; }
+}
+@media (max-width: 700px) {
+  .aba-grid { gap: 3px; }
+  .aba-d { font-size: 13px; }
+  .demo { padding: 14px 12px; }
+  .vol-sliders { grid-template-columns: 1fr; }
+  .vol-row { grid-template-columns: 1fr 52px; }
+  .vol-row .vol-track { grid-column: 1 / -1; grid-row: 2; }
+  .loop { grid-template-columns: 1fr; gap: 20px; }
+  .loop-step:not(:last-child)::after { content: '↓'; right: auto; left: 18px; top: auto; bottom: -19px; transform: none; }
+  .jump-btn .jump-label { display: none; }
+}
 @media (max-width: 700px) {
   .stats { grid-template-columns: 1fr; }
   .ba { grid-template-columns: 1fr; }
@@ -207,6 +343,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <button class="tab-btn" data-tab="ghost">Ghost Strategies</button>
     <button class="tab-btn" data-tab="about">About</button>
     <button class="tab-btn" data-tab="contact">Contact</button>
+    <button class="jump-btn" type="button" aria-label="Jump to a project or section" aria-haspopup="dialog"><span class="jump-label">Jump to</span><kbd class="jump-kbd">⌘K</kbd></button>
   </div>
 </div>
 
@@ -245,8 +382,19 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
 
     <div class="sec">Featured work</div>
+    <div class="filter-bar" role="group" aria-label="Filter featured work by skill">
+      <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
+      <button class="chip" type="button" data-filter="agents" aria-pressed="false">AI agents</button>
+      <button class="chip" type="button" data-filter="llm" aria-pressed="false">LLM routing</button>
+      <button class="chip" type="button" data-filter="python" aria-pressed="false">Python</button>
+      <button class="chip" type="button" data-filter="sql" aria-pressed="false">SQL</button>
+      <button class="chip" type="button" data-filter="js" aria-pressed="false">JavaScript</button>
+      <button class="chip" type="button" data-filter="data" aria-pressed="false">Data pipelines</button>
+      <button class="chip" type="button" data-filter="finance" aria-pressed="false">Finance</button>
+      <span class="filter-status" aria-live="polite"></span>
+    </div>
     <div class="project-grid">
-      <div class="project" data-color="ghost">
+      <div class="project" data-color="ghost" data-tags="agents llm python data finance">
         <div class="project-head">
           <div class="project-icon">EA</div>
           <div>
@@ -262,7 +410,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         </div>
       </div>
 
-      <div class="project" data-color="ghost">
+      <div class="project" data-color="ghost" data-tags="llm python js data finance">
         <div class="project-head">
           <div class="project-icon">PT</div>
           <div>
@@ -278,7 +426,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         </div>
       </div>
 
-      <div class="project" data-color="toast">
+      <div class="project" data-color="toast" data-tags="js data finance">
         <div class="project-head">
           <div class="project-icon">CM</div>
           <div>
@@ -294,7 +442,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         </div>
       </div>
 
-      <div class="project" data-color="toast">
+      <div class="project" data-color="toast" data-tags="js data finance">
         <div class="project-head">
           <div class="project-icon">FV</div>
           <div>
@@ -304,13 +452,14 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           <div class="project-tag">Toast</div>
         </div>
         <div class="project-summary">A single HTML file that replaced a fragile VLOOKUP chain: drag in four source files and a hash-join engine reconciles hundreds of thousands of rows in milliseconds across ten tabs, with processor-specific match logic isolated in code instead of formulas. Large bank files parse through a persistent three-worker pool with zero-copy transfers, and exports edit a bundled template's XML at runtime so the master sheet's conditional formatting survives. Successive automation passes then closed the manual gaps: a worklist that finds every row still carrying placeholder banking data, routing numbers checksum-validated and resolved to bank names in-app, and account flags applied straight from the source file instead of by hand. A 20–35 minute batch became 40 seconds.</div>
+        <div class="race" data-race="fv"></div>
         <div class="project-meta">
           <span><b>Stack</b>Vanilla JavaScript, SheetJS, custom RFC 4180 parser</span>
           <span><b>Sources</b>4-way JOIN across 10 tabs</span>
         </div>
       </div>
 
-      <div class="project" data-color="toast">
+      <div class="project" data-color="toast" data-tags="js data finance">
         <div class="project-head">
           <div class="project-icon">UC</div>
           <div>
@@ -326,7 +475,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         </div>
       </div>
 
-      <div class="project" data-color="toast">
+      <div class="project" data-color="toast" data-tags="sql llm js">
         <div class="project-head">
           <div class="project-icon">SQ</div>
           <div>
@@ -342,7 +491,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         </div>
       </div>
 
-      <div class="project" data-color="ghost">
+      <div class="project" data-color="ghost" data-tags="agents llm python js finance">
         <div class="project-head">
           <div class="project-icon">GS</div>
           <div>
@@ -358,7 +507,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         </div>
       </div>
 
-      <div class="project" data-color="toast">
+      <div class="project" data-color="toast" data-tags="js data">
         <div class="project-head">
           <div class="project-icon">CX</div>
           <div>
@@ -368,13 +517,14 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           <div class="project-tag">Toast</div>
         </div>
         <div class="project-summary">Performance engineering wrapped in a tool simple enough for non-technical operations users: streams 1M+ row spreadsheets through parallel Web Workers, with a pipeline that starts file I/O the moment a file lands and pre-warms workers by compiling SheetJS during the user's review window. The parser constructs only the three needed cell addresses per row instead of materializing full sheets, and clipboard output ships in 150K-row chunks calibrated to stay under Google Sheets' 10-million-cell limit. A nine-minute open-to-paste workflow now takes under 55 seconds.</div>
+        <div class="race" data-race="cx"></div>
         <div class="project-meta">
           <span><b>Stack</b>Vanilla JavaScript, Web Workers, Papa Parse, SheetJS, Promise.all</span>
           <span><b>Scale</b>1M+ rows/file</span>
         </div>
       </div>
 
-      <div class="project" data-color="toast">
+      <div class="project" data-color="toast" data-tags="python js">
         <div class="project-head">
           <div class="project-icon">ET</div>
           <div>
@@ -384,6 +534,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           <div class="project-tag">Toast</div>
         </div>
         <div class="project-summary">Eleven phases from CLI script to native-feeling desktop app for a 14-person team: 20 pre-loaded templates that copy with rich formatting intact — via AppleScript's «class HTML» on macOS and hand-built CF_HTML byte-offset headers on Windows — cutting retrieval from 30 seconds to under 3. Deliberately shipped as a 15KB Flask app instead of a 200MB Electron bundle, with zero AI tokens consumed and zero customer data exposure by design: placeholders fill locally, so nothing ever leaves the machine. Grew into a Salesforce-embedded generator concept presented to engineering stakeholders.</div>
+        <div class="race" data-race="et"></div>
         <div class="project-meta">
           <span><b>Stack</b>Python, Flask, PowerShell, AppleScript, PyInstaller, pystray</span>
           <span><b>Platforms</b>macOS + Windows</span>
@@ -477,6 +628,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <p>A single-file HTML application that replaced a fragile VLOOKUP chain in Google Sheets used to verify merchant banking data for capital deployments. Performs an in-browser JOIN across four sources (New Funding file, Snowflake export, Original CSV funding records, and DSL bank files), produces match results with processor-specific logic, supports real-time manual overrides, and exports a multi-sheet XLSX workbook from a bundled template that preserves the master sheet's conditional formatting. The tool grew to 10 tabs, including a TCA Check tab that auto-flags Toast Checking accounts and matches pasted GUIDs against an auto-detected canonical GUID column, an External MCA Refi tab that tracks refi lineage between loans, and a Funding Edits tab that turns every row still holding placeholder banking data into an editable worklist with routing-number validation and bank lookup built in. The full funding verification workflow used to take 20 to 35 minutes per batch; the latest measured time (June 2026) clocked it at 40 seconds end-to-end.</p>
 
       <h4>Before and after</h4>
+      <div class="race" data-race="fv"></div>
       <div class="ba">
         <div class="ba-card">
           <div class="ba-label">Before · 20-35 minutes</div>
@@ -492,6 +644,24 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           <div class="ba-step"><div class="ba-num">3</div><div>Toast Checking and Verified in Merchant labels persist across re-uploads</div></div>
           <div class="ba-step"><div class="ba-num">4</div><div>Processor logic in code, 4-sheet XLSX export preserves master sheet formatting</div></div>
         </div>
+      </div>
+
+      <h4>Try the logic</h4>
+      <div class="demo" id="demo-aba">
+        <div class="demo-head">
+          <div class="demo-title">Routing-number checksum</div>
+          <div class="demo-note">Runs in your browser. The real tool runs this check before any bank lookup.</div>
+        </div>
+        <div class="demo-controls">
+          <label class="sr-only" for="aba-input">Nine-digit routing number</label>
+          <input id="aba-input" class="aba-input" type="text" inputmode="numeric" maxlength="9" autocomplete="off" spellcheck="false" value="123456780" aria-describedby="aba-status">
+          <button class="demo-btn" type="button" data-aba="123456780">Sample: valid</button>
+          <button class="demo-btn" type="button" data-aba="123456789">Sample: one digit off</button>
+          <button class="demo-btn" type="button" data-aba="123456870">Sample: two digits swapped</button>
+        </div>
+        <div class="aba-grid" aria-hidden="true"></div>
+        <div class="aba-legend">Each digit is multiplied by its weight (3, 7, 1, repeating) and the products are summed. A routing number is well-formed only when that sum ends in 0.</div>
+        <div class="demo-status" id="aba-status" role="status"></div>
       </div>
 
       <h4>Mock view</h4>
@@ -607,6 +777,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <p>A single-file HTML dashboard for combining up to five large spreadsheet files, each potentially exceeding one million rows, and extracting three specific columns for paste into a destination Google Sheet. Iterative performance engineering took the full open-to-paste workflow on three 25MB XLSX files from approximately nine minutes (manual baseline) to under 55 seconds.</p>
 
       <h4>Before and after</h4>
+      <div class="race" data-race="cx"></div>
       <div class="ba">
         <div class="ba-card">
           <div class="ba-label">Before · ~9 minutes</div>
@@ -686,6 +857,9 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
       <p>A cross-platform desktop application that ships 20 pre-loaded email templates with rich-text formatting preserved on paste. Grew over 11 phases from a CLI tool to a full Flask web app, then to a PyInstaller-bundled native application with a system tray icon, and finally into a Salesforce-embedded NOIA generator concept presented to engineering stakeholders.</p>
 
+      <h4>Before and after</h4>
+      <div class="race" data-race="et"></div>
+
       <h4>Mock view</h4>
       <div class="mockup">
         <div class="mockup-head">
@@ -761,6 +935,26 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <div class="mockup" style="padding: 12px 16px;">
         <span style="font-family: var(--mono); font-size: 12px;">START → fetch → route_by_shape → (format_fast | extract) → validate ⟲ → human checkpoint → synthesize → END</span>
       </div>
+      <h4>Step through a run</h4>
+      <div class="demo" id="demo-agent">
+        <div class="demo-head">
+          <div class="demo-title">Replay the graph</div>
+          <div class="demo-note">Scripted replay with sample data for a made-up ticker. Node names, log lines, and outcomes match the agent's code.</div>
+        </div>
+        <div class="demo-controls" role="group" aria-label="Choose an input">
+          <button class="demo-btn" type="button" data-scenario="structured" aria-pressed="false">Structured feed</button>
+          <button class="demo-btn" type="button" data-scenario="prose" aria-pressed="true">Prose release</button>
+          <button class="demo-btn" type="button" data-scenario="garbled" aria-pressed="false">Unparseable release</button>
+        </div>
+        <div class="agent-rail" aria-hidden="true" style="margin-top: 12px;"></div>
+        <div class="agent-log" role="log" aria-live="polite"></div>
+        <div class="demo-controls agent-controls">
+          <button class="demo-btn primary" type="button" data-agent="next">Next step ▸</button>
+          <button class="demo-btn" type="button" data-agent="approve" hidden>Approve</button>
+          <button class="demo-btn" type="button" data-agent="reject" hidden>Reject</button>
+          <button class="demo-btn" type="button" data-agent="restart">Restart</button>
+        </div>
+      </div>
       <h4>What's unique</h4>
       <ul>
         <li>Self-correcting, not one-shot: deterministic validation checks every extracted figure, and failures loop back to the extractor with the errors injected into the retry prompt — capped at 3 attempts, then it fails loud to a human instead of shipping a wrong number</li>
@@ -791,6 +985,31 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <p>An internal terminal for reviewing client portfolios against target allocations and the current market environment, built for a registered investment advisory practice with privacy as a hard constraint: holdings are parsed and computed in the browser, nothing but the client name and proxy settings touches browser storage, and the only network traffic is an explicit, button-triggered call to the firm's own proxy. It is a sibling of Wealth Compass — the same client-side architecture, pointed at portfolio analytics instead of planning — and grew from v1.0 to v1.6 across a multi-session build driven by written handoff specifications with phased build orders, acceptance tests, and mock fixtures for keyless development.</p>
       <div class="mockup" style="padding: 12px 16px;">
         <span style="font-family: var(--mono); font-size: 12px;">workbook · brokerage CSV/XLSX · manual · session.json → review grid → compute (returns · beta · σ · Sharpe · drift · look-through · rebalance · stress) → AI Analysis → Worker proxy → 8 models</span>
+      </div>
+      <h4>Try the math</h4>
+      <div class="demo" id="demo-vol">
+        <div class="demo-head">
+          <div class="demo-title">Why the terminal uses a correlation matrix</div>
+          <div class="demo-note">Illustrative inputs for the math, not market data or advice.</div>
+        </div>
+        <div class="vol-sliders">
+          <div class="vol-slider">
+            <label for="vol-stocks">Stocks vs bonds <b data-out="stocks">60% stocks</b></label>
+            <input id="vol-stocks" type="range" min="0" max="100" step="5" value="60">
+          </div>
+          <div class="vol-slider">
+            <label for="vol-us">US share of stocks <b data-out="us">70% US</b></label>
+            <input id="vol-us" type="range" min="0" max="100" step="5" value="70">
+          </div>
+        </div>
+        <div class="vol-mix" aria-hidden="true"><span data-seg="0"></span><span data-seg="1"></span><span data-seg="2"></span></div>
+        <div class="vol-legend"></div>
+        <div class="vol-out">
+          <div class="vol-row"><span>Simple weighted average of each asset's volatility</span><div class="vol-track"><span data-bar="naive" style="background: var(--text-3);"></span></div><span class="vol-num" data-num="naive"></span></div>
+          <div class="vol-row"><span>Portfolio volatility with correlations</span><div class="vol-track"><span data-bar="true" style="background: var(--ghost);"></span></div><span class="vol-num" data-num="true"></span></div>
+        </div>
+        <div class="demo-status ok" data-num="gap" role="status"></div>
+        <div class="vol-formula">σₚ = √( Σᵢ Σⱼ wᵢ wⱼ σᵢ σⱼ ρᵢⱼ ) · σ: US 16%, Intl 17%, Bonds 6% · ρ: US/Intl 0.80, US/Bonds 0.20, Intl/Bonds 0.25</div>
       </div>
       <h4>Key features</h4>
       <ul>
@@ -995,10 +1214,25 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     </div>
 
     <div class="sec">How I work</div>
-    <div class="about-card">
-      <p><b>I own the logic and architecture.</b> I decide what a tool does, how the data flows, and what counts as a correct result.</p>
-      <p><b>The LLM writes the code.</b> Claude is my primary builder, and which model fills which slot in my tools is decided by recorded evidence from my own blind evaluation bench, not habit.</p>
-      <p><b>I validate every output before I trust it.</b> Deterministic checks judge model output, tools ship with test harnesses, and larger builds go through adversarial multi-agent audits. The Portfolio Terminal's audit surfaced and fixed 56 defects before it was trusted with real work.</p>
+    <div class="about-card" id="loop-card">
+      <div class="loop" role="tablist" aria-label="How I build, step by step">
+        <button class="loop-step" type="button" role="tab" id="loop-tab-1" aria-controls="loop-panel-1" aria-selected="true"><span class="n">01</span><span class="t">I own the logic and architecture</span></button>
+        <button class="loop-step" type="button" role="tab" id="loop-tab-2" aria-controls="loop-panel-2" aria-selected="false" tabindex="-1"><span class="n">02</span><span class="t">The LLM writes the code</span></button>
+        <button class="loop-step" type="button" role="tab" id="loop-tab-3" aria-controls="loop-panel-3" aria-selected="false" tabindex="-1"><span class="n">03</span><span class="t">I validate every output</span></button>
+      </div>
+      <div class="loop-back">↺ Every change goes back through the loop. Nothing is trusted until step 03 passes.</div>
+      <div class="loop-panel" role="tabpanel" id="loop-panel-1" aria-labelledby="loop-tab-1">
+        <p><b>I own the logic and architecture.</b> I decide what a tool does, how the data flows, and what counts as a correct result.</p>
+        <p class="loop-example"><b>Real example:</b> in the Funding Verification Tool, the processor match rules (WORLDPAY needs an exact bank-file match, CHASE must differ from a known placeholder) are my business logic, isolated in code instead of buried in spreadsheet formulas.</p>
+      </div>
+      <div class="loop-panel" role="tabpanel" id="loop-panel-2" aria-labelledby="loop-tab-2" hidden>
+        <p><b>The LLM writes the code.</b> Claude is my primary builder, and which model fills which slot in my tools is decided by recorded evidence from my own blind evaluation bench, not habit.</p>
+        <p class="loop-example"><b>Real example:</b> the Portfolio Terminal's roughly 4,400 lines were written by Claude from my written handoff specifications, each with a phased build order, acceptance tests, and mock fixtures.</p>
+      </div>
+      <div class="loop-panel" role="tabpanel" id="loop-panel-3" aria-labelledby="loop-tab-3" hidden>
+        <p><b>I validate every output before I trust it.</b> Deterministic checks judge model output, tools ship with test harnesses, and larger builds go through adversarial multi-agent audits.</p>
+        <p class="loop-example"><b>Real example:</b> the Portfolio Terminal passed 111 automated checks, then a 130-agent adversarial audit that confirmed 56 defects, all fixed before it was trusted with real work.</p>
+      </div>
       <p><b>No proprietary data reaches a model.</b> I prompt with test or sample data only, so no proprietary or client information enters a model while I build.</p>
     </div>
 
@@ -1110,24 +1344,445 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 </div>
 
 <script>
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function el(tag, cls, text) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text != null) n.textContent = text;
+  return n;
+}
+
 // Tab switching
+function showTab(tab, scrollTop = true) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + tab));
+  if (scrollTop) window.scrollTo({top: 0, behavior: REDUCED_MOTION ? 'auto' : 'smooth'});
+}
 document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const tab = btn.dataset.tab;
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + tab));
-    window.scrollTo({top: 0, behavior: 'smooth'});
-  });
+  btn.addEventListener('click', () => showTab(btn.dataset.tab));
 });
 
 // Inline tab links (e.g., "Get in touch" in hero)
 document.querySelectorAll('[data-tab-link]').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
-    const tab = link.dataset.tabLink;
-    document.querySelector(`[data-tab="${tab}"]`).click();
+    showTab(link.dataset.tabLink);
   });
 });
+
+// ── Featured work: skill filter chips ──
+(function () {
+  const chips = document.querySelectorAll('.filter-bar .chip');
+  const cards = document.querySelectorAll('#tab-overview .project[data-tags]');
+  const status = document.querySelector('.filter-status');
+  chips.forEach(chip => chip.addEventListener('click', () => {
+    const f = chip.dataset.filter;
+    chips.forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
+    let shown = 0;
+    cards.forEach(card => {
+      const match = f === 'all' || card.dataset.tags.split(' ').includes(f);
+      card.classList.toggle('is-hidden', !match);
+      if (match) shown++;
+    });
+    status.textContent = f === 'all' ? '' : `Showing ${shown} of ${cards.length}`;
+  }));
+})();
+
+// ── Workflow race bars: manual time vs the tool, on one shared clock ──
+(function () {
+  const RACES = {
+    fv: { before: 1200, after: 40, note: 'Replayed at 200x. Uses the low end of the 20 to 35 minute manual range.' },
+    cx: { before: 540, after: 55, note: 'Replayed at 90x. Three 25MB files, open to paste.' },
+    et: { before: 30, after: 3, note: 'Replayed at 5x. One template, open to paste.' },
+  };
+  const REPLAY_SECONDS = 6;
+  const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+
+  document.querySelectorAll('.race[data-race]').forEach(box => {
+    const cfg = RACES[box.dataset.race];
+    if (!cfg) return;
+    const rows = [['Manual', cfg.before, 'before'], ['Tool', cfg.after, 'after']].map(([name, secs, cls]) => {
+      const row = el('div', 'race-row');
+      const track = el('div', 'race-track');
+      const fill = el('div', 'race-fill ' + cls);
+      const time = el('span', 'race-time');
+      track.appendChild(fill);
+      row.append(el('span', 'race-name', name), track, time);
+      box.appendChild(row);
+      return { row, fill, time, secs };
+    });
+    const foot = el('div', 'race-foot');
+    const btn = el('button', 'race-btn', '▶ Replay');
+    btn.type = 'button';
+    foot.append(btn, el('span', 'race-note', cfg.note));
+    box.appendChild(foot);
+
+    // Static state doubles as the finished race: bar length = elapsed time
+    const paint = t => rows.forEach(r => {
+      const done = t >= r.secs;
+      r.fill.style.width = (Math.min(t, r.secs) / cfg.before * 100) + '%';
+      r.time.textContent = done ? fmt(r.secs) + (r.secs === cfg.after ? ' ✓' : '') : fmt(t);
+      r.row.classList.toggle('done', done && r.secs === cfg.after);
+    });
+    paint(cfg.before);
+
+    btn.addEventListener('click', () => {
+      if (REDUCED_MOTION) { paint(cfg.before); return; }
+      btn.disabled = true;
+      const speed = cfg.before / REPLAY_SECONDS;
+      const start = performance.now();
+      const tick = now => {
+        const t = Math.min(((now - start) / 1000) * speed, cfg.before);
+        paint(t);
+        if (t < cfg.before) requestAnimationFrame(tick);
+        else btn.disabled = false;
+      };
+      requestAnimationFrame(tick);
+    });
+  });
+})();
+
+// ── Routing-number checksum (ABA 3-7-1) ──
+(function () {
+  const box = document.getElementById('demo-aba');
+  if (!box) return;
+  const input = box.querySelector('#aba-input');
+  const grid = box.querySelector('.aba-grid');
+  const status = box.querySelector('#aba-status');
+  const W = [3, 7, 1, 3, 7, 1, 3, 7, 1];
+
+  function render() {
+    const digits = input.value.replace(/\D/g, '').slice(0, 9);
+    if (input.value !== digits) input.value = digits;
+    grid.replaceChildren();
+    let sum = 0;
+    W.forEach((w, i) => {
+      const d = digits[i];
+      const col = el('div', 'aba-col');
+      col.append(el('span', 'aba-d', d ?? '·'), el('span', 'aba-w', '×' + w), el('span', 'aba-p', d != null ? String(d * w) : ''));
+      if (d != null) sum += d * w;
+      grid.appendChild(col);
+    });
+    if (digits.length < 9) {
+      status.className = 'demo-status';
+      status.textContent = `Enter ${9 - digits.length} more digit${digits.length === 8 ? '' : 's'}.`;
+    } else if (sum % 10 === 0) {
+      status.className = 'demo-status ok';
+      status.textContent = `Sum ${sum} ends in 0. Checksum passes, so the tool goes on to look up the bank.`;
+    } else {
+      status.className = 'demo-status bad';
+      status.textContent = `Sum ${sum} ends in ${sum % 10}. Checksum fails, so the typo is caught before any lookup is made.`;
+    }
+  }
+  input.addEventListener('input', render);
+  box.querySelectorAll('[data-aba]').forEach(b => b.addEventListener('click', () => { input.value = b.dataset.aba; render(); }));
+  render();
+})();
+
+// ── Earnings agent: scripted replay of the LangGraph run ──
+(function () {
+  const box = document.getElementById('demo-agent');
+  if (!box) return;
+  const NODES = ['fetch', 'route_by_shape', 'format_fast', 'extract', 'validate', 'checkpoint', 'synthesize', 'fail_loud'];
+  const SEP_AFTER = { fetch: '→', route_by_shape: '→', format_fast: '|', extract: '→', validate: '→', checkpoint: '→', synthesize: '|' };
+  const GOOD = "{'revenue': 4200, 'eps': 1.31}";
+  const STRUCTURED = [
+    { node: 'fetch', tag: 'fetch', text: 'DEMO release loaded (sample data). It arrives as JSON: {"revenue": 4200, "eps": 1.31}' },
+    { node: 'route_by_shape', tag: 'route_by_shape', text: 'input starts with "{" → format_fast. No model call needed.' },
+    { node: 'format_fast', tag: 'format_fast', text: 'parsed directly -> ' + GOOD },
+    { node: 'validate', tag: 'validate', text: 'errors = []', cls: 'ok' },
+  ];
+  const PROSE = [
+    { node: 'fetch', tag: 'fetch', text: 'DEMO release loaded (sample data). It arrives as prose: "Quarterly revenue rose to $4.2 billion; diluted EPS was $1.31."' },
+    { node: 'route_by_shape', tag: 'route_by_shape', text: 'input does not start with "{" → extract (LLM path)' },
+    { node: 'extract', tag: 'extract', text: 'attempt 1 -> {}   (reply was not valid JSON, so the node returns empty)' },
+    { node: 'validate', tag: 'validate', text: "errors = ['revenue missing', 'eps missing']", cls: 'err', fail: true },
+    { node: 'extract', tag: 'route', text: '1 of 3 attempts used. Back to extract with the errors added to the prompt.', cls: 'muted' },
+    { node: 'extract', tag: 'extract', text: 'attempt 2 -> ' + GOOD },
+    { node: 'validate', tag: 'validate', text: 'errors = []', cls: 'ok' },
+  ];
+  const GARBLED = [
+    PROSE[0], PROSE[1], PROSE[2], PROSE[3],
+    { node: 'extract', tag: 'route', text: '1 of 3 attempts used. Back to extract with the errors added to the prompt.', cls: 'muted' },
+    { node: 'extract', tag: 'extract', text: 'attempt 2 -> {}' },
+    { node: 'validate', tag: 'validate', text: "errors = ['revenue missing', 'eps missing']", cls: 'err', fail: true },
+    { node: 'extract', tag: 'route', text: '2 of 3 attempts used. Back to extract with the errors added to the prompt.', cls: 'muted' },
+    { node: 'extract', tag: 'extract', text: 'attempt 3 -> {}' },
+    { node: 'validate', tag: 'validate', text: "errors = ['revenue missing', 'eps missing']", cls: 'err', fail: true },
+    { node: 'fail_loud', tag: 'fail_loud', text: "Failed after 3 attempts: ['revenue missing', 'eps missing']. Human review required.", cls: 'err', end: true },
+  ];
+  const CHECKPOINT = { node: 'checkpoint', text: 'PAUSED. Extracted numbers awaiting approval: ' + GOOD, cls: 'pause', gate: true };
+  const SCENARIOS = {
+    structured: { steps: [...STRUCTURED, CHECKPOINT], attempts: 0 },
+    prose: { steps: [...PROSE, CHECKPOINT], attempts: 2 },
+    garbled: { steps: GARBLED, attempts: 3 },
+  };
+
+  const rail = box.querySelector('.agent-rail');
+  const log = box.querySelector('.agent-log');
+  const btn = name => box.querySelector(`[data-agent="${name}"]`);
+  const nodeEls = {};
+  NODES.forEach(n => {
+    nodeEls[n] = el('span', 'agent-node', n === 'checkpoint' ? '⏸ checkpoint' : n);
+    rail.appendChild(nodeEls[n]);
+    if (SEP_AFTER[n]) rail.appendChild(el('span', 'agent-sep', SEP_AFTER[n]));
+  });
+
+  let scenario = 'prose', i = 0;
+
+  function line(step) {
+    const p = el('div', 'log-line' + (step.cls ? ' ' + step.cls : ''));
+    if (step.tag) p.appendChild(el('span', 'tag', `[${step.tag}] `));
+    p.appendChild(document.createTextNode(step.text));
+    log.appendChild(p);
+  }
+  function highlight(steps, upto, finalNode) {
+    NODES.forEach(n => nodeEls[n].className = 'agent-node');
+    steps.slice(0, upto).forEach(s => nodeEls[s.node].classList.add('done'));
+    const cur = steps[upto - 1];
+    if (finalNode) nodeEls[finalNode].classList.add('active');
+    else if (cur) nodeEls[cur.node].classList.add(cur.fail ? 'fail' : 'active');
+  }
+  function setGate(open) {
+    btn('approve').hidden = !open;
+    btn('reject').hidden = !open;
+  }
+  function reset(name) {
+    scenario = name;
+    i = 0;
+    log.replaceChildren();
+    line({ text: `Input: ${name === 'structured' ? 'a structured JSON feed' : name === 'prose' ? 'a prose press release' : 'a release the model never returns valid JSON for'}. Press Next step.`, cls: 'muted' });
+    box.querySelectorAll('[data-scenario]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.scenario === name)));
+    highlight([], 0);
+    setGate(false);
+    btn('next').disabled = false;
+  }
+  function next() {
+    const steps = SCENARIOS[scenario].steps;
+    if (i === 0) log.replaceChildren();
+    const step = steps[i++];
+    line(step);
+    highlight(steps, i);
+    if (step.gate) { setGate(true); btn('next').disabled = true; }
+    if (step.end || i >= steps.length) btn('next').disabled = true;
+  }
+  function decide(approved) {
+    const steps = SCENARIOS[scenario].steps;
+    setGate(false);
+    if (approved) {
+      line({ node: 'synthesize', tag: 'synthesize', text: `Revenue $4.20B, EPS $1.31. Extraction validation in ${SCENARIOS[scenario].attempts} attempt(s).`, cls: 'ok' });
+      highlight(steps, i, 'synthesize');
+    } else {
+      line({ text: 'Rejected. Nothing shipped.', cls: 'err' });
+    }
+  }
+
+  box.querySelectorAll('[data-scenario]').forEach(b => b.addEventListener('click', () => reset(b.dataset.scenario)));
+  btn('next').addEventListener('click', next);
+  btn('approve').addEventListener('click', () => decide(true));
+  btn('reject').addEventListener('click', () => decide(false));
+  btn('restart').addEventListener('click', () => reset(scenario));
+
+  // Default view: the prose run played through and approved, so the full trace reads at a glance (and in print)
+  reset('prose');
+  while (!btn('next').disabled) next();
+  decide(true);
+})();
+
+// ── Portfolio volatility: weighted average vs correlation-matrix formula ──
+(function () {
+  const box = document.getElementById('demo-vol');
+  if (!box) return;
+  const ASSETS = [
+    { name: 'US stocks', vol: 16, color: 'var(--ghost)' },
+    { name: 'Intl stocks', vol: 17, color: '#818CF8' },
+    { name: 'Bonds', vol: 6, color: 'var(--text-3)' },
+  ];
+  const RHO = [[1, 0.80, 0.20], [0.80, 1, 0.25], [0.20, 0.25, 1]];
+  const SCALE_MAX = 18;
+  const stocks = box.querySelector('#vol-stocks');
+  const us = box.querySelector('#vol-us');
+  const legend = box.querySelector('.vol-legend');
+  const q = sel => box.querySelector(sel);
+
+  function render() {
+    const s = stocks.value / 100, u = us.value / 100;
+    const w = [s * u, s * (1 - u), 1 - s];
+    let variance = 0;
+    for (let i = 0; i < 3; i++)
+      for (let j = 0; j < 3; j++)
+        variance += w[i] * w[j] * ASSETS[i].vol * ASSETS[j].vol * RHO[i][j];
+    const truth = Math.sqrt(variance);
+    const naive = w.reduce((acc, wi, i) => acc + wi * ASSETS[i].vol, 0);
+
+    q('[data-out="stocks"]').textContent = `${stocks.value}% stocks`;
+    q('[data-out="us"]').textContent = `${us.value}% US`;
+    w.forEach((wi, i) => { const seg = q(`[data-seg="${i}"]`); seg.style.width = (wi * 100) + '%'; seg.style.background = ASSETS[i].color; });
+    legend.replaceChildren(...ASSETS.map((a, i) => {
+      const item = el('span');
+      const sw = el('i'); sw.style.background = a.color;
+      item.append(sw, document.createTextNode(`${a.name} ${Math.round(w[i] * 100)}%`));
+      return item;
+    }));
+    q('[data-bar="naive"]').style.width = (naive / SCALE_MAX * 100) + '%';
+    q('[data-bar="true"]').style.width = (truth / SCALE_MAX * 100) + '%';
+    q('[data-num="naive"]').textContent = naive.toFixed(1) + '%';
+    q('[data-num="true"]').textContent = truth.toFixed(1) + '%';
+    const gap = naive - truth;
+    q('[data-num="gap"]').textContent = gap < 0.05
+      ? 'With only one asset in the mix there is nothing to diversify, so both numbers match.'
+      : `Correlations below 1.0 cancel some of the risk. A simple average would overstate this mix's volatility by ${gap.toFixed(1)} points.`;
+  }
+  stocks.addEventListener('input', render);
+  us.addEventListener('input', render);
+  render();
+})();
+
+// ── About: operating loop tabs ──
+(function () {
+  const tabs = [...document.querySelectorAll('#loop-card .loop-step')];
+  function select(tab, focus) {
+    tabs.forEach(t => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (focus) tab.focus();
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t));
+    t.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); select(tabs[(i + 1) % tabs.length], true); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); select(tabs[(i + tabs.length - 1) % tabs.length], true); }
+    });
+  });
+})();
+
+// ── Jump menu (⌘K / Ctrl+K) ──
+(function () {
+  const isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+  const openBtn = document.querySelector('.jump-btn');
+  const kbd = openBtn.querySelector('.jump-kbd');
+  if (window.matchMedia('(pointer: coarse)').matches || window.matchMedia('(hover: none)').matches) kbd.textContent = 'Search';
+  else if (!isMac) kbd.textContent = 'Ctrl K';
+  const TAB_NAMES = { overview: 'Overview', toast: 'Toast Work', ghost: 'Ghost Strategies', about: 'About', contact: 'Contact' };
+
+  // Index built from the page itself, so it never drifts from the content
+  const items = [];
+  Object.entries(TAB_NAMES).forEach(([tab, name]) => items.push({ title: name, where: 'Tab', tab, target: null, keys: '' }));
+  ['toast', 'ghost'].forEach(tab => {
+    document.querySelectorAll(`#tab-${tab} .detail`).forEach(d => {
+      const h = d.querySelector('h3');
+      if (!h) return;
+      const keys = [d.querySelector('.sub')?.textContent || '', ...[...d.querySelectorAll('.stack-item')].map(s => s.textContent)].join(' ');
+      items.push({ title: h.textContent, where: TAB_NAMES[tab], tab, target: d, keys });
+    });
+  });
+  [['demo-aba', 'Try: routing-number checksum', 'toast'], ['demo-agent', 'Try: replay the earnings agent', 'ghost'], ['demo-vol', 'Try: portfolio volatility math', 'ghost']].forEach(([id, title, tab]) => {
+    const t = document.getElementById(id);
+    if (t) items.push({ title, where: TAB_NAMES[tab], tab, target: t, keys: 'demo interactive' });
+  });
+  document.querySelectorAll('#tab-about .sec').forEach(s => items.push({ title: s.textContent, where: 'About', tab: 'about', target: s, keys: '' }));
+  const resume = document.querySelector('.resume-btn');
+  if (resume) items.push({ title: 'Download resume', where: 'Contact', tab: 'contact', target: resume, keys: 'cv pdf' });
+
+  const overlay = el('div', 'jump-overlay');
+  overlay.hidden = true;
+  const dlg = el('div', 'jump-box');
+  dlg.setAttribute('role', 'dialog');
+  dlg.setAttribute('aria-modal', 'true');
+  dlg.setAttribute('aria-label', 'Jump to a project or section');
+  const input = el('input', 'jump-input');
+  input.type = 'text';
+  input.placeholder = 'Search projects, skills, or sections';
+  input.setAttribute('aria-label', 'Search');
+  input.setAttribute('autocomplete', 'off');
+  const list = el('ul', 'jump-list');
+  list.setAttribute('role', 'listbox');
+  const foot = el('div', 'jump-foot');
+  [['↑↓', 'move'], ['Enter', 'open'], ['Esc', 'close']].forEach(([k, label]) => {
+    const s = el('span');
+    s.append(el('kbd', null, k), document.createTextNode(' ' + label));
+    foot.appendChild(s);
+  });
+  dlg.append(input, list, foot);
+  overlay.appendChild(dlg);
+  document.body.appendChild(overlay);
+
+  let results = [], sel = 0, lastFocus = null;
+
+  function search(qs) {
+    const q = qs.trim().toLowerCase();
+    if (!q) return items.slice();
+    return items
+      .map(it => {
+        const t = it.title.toLowerCase();
+        const score = t.startsWith(q) ? 3 : t.includes(q) ? 2 : (it.where + ' ' + it.keys).toLowerCase().includes(q) ? 1 : 0;
+        return { it, score };
+      })
+      .filter(r => r.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map(r => r.it);
+  }
+  function renderList() {
+    results = search(input.value).slice(0, 12);
+    sel = Math.min(sel, Math.max(results.length - 1, 0));
+    list.replaceChildren();
+    if (!results.length) { list.appendChild(el('li', 'jump-empty', 'No matches. Try a tool name or a skill like Python.')); return; }
+    results.forEach((it, i) => {
+      const li = el('li', 'jump-item' + (i === sel ? ' sel' : ''));
+      li.setAttribute('role', 'option');
+      li.setAttribute('aria-selected', String(i === sel));
+      li.append(el('span', null, it.title), el('span', 'where', it.where));
+      li.addEventListener('mousemove', () => { if (sel !== i) { sel = i; renderList(); } });
+      li.addEventListener('click', () => go(it));
+      list.appendChild(li);
+    });
+    list.children[sel]?.scrollIntoView({ block: 'nearest' });
+  }
+  function open() {
+    lastFocus = document.activeElement;
+    overlay.hidden = false;
+    input.value = '';
+    sel = 0;
+    renderList();
+    input.focus();
+  }
+  function close() {
+    input.blur();
+    overlay.hidden = true;
+    if (lastFocus && lastFocus !== document.body && lastFocus.focus) lastFocus.focus();
+  }
+  function go(it) {
+    close();
+    showTab(it.tab, !it.target);
+    if (!it.target) return;
+    requestAnimationFrame(() => {
+      it.target.scrollIntoView({ behavior: REDUCED_MOTION ? 'auto' : 'smooth', block: 'start' });
+      it.target.classList.remove('jump-flash');
+      void it.target.offsetWidth;
+      it.target.classList.add('jump-flash');
+    });
+  }
+
+  openBtn.addEventListener('click', open);
+  overlay.addEventListener('mousedown', e => { if (e.target === overlay) close(); });
+  input.addEventListener('input', () => { sel = 0; renderList(); });
+  input.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); sel = Math.min(sel + 1, results.length - 1); renderList(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); sel = Math.max(sel - 1, 0); renderList(); }
+    else if (e.key === 'Enter') { e.preventDefault(); if (results[sel]) go(results[sel]); }
+    else if (e.key === 'Escape') { e.preventDefault(); close(); }
+    else if (e.key === 'Tab') { e.preventDefault(); }
+  });
+  document.addEventListener('keydown', e => {
+    const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || '');
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); overlay.hidden ? open() : close(); }
+    else if (e.key === '/' && !typing && overlay.hidden) { e.preventDefault(); open(); }
+  });
+})();
 </script>
 
 </body>
