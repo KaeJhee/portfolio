@@ -320,6 +320,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .bench-board-head span { font-family: var(--mono); font-weight: 400; letter-spacing: 0; text-transform: none; }
 .bench-bar { display: inline-block; height: 6px; margin-right: 6px; vertical-align: middle; border-radius: 999px; background: var(--ghost); }
 .bench-board tr.moved td { background: var(--ghost-light); }
+.bench-board tr.thin td { background-image: repeating-linear-gradient(45deg, transparent 0 6px, rgba(120,120,120,.07) 6px 12px); }
+.bench-board-sub { margin-top: 12px; }
+.bench-range { font-family: var(--mono); font-size: 11px; color: var(--text-3); }
+.bench-badge.gate { color: #9A6700; background: #FFF4D6; }
 
 /* About: operating loop */
 .loop { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 12px; }
@@ -1172,13 +1176,13 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
     <div class="detail" id="model-bench-terminal">
       <h3>Model Bench Terminal</h3>
-      <div class="sub">Blind LLM evaluation bench · model selection as recorded evidence</div>
-      <p>A single-file evaluation bench that turns model selection from vibes into recorded evidence. One prompt broadcasts to 2–4 models chosen from a live catalog of ~340; responses stream side by side with live time-to-first-token, throughput, and cost; quality ratings are collected <em>blind</em> (panes shuffled and anonymized until the rating locks); and every run writes a schema-versioned ledger row to IndexedDB, accumulating a private leaderboard of win rates by task tag with a cost-vs-win-rate scatter. The models that earn default slots in the other Ghost tools now earn them on the record.</p>
-      <h4>Try a blind round</h4>
+      <div class="sub">Blind LLM evaluation with code judges · model defaults decided per task, on the record</div>
+      <p>A single-file evaluation bench that turns model selection from vibes into recorded evidence. One prompt broadcasts to 2–4 models chosen from a live catalog of ~340; responses stream side by side with live time-to-first-token, throughput, and cost; votes are cast <em>blind</em> (panes shuffled, and names, costs and speed hidden until the vote locks); and answers with an expected result are graded by code instead: strict JSON-schema checks, field-by-field answer matching, and unit tests run in a locked-down sandbox. A model earns a default slot one task at a time, on its head-to-head share with a 95% plausible range and at least 12 prompts behind it, never on a pooled win rate. The models that fill the other Ghost tools earn their slots this way.</p>
+      <h4>Try a round: blind votes and code judges</h4>
       <div class="demo" id="demo-bench">
         <div class="demo-head">
-          <div class="demo-title">Blind model comparison</div>
-          <div class="demo-note">Recorded sample responses from three illustrative model tiers. Timings, costs, and the starting leaderboard are illustrative too.</div>
+          <div class="demo-title">Blind votes and code judges</div>
+          <div class="demo-note">Recorded sample responses from three illustrative model tiers. Timings, costs and the starting evidence are illustrative. The grading rules are the real tool's, cut down to these three prompts.</div>
         </div>
         <div class="bench-prompt"><span class="bench-tag" data-bench="tag"></span><span data-bench="prompt"></span></div>
         <div class="bench-panes" data-bench="panes"></div>
@@ -1187,14 +1191,18 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           <button class="demo-btn" type="button" data-pick="0">A</button>
           <button class="demo-btn" type="button" data-pick="1">B</button>
           <button class="demo-btn" type="button" data-pick="2">C</button>
+          <button class="demo-btn" type="button" data-pick="tie">Tie</button>
           <button class="demo-btn" type="button" data-pick="bad">All bad</button>
+          <button class="demo-btn" type="button" data-bench-dispute hidden>Grader looks wrong</button>
           <button class="demo-btn" type="button" data-bench-replay>↻ Replay stream</button>
           <button class="demo-btn primary" type="button" data-bench-next hidden>Next prompt ▸</button>
         </div>
         <div class="demo-status" data-bench="status" role="status"></div>
         <div class="bench-board">
-          <div class="bench-board-head">Leaderboard <span>win rate = (wins + 0.5 × ties) / rated appearances</span></div>
-          <table class="mockup-table"><thead><tr><th>Model</th><th>Win rate</th><th>Rated</th><th>Avg cost per run</th></tr></thead><tbody data-bench="board"></tbody></table>
+          <div class="bench-board-head">Head-to-head · finance-narrative <span>share of matchups won, ties count half · a lean shows from 12 prompts</span></div>
+          <table class="mockup-table"><thead><tr><th>Model</th><th>Share</th><th>Plausible range (95%)</th><th>Prompts</th></tr></thead><tbody data-bench="board"></tbody></table>
+          <div class="bench-board-head bench-board-sub">Graded by code · structured-json and code <span>pass rate, each prompt counted once</span></div>
+          <table class="mockup-table"><thead><tr><th>Model</th><th>Pass rate</th><th>Plausible range (95%)</th><th>Prompts</th></tr></thead><tbody data-bench="graded"></tbody></table>
         </div>
         <a class="print-only demo-live" href="https://kaejhee.github.io/portfolio/#demo-bench">Try it live: kaejhee.github.io/portfolio/#demo-bench</a>
       </div>
@@ -1202,8 +1210,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <ul>
         <li>Blind integrity treated as a security property, not a UI feature: every channel that leaks model identity (control-rail slugs, provider error text, history markers) is masked until reveal (blanked, not blurred, which survives select-copy)</li>
         <li>A cost chain that refuses to guess silently: exact stream usage → generation-endpoint lookup (captures web-search fees and pre-abort billing) → catalog estimate visibly tilde-marked; unknown costs render as a dash, never a confident $0.0000</li>
-        <li>Ledger schema designed to be frozen: schema version and UUID from day one, per-pane finish reason and serving provider captured because they can't be backfilled, and win-rate semantics pinned before any data accumulated</li>
-        <li>Structured-output mode validates each response against an attached JSON schema client-side (a ~60-line purpose-built validator instead of a 120KB dependency), which is how router-stage candidates for the other tools get vetted</li>
+        <li>Ledger schema designed to be frozen: schema version and UUID from day one, per-pane finish reason and serving provider captured because they can't be backfilled; the governance data lives in a separate database, so the original file still reads the same ledger</li>
+        <li>Code judges before opinions: extraction, JSON and code prompts carry expected answers, schemas or unit tests, graded in the page with no dependencies; unit tests run in a sandboxed worker with no network or storage access and a hard time limit, so a runaway answer times out instead of freezing the page</li>
+        <li>Governance with a paper trail: votes and grades are append-only, test cases are versioned and only enter a frozen test set once they pass their own self-test, a disputed grade quarantines its case, and a changed grader can regrade every stored answer for free with no model calls</li>
+        <li>Ranges that hold up: the plausible range on each share was checked by simulation to cover the true value at least 94% of the time across 2-, 3- and 4-way comparisons, ties, reruns and one-sided results</li>
         <li>Hand-rolled SSE streaming with a per-pane AbortController and Promise.allSettled isolation, so one pane's mid-stream network death can't block or corrupt its siblings; escape-first rendering keeps hostile completions inert</li>
         <li>Audited and tested before first real use: independent code audit (15 findings resolved, including three schema gaps that would have been unrecoverable after data accumulated), headless end-to-end simulation against a stubbed API, and adversarial unit tests for the validator and renderer</li>
       </ul>
@@ -1336,7 +1346,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <p class="loop-example"><b>Real example:</b> in the Funding Verification Tool, the processor match rules (WORLDPAY needs an exact bank-file match, CHASE must differ from a known placeholder) are my business logic, isolated in code instead of buried in spreadsheet formulas.</p>
       </div>
       <div class="loop-panel" role="tabpanel" id="loop-panel-2" aria-labelledby="loop-tab-2" hidden>
-        <p><b>The LLM writes the code.</b> Claude is my primary builder, and which model fills which slot in my tools is decided by recorded evidence from my own blind evaluation bench, not habit.</p>
+        <p><b>The LLM writes the code.</b> Claude is my primary builder, and which model fills which slot in my tools is decided task by task on recorded evidence from my own evaluation bench, blind votes and code judges, not habit.</p>
         <p class="loop-example"><b>Real example:</b> the Portfolio Terminal's roughly 4,400 lines were written by Claude from my written handoff specifications, each with a phased build order, acceptance tests, and mock fixtures.</p>
       </div>
       <div class="loop-panel" role="tabpanel" id="loop-panel-3" aria-labelledby="loop-tab-3" hidden>
@@ -1940,7 +1950,7 @@ document.addEventListener('click', e => {
   render();
 })();
 
-// ── Model Bench: a blind round with recorded sample responses ──
+// ── Model Bench: blind rounds with code judges ──
 (function () {
   const box = document.getElementById('demo-bench');
   if (!box) return;
@@ -1950,66 +1960,121 @@ document.addEventListener('click', e => {
     { key: 'mid', name: 'Mid tier' },
     { key: 'frontier', name: 'Frontier tier' },
   ];
+  const MEDIAN_FAST = 'function median(a) {\n  return a[Math.floor(a.length / 2)];\n}';
+  const MEDIAN_MID = 'function median(a) {\n  a.sort((x, y) => x - y);\n  const m = Math.floor(a.length / 2);\n  return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2;\n}';
+  const MEDIAN_FRONTIER = 'function median(a) {\n  const s = [...a].sort((x, y) => x - y);\n  const m = Math.floor(s.length / 2);\n  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;\n}';
   // Timings in seconds and cost in USD are illustrative, not measurements of any real model
   const ROUNDS = [
-    { tag: 'structured-json',
+    { tag: 'structured-json', judge: 'schema',
       prompt: 'Extract revenue (USD millions) and diluted EPS from: "Quarterly revenue rose to $4.2 billion; diluted EPS was $1.31." Reply with JSON only: {"revenue": number, "eps": number}',
-      schema: true,
       out: {
         fast: { text: '{"revenue": "$4.2B", "eps": 1.31}', ttft: 0.25, total: 0.9, cost: 0.0001 },
         mid: { text: '{"revenue": 4200, "eps": 1.31}', ttft: 0.5, total: 1.6, cost: 0.0009 },
         frontier: { text: 'Here is the extraction:\n{"revenue": 4200, "eps": 1.31}', ttft: 1.1, total: 2.9, cost: 0.0062 },
       } },
-    { tag: 'finance-narrative',
+    { tag: 'finance-narrative', maxSentences: 2,
       prompt: 'In two sentences, explain why a 60/40 stock and bond portfolio is less volatile than the average of its parts.',
       out: {
-        fast: { text: 'Bonds are safer than stocks, so mixing them lowers risk. That is why a 60/40 portfolio is less volatile.', ttft: 0.3, total: 1.0, cost: 0.0001 },
+        fast: { text: 'Bonds are safer than stocks. Mixing them lowers risk. That is why a 60/40 portfolio is less volatile.', ttft: 0.3, total: 1.0, cost: 0.0001 },
         mid: { text: 'Stocks and bonds do not move in lockstep, so part of each one\'s swings cancels out when they are held together. That is why the mix is less volatile than the weighted average of the two volatilities.', ttft: 0.6, total: 2.2, cost: 0.0012 },
         frontier: { text: 'Because stock and bond returns have low correlation, their moves partly offset, which shrinks the cross term in portfolio variance. A weighted average of volatilities implicitly assumes perfect correlation, so it overstates the risk of the combined 60/40 mix.', ttft: 1.2, total: 3.4, cost: 0.0078 },
       } },
-    { tag: 'code',
-      prompt: 'Write a JavaScript function that returns the median of an array of numbers.',
+    { tag: 'code', judge: 'tests',
+      prompt: 'Write a JavaScript function named median that returns the median of an array of numbers.',
+      tests: [{ args: [3, 1, 2], expect: 2 }, { args: [4, 1, 3, 2], expect: 2.5 }, { args: [5], expect: 5 }, { args: [2, 2, 9], expect: 2 }],
       out: {
-        fast: { text: 'function median(a) {\n  return a[Math.floor(a.length / 2)];\n}', ttft: 0.2, total: 0.8, cost: 0.0001 },
-        mid: { text: 'function median(a) {\n  a.sort((x, y) => x - y);\n  const m = Math.floor(a.length / 2);\n  return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2;\n}', ttft: 0.5, total: 1.9, cost: 0.0010 },
-        frontier: { text: 'function median(a) {\n  const s = [...a].sort((x, y) => x - y);\n  const m = Math.floor(s.length / 2);\n  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;\n}', ttft: 1.0, total: 3.1, cost: 0.0071 },
+        fast: { text: MEDIAN_FAST, ttft: 0.2, total: 0.8, cost: 0.0001 },
+        mid: { text: MEDIAN_MID, ttft: 0.5, total: 1.9, cost: 0.0010 },
+        frontier: { text: MEDIAN_FRONTIER, ttft: 1.0, total: 3.1, cost: 0.0071 },
       } },
   ];
-  // 12 illustrative prior rounds: 10 single wins, one fast/mid tie, one "all bad"
-  const board = {
-    fast: { wins: 1, ties: 1, rated: 12, cost: 0.0024 },
-    mid: { wins: 5, ties: 1, rated: 12, cost: 0.0132 },
-    frontier: { wins: 4, ties: 0, rated: 12, cost: 0.0816 },
-  };
-  const winRate = s => (s.wins + 0.5 * s.ties) / s.rated;
+  const MIN_PROMPTS = 12;
+  // Illustrative prior evidence: 11 blind finance-narrative prompts (who won each), and code-graded prompts per model
+  const votes = ['frontier', 'mid', 'frontier', 'mid', 'frontier', 'tie', 'mid', 'frontier', 'fast', 'frontier', 'mid', 'bad'].map(w => ({ winner: w, dq: [] }));
+  const graded = { fast: { pass: 4, n: 10 }, mid: { pass: 8, n: 10 }, frontier: { pass: 7, n: 10 } };
+
+  // The same rules the real tool applies, cut down to these prompts
+  function judgeSchema(text) {
+    let v;
+    try { v = JSON.parse(text.trim()); } catch (e) { return { pass: false, badge: 'FAIL format', why: 'text outside the JSON (strict parsing)' }; }
+    for (const k of ['revenue', 'eps']) if (typeof v[k] !== 'number') return { pass: false, badge: 'FAIL schema', why: `${k}: expected number, got ${typeof v[k]}` };
+    return { pass: true, badge: 'SCHEMA PASS' };
+  }
+  function judgeTests(code, tests) {
+    let fn;
+    try { fn = new Function(code + '\nreturn median;')(); } catch (e) { return { pass: false, badge: 'FAIL crash', why: 'the code did not load' }; }
+    let ok = 0, why = null;
+    for (const t of tests) {
+      let got;
+      try { got = fn(t.args.slice()); } catch (e) { got = 'an error'; }
+      if (got === t.expect) ok++;
+      else if (!why) why = `median(${JSON.stringify(t.args)}) returned ${JSON.stringify(got)}, expected ${t.expect}`;
+    }
+    return { pass: ok === tests.length, badge: `TESTS ${ok}/${tests.length}`, why };
+  }
+  const sentences = text => text.split(/(?<=[.!?])\s+/).filter(s => s.trim()).length;
+
+  // Head-to-head share: matchups won (ties count half) over matchups played, with a 95% plausible range
+  const T975 = [[1, 12.71], [2, 4.30], [3, 3.18], [4, 2.78], [5, 2.57], [6, 2.45], [7, 2.36], [8, 2.31], [9, 2.26], [10, 2.23], [12, 2.18], [15, 2.13], [20, 2.09], [30, 2.04], [60, 2.00]];
+  const tq = df => { for (const [d, v] of T975) if (df <= d) return v; return 1.96; };
+  function wilson(p, n) {
+    if (!n) return [0, 1];
+    const z = tq(n - 1), z2 = z * z, d = 1 + z2 / n, c = (p + z2 / (2 * n)) / d, h = z * Math.sqrt(p * (1 - p) / n + z2 / (4 * n * n)) / d;
+    return [Math.max(0, c - h), Math.min(1, c + h)];
+  }
+  // Each vote becomes matchups: the winner beats each other answer, a gate-failed answer loses to every
+  // finished one, a tie gives half to each, and two losers (or an "all bad") say nothing
+  function shares() {
+    const s = {}, keys = MODELS.map(m => m.key); keys.forEach(k => { s[k] = { w: 0, n: 0, cases: 0 }; });
+    for (const v of votes) {
+      const inCase = new Set();
+      for (let i = 0; i < keys.length; i++) for (let j = i + 1; j < keys.length; j++) {
+        const a = keys[i], b = keys[j], da = v.dq.includes(a), db = v.dq.includes(b);
+        let sa = null;
+        if (da !== db) sa = da ? 0 : 1;
+        else if (!da && v.winner === 'tie') sa = 0.5;
+        else if (!da && v.winner === a) sa = 1;
+        else if (!da && v.winner === b) sa = 0;
+        if (sa === null) continue;
+        s[a].w += sa; s[a].n += 1; s[b].w += 1 - sa; s[b].n += 1; inCase.add(a); inCase.add(b);
+      }
+      inCase.forEach(k => { s[k].cases += 1; });
+    }
+    return s;
+  }
+  const pct = x => Math.round(x * 100) + '%';
+  function renderBoard(moved) {
+    const s = shares();
+    const rows = MODELS.map(m => ({ m, x: s[m.key] })).sort((a, b) => (b.x.n ? b.x.w / b.x.n : -1) - (a.x.n ? a.x.w / a.x.n : -1));
+    q('[data-bench="board"]').replaceChildren(...rows.map(({ m, x }) => {
+      const tr = el('tr'), share = x.n ? x.w / x.n : 0, [lo, hi] = wilson(share, x.cases), thin = x.cases < MIN_PROMPTS;
+      tr.className = (thin ? 'thin' : '') + (moved && moved.includes(m.key) ? ' moved' : '');
+      const cell = el('td'); const bar = el('span', 'bench-bar'); bar.style.width = Math.round(share * 80) + 'px';
+      cell.append(bar, document.createTextNode(pct(share)));
+      tr.append(el('td', null, m.name), cell, el('td', 'bench-range', `${pct(lo)} to ${pct(hi)}`), el('td', null, thin ? `${x.cases} of ${MIN_PROMPTS}` : String(x.cases)));
+      return tr;
+    }));
+    const g = MODELS.map(m => ({ m, x: graded[m.key] })).sort((a, b) => b.x.pass / b.x.n - a.x.pass / a.x.n);
+    q('[data-bench="graded"]').replaceChildren(...g.map(({ m, x }) => {
+      const tr = el('tr'), p = x.pass / x.n, [lo, hi] = wilson(p, x.n);
+      tr.className = (x.n < MIN_PROMPTS ? 'thin' : '') + (moved && moved.includes('g-' + m.key) ? ' moved' : '');
+      const cell = el('td'); const bar = el('span', 'bench-bar'); bar.style.width = Math.round(p * 80) + 'px';
+      cell.append(bar, document.createTextNode(pct(p)));
+      tr.append(el('td', null, m.name), cell, el('td', 'bench-range', `${pct(lo)} to ${pct(hi)}`), el('td', null, x.n < MIN_PROMPTS ? `${x.n} of ${MIN_PROMPTS}` : String(x.n)));
+      return tr;
+    }));
+  }
+
   const fmtCost = c => '$' + c.toFixed(4);
   const panesEl = q('[data-bench="panes"]'), status = q('[data-bench="status"]');
   const pickBtns = [...box.querySelectorAll('[data-pick]')];
-  const nextBtn = q('[data-bench-next]'), replayBtn = q('[data-bench-replay]');
-  let round = 0, order = [0, 1, 2], panes = [], locked = false, timers = [];
-
-  // The same tiny check the real tool runs on structured-output rounds, cut down to this schema
-  function schemaCheck(text) {
-    let v;
-    try { v = JSON.parse(text); } catch (e) { return 'not valid JSON: text outside the object'; }
-    for (const k of ['revenue', 'eps']) if (typeof v[k] !== 'number') return `${k}: expected number, got ${typeof v[k]}`;
-    return null;
-  }
+  const nextBtn = q('[data-bench-next]'), replayBtn = q('[data-bench-replay]'), disputeBtn = q('[data-bench-dispute]');
+  let round = 0, order = [0, 1, 2], panes = [], locked = false, timers = [], touched = false;
+  const isCode = () => !!ROUNDS[round].judge;
   function shuffled() {
     const a = [0, 1, 2];
     for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
     return a;
-  }
-  function renderBoard(moved) {
-    const rows = MODELS.map(m => ({ m, s: board[m.key] })).sort((x, y) => winRate(y.s) - winRate(x.s));
-    q('[data-bench="board"]').replaceChildren(...rows.map(({ m, s }) => {
-      const tr = el('tr');
-      if (moved && moved.includes(m.key)) tr.className = 'moved';
-      const rate = el('td'); const bar = el('span', 'bench-bar'); bar.style.width = Math.round(winRate(s) * 80) + 'px';
-      rate.append(bar, document.createTextNode((winRate(s) * 100).toFixed(1) + '%'));
-      tr.append(el('td', null, m.name), rate, el('td', null, String(s.rated)), el('td', null, fmtCost(s.cost / s.rated)));
-      return tr;
-    }));
   }
   function buildPanes() {
     const r = ROUNDS[round];
@@ -2019,100 +2084,139 @@ document.addEventListener('click', e => {
       const m = MODELS[mi], o = r.out[m.key];
       const pane = el('div', 'bench-pane');
       const head = el('div', 'bench-pane-head');
-      const name = el('span', 'bench-model', 'Model hidden until you rate');
+      const name = el('span', 'bench-model', 'Model hidden');
       const badge = el('span', 'bench-badge');
       head.append(el('span', 'bench-label', 'ABC'[slot]), name, badge);
       const out = el('div', 'bench-out'), err = el('div', 'bench-err'), stats = el('div', 'bench-stats');
       err.hidden = true;
       pane.append(head, out, err, stats);
-      return { m, o, pane, name, badge, out, err, stats };
+      return { m, o, pane, name, badge, out, err, stats, slot, verdict: null, dq: false };
     });
     panesEl.replaceChildren(...panes.map(p => p.pane));
   }
-  function finishPane(p) {
-    p.out.textContent = p.o.text;
-    p.stats.textContent = `TTFT ${p.o.ttft.toFixed(1)}s · total ${p.o.total.toFixed(1)}s · ${fmtCost(p.o.cost)}`;
-    if (ROUNDS[round].schema) {
-      const problem = schemaCheck(p.o.text);
-      p.badge.textContent = problem ? 'FAIL' : 'PASS';
-      p.badge.className = 'bench-badge ' + (problem ? 'fail' : 'pass');
-      if (problem) { p.err.textContent = problem; p.err.hidden = false; }
-    }
+  function showBadge(p, v, cls) {
+    p.badge.textContent = v.badge; p.badge.className = 'bench-badge ' + cls;
+    if (v.why) { p.err.textContent = v.why; p.err.hidden = false; }
   }
-  function setPickable(on) { pickBtns.forEach(b => { b.disabled = !on; }); }
+  // Blind: cost and speed identify models, so they show only after the vote (or after grading)
+  function reveal() {
+    panes.forEach(p => {
+      p.name.textContent = p.m.name; p.name.classList.add('revealed');
+      p.stats.textContent = `TTFT ${p.o.ttft.toFixed(1)}s · total ${p.o.total.toFixed(1)}s · ${fmtCost(p.o.cost)}`;
+    });
+  }
+  function finishPane(p) { p.out.textContent = p.o.text; p.stats.textContent = 'done'; }
+  function afterStream() {
+    const r = ROUNDS[round];
+    if (r.judge) {
+      panes.forEach(p => {
+        p.verdict = r.judge === 'schema' ? judgeSchema(p.o.text) : judgeTests(p.o.text, r.tests);
+        showBadge(p, p.verdict, p.verdict.pass ? 'pass' : 'fail');
+      });
+      finishCodeRound();
+      return;
+    }
+    panes.forEach(p => {
+      const n = sentences(p.o.text);
+      if (r.maxSentences && n > r.maxSentences) { p.dq = true; showBadge(p, { badge: `GATE ${n} sentences`, why: `asked for ${r.maxSentences} sentences, got ${n}` }, 'gate'); }
+    });
+    setPickable(!locked);
+  }
+  function finishCodeRound() {
+    locked = true;
+    reveal();
+    panes.forEach(p => { const g = graded[p.m.key]; g.n += 1; if (p.verdict.pass) g.pass += 1; });
+    renderBoard(panes.map(p => 'g-' + p.m.key));
+    const passed = panes.filter(p => p.verdict.pass).map(p => 'ABC'[p.slot]);
+    status.className = 'demo-status ok';
+    status.textContent = `Graded by code, so no vote is needed: ${passed.length ? passed.join(' and ') + ' passed' : 'nothing passed'}. Names and costs show once grading is done, and each result joins the pass rates below.`;
+    q('[data-bench="hint"]').textContent = 'Auto-scored.';
+    setPickable(false);
+    disputeBtn.hidden = false; disputeBtn.disabled = false; nextBtn.hidden = false; replayBtn.disabled = true;
+  }
+  function setPickable(on) {
+    pickBtns.forEach(b => { b.hidden = isCode(); b.disabled = !on; });
+    panes.forEach(p => { const b = pickBtns.find(x => x.dataset.pick === String(p.slot)); if (b) b.textContent = 'ABC'[p.slot] + (p.dq ? ' (gate)' : ''); });
+  }
   function stream(animate) {
     timers.forEach(clearTimeout); timers = [];
-    panes.forEach(p => { p.out.textContent = ''; p.stats.textContent = 'waiting…'; p.badge.textContent = ''; p.badge.className = 'bench-badge'; p.err.hidden = true; });
-    if (!animate || REDUCED_MOTION) { panes.forEach(finishPane); setPickable(!locked); return; }
+    panes.forEach(p => { p.out.textContent = ''; p.stats.textContent = 'waiting…'; p.badge.textContent = ''; p.badge.className = 'bench-badge'; p.err.hidden = true; p.dq = false; });
+    if (!animate || REDUCED_MOTION) { panes.forEach(finishPane); afterStream(); return; }
     setPickable(false);
     const start = performance.now();
     let done = 0;
     panes.forEach(p => {
       const tick = () => {
         const t = (performance.now() - start) / 1000;
-        if (t < p.o.ttft) { p.stats.textContent = `waiting… ${t.toFixed(1)}s`; timers.push(setTimeout(tick, 60)); return; }
+        if (t < p.o.ttft) { timers.push(setTimeout(tick, 60)); return; }
         const frac = Math.min(1, (t - p.o.ttft) / (p.o.total - p.o.ttft));
         p.out.textContent = p.o.text.slice(0, Math.ceil(p.o.text.length * frac));
-        p.stats.textContent = `TTFT ${p.o.ttft.toFixed(1)}s · ${t.toFixed(1)}s`;
+        p.stats.textContent = 'streaming…';
         if (frac < 1) { timers.push(setTimeout(tick, 40)); return; }
         finishPane(p);
-        if (++done === panes.length) setPickable(!locked);
+        if (++done === panes.length) afterStream();
       };
       tick();
     });
   }
   function startRound(animate) {
     locked = false;
-    replayBtn.disabled = false;
+    replayBtn.disabled = false; disputeBtn.hidden = true; nextBtn.hidden = true;
     order = shuffled();
     buildPanes();
-    nextBtn.hidden = true;
-    q('[data-bench="hint"]').textContent = 'Pick the best response:';
+    q('[data-bench="hint"]').textContent = isCode() ? 'Graded by code:' : 'Pick the best answer:';
     status.className = 'demo-status';
-    status.textContent = 'Names stay hidden until you rate, so the choice rests on the answers alone.';
+    status.textContent = isCode() ? 'This prompt has an expected answer, so code grades it and no vote is asked for.'
+      : 'Names, costs and timing stay hidden until you vote, so the choice rests on the answers alone.';
     stream(animate);
   }
-  function pick(choice) {
-    if (locked) return;
+  function pick(choice, shift) {
+    if (locked || isCode()) return;
+    const chosen = /^\d$/.test(choice) ? panes[+choice] : null;
+    if (chosen && chosen.dq && !shift) {
+      status.className = 'demo-status';
+      status.textContent = `${'ABC'[chosen.slot]} failed the two-sentence gate. Shift+click counts it anyway, and the override is recorded with the vote.`;
+      return;
+    }
     locked = true;
     setPickable(false);
     replayBtn.disabled = true;
-    const r = ROUNDS[round];
-    panes.forEach(p => {
-      board[p.m.key].rated += 1;
-      board[p.m.key].cost += p.o.cost;
-      p.name.textContent = p.m.name;
-      p.name.classList.add('revealed');
-    });
+    reveal();
+    const before = shares(), crossed = MODELS.some(m => before[m.key].cases === MIN_PROMPTS - 1);
+    votes.push({ winner: choice === 'bad' ? 'bad' : choice === 'tie' ? 'tie' : chosen.m.key, dq: panes.filter(p => p.dq && p !== chosen).map(p => p.m.key) });
     let msg;
-    if (choice === 'bad') {
-      msg = 'All bad counts as a loss for every model in the round.';
-    } else {
-      const p = panes[+choice];
-      board[p.m.key].wins += 1;
-      p.pane.classList.add('picked');
-      msg = `You picked ${'ABC'[+choice]}, the ${p.m.name}, at ${fmtCost(p.o.cost)} for this answer.`;
-      if (r.schema && schemaCheck(p.o.text)) msg += ' It failed the schema check, which is exactly the kind of result the ledger records.';
-    }
+    if (choice === 'bad') msg = 'All bad: no preference is recorded, but the gate still counts against the over-long answer.';
+    else if (choice === 'tie') msg = 'Tie: each pair counts half, and the gate-failed answer still loses to both.';
+    else { chosen.pane.classList.add('picked'); msg = `You picked ${'ABC'[chosen.slot]}, the ${chosen.m.name}, at ${fmtCost(chosen.o.cost)} for this answer${chosen.dq ? ', overriding the gate' : ''}.`; }
+    if (crossed && choice !== 'bad') msg += ` That was prompt ${MIN_PROMPTS}, so the head-to-head table now has enough prompts to show a lean.`;
     status.className = 'demo-status ok';
-    status.textContent = 'Revealed. ' + msg + ' The leaderboard updates below.';
-    renderBoard(panes.map(p => p.m.key));
-    q('[data-bench="hint"]').textContent = 'Rating locked.';
+    status.textContent = 'Revealed. ' + msg;
+    renderBoard(MODELS.map(m => m.key));
+    q('[data-bench="hint"]').textContent = 'Vote recorded.';
     nextBtn.hidden = false;
   }
-  pickBtns.forEach(b => b.addEventListener('click', () => pick(b.dataset.pick)));
+  box.addEventListener('click', e => { if (e.target.closest('button')) touched = true; });
+  pickBtns.forEach(b => b.addEventListener('click', e => pick(b.dataset.pick, e.shiftKey)));
   nextBtn.addEventListener('click', () => { round = (round + 1) % ROUNDS.length; startRound(true); });
   replayBtn.addEventListener('click', () => { if (!locked) stream(true); });
+  disputeBtn.addEventListener('click', () => {
+    disputeBtn.disabled = true;
+    status.className = 'demo-status';
+    status.textContent = 'Dispute recorded. In the real tool this test case leaves the decision data until you fix the grader, overrule the verdict, or uphold it, and stored answers regrade for free.';
+  });
 
   renderBoard();
-  startRound(false);   // complete and blind at load, so the page (and print) shows a finished round
+  startRound(false);   // complete at load, so the page (and print) shows a graded round
   // Replay the stream once, the first time the round is actually on screen in the open Ghost tab
   if ('IntersectionObserver' in window && !REDUCED_MOTION) {
     let played = false;
     const io = new IntersectionObserver(entries => {
-      if (played || locked || !entries.some(e => e.isIntersecting)) return;
+      if (played || touched || !entries.some(e => e.isIntersecting)) return;
       if (!box.closest('.tab-panel').classList.contains('active')) return;
-      played = true; io.disconnect(); stream(true);
+      played = true; io.disconnect();
+      // undo the load-time grading so the replay grades the same round again
+      panes.forEach(p => { const g = graded[p.m.key]; g.n -= 1; if (p.verdict && p.verdict.pass) g.pass -= 1; });
+      renderBoard(); startRound(true);
     }, { threshold: 0.5 });
     io.observe(panesEl);
   }
@@ -2158,7 +2262,7 @@ document.addEventListener('click', e => {
       items.push({ title: h.textContent, where: TAB_NAMES[tab], tab, target: d, keys });
     });
   });
-  [['demo-aba', 'Try: routing-number lookup', 'toast'], ['demo-agent', 'Try: replay the earnings agent', 'ghost'], ['demo-vol', 'Try: portfolio volatility math', 'ghost'], ['agent-operated-practice', 'How the Ghost Strategies practice runs', 'ghost'], ['demo-bench', 'Try: blind model comparison', 'ghost']].forEach(([id, title, tab]) => {
+  [['demo-aba', 'Try: routing-number lookup', 'toast'], ['demo-agent', 'Try: replay the earnings agent', 'ghost'], ['demo-vol', 'Try: portfolio volatility math', 'ghost'], ['agent-operated-practice', 'How the Ghost Strategies practice runs', 'ghost'], ['demo-bench', 'Try: blind votes and code judges', 'ghost']].forEach(([id, title, tab]) => {
     const t = document.getElementById(id);
     if (t) items.push({ title, where: TAB_NAMES[tab], tab, target: t, keys: 'demo interactive' });
   });
