@@ -297,6 +297,40 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .vol-num { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--text); text-align: right; }
 .vol-formula { font-family: var(--mono); font-size: 11px; color: var(--text-3); margin-top: 10px; }
 
+/* Email Templates: refreshed three-pane mock */
+.et-mock .et-grid { display: grid; grid-template-columns: 150px 1fr 1fr; border-top: 1px solid var(--border); }
+.et-mock .et-nav, .et-mock .et-list, .et-mock .et-detail { padding: 10px; min-width: 0; }
+.et-mock .et-nav { border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 4px; }
+.et-mock .et-detail { border-left: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
+.et-mock .et-cap { font-size: 9px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--text-3); }
+.et-mock .et-cat { display: flex; justify-content: space-between; gap: 6px; font-size: 11px; padding: 4px 6px; border-radius: 6px; color: var(--text-2); }
+.et-mock .et-cat.on { color: var(--toast); background: var(--surface-2); font-weight: 600; }
+.et-mock .et-cat b { font-weight: 500; color: var(--text-3); }
+.et-mock .et-keys { margin-top: auto; padding-top: 10px; font-size: 9px; color: var(--text-3); }
+.et-mock kbd { font: 9px/1 inherit; padding: 2px 4px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); color: var(--text-2); }
+.et-mock .et-search { display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: var(--text-3); border: 1px solid var(--border); border-radius: 7px; padding: 6px 8px; margin-bottom: 8px; }
+.et-mock .et-greet { font-size: 10px; color: var(--text-3); margin-bottom: 6px; }
+.et-mock .et-row { display: flex; align-items: center; gap: 8px; padding: 7px 8px; border: 1px solid var(--border); border-radius: 7px; margin-bottom: 5px; font-size: 11px; }
+.et-mock .et-row.on { border-left: 3px solid var(--toast); }
+.et-mock .et-row > div { flex: 1; min-width: 0; }
+.et-mock .et-row b, .et-mock .et-dhead b { display: block; font-weight: 600; color: var(--text); }
+.et-mock .et-row small, .et-mock .et-dhead small { display: block; font-size: 9px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.et-mock .et-badge { flex-shrink: 0; font-size: 9px; color: var(--text-3); border: 1px solid var(--border); border-radius: 5px; padding: 2px 5px; }
+.et-mock .et-copy { flex-shrink: 0; position: relative; width: 16px; height: 16px; border: 1px solid var(--border); border-radius: 5px; }
+.et-mock .et-copy::before, .et-mock .et-copy::after { content: ""; position: absolute; width: 6px; height: 6px; border: 1px solid var(--text-3); border-radius: 1px; }
+.et-mock .et-copy::before { left: 3px; top: 3px; }
+.et-mock .et-copy::after { left: 6px; top: 6px; background: var(--surface); }
+.et-mock .et-dhead { position: relative; padding-right: 16px; font-size: 12px; }
+.et-mock .et-star { position: absolute; right: 0; top: 2px; font-size: 11px; color: var(--text-3); }
+.et-mock .et-lines { border: 1px solid var(--border); border-radius: 7px; padding: 8px; display: flex; flex-direction: column; gap: 5px; }
+.et-mock .et-lines i { display: block; height: 5px; border-radius: 3px; background: var(--border); width: 100%; }
+.et-mock .et-actions { display: flex; justify-content: space-between; align-items: center; margin-top: auto; font-size: 9px; color: var(--text-3); }
+.et-mock .et-btn { font-size: 10px; font-weight: 600; color: #fff; background: var(--toast); border-radius: 6px; padding: 5px 10px; }
+@media (max-width: 640px) {
+  .et-mock .et-grid { grid-template-columns: 1fr; }
+  .et-mock .et-nav { border-right: 0; border-bottom: 1px solid var(--border); }
+  .et-mock .et-detail { border-left: 0; border-top: 1px solid var(--border); }
+}
 /* Model bench: blind round */
 .bench-prompt { font-size: 12.5px; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; margin-bottom: 10px; }
 .bench-tag { font-family: var(--mono); font-size: 10px; color: var(--ghost-dark); background: var(--ghost-light); border: 1px solid var(--ghost-border); border-radius: 999px; padding: 1px 8px; margin-right: 8px; white-space: nowrap; }
@@ -324,6 +358,35 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .bench-board-sub { margin-top: 12px; }
 .bench-range { font-family: var(--mono); font-size: 11px; color: var(--text-3); }
 .bench-badge.gate { color: #9A6700; background: #FFF4D6; }
+
+/* COO/COLE: Data Lookup and reconciler */
+.theme-toast .demo-btn[aria-pressed="true"] { background: var(--toast-light); border-color: var(--toast-border); color: #9A4300; }
+.demo-status.warn { background: var(--about-light); border-color: var(--about-border); color: var(--about-dark); }
+.demo-cap { font-size: 11px; color: var(--text-3); margin: 12px 0 6px; }
+.demo-scroll { overflow-x: auto; }
+.demo-scroll:focus-visible { outline: 2px solid var(--toast-border); outline-offset: 2px; }
+.demo-scroll .mockup-table th, .demo-scroll .mockup-table td { white-space: nowrap; }
+.demo-scroll .mockup-table .wrap { white-space: normal; }
+.demo-scroll .mockup-table td.txt, .demo-scroll .mockup-table td.note { font-family: 'Inter', sans-serif; }
+.demo-scroll .mockup-table td.note { min-width: 200px; }
+.mockup-table .muted { color: var(--text-3); }
+.lk-controls { flex-direction: column; align-items: stretch; gap: 8px; }
+.lk-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.lk-label { min-width: 76px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); }
+.lk-field { font: inherit; font-size: 12px; padding: 3px 8px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); }
+.lk-field:focus { outline: 2px solid var(--toast-border); outline-offset: 1px; }
+.lk-hint { font-size: 11px; color: var(--text-2); }
+.lk-sql { font-family: var(--mono); font-size: 11px; line-height: 1.55; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; white-space: pre-wrap; overflow-wrap: anywhere; font-variant-ligatures: none; }
+.lk-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(104px, 1fr)); gap: 8px; margin-top: 12px; }
+.lk-results-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin: 12px 0 6px; font-size: 11px; color: var(--text-3); }
+.lk-copybox { display: block; width: 100%; margin-bottom: 8px; padding: 8px 10px; font-family: var(--mono); font-size: 11px; border: 1px solid var(--about-border); border-radius: var(--radius); background: var(--surface); color: var(--text); resize: vertical; }
+.lk-copybox[hidden] { display: none; }
+.rc-inputs { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 5fr); gap: 12px; }
+.rc-inputs .demo-cap { margin-top: 0; }
+.rc-inputs .mockup-table th, .rc-inputs .mockup-table td { padding: 3px 6px; }
+.rc-inputs .mockup-table td { font-size: 10.5px; }
+.rc-controls { margin-top: 12px; }
+#demo-recon .pill-gray { color: var(--text-2); }
 
 /* About: operating loop */
 .loop { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 12px; }
@@ -359,6 +422,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .project-link::after { content: "\2192"; content: "\2192" / ""; display: inline-block; margin-left: 6px; font-weight: 500; color: var(--text-3); }
 .project-link:hover, .project-link:focus-visible { text-decoration: underline; text-decoration-color: var(--text-3); text-underline-offset: 3px; }
 .project-link:hover::after, .project-link:focus-visible::after { color: var(--text); }
+.detail p a { color: var(--text); text-decoration: underline; text-decoration-color: var(--text-3); text-underline-offset: 2px; }
 .print-only { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -376,12 +440,20 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   .arrival td.act { width: auto; text-align: left; }
   .fill-after { color: var(--green); font-weight: 600; }
   .demo-live { margin-top: 10px; font-size: 11px; color: var(--text-2); text-decoration: underline; text-decoration-color: var(--text-3); text-underline-offset: 2px; }
+  .demo-scroll { overflow: visible; }
+  .demo-scroll .mockup-table th, .demo-scroll .mockup-table td { padding: 2px 5px; font-size: 9px; line-height: 1.35; }
+  .demo-scroll .mockup-table td.txt { white-space: normal; }
+  .demo-scroll .mockup-table td.note { min-width: 0; }
+  .lk-copybox { display: none !important; }
+  .rc-inputs { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 700px) {
   .demo { padding: 14px 12px; }
   .vol-sliders { grid-template-columns: 1fr; }
   .bench-panes { grid-template-columns: 1fr; }
   .bench-pane { min-height: 0; }
+  .rc-inputs { grid-template-columns: minmax(0, 1fr); }
+  .lk-label { min-width: 0; width: 100%; }
   .vol-row { grid-template-columns: 1fr 52px; }
   .vol-row .vol-track { grid-column: 1 / -1; grid-row: 2; }
   .loop { grid-template-columns: 1fr; gap: 20px; }
@@ -442,7 +514,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="stat-lbl">Years in financial services</div>
       </div>
       <div class="stat">
-        <div class="stat-val" style="color: var(--ghost);">17</div>
+        <div class="stat-val" style="color: var(--ghost);">18</div>
         <div class="stat-lbl">Production tools shipped</div>
       </div>
       <div class="stat">
@@ -505,10 +577,26 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">The team's 700+ row spreadsheet became a full application without leaving Google Workspace: a live case table with optimistic-UI edits, 15+ chart analytics including a cohort-bucketed Bizops funnel that separates queue-wait from rep turnaround, and a per-rep diagnostics panel that reconciles dashboard counts against raw sheet countifs. It now largely runs itself: nightly auto-expiry and monthly history snapshots on scheduled triggers, a Needs Attention queue for slipping cases, and no-code configuration so team leads administer everything from Settings without a developer in the loop. Leadership answers ad-hoc questions with a built-in SQL-style Data Lookup, and a companion reconciler shows Legal and Risk which submitted applications actually ended in a completed COO or COLE.</div>
+        <div class="project-summary">The team's 700+ row spreadsheet became a full application without leaving Google Workspace: a live case table with optimistic-UI edits, 15+ chart analytics including a cohort-bucketed Bizops funnel that separates queue-wait from rep turnaround, and a per-rep diagnostics panel that reconciles dashboard counts against raw sheet countifs. It now largely runs itself: nightly auto-expiry and monthly history snapshots on scheduled triggers, a Needs Attention queue for slipping cases, and no-code configuration so team leads administer everything from Settings without a developer in the loop. Leadership answers ad-hoc questions with a built-in SQL-style Data Lookup, and its case export feeds a separate tool for Legal and Risk, the COO/COLE Reconciler.</div>
         <div class="project-meta">
           <span><b>Stack</b>Apps Script, JavaScript, Tailwind, Chart.js (2 custom plugins)</span>
           <span><b>Users</b>10</span>
+        </div>
+      </div>
+
+      <div class="project" data-color="toast" data-tags="js data finance">
+        <div class="project-head">
+          <div class="project-icon">RC</div>
+          <div>
+            <div class="project-title"><a class="project-link" href="#coo-cole-reconciler">COO/COLE Reconciler</a></div>
+            <div class="project-org">Toast · Legal and Risk · application-to-completion reconciliation</div>
+          </div>
+          <div class="project-tag">Toast</div>
+        </div>
+        <div class="project-summary">A single HTML file that tells Legal and Risk which submitted applications actually ended in a completed COO, COLE, or both, by joining a Snowflake applications export to the dashboard's case export on the restaurant GUID. Every application lands in one of eleven written outcomes, so each one that did not complete has a stated reason, and the files never leave the user's computer.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Vanilla JavaScript, SheetJS, Intl API</span>
+          <span><b>Users</b>Legal and Risk</span>
         </div>
       </div>
 
@@ -599,11 +687,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           <div class="project-icon">ET</div>
           <div>
             <div class="project-title"><a class="project-link" href="#email-template-automation-suite">Email Template Automation Suite</a></div>
-            <div class="project-org">Toast · 14-person Capital Underwriting and Change of Ownership · 11 phases</div>
+            <div class="project-org">Toast · 14-person Capital Underwriting and Change of Ownership · 12 phases</div>
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">Eleven phases from CLI script to native-feeling desktop app for a 14-person team: 20 pre-loaded templates that copy with rich formatting intact (via AppleScript's «class HTML» on macOS and hand-built CF_HTML byte-offset headers on Windows), cutting retrieval from 30 seconds to under 3. Deliberately shipped as a 15KB Flask app instead of a 200MB Electron bundle, with zero AI tokens consumed and zero customer data exposure by design: placeholders fill locally, so nothing ever leaves the machine. Grew into a Salesforce-embedded generator concept presented to engineering stakeholders.</div>
+        <div class="project-summary">Twelve phases from CLI script to native-feeling desktop app for a 14-person team, now with a refreshed three-pane interface: 26 built-in templates that copy with rich formatting intact (via AppleScript's «class HTML» on macOS and hand-built CF_HTML byte-offset headers on Windows), cutting retrieval from 30 seconds to under 3. Deliberately shipped as a 15KB Flask app instead of a 200MB Electron bundle, with zero AI tokens consumed and zero customer data exposure by design: placeholders fill locally, so nothing ever leaves the machine. Grew into a Salesforce-embedded generator concept presented to engineering stakeholders.</div>
         <div class="race" data-race="et"></div>
         <div class="project-meta">
           <span><b>Stack</b>Python, Flask, PowerShell, AppleScript, PyInstaller, pystray</span>
@@ -622,16 +710,16 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <div>
         <div class="eyebrow">Toast Inc · Senior Capital Underwriter, Process Automation</div>
         <h1>Toast Work</h1>
-        <p>Eight production tools across six projects, built for Capital Underwriting, Change of Ownership, Collections, and Bizops. Each replaced a fragile or manual workflow with a self-contained, browser-based system.</p>
+        <p>Nine production tools across seven projects, built for Capital Underwriting, Change of Ownership, Collections, and Bizops. Each replaced a fragile or manual workflow with a self-contained, browser-based system.</p>
       </div>
     </div>
 
     <!-- COO/COLE Dashboard -->
     <div class="detail" id="coo-cole-case-management-dashboard">
       <h3>COO/COLE Case Management Dashboard</h3>
-      <div class="sub">Full-stack web app · 10-person underwriting team · 700+ active cases · self-running · companion reconciler for Legal and Risk</div>
+      <div class="sub">Full-stack web app · 10-person underwriting team · 700+ active cases · self-running · feeds the separate COO/COLE Reconciler</div>
 
-      <p>A full-stack web application built on top of a live Google Sheet (no separate backend or hosting) that replaced manual spreadsheet workflows for case tracking, analytics, and address-change requests across a 10-person team and 700+ cases. The Cases tab tracks the full lifecycle with optimistic-UI edits written straight back to the sheet, the Address Change tab manages a parallel five-status workflow on its own sheet, and the Analytics tab is an operational scorecard with team-level, per-rep, and Bizops-funnel views, all scopeable by year from a single header filter. Over successive iterations the tool evolved from a case tracker into a largely self-running system: non-technical leads administer it with zero code changes, it runs its own scheduled maintenance, and it documents itself for whoever maintains it next. Leadership's ad-hoc data questions now run through a built-in Data Lookup that brings the Snowflake Query Helper's SQL model into the dashboard, and a companion reconciler gives Legal and Risk a repeatable answer to how many submitted applications actually completed a COO or COLE.</p>
+      <p>A full-stack web application built on top of a live Google Sheet (no separate backend or hosting) that replaced manual spreadsheet workflows for case tracking, analytics, and address-change requests across a 10-person team and 700+ cases. The Cases tab tracks the full lifecycle with optimistic-UI edits written straight back to the sheet, the Address Change tab manages a parallel five-status workflow on its own sheet, and the Analytics tab is an operational scorecard with team-level, per-rep, and Bizops-funnel views, all scopeable by year from a single header filter. Over successive iterations the tool evolved from a case tracker into a largely self-running system: non-technical leads administer it with zero code changes, it runs its own scheduled maintenance, and it documents itself for whoever maintains it next. Leadership's ad-hoc data questions now run through a built-in Data Lookup that brings the Snowflake Query Helper's SQL model into the dashboard, and its case export feeds a separate tool, the COO/COLE Reconciler, which gives Legal and Risk a repeatable answer to how many submitted applications actually completed a COO or COLE.</p>
 
       <h4>Mock view</h4>
       <div class="mockup" tabindex="0" role="region" aria-label="Case Management Dashboard mock view">
@@ -656,6 +744,64 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         </table>
       </div>
 
+      <h4>Try it: Data Lookup</h4>
+      <div class="demo" id="demo-lookup">
+        <div class="demo-head">
+          <div class="demo-title">Data Lookup</div>
+          <div class="demo-note">Invented sample data. Filters work like the dashboard's, on 24 made-up cases.</div>
+        </div>
+        <p class="demo-why"><b>Why it exists:</b> leadership asks one-off questions, such as which restaurants completed a COO or COLE among cases submitted last quarter. The Data Lookup answers them in seconds without touching the sheet, and its SQL preview shows the logic behind any number that gets shared.</p>
+        <div class="demo-controls lk-controls">
+          <div class="lk-row">
+            <label class="lk-label" for="lk-col">Date</label>
+            <select id="lk-col" class="lk-field"><option value="submitted" selected>Date Submitted</option><option value="completed">Date Completed</option></select>
+            <label class="sr-only" for="lk-from">From, inclusive</label>
+            <input id="lk-from" class="lk-field" type="date" value="2026-04-01">
+            <span class="lk-hint" aria-hidden="true">to</span>
+            <label class="sr-only" for="lk-to">To, inclusive</label>
+            <input id="lk-to" class="lk-field" type="date" value="2026-06-30">
+          </div>
+          <div class="lk-row" role="group" aria-labelledby="lk-type-label">
+            <span class="lk-label" id="lk-type-label">Case Type</span>
+            <button class="demo-btn" type="button" data-lk-type="COO" aria-pressed="false">COO</button>
+            <button class="demo-btn" type="button" data-lk-type="COLE" aria-pressed="false">COLE</button>
+            <button class="demo-btn" type="button" data-lk-type="COO &amp; COLE" aria-pressed="false">COO &amp; COLE</button>
+          </div>
+          <div class="lk-row" role="group" aria-labelledby="lk-status-label">
+            <span class="lk-label" id="lk-status-label">Status</span>
+            <button class="demo-btn" type="button" data-lk-status="Pending" aria-pressed="false">Pending</button>
+            <button class="demo-btn" type="button" data-lk-status="In Progress" aria-pressed="false">In Progress</button>
+            <button class="demo-btn" type="button" data-lk-status="Completed" aria-pressed="true">Completed</button>
+            <button class="demo-btn" type="button" data-lk-status="Expired" aria-pressed="false">Expired</button>
+            <button class="demo-btn" type="button" data-lk-status="Canceled" aria-pressed="false">Canceled</button>
+          </div>
+          <div class="lk-row">
+            <button class="demo-btn" type="button" data-lk-reset>Reset</button>
+            <span class="lk-hint">Values in one filter are OR'd, filters are AND'd, and an empty filter means any. Matching ignores case and stray spaces.</span>
+          </div>
+        </div>
+        <div class="demo-cap">SQL preview, read-only</div>
+        <pre class="lk-sql" data-lk="sql"></pre>
+        <div class="lk-cards">
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-lk="total">0</div><div class="mockup-kpi-lbl">Matching cases</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-lk="guids">0</div><div class="mockup-kpi-lbl">Unique GUIDs</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-lk="coo">0</div><div class="mockup-kpi-lbl">COO</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-lk="cole">0</div><div class="mockup-kpi-lbl">COLE</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-lk="both">0</div><div class="mockup-kpi-lbl">COO &amp; COLE</div></div>
+        </div>
+        <div class="demo-status warn" data-lk="gap" role="status" hidden></div>
+        <div class="lk-results-head"><span data-lk="label"></span><span class="demo-controls"><button class="demo-btn" type="button" data-lk-copy>Copy GUIDs</button></span></div>
+        <textarea class="lk-copybox" data-lk="copybox" rows="4" readonly aria-label="GUIDs to copy" hidden></textarea>
+        <div class="demo-scroll" tabindex="0" role="region" aria-label="Data Lookup results">
+          <table class="mockup-table">
+            <thead><tr><th>Case</th><th>GUID</th><th>Type</th><th>Status</th><th>Source</th><th>Rep</th><th>Submitted</th><th>Completed</th></tr></thead>
+            <tbody data-lk="rows"></tbody>
+          </table>
+        </div>
+        <div class="demo-status" data-lk="status" role="status"></div>
+        <a class="print-only demo-live" href="https://kaejhee.github.io/portfolio/#demo-lookup">Try it live: kaejhee.github.io/portfolio/#demo-lookup</a>
+      </div>
+
       <h4>Key features</h4>
       <ul>
         <li>Live case table backed by Google Sheets with an inline edit drawer, add/delete modals, and a manager Settings panel for self-serve config, plus a gated "Edit Case Details" mode that locks structural fields (Case #, Source, Type) behind an explicit toggle while status, rep, and notes stay instantly editable</li>
@@ -674,16 +820,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <li>Self-documenting: an in-app About/Maintenance panel carries the deploy steps, scheduled-job reminders, and conventions a successor needs, and a Help modal explains every tab and automatic behavior; the institutional knowledge lives in the app, not in one person's head</li>
       </ul>
 
-      <h4>Companion: COO/COLE Reconciler for Legal and Risk</h4>
-      <p>A single HTML file that answers one question for Legal and Risk: of the applications submitted in a given window, which actually ended in a completed COO, COLE, or both? It joins an applications export from Snowflake with a cases export from the dashboard's Data Lookup on the restaurant GUID. It needs no install, server, or login, and files are processed on the user's computer and never uploaded.</p>
-      <ul>
-        <li>One written matching rule: an application counts as completed when a case on the same GUID is Completed within 30 days of the application date (the window is adjustable), and a COO and a COLE completed on separate cases count as both</li>
-        <li>Every application lands in exactly one of eleven outcomes across four groups (Completed, Not completed, No case found, Needs review), assigned by the first rule that fits, so each one that did not complete has a stated reason: still in progress, expired or canceled, completed outside the window, or not in the dashboard</li>
-        <li>Built-in sanity checks: automatic column mapping with validation chips (how many application GUIDs appear in the dashboard file, and a warning when an ID column does not look like GUIDs), a reverse check listing completed cases with no matching application, and a notice when one case falls inside two applications' windows</li>
-        <li>Time-zone aware: timestamps without an offset are read in a chosen zone, and dates are compared as calendar days because the dashboard records no times</li>
-        <li>Shareable output: an Excel report with Summary, Applications, Completed (no app) and Column mapping tabs, a CSV export, and one-click copy of completed GUIDs</li>
-        <li>Tested: 138 assertions against the reconciliation core, run on fake sample files so no real data is needed to verify it</li>
-      </ul>
+      <p>The Data Lookup's case export is one of the two inputs to the <a href="#coo-cole-reconciler">COO/COLE Reconciler</a>, a separate tool that shows Legal and Risk which submitted applications actually ended in a completed COO or COLE.</p>
 
       <h4>Stack</h4>
       <div class="stack">
@@ -699,6 +836,91 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">CacheService</span>
         <span class="stack-item">Time-driven triggers</span>
         <span class="stack-item">Google OAuth</span>
+      </div>
+    </div>
+
+    <!-- COO/COLE Reconciler -->
+    <div class="detail" id="coo-cole-reconciler">
+      <h3>COO/COLE Reconciler</h3>
+      <div class="sub">Single-file HTML · Legal and Risk · application-to-completion reconciliation</div>
+
+      <p>A single HTML file that answers one question for Legal and Risk: of the applications submitted in a given window, which actually ended in a completed COO, COLE, or both? It joins an applications export from Snowflake with a cases export from the COO/COLE Case Management Dashboard's Data Lookup, matched on the restaurant GUID. It needs no install, server, or login, and files are processed on the user's computer and never uploaded.</p>
+
+      <h4>Try it</h4>
+      <div class="demo" id="demo-recon">
+        <div class="demo-head">
+          <div class="demo-title">Applications against dashboard cases</div>
+          <div class="demo-note">Invented sample data. The matching rules are the reconciler's own, cut down to 13 applications.</div>
+        </div>
+        <p class="demo-why"><b>Why it exists:</b> Legal and Risk need to know which applications submitted in a window actually ended in a completed COO or COLE, and why the rest did not. The reconciler matches each application to the dashboard's cases on the restaurant GUID and gives every application exactly one outcome.</p>
+        <div class="rc-inputs">
+          <div>
+            <div class="demo-cap">Applications submitted in March 2026</div>
+            <div class="demo-scroll" tabindex="0" role="region" aria-label="Sample applications">
+              <table class="mockup-table">
+                <thead><tr><th>App</th><th>GUID</th><th>Submitted</th></tr></thead>
+                <tbody data-rc="apps"></tbody>
+              </table>
+            </div>
+          </div>
+          <div>
+            <div class="demo-cap">Dashboard cases</div>
+            <div class="demo-scroll" tabindex="0" role="region" aria-label="Sample dashboard cases">
+              <table class="mockup-table">
+                <thead><tr><th>Case</th><th>GUID</th><th>Type</th><th>Status</th><th>Submitted</th><th>Completed</th><th>Closed</th></tr></thead>
+                <tbody data-rc="cases"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="demo-controls rc-controls">
+          <label class="lk-label" for="rc-window">Window</label>
+          <select id="rc-window" class="lk-field"><option value="15">15 days</option><option value="30" selected>30 days</option><option value="45">45 days</option></select>
+          <button class="demo-btn primary" type="button" data-rc-run>Run reconciliation</button>
+        </div>
+        <div class="lk-cards">
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc-group="Completed">0</div><div class="mockup-kpi-lbl">Completed</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc-group="Not completed">0</div><div class="mockup-kpi-lbl">Not completed</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc-group="No case found">0</div><div class="mockup-kpi-lbl">No case found</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc-group="Needs review">0</div><div class="mockup-kpi-lbl">Needs review</div></div>
+        </div>
+        <div class="demo-status warn" data-rc="shared" role="status" hidden></div>
+        <div class="demo-cap" data-rc="results-cap">Each application's outcome, in submitted order</div>
+        <div class="demo-scroll rc-results" tabindex="0" role="region" aria-label="Reconciliation results">
+          <table class="mockup-table">
+            <thead><tr><th>App</th><th>GUID</th><th>Submitted</th><th>Outcome</th><th>Group</th><th class="wrap">Days to complete</th><th>Note</th></tr></thead>
+            <tbody data-rc="results"></tbody>
+          </table>
+        </div>
+        <div class="demo-cap" data-rc="reverse-cap"></div>
+        <div class="demo-scroll" tabindex="0" role="region" aria-label="Reverse check">
+          <table class="mockup-table">
+            <thead><tr><th>Case</th><th>GUID</th><th>Type</th><th>Completed</th></tr></thead>
+            <tbody data-rc="reverse"></tbody>
+          </table>
+        </div>
+        <div class="demo-status" data-rc="status" role="status"></div>
+        <a class="print-only demo-live" href="https://kaejhee.github.io/portfolio/#demo-recon">Try it live: kaejhee.github.io/portfolio/#demo-recon</a>
+      </div>
+
+      <h4>Key features</h4>
+      <ul>
+        <li>One written matching rule: an application counts as completed when a case on the same GUID is Completed on or after the application date and no more than 30 days after it, day 30 included (the window is adjustable), and a COO and a COLE completed on separate cases count as both</li>
+        <li>Every application lands in exactly one of eleven outcomes across four groups (Completed, Not completed, No case found, Needs review), assigned by the first rule that fits, so each one that did not complete has a stated reason: still in progress, expired or canceled, completed outside the window, or not in the dashboard</li>
+        <li>Built-in sanity checks: automatic column mapping with validation chips (how many application GUIDs appear in the dashboard file, and a warning when an ID column does not look like GUIDs), a reverse check listing completed cases with no matching application, and a notice when one case falls inside two applications' windows</li>
+        <li>Time-zone aware: timestamps without an offset are read in a chosen zone, and dates are compared as calendar days because the dashboard records no times</li>
+        <li>Shareable output: an Excel report with a summary, every application's outcome, the completed cases that have no application, and the column mapping used, plus a CSV export and one-click copy of completed GUIDs</li>
+        <li>Tested: 138 assertions against the reconciliation core, run on fake sample files so no real data is needed to verify it</li>
+      </ul>
+
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">HTML</span>
+        <span class="stack-item">CSS</span>
+        <span class="stack-item">SheetJS</span>
+        <span class="stack-item">Intl API (time zones)</span>
+        <span class="stack-item">JavaScriptCore tests</span>
       </div>
     </div>
 
@@ -957,27 +1179,40 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <!-- Email Template Suite -->
     <div class="detail" id="email-template-automation-suite">
       <h3>Email Template Automation Suite</h3>
-      <div class="sub">11 phases · cross-platform desktop app · 14-person team · 30s to under 3s</div>
+      <div class="sub">12 phases · cross-platform desktop app · 14-person team · 30s to under 3s</div>
 
-      <p>A cross-platform desktop application that ships 20 pre-loaded email templates with rich-text formatting preserved on paste. Grew over 11 phases from a CLI tool to a full Flask web app, then to a PyInstaller-bundled native application with a system tray icon, and finally into a Salesforce-embedded NOIA generator concept presented to engineering stakeholders.</p>
+      <p>A cross-platform desktop application that ships 26 built-in email templates across three categories, with rich-text formatting preserved on paste. Grew over 12 phases from a CLI tool to a full Flask web app, then to a PyInstaller-bundled native application with a system tray icon and a Salesforce-embedded NOIA generator concept presented to engineering stakeholders, and most recently into a redesigned three-pane interface built around finding, filling and copying a template in a few keystrokes.</p>
 
       <h4>Before and after</h4>
       <div class="race" data-race="et"></div>
 
       <h4>Mock view</h4>
-      <div class="mockup">
+      <div class="mockup et-mock">
         <div class="mockup-head">
           <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
-          <span>Email Templates · 20 templates · 14-person team</span>
+          <span>Email Templates · 26 templates · 14-person team</span>
         </div>
-        <div class="mockup-row">
-          <div><span class="pill-purple">Capital Underwriting</span> &nbsp; Received Response · Template ready · <span style="color:var(--green)">●</span> Copied</div>
-        </div>
-        <div class="mockup-row">
-          <div><span class="pill-orange">NOIA</span> &nbsp; NOIA MCA · {date} · {restaurant_name} · {source_of_debt}</div>
-        </div>
-        <div class="mockup-row">
-          <div><span class="pill-blue">Change of Ownership</span> &nbsp; COO DS Sent · {date} · {restaurant_name}</div>
+        <div class="et-grid">
+          <div class="et-nav">
+            <div class="et-cap">Templates 26</div>
+            <div class="et-cat on"><span>Capital Underwriting</span><b>4</b></div>
+            <div class="et-cat"><span>NOIA</span><b>12</b></div>
+            <div class="et-cat"><span>Change of Ownership</span><b>10</b></div>
+            <div class="et-keys"><kbd>/</kbd> Search &nbsp; <kbd>↵</kbd> Copy top match</div>
+          </div>
+          <div class="et-list">
+            <div class="et-search"><span>Search templates</span><kbd>⌘K</kbd></div>
+            <div class="et-greet">Good afternoon · 26 templates</div>
+            <div class="et-row on"><div><b>Received Response</b><small>Customer replies to an application confirmation</small></div><span class="et-badge">Instant</span><span class="et-copy"></span></div>
+            <div class="et-row"><div><b>NOIA MCA</b><small>Notice of incomplete application</small></div><span class="et-badge">4 fields</span><span class="et-copy"></span></div>
+            <div class="et-row"><div><b>COO DS Sent</b><small>Ownership forms sent for signature</small></div><span class="et-badge">1 field</span><span class="et-copy"></span></div>
+          </div>
+          <div class="et-detail">
+            <div class="et-dhead"><small>Capital Underwriting</small><b>Received Response</b><span class="et-star">☆</span></div>
+            <div class="et-cap">Preview</div>
+            <div class="et-lines"><i></i><i></i><i style="width:72%"></i><i></i><i style="width:46%"></i></div>
+            <div class="et-actions"><span><kbd>⌘</kbd> <kbd>↵</kbd> to copy</span><span class="et-btn">Copy</span></div>
+          </div>
         </div>
         <div class="mockup-row">
           <div style="color:var(--text-3); font-size:10px;">Retrieval: avg 2.1s · Tokens consumed: 0 · Customer data sent to model: 0</div>
@@ -993,6 +1228,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <li>Phases 7 to 9: Placeholder fill modal with confirmation toasts, multi-line field support, two-panel preview modal, and product demo enhancements</li>
         <li>Phase 10: Template-sync bug fix (silent failure mode on every launch caught and resolved)</li>
         <li>Phase 11: Stakeholder presentation HTML with Apps Script architecture diagrams and a NOIA automation proposal for engineering review</li>
+        <li>Phase 12: A refreshed three-pane interface: a Toast-branded shell with a collapsible category sidebar and counts, a template list whose rows show how many fields each template needs (or Instant when none) with one-click copy, and a detail panel with a live preview, favorites and a time-of-day greeting, in light and dark themes</li>
+        <li>Phase 12 workflow: ranked search opened with / or ⌘K where Enter copies the top match, favorites and recents for repeat sends, guided field filling with a draft kept per template where Enter moves to the next field and copies on the last, rich-text copy with a plain-text fallback, Email submitted with Undo, and custom templates written in a rich-text editor with placeholder insertion</li>
       </ul>
 
       <h4>Engineering decisions</h4>
@@ -1674,6 +1911,364 @@ document.addEventListener('click', e => {
   });
 })();
 
+// ── COO/COLE Data Lookup: SQL-style filters over invented cases ──
+(function () {
+  const box = document.getElementById('demo-lookup');
+  if (!box) return;
+  // [lookup-rules] Invented cases and the filter rules, kept apart from the page so they can be checked on their own
+  const CASES = [
+    ['C-2001', 'R-1001', 'COO', 'Completed', 'Form', 'Rep A', '2026-03-09', '2026-03-20'],
+    ['C-2002', 'R-1002', 'COLE', 'Completed', 'Email', 'Rep B', '2026-04-02', '2026-04-15'],
+    ['C-2003', 'R-1003', 'COO', 'Expired', 'Form', 'Rep C', '2026-04-06', ''],
+    ['C-2004', 'R-1003', 'COO', 'Completed', 'Referral', 'Rep C', '2026-04-20', '2026-05-04'],
+    ['C-2005', 'R-1003', 'COLE', 'Completed', 'Referral', 'Rep A', '2026-04-21', '2026-05-12'],
+    ['C-2006', 'R-1004', 'COO & COLE', 'Completed', 'Form', 'Rep B', '2026-04-27', '2026-05-19'],
+    ['C-2007', 'R-1005', 'COO', 'In Progress', 'Email', 'Rep D', '2026-05-04', ''],
+    ['C-2008', 'R-1006', 'COLE', 'Pending', 'Form', 'Rep A', '2026-05-08', ''],
+    ['C-2009', 'R-1007', 'COO', 'Completed', 'Email', 'Rep B', '2026-05-11', ''],
+    ['C-2010', 'R-1008', 'COO & COLE', 'Canceled', 'Referral', 'Rep C', '2026-05-14', ''],
+    ['C-2011', 'R-1009', 'COLE', 'Completed ', 'Form', 'Rep D', '2026-05-18', '2026-06-01'],
+    ['C-2012', 'R-1010', 'COO', 'Completed', 'Form', 'Rep A', '2026-05-26', '2026-06-09'],
+    ['C-2013', 'R-1011', 'COO & COLE', 'In Progress', 'Email', 'Rep B', '2026-06-01', ''],
+    ['C-2014', 'R-1012', 'COO', 'Expired', 'Referral', 'Rep D', '2026-06-03', ''],
+    ['C-2015', 'R-1013', 'COLE', 'Completed', 'Email', 'Rep C', '2026-06-10', '2026-06-24'],
+    ['C-2016', 'R-1014', 'COO', 'Completed', 'Form', 'Rep A', '2026-06-22', '2026-07-08'],
+    ['C-2017', 'R-1015', 'COO & COLE', 'Pending', 'Form', 'Rep B', '2026-06-29', ''],
+    ['C-2018', 'R-1016', 'COO', 'Completed', 'Referral', 'Rep D', '2026-07-06', '2026-07-21'],
+    ['C-2019', 'R-1017', 'COLE', 'Canceled', 'Email', 'Rep A', '2026-07-13', ''],
+    ['C-2020', 'R-1018', 'COO & COLE', 'Completed', 'Form', 'Rep C', '2026-07-20', '2026-08-04'],
+    ['C-2021', 'R-1019', 'COO', 'In Progress', 'Referral', 'Rep B', '2026-08-03', ''],
+    ['C-2022', 'R-1020', 'COLE', 'Completed', 'Email', 'Rep D', '2026-08-10', '2026-08-26'],
+    ['C-2023', 'R-1001', 'COLE', 'Completed', 'Form', 'Rep A', '2026-03-23', '2026-04-03'],
+    ['C-2024', 'R-1021', 'COO', 'Pending', 'Email', 'Rep C', '2026-08-24', '']
+  ].map(([id, guid, type, status, source, rep, submitted, completed]) => ({ id, guid, type, status, source, rep, submitted, completed }));
+  const norm = v => String(v == null ? '' : v).trim().toLowerCase();
+  const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/;
+  // Values are OR'd within a filter, filters are AND'd, an empty filter means any.
+  // With a date range set, a case whose chosen date is blank cannot be placed, so it is counted, not shown.
+  function runLookup(cases, q) {
+    if (q.from && q.to && q.to < q.from) return { error: 'From is after To.' };
+    const pick = list => (list && list.length ? new Set(list.map(norm)) : null);
+    const types = pick(q.types), statuses = pick(q.statuses);
+    const ranged = Boolean(q.from || q.to);
+    let missing = 0;
+    const rows = cases.filter(c => {
+      if (types && !types.has(norm(c.type))) return false;
+      if (statuses && !statuses.has(norm(c.status))) return false;
+      if (!ranged) return true;
+      const d = c[q.dateCol];
+      if (!ISO_DAY.test(d || '')) { missing++; return false; }
+      return !(q.from && d < q.from) && !(q.to && d > q.to);
+    });
+    // Earliest chosen date on top, cases without that date at the bottom, ties by case id
+    rows.sort((a, b) => {
+      const da = a[q.dateCol] || '', db = b[q.dateCol] || '';
+      if (da !== db) return !da ? 1 : !db ? -1 : da < db ? -1 : 1;
+      return a.id.localeCompare(b.id);
+    });
+    const byType = rows.reduce((tally, r) => { tally[r.type] = (tally[r.type] || 0) + 1; return tally; }, {});
+    return { rows, missing, guids: guidList(rows).length, byType };
+  }
+  // Unique GUIDs in result order, ignoring case and stray spaces
+  function guidList(rows) {
+    const first = new Map();   // lowercased GUID -> the GUID as first written
+    for (const r of rows) {
+      const g = String(r.guid ?? '').trim();
+      if (g && !first.has(g.toLowerCase())) first.set(g.toLowerCase(), g);
+    }
+    return [...first.values()];
+  }
+  // [/lookup-rules]
+  const $ = k => box.querySelector(`[data-lk="${k}"]`);
+  const col = box.querySelector('#lk-col'), from = box.querySelector('#lk-from'), to = box.querySelector('#lk-to');
+  const typeBtns = [...box.querySelectorAll('[data-lk-type]')], statusBtns = [...box.querySelectorAll('[data-lk-status]')];
+  const copyBtn = box.querySelector('[data-lk-copy]'), copybox = $('copybox'), status = $('status');
+  const LABEL = { submitted: 'Date Submitted', completed: 'Date Completed' };
+  const START = { dateCol: 'submitted', from: '2026-04-01', to: '2026-06-30', statuses: ['Completed'] };
+  const pressed = btns => btns.filter(b => b.getAttribute('aria-pressed') === 'true');
+  const plural = (n, one, many) => n + ' ' + (n === 1 ? one : many);
+  const show = (cls, text) => { status.className = 'demo-status' + (cls ? ' ' + cls : ''); status.textContent = text; };
+  let rows = [];
+
+  function query() {
+    return { dateCol: col.value, from: from.value, to: to.value,
+      types: pressed(typeBtns).map(b => b.dataset.lkType), statuses: pressed(statusBtns).map(b => b.dataset.lkStatus) };
+  }
+  // The read-only SQL that the current filters amount to. Each condition is a [column, operator, value]
+  // triple, and a date range is two of them, one per end. Keywords line up on the right, river style.
+  function sql(q) {
+    const quote = v => `'${String(v).split("'").join("''")}'`;
+    const day = q.dateCol + '_on';
+    const conds = [['type', 'IN', q.types], ['status', 'IN', q.statuses], [day, '>=', q.from], [day, '<=', q.to]]
+      .filter(([, , v]) => v.length)
+      .map(([name, op, v]) => `${name} ${op} ${Array.isArray(v) ? `(${v.map(quote).join(', ')})` : quote(v)}`);
+    const line = (kw, rest) => kw.padStart(6) + ' ' + rest;
+    return [line('SELECT', '*'), line('FROM', 'cases'), ...conds.map((c, i) => line(i ? 'AND' : 'WHERE', c)), line('ORDER', `BY ${day}, case_id;`)].join('\n');
+  }
+  function cell(text) {
+    const td = el('td');
+    if (text) td.textContent = text; else td.appendChild(el('span', 'muted', 'blank'));
+    return td;
+  }
+  function render() {
+    const q = query();
+    $('sql').textContent = sql(q);
+    copybox.hidden = true;
+    const body = $('rows');
+    body.replaceChildren();
+    const res = runLookup(CASES, q);
+    if (res.error) {
+      rows = [];
+      ['total', 'guids', 'coo', 'cole', 'both'].forEach(k => { $(k).textContent = '0'; });
+      $('gap').hidden = true;
+      $('label').textContent = 'No results';
+      copyBtn.disabled = true;
+      show('bad', 'From is after To, so nothing can match. Swap the dates to see results.');
+      return;
+    }
+    rows = res.rows;
+    $('total').textContent = rows.length;
+    $('guids').textContent = res.guids;
+    $('coo').textContent = res.byType['COO'] || 0;
+    $('cole').textContent = res.byType['COLE'] || 0;
+    $('both').textContent = res.byType['COO & COLE'] || 0;
+    const gap = $('gap'), one = res.missing === 1;
+    gap.hidden = !res.missing;
+    gap.textContent = `${plural(res.missing, 'case', 'cases')} ${one ? 'fits' : 'fit'} the other filters but ${one ? 'is' : 'are'} left out because ${one ? 'its' : 'their'} ${LABEL[q.dateCol]} is blank.`;
+    $('label').textContent = `${plural(rows.length, 'row', 'rows')}, earliest ${LABEL[q.dateCol]} first`;
+    rows.forEach(r => {
+      const tr = el('tr');
+      [r.id, r.guid, r.type, r.status, r.source, r.rep, r.submitted, r.completed].forEach(v => tr.appendChild(cell(v)));
+      body.appendChild(tr);
+    });
+    if (!rows.length) {
+      const tr = el('tr'), td = el('td', 'muted', 'Nothing matches. Try a wider date range or fewer filters.');
+      td.colSpan = 8;
+      tr.appendChild(td);
+      body.appendChild(tr);
+    }
+    copyBtn.disabled = !rows.length;
+    show('', `${plural(rows.length, 'matching case', 'matching cases')}, ${plural(res.guids, 'unique GUID', 'unique GUIDs')}.`);
+  }
+  // Clipboard first, then the older copy command, then a selected box the reader can copy from
+  async function copyGuids() {
+    const list = guidList(rows);
+    if (!list.length) return;
+    const text = list.join('\n');
+    const done = () => show('ok', `Copied ${plural(list.length, 'unique GUID', 'unique GUIDs')}, one per line.`);
+    try { await navigator.clipboard.writeText(text); done(); return; } catch (e) { /* fall through */ }
+    let ok = false;
+    const ta = el('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+    document.body.appendChild(ta);
+    try { ta.select(); ok = document.execCommand('copy'); } catch (e) { ok = false; } finally { ta.remove(); }
+    if (ok) { done(); return; }
+    copybox.value = text;
+    copybox.hidden = false;
+    copybox.focus();
+    copybox.select();
+    show('', `The browser blocked the clipboard, so the ${plural(list.length, 'GUID is', 'GUIDs are')} selected in the box above the table. Press Ctrl+C or Cmd+C to copy.`);
+  }
+  [...typeBtns, ...statusBtns].forEach(b => b.addEventListener('click', () => {
+    b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true'));
+    render();
+  }));
+  col.addEventListener('change', render);
+  [from, to].forEach(i => { i.addEventListener('input', render); i.addEventListener('change', render); });
+  box.querySelector('[data-lk-reset]').addEventListener('click', () => {
+    col.value = START.dateCol; from.value = START.from; to.value = START.to;
+    typeBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
+    statusBtns.forEach(b => b.setAttribute('aria-pressed', String(START.statuses.includes(b.dataset.lkStatus))));
+    render();
+  });
+  copyBtn.addEventListener('click', copyGuids);
+  render();
+})();
+
+// ── COO/COLE reconciler: invented applications against invented dashboard cases ──
+(function () {
+  const box = document.getElementById('demo-recon');
+  if (!box) return;
+  // [recon-rules] Invented applications and cases and the matching rules, kept apart from the page so they can be checked on their own
+  const SUBMIT_FROM = '2026-03-01', SUBMIT_TO = '2026-03-31';
+  const APPS = [
+    ['A-3001', 'R-2001', '2026-03-02'],
+    ['A-3002', 'R-2002', '2026-03-03'],
+    ['A-3003', 'R-2003', '2026-03-04'],
+    ['A-3004', 'R-2004', '2026-03-05'],
+    ['A-3005', 'R-2005', '2026-03-06'],
+    ['A-3006', 'R-2006', '2026-03-09'],
+    ['A-3007', 'R-2007', '2026-03-10'],
+    ['A-3008', 'R-2008', '2026-03-11'],
+    ['A-3009', 'R-2009', '2026-03-12'],
+    ['A-3010', 'R-2010', '2026-03-16'],
+    ['A-3011', 'R-2011', '2026-03-18'],
+    ['A-3012', '', '2026-03-19'],
+    ['A-3013', 'R-2004', '2026-03-20']
+  ].map(([id, guid, submitted]) => ({ id, guid, submitted }));
+  // closed = the expired or canceled date, for cases with that status
+  const RCASES = [
+    ['C-4001', 'R-2001', 'COO & COLE', 'Completed', '2026-03-03', '2026-03-20', ''],
+    ['C-4002', 'R-2002', 'COO', 'Completed', '2026-03-04', '2026-03-10', ''],
+    ['C-4003', 'R-2002', 'COLE', 'Completed', '2026-03-04', '2026-03-25', ''],
+    ['C-4004', 'R-2003', 'COO', 'Completed', '2026-03-05', '2026-04-03', ''],
+    ['C-4005', 'R-2004', 'COLE', 'Completed', '2026-03-06', '2026-03-27', ''],
+    ['C-4006', 'R-2005', 'Other', 'Completed', '2026-03-07', '2026-03-18', ''],
+    ['C-4007', 'R-2006', 'COO', 'Completed', '2026-03-10', '', ''],
+    ['C-4008', 'R-2007', 'COLE', 'In Progress', '2026-03-11', '', ''],
+    ['C-4009', 'R-2008', 'COO', 'Expired', '2026-03-12', '', '2026-04-11'],
+    ['C-4010', 'R-2009', 'COO', 'Completed', '2026-03-13', '2026-04-19', ''],
+    ['C-4011', 'R-2010', 'COLE', 'Canceled', '2026-01-08', '', '2026-02-04'],
+    ['C-4012', 'R-2012', 'COO', 'Completed', '2026-03-20', '2026-03-26', ''],
+    ['C-4013', 'R-2013', 'COLE', 'Completed', '2026-04-20', '2026-05-10', '']
+  ].map(([id, guid, type, status, submitted, completed, closed]) => ({ id, guid, type, status, submitted, completed, closed }));
+  const OUTCOMES = {
+    both: ['COO & COLE completed', 'Completed'], coo: ['COO completed', 'Completed'], cole: ['COLE completed', 'Completed'],
+    otherType: ['Completed, unrecognized type', 'Needs review'], noDate: ['Completed, no completion date', 'Needs review'],
+    open: ['Case in progress', 'Not completed'], closed: ['Case expired / canceled', 'Not completed'],
+    outside: ['Completed outside window', 'Not completed'], noneActive: ['No case in window', 'No case found'],
+    notFound: ['GUID not in dashboard', 'No case found'], noGuid: ['Application missing GUID', 'Needs review']
+  };
+  const GROUPS = ['Completed', 'Not completed', 'No case found', 'Needs review'];
+  const rnorm = v => String(v == null ? '' : v).trim().toLowerCase();
+  const dayOf = iso => (/^\d{4}-\d{2}-\d{2}$/.test(iso || '') ? Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10)) / 864e5 : null);
+  const isoOf = n => new Date(n * 864e5).toISOString().slice(0, 10);
+  const kindOf = s => { s = rnorm(s); return s === 'completed' || s === 'complete' ? 'done' : s.includes('expire') ? 'expired' : s.includes('cancel') ? 'canceled' : 'open'; };
+  const names = (t, w) => new RegExp('\\b' + w + '\\b', 'i').test(t || '');
+  // One application against every case on its GUID. Completed means Status Completed with a
+  // Date Completed from the application date through W days after it, both ends included.
+  // Otherwise the first rule that fits decides, in the order below.
+  function classify(app, list, W) {
+    const start = dayOf(app.submitted), end = start + W;
+    const row = { app, outcome: '', days: null, note: '', matched: [] };
+    const set = (outcome, matched, note) => Object.assign(row, { outcome, matched, note: note || '' });
+    if (!rnorm(app.guid)) return set('noGuid', [], 'The application has no GUID to match on');
+    const dated = list.filter(c => c.kind === 'done' && c.doneDay != null);
+    const inWindow = dated.filter(c => c.doneDay >= start && c.doneDay <= end);
+    if (inWindow.length) {
+      const coo = inWindow.filter(c => c.coo), cole = inWindow.filter(c => c.cole);
+      const soonest = cs => Math.min(...cs.map(c => c.doneDay - start));
+      if (coo.length && cole.length) {
+        set('both', inWindow.filter(c => c.coo || c.cole), inWindow.some(c => c.coo && c.cole) ? '' : 'COO done on one case, COLE on another');
+        row.days = Math.max(soonest(coo), soonest(cole));   // both are done when the later one finishes
+      } else if (coo.length) { set('coo', coo); row.days = soonest(coo); }
+      else if (cole.length) { set('cole', cole); row.days = soonest(cole); }
+      else set('otherType', inWindow, 'Type ' + (inWindow[0].type || 'blank') + ' is neither COO nor COLE, though it finished in the window');
+      return row;
+    }
+    // Active during the window: submitted by its end and, if closed, closed on or after the application date
+    const active = c => (c.subDay == null || c.subDay <= end) && (c.closeDay == null || c.closeDay >= start);
+    const statuses = cs => [...new Set(cs.map(c => c.status))].join(', ');
+    const undated = list.filter(c => c.kind === 'done' && c.doneDay == null && active(c));
+    if (undated.length) return set('noDate', undated, 'Marked Completed, but no completion date is recorded');
+    const open = list.filter(c => c.kind === 'open' && active(c));
+    if (open.length) return set('open', open, 'Still open (' + statuses(open) + ')');
+    const shut = list.filter(c => ['expired', 'canceled'].includes(c.kind) && active(c));
+    if (shut.length) return set('closed', shut, 'Closed without finishing (' + statuses(shut) + ')');
+    if (dated.length) {
+      const late = dated.filter(c => c.doneDay > end);
+      return set('outside', dated, late.length
+        ? 'Finished ' + (Math.min(...late.map(c => c.doneDay)) - start) + ' days after the application; the limit is ' + W + ' days'
+        : 'Finished on ' + isoOf(Math.max(...dated.map(c => c.doneDay))) + ', which is before the application date');
+    }
+    if (list.length) return set('noneActive', list, list.length === 1 ? '1 case found, but it was not open during the window' : list.length + ' cases found, but none was open during the window');
+    return set('notFound', [], 'No dashboard case has this GUID');
+  }
+  function reconcile(apps, cases, W, from, to) {
+    const fromDay = dayOf(from), toDay = dayOf(to);
+    const prepared = cases.map((c, i) => {
+      const kind = kindOf(c.status);
+      return Object.assign({}, c, { i, key: rnorm(c.guid), kind, doneDay: dayOf(c.completed), subDay: dayOf(c.submitted),
+        closeDay: kind === 'expired' || kind === 'canceled' ? dayOf(c.closed) : null, coo: names(c.type, 'coo'), cole: names(c.type, 'cole') });
+    }).filter(c => c.key);
+    const byGuid = new Map();
+    prepared.forEach(c => { if (!byGuid.has(c.key)) byGuid.set(c.key, []); byGuid.get(c.key).push(c); });
+    const rows = apps.map((a, i) => ({ a, i, d: dayOf(a.submitted) }))
+      .filter(x => x.d != null && x.d >= fromDay && x.d <= toDay)
+      .sort((x, y) => x.d - y.d || x.i - y.i)
+      .map(x => classify(x.a, byGuid.get(rnorm(x.a.guid)) || [], W));
+    // Cases connect to applications only through the GUID. One completion can sit in two
+    // applications' windows (a re-application); both count, and both rows say so.
+    const uses = new Map();
+    const completed = rows.filter(r => OUTCOMES[r.outcome][1] === 'Completed');
+    completed.forEach(r => r.matched.forEach(c => uses.set(c, (uses.get(c) || 0) + 1)));
+    let shared = 0;
+    completed.forEach(r => {
+      if (!r.matched.some(c => uses.get(c) > 1)) return;
+      shared++;
+      r.shared = true;
+      r.note = [r.note, 'One completed case covers this and a second application with the same GUID'].filter(Boolean).join('. ');
+    });
+    const groups = {};
+    GROUPS.forEach(g => { groups[g] = 0; });
+    rows.forEach(r => { groups[OUTCOMES[r.outcome][1]]++; });
+    // Reverse check: completed cases from the window start through its end plus W days, on a GUID that no application in the window has
+    const appGuids = new Set(rows.map(r => rnorm(r.app.guid)).filter(Boolean));
+    const reverseTo = toDay + W;
+    const reverse = prepared.filter(c => c.kind === 'done' && c.doneDay != null && c.doneDay >= fromDay && c.doneDay <= reverseTo && !appGuids.has(c.key))
+      .sort((x, y) => x.doneDay - y.doneDay || x.i - y.i);
+    return { rows, groups, shared, reverse, fromDay, reverseTo };
+  }
+  // [/recon-rules]
+  const $ = k => box.querySelector(`[data-rc="${k}"]`);
+  const win = box.querySelector('#rc-window'), status = $('status');
+  const PILL = { 'Completed': 'pill-green', 'Not completed': 'pill-orange', 'No case found': 'pill-gray', 'Needs review': 'pill-purple' };
+  const show = (cls, text) => { status.className = 'demo-status' + (cls ? ' ' + cls : ''); status.textContent = text; };
+  // A blank value shows as a muted "blank" where the gap matters, otherwise as an empty cell
+  const cell = (text, opts = {}) => {
+    const td = el('td', opts.cls || null);
+    if (text !== '' && text != null) td.textContent = text;
+    else if (opts.blank) td.appendChild(el('span', 'muted', 'blank'));
+    return td;
+  };
+  const line = cells => { const tr = el('tr'); cells.forEach(c => tr.appendChild(c)); return tr; };
+  let ran = null, ranMsg = '';
+
+  // The input tables are drawn from the same data the rules read
+  APPS.forEach(a => $('apps').appendChild(line([cell(a.id), cell(a.guid, { blank: true }), cell(a.submitted)])));
+  RCASES.forEach(c => $('cases').appendChild(line([cell(c.id), cell(c.guid), cell(c.type), cell(c.status), cell(c.submitted),
+    cell(c.completed, { blank: kindOf(c.status) === 'done' }), cell(c.closed)])));
+
+  function run() {
+    const W = Number(win.value);
+    const res = reconcile(APPS, RCASES, W, SUBMIT_FROM, SUBMIT_TO);
+    GROUPS.forEach(g => { box.querySelector(`[data-rc-group="${g}"]`).textContent = res.groups[g]; });
+    const shared = $('shared');
+    shared.hidden = !res.shared;
+    shared.textContent = res.shared === 1
+      ? '1 completed application is covered by a completed case that also covers another application. It still counts, and its Note says so.'
+      : `${res.shared} completed applications are covered by a completed case that also covers another application, as when a restaurant reapplies inside the window. Each one counts, and its Note says so.`;
+    const body = $('results');
+    body.replaceChildren();
+    res.rows.forEach(r => {
+      const [outcome, group] = OUTCOMES[r.outcome];
+      const g = el('td');
+      g.appendChild(el('span', PILL[group], group));
+      body.appendChild(line([cell(r.app.id), cell(r.app.guid, { blank: true }), cell(r.app.submitted), cell(outcome, { cls: 'txt' }), g,
+        cell(r.days == null ? '' : String(r.days)), cell(r.note, { cls: 'wrap note' })]));
+    });
+    $('reverse-cap').textContent = `Reverse check: completed cases from ${isoOf(res.fromDay)} to ${isoOf(res.reverseTo)} (window end plus ${W} days) on a GUID with no application in the window. If this list is long, check that both files use the same GUIDs and that the window is wide enough.`;
+    const rev = $('reverse');
+    rev.replaceChildren();
+    res.reverse.forEach(c => rev.appendChild(line([cell(c.id), cell(c.guid), cell(c.type), cell(c.completed)])));
+    if (!res.reverse.length) {
+      const td = el('td', 'muted', 'Nothing to flag. Each completed case in range ties back to an application.');
+      td.colSpan = 4;
+      rev.appendChild(line([td]));
+    }
+    ran = W;
+    ranMsg = `Ran with a ${W}-day window: ${res.groups['Completed']} of ${res.rows.length} applications completed a COO or COLE.`;
+    show('', ranMsg);
+  }
+  win.addEventListener('change', () => {
+    show('', Number(win.value) === ran ? ranMsg : `Window set to ${win.value} days. Press Run reconciliation to apply it.`);
+  });
+  box.querySelector('[data-rc-run]').addEventListener('click', run);
+  run();
+})();
+
 // ── Routing-number lookup: a quick typo check, then the FedACH directory ──
 (function () {
   const box = document.getElementById('demo-aba');
@@ -2277,7 +2872,7 @@ document.addEventListener('click', e => {
       items.push({ title: h.textContent, where: TAB_NAMES[tab], tab, target: d, keys });
     });
   });
-  [['demo-aba', 'Try: routing-number lookup', 'toast'], ['demo-agent', 'Try: replay the earnings agent', 'ghost'], ['demo-vol', 'Try: portfolio volatility math', 'ghost'], ['agent-operated-practice', 'How the Ghost Strategies practice runs', 'ghost'], ['demo-bench', 'Try: blind votes and code judges', 'ghost']].forEach(([id, title, tab]) => {
+  [['demo-lookup', 'Try: COO/COLE Data Lookup', 'toast'], ['demo-recon', 'Try: COO/COLE reconciler', 'toast'], ['demo-aba', 'Try: routing-number lookup', 'toast'], ['demo-agent', 'Try: replay the earnings agent', 'ghost'], ['demo-vol', 'Try: portfolio volatility math', 'ghost'], ['agent-operated-practice', 'How the Ghost Strategies practice runs', 'ghost'], ['demo-bench', 'Try: blind votes and code judges', 'ghost']].forEach(([id, title, tab]) => {
     const t = document.getElementById(id);
     if (t) items.push({ title, where: TAB_NAMES[tab], tab, target: t, keys: 'demo interactive' });
   });
