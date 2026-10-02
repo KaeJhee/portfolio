@@ -387,6 +387,35 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .rc-inputs .mockup-table td { font-size: 10.5px; }
 .rc-controls { margin-top: 12px; }
 #demo-recon .pill-gray { color: var(--text-2); }
+#demo-recon .mockup-kpi-lbl, #demo-recon [data-rc="results-cap"] { color: var(--text-2); }
+.rc-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 12px; }
+.rc-tiles .rc-rate { grid-row: span 3; display: flex; flex-direction: column; gap: 4px; }
+.rc-rate-val { font-size: 32px; font-weight: 600; line-height: 1.15; color: var(--text); }
+.rc-meter { height: 8px; margin: 6px 0 2px; border-radius: 999px; background: var(--border); overflow: hidden; }
+.rc-meter span { display: block; height: 100%; width: 0; background: var(--toast-dark); border-radius: 999px; }
+.rc-note { font-size: 11px; line-height: 1.4; color: var(--text-2); margin-top: 2px; }
+.rc-breakdown { margin-top: 12px; padding: 10px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+.rc-breakdown-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+.rc-breakdown-title { font-size: 12px; font-weight: 600; color: var(--text); }
+.rc-breakdown-head .demo-btn { flex-shrink: 0; white-space: nowrap; }
+/* Show all and the filter line keep their space while hidden, so the bars never move when a bar is pressed */
+.rc-breakdown-head [data-rc-all][hidden] { display: inline-block; visibility: hidden; }
+.rc-press-hint { display: grid; }
+.rc-press-hint > * { grid-area: 1 / 1; }
+.rc-press-hint > [hidden] { display: block; visibility: hidden; }
+.rc-filter-note { color: #9A4300; }
+.rc-bars { display: flex; flex-direction: column; gap: 2px; }
+.rc-bar { display: grid; grid-template-columns: minmax(0, 15em) minmax(60px, 1fr) 7em; align-items: center; gap: 12px; width: 100%; padding: 4px 8px; font: inherit; text-align: left; color: var(--text); background: none; border: 1px solid transparent; border-radius: 6px; cursor: pointer; }
+.rc-bar:hover { background: var(--surface-2); border-color: var(--border); }
+.rc-bar[aria-pressed="true"] { background: var(--toast-light); border-color: var(--toast-dark); }
+.rc-bar[aria-pressed="true"] .rc-bar-name { color: #9A4300; }
+.rc-bar:focus-visible { outline: 2px solid var(--toast-dark); outline-offset: 1px; }
+.rc-bar-name { min-width: 0; font-size: 12px; font-weight: 500; line-height: 1.3; }
+.rc-bar-group { display: block; font-size: 10.5px; font-weight: 400; color: var(--text-2); }
+.rc-bar-track { height: 8px; border-radius: 999px; background: var(--border); overflow: hidden; }
+.rc-bar-len { display: block; height: 100%; background: var(--toast-dark); border-radius: 999px; }
+.rc-bar-num { font-size: 12px; text-align: right; white-space: nowrap; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.rc-bar-num b { font-weight: 600; color: var(--text); }
 
 /* About: operating loop */
 .loop { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 12px; }
@@ -446,6 +475,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   .demo-scroll .mockup-table td.note { min-width: 0; }
   .lk-copybox { display: none !important; }
   .rc-inputs { grid-template-columns: minmax(0, 1fr); }
+  #demo-recon [data-rc-all], #demo-recon .rc-press-hint { display: none !important; }
 }
 @media (max-width: 700px) {
   .demo { padding: 14px 12px; }
@@ -453,6 +483,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   .bench-panes { grid-template-columns: 1fr; }
   .bench-pane { min-height: 0; }
   .rc-inputs { grid-template-columns: minmax(0, 1fr); }
+  .rc-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .rc-tiles .rc-rate { grid-column: 1 / -1; grid-row: auto; }
+  .rc-bar { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; }
+  .rc-bar-track { grid-column: 1 / -1; grid-row: 2; }
   .lk-label { min-width: 0; width: 100%; }
   .vol-row { grid-template-columns: 1fr 52px; }
   .vol-row .vol-track { grid-column: 1 / -1; grid-row: 2; }
@@ -878,14 +912,36 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           <select id="rc-window" class="lk-field"><option value="15">15 days</option><option value="30" selected>30 days</option><option value="45">45 days</option></select>
           <button class="demo-btn primary" type="button" data-rc-run>Run reconciliation</button>
         </div>
-        <div class="lk-cards">
-          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc-group="Completed">0</div><div class="mockup-kpi-lbl">Completed</div></div>
-          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc-group="Not completed">0</div><div class="mockup-kpi-lbl">Not completed</div></div>
-          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc-group="No case found">0</div><div class="mockup-kpi-lbl">No case found</div></div>
-          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc-group="Needs review">0</div><div class="mockup-kpi-lbl">Needs review</div></div>
+        <div class="rc-tiles">
+          <div class="mockup-kpi rc-rate">
+            <div class="rc-rate-val" data-rc="rate">0%</div>
+            <div class="mockup-kpi-lbl">Completion rate</div>
+            <div class="rc-meter" aria-hidden="true"><span data-rc="rate-meter"></span></div>
+            <div class="rc-note" data-rc="rate-note"></div>
+          </div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc="total">0</div><div class="mockup-kpi-lbl">Applications in the window</div><div class="rc-note" data-rc="guids"></div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc-group="Completed">0</div><div class="mockup-kpi-lbl">Completed</div><div class="rc-note">A COO, a COLE, or both</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc="days">0</div><div class="mockup-kpi-lbl">Days to complete</div><div class="rc-note" data-rc="days-note"></div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc-count="both">0</div><div class="mockup-kpi-lbl">COO &amp; COLE</div><div class="rc-note">Both finished</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc-count="coo">0</div><div class="mockup-kpi-lbl">COO only</div><div class="rc-note">Only a COO finished</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc-count="cole">0</div><div class="mockup-kpi-lbl">COLE only</div><div class="rc-note">Only a COLE finished</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc-group="Not completed">0</div><div class="mockup-kpi-lbl">Not completed</div><div class="rc-note" data-rc="open"></div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc-group="No case found">0</div><div class="mockup-kpi-lbl">No case found</div><div class="rc-note">Nothing to match in the window</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val" data-rc-group="Needs review">0</div><div class="mockup-kpi-lbl">Needs review</div><div class="rc-note">A data gap to fix first</div></div>
+        </div>
+        <div class="rc-breakdown">
+          <div class="rc-breakdown-head">
+            <div>
+              <div class="rc-breakdown-title" id="rc-bars-title">Outcome breakdown</div>
+              <div class="rc-note">Each bar is one outcome's share of every application in the run.</div>
+              <div class="rc-note rc-press-hint"><span data-rc="press-hint">Press a bar to list only those applications in the table, and press it again or Show all to clear.</span><span class="rc-filter-note" data-rc="filter-note" hidden></span></div>
+            </div>
+            <button class="demo-btn" type="button" data-rc-all hidden>Show all</button>
+          </div>
+          <div class="rc-bars" data-rc="outcome-bars" role="group" aria-labelledby="rc-bars-title"></div>
         </div>
         <div class="demo-status warn" data-rc="shared" role="status" hidden></div>
-        <div class="demo-cap" data-rc="results-cap">Each application's outcome, in submitted order</div>
+        <div class="demo-cap" data-rc="results-cap" role="status">Each application's outcome, in submitted order</div>
         <div class="demo-scroll rc-results" tabindex="0" role="region" aria-label="Reconciliation results">
           <table class="mockup-table">
             <thead><tr><th>App</th><th>GUID</th><th>Submitted</th><th>Outcome</th><th>Group</th><th class="wrap">Days to complete</th><th>Note</th></tr></thead>
@@ -2132,6 +2188,11 @@ document.addEventListener('click', e => {
     notFound: ['GUID not in dashboard', 'No case found'], noGuid: ['Application missing GUID', 'Needs review']
   };
   const GROUPS = ['Completed', 'Not completed', 'No case found', 'Needs review'];
+  // The fixed order of the outcome bars: completed kinds, then not completed, no case, needs review
+  const ORDER = ['both', 'coo', 'cole', 'open', 'closed', 'outside', 'noneActive', 'notFound', 'noDate', 'otherType', 'noGuid'];
+  // A part of the run as a percent, at most one decimal place: 5 of 13 shows 38.5%, 1 of 4 shows 25%
+  const SHARE_FMT = new Intl.NumberFormat('en-US', { style: 'percent', maximumFractionDigits: 1 });
+  const shareText = (part, whole) => SHARE_FMT.format(part / whole);
   const rnorm = v => String(v == null ? '' : v).trim().toLowerCase();
   const dayOf = iso => (/^\d{4}-\d{2}-\d{2}$/.test(iso || '') ? Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10)) / 864e5 : null);
   const isoOf = n => new Date(n * 864e5).toISOString().slice(0, 10);
@@ -2176,7 +2237,8 @@ document.addEventListener('click', e => {
     if (list.length) return set('noneActive', list, list.length === 1 ? '1 case found, but it was not open during the window' : list.length + ' cases found, but none was open during the window');
     return set('notFound', [], 'No dashboard case has this GUID');
   }
-  function reconcile(apps, cases, W, from, to) {
+  // today (YYYY-MM-DD) only decides whether a window that has not completed is still open
+  function reconcile(apps, cases, W, from, to, today) {
     const fromDay = dayOf(from), toDay = dayOf(to);
     const prepared = cases.map((c, i) => {
       const kind = kindOf(c.status);
@@ -2209,7 +2271,20 @@ document.addEventListener('click', e => {
     const reverseTo = toDay + W;
     const reverse = prepared.filter(c => c.kind === 'done' && c.doneDay != null && c.doneDay >= fromDay && c.doneDay <= reverseTo && !appGuids.has(c.key))
       .sort((x, y) => x.doneDay - y.doneDay || x.i - y.i);
-    return { rows, groups, shared, reverse, fromDay, reverseTo };
+    // The data view. The rate divides by every application in the run, matched or not, and
+    // days to complete come from the completed applications only.
+    const counts = {};
+    ORDER.forEach(k => { counts[k] = 0; });
+    rows.forEach(r => { counts[r.outcome]++; });
+    const days = completed.map(r => r.days).sort((x, y) => x - y), half = Math.floor(days.length / 2);
+    const todayDay = dayOf(today);
+    // Not completed yet, but its window reaches today or later, so it could still finish
+    const stillOpen = rows.filter(r => OUTCOMES[r.outcome][1] !== 'Completed' && dayOf(r.app.submitted) + W >= todayDay).length;
+    return { rows, groups, shared, reverse, fromDay, reverseTo, counts, total: rows.length,
+      rate: rows.length ? groups['Completed'] / rows.length : null,
+      median: days.length ? (days.length % 2 ? days[half] : (days[half - 1] + days[half]) / 2) : null,
+      mean: days.length ? days.reduce((sum, d) => sum + d, 0) / days.length : null,
+      guids: appGuids.size, stillOpen };
   }
   // [/recon-rules]
   const $ = k => box.querySelector(`[data-rc="${k}"]`);
@@ -2224,31 +2299,73 @@ document.addEventListener('click', e => {
     return td;
   };
   const line = cells => { const tr = el('tr'); cells.forEach(c => tr.appendChild(c)); return tr; };
-  let ran = null, ranMsg = '';
+  const bars = $('outcome-bars'), allBtn = box.querySelector('[data-rc-all]');
+  let ran = null, ranMsg = '', res = null, filter = null;
 
   // The input tables are drawn from the same data the rules read
   APPS.forEach(a => $('apps').appendChild(line([cell(a.id), cell(a.guid, { blank: true }), cell(a.submitted)])));
   RCASES.forEach(c => $('cases').appendChild(line([cell(c.id), cell(c.guid), cell(c.type), cell(c.status), cell(c.submitted),
     cell(c.completed, { blank: kindOf(c.status) === 'done' }), cell(c.closed)])));
 
-  function run() {
-    const W = Number(win.value);
-    const res = reconcile(APPS, RCASES, W, SUBMIT_FROM, SUBMIT_TO);
-    GROUPS.forEach(g => { box.querySelector(`[data-rc-group="${g}"]`).textContent = res.groups[g]; });
-    const shared = $('shared');
-    shared.hidden = !res.shared;
-    shared.textContent = res.shared === 1
-      ? '1 completed application is covered by a completed case that also covers another application. It still counts, and its Note says so.'
-      : `${res.shared} completed applications are covered by a completed case that also covers another application, as when a restaurant reapplies inside the window. Each one counts, and its Note says so.`;
+  // The results table, cut down to one outcome while a bar is pressed
+  function showRows() {
+    const list = filter ? res.rows.filter(r => r.outcome === filter) : res.rows;
     const body = $('results');
     body.replaceChildren();
-    res.rows.forEach(r => {
+    list.forEach(r => {
       const [outcome, group] = OUTCOMES[r.outcome];
       const g = el('td');
       g.appendChild(el('span', PILL[group], group));
       body.appendChild(line([cell(r.app.id), cell(r.app.guid, { blank: true }), cell(r.app.submitted), cell(outcome, { cls: 'txt' }), g,
         cell(r.days == null ? '' : String(r.days)), cell(r.note, { cls: 'wrap note' })]));
     });
+    // The caption is a live region: only touch it when its words change, so a Run is not announced twice
+    const cap = filter ? `${OUTCOMES[filter][0]} only: ${list.length} of ${res.total} applications, in submitted order` : "Each application's outcome, in submitted order";
+    if ($('results-cap').textContent !== cap) $('results-cap').textContent = cap;
+    // The same news beside the bars, since the table is often below the screen; not a live region, the caption already is
+    $('filter-note').textContent = filter ? `Showing ${list.length} of ${res.total} in the table below. Press the bar again or Show all to clear.` : '';
+    $('filter-note').hidden = !filter;
+    $('press-hint').hidden = !!filter;
+    allBtn.hidden = !filter;
+    bars.querySelectorAll('[data-rc-bar]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.rcBar === filter)));
+  }
+  function run() {
+    const W = Number(win.value);
+    res = reconcile(APPS, RCASES, W, SUBMIT_FROM, SUBMIT_TO, new Date().toISOString().slice(0, 10));
+    filter = null;
+    GROUPS.forEach(g => { box.querySelector(`[data-rc-group="${g}"]`).textContent = res.groups[g]; });
+    ['both', 'coo', 'cole'].forEach(k => { box.querySelector(`[data-rc-count="${k}"]`).textContent = res.counts[k]; });
+    $('rate').textContent = res.total ? shareText(res.groups['Completed'], res.total) : 'None yet';
+    $('rate-meter').style.width = ((res.rate || 0) * 100) + '%';
+    $('rate-note').textContent = `${res.groups['Completed']} of ${res.total} applications ended in a completed COO or COLE inside the ${W}-day window.`;
+    $('total').textContent = res.total;
+    $('guids').textContent = `${res.guids} unique GUIDs`;
+    $('open').textContent = !res.stillOpen ? 'Every window has closed' : res.stillOpen === 1 ? '1 window is still open' : `${res.stillOpen} windows are still open`;
+    $('days').textContent = res.median == null ? 'None yet' : String(Math.round(res.median * 10) / 10);
+    $('days-note').textContent = res.median == null ? 'No application completed in this window' : `Median, with a mean of ${res.mean.toFixed(1)}`;
+    bars.replaceChildren();
+    ORDER.filter(k => res.counts[k]).forEach(k => {
+      const [outcome, group] = OUTCOMES[k], n = res.counts[k];
+      const b = el('button', 'rc-bar');
+      b.type = 'button';
+      b.dataset.rcBar = k;
+      b.setAttribute('aria-label', `${outcome}, ${group}: ${n} of ${res.total} applications, ${shareText(n, res.total)}`);
+      const name = el('span', 'rc-bar-name', outcome);
+      name.appendChild(el('span', 'rc-bar-group', group));
+      const track = el('span', 'rc-bar-track'), fill = el('span', 'rc-bar-len');
+      fill.style.width = (n / res.total * 100) + '%';
+      track.appendChild(fill);
+      const num = el('span', 'rc-bar-num');
+      num.append(el('b', null, String(n)), ` · ${shareText(n, res.total)}`);
+      b.append(name, track, num);
+      bars.appendChild(b);
+    });
+    const shared = $('shared');
+    shared.hidden = !res.shared;
+    shared.textContent = res.shared === 1
+      ? '1 completed application is covered by a completed case that also covers another application. It still counts, and its Note says so.'
+      : `${res.shared} completed applications are covered by a completed case that also covers another application, as when a restaurant reapplies inside the window. Each one counts, and its Note says so.`;
+    showRows();
     $('reverse-cap').textContent = `Reverse check: completed cases from ${isoOf(res.fromDay)} to ${isoOf(res.reverseTo)} (window end plus ${W} days) on a GUID with no application in the window. If this list is long, check that both files use the same GUIDs and that the window is wide enough.`;
     const rev = $('reverse');
     rev.replaceChildren();
@@ -2266,6 +2383,20 @@ document.addEventListener('click', e => {
     show('', Number(win.value) === ran ? ranMsg : `Window set to ${win.value} days. Press Run reconciliation to apply it.`);
   });
   box.querySelector('[data-rc-run]').addEventListener('click', run);
+  // Pressing a bar filters the table to its outcome; pressing it again clears the filter
+  bars.addEventListener('click', e => {
+    const b = e.target.closest('[data-rc-bar]');
+    if (!b) return;
+    filter = filter === b.dataset.rcBar ? null : b.dataset.rcBar;
+    showRows();
+  });
+  // Show all hides itself, so focus goes back to the bar that was pressed
+  allBtn.addEventListener('click', () => {
+    const was = bars.querySelector('[aria-pressed="true"]');
+    filter = null;
+    showRows();
+    was.focus();
+  });
   run();
 })();
 
