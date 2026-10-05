@@ -454,6 +454,126 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .detail p a { color: var(--text); text-decoration: underline; text-decoration-color: var(--text-3); text-underline-offset: 2px; }
 .print-only { display: none; }
 
+/* Robots: scroll bot in the tab bar, and the agent team in About */
+.bot { display: block; overflow: visible; }
+.bot .b-body, .bot .b-arm { fill: var(--bc, #D97757); stroke: var(--bd, #A2543B); stroke-width: 1.2; }
+.bot .b-leg { fill: var(--bd, #A2543B); }
+.bot .b-ant { stroke: var(--bd, #A2543B); stroke-width: 1.3; stroke-linecap: round; }
+.bot .b-light { fill: #fff; stroke: var(--bd, #A2543B); stroke-width: 1.1; transition: fill 0.2s; }
+.bot .b-visor { fill: #24222C; }
+.bot .b-eyes rect { fill: #EAF7FF; }
+.bot .b-happy path, .bot .b-sleep path { fill: none; stroke: #EAF7FF; stroke-width: 1.3; stroke-linecap: round; }
+.bot .b-happy, .bot .b-sleep { opacity: 0; }
+.bot .b-blush { fill: #FF8FA3; opacity: 0.6; }
+.bot .p-ink { fill: #2A2833; }
+.bot .p-line { stroke: #2A2833; stroke-width: 1.2; stroke-linecap: round; }
+.bot .b-leg, .bot .b-arm, .bot .b-eyes, .bot [class^="p-"] { transform-box: fill-box; transform-origin: center; }
+.bot .p-baton { transform-origin: 0% 100%; }
+.bot .p-flag { transform-origin: 0% 50%; }
+.bot .p-pencil { transform-origin: 30% 100%; }
+
+.sbot-rail { position: absolute; left: 0; right: 0; bottom: -1px; max-width: 920px; margin: 0 auto; padding: 0 24px; height: 1px; pointer-events: none; --sbot-accent: #D97757; }
+.sbot-line { position: relative; height: 1px; }
+.sbot-fill { position: absolute; left: 0; top: 0; height: 1px; width: 0; background: var(--text-3); }
+.sbot-tick { position: absolute; top: -0.5px; width: 2px; height: 2px; border-radius: 50%; background: var(--text-3); opacity: 0.3; transform: translateX(-1px); }
+.sbot-tick.passed { opacity: 0.5; }
+.sbot { position: absolute; left: 0; bottom: 1px; width: 15px; height: 16px; will-change: transform; }
+.sbot .bot { width: 15px; height: 16px; --bc: var(--sbot-accent); --bd: color-mix(in srgb, var(--sbot-accent) 70%, #000); }
+.sbot .b-blush { display: none; }
+.sbot.is-left .bot { transform: scaleX(-1); }
+.sbot.is-walking .b-leg-l { animation: sbot-step 0.32s steps(2, jump-none) infinite; }
+.sbot.is-walking .b-leg-r { animation: sbot-step 0.32s steps(2, jump-none) infinite reverse; }
+.sbot.is-walking .b-arm-l { animation: sbot-swing 0.32s ease-in-out infinite; }
+.sbot.is-walking .b-arm-r { animation: sbot-swing 0.32s ease-in-out infinite reverse; }
+.sbot.is-walking .bot { animation: sbot-bob 0.32s ease-in-out infinite; }
+.sbot.is-left.is-walking .bot { animation-name: sbot-bob-left; }
+.sbot.is-ping .b-light { fill: #FFD34D; }
+.sbot.is-blink .b-eyes { transform: scaleY(0.15); }
+@keyframes sbot-step { 0% { transform: translateY(0); } 100% { transform: translateY(-1.6px); } }
+@keyframes sbot-swing { 0%, 100% { transform: rotate(-12deg); } 50% { transform: rotate(12deg); } }
+@keyframes sbot-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-0.8px); } }
+@keyframes sbot-bob-left { 0%, 100% { transform: scaleX(-1) translateY(0); } 50% { transform: scaleX(-1) translateY(-0.8px); } }
+.jump-btn { position: relative; z-index: 1; }
+
+.at-lead { margin-bottom: 18px !important; }
+.at-stage { position: relative; padding: 4px 0 2px; }
+.at-orch { display: flex; flex-direction: column; align-items: center; gap: 2px; position: relative; padding-bottom: 18px; }
+.at-orch::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 1px; height: 14px; background: var(--border); }
+.at-orch .bot { width: 52px; height: 52px; }
+.at-orch .at-name { font-size: 11px; font-weight: 600; color: var(--text); }
+.at-bus { height: 1px; background: var(--border); margin: 0 calc((100% - 42px) / 16); }
+.at-agents { list-style: none; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; padding: 0; margin: 0; }
+.at-agent { position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; padding-top: 12px; text-align: center; transition: opacity 0.3s; }
+.at-agent::before { content: ""; position: absolute; top: 0; left: 50%; width: 1px; height: 8px; background: var(--border); }
+.at-botwrap { position: relative; }
+.at-agent .bot { width: 42px; height: 42px; }
+.at-agent .at-name { font-size: 11px; line-height: 1.3; min-height: 2.6em; color: var(--text-2); }
+.at-meter { width: 44px; height: 3px; border-radius: 2px; background: var(--border); overflow: hidden; }
+.at-meter i { display: block; height: 100%; width: 100%; background: var(--green); }
+.at-check { position: absolute; top: -2px; left: -5px; width: 13px; height: 13px; border-radius: 50%; background: var(--green); color: #fff; font-size: 8px; font-weight: 700; line-height: 13px; text-align: center; transition: opacity 0.25s, transform 0.25s; }
+.at-check::before { content: "\2713"; }
+/* Eyes: happy when the work is done (and in the resting picture), sleepy while waiting, open while working */
+.at-stage .b-eyes { opacity: 0; }
+.at-stage .b-happy { opacity: 1; }
+.at-stage.is-armed .at-agent .b-happy { opacity: 0; }
+.at-stage.is-armed .at-agent .b-sleep { opacity: 1; }
+.at-stage.is-armed .at-agent.is-working .b-sleep, .at-stage.is-armed .at-agent.is-done .b-sleep { opacity: 0; }
+.at-stage.is-armed .at-agent.is-working .b-eyes { opacity: 1; }
+.at-stage.is-armed .at-agent.is-done .b-happy { opacity: 1; }
+.at-stage.is-sending .at-orch .b-happy { opacity: 0; }
+.at-stage.is-sending .at-orch .b-eyes { opacity: 1; }
+.at-stage.is-armed .at-agent { opacity: 0.55; }
+.at-stage.is-armed .at-agent .at-meter i { width: 0; }
+.at-stage.is-armed .at-agent .at-check { opacity: 0; transform: scale(0.4); }
+.at-stage.is-armed .at-agent.is-working, .at-stage.is-armed .at-agent.is-done { opacity: 1; }
+.at-stage.is-armed .at-agent.is-working .at-meter i { width: 100%; background: var(--bc); transition: width 0.55s linear; }
+.at-stage.is-armed .at-agent.is-done .at-meter i { width: 100%; }
+.at-stage.is-armed .at-agent.is-done .at-check { opacity: 1; transform: none; }
+.at-agent.is-working .b-light, .at-stage.is-sending .at-orch .b-light { fill: #FFD34D; }
+.at-agent.is-working .at-name { color: var(--text); }
+/* Each agent does its job while it works */
+.at-agent.is-working .p-gear { animation: at-spin 0.55s linear; }
+.at-agent.is-working .p-glass { animation: at-scan 0.55s ease-in-out; }
+.at-agent.is-working .p-clip, .at-agent.is-working .p-wrench { animation: at-wiggle 0.55s ease-in-out; }
+.at-agent.is-working .p-flag { animation: at-wave 0.28s ease-in-out 2; }
+.at-agent.is-working .p-pencil { animation: at-wiggle 0.27s ease-in-out 2; }
+.at-agent.is-working .p-spark { animation: at-twinkle 0.55s ease-in-out; }
+.at-agent.is-working .p-bubble { animation: at-bubble 0.55s ease-out; }
+.at-stage.is-sending .at-orch .p-baton { animation: at-conduct 0.72s ease-in-out infinite; }
+@keyframes at-spin { to { transform: rotate(360deg); } }
+@keyframes at-scan { 0%, 100% { transform: translate(0, 0); } 35% { transform: translate(-1.6px, 0.6px); } 70% { transform: translate(0.8px, -0.6px); } }
+@keyframes at-wiggle { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-12deg); } 75% { transform: rotate(12deg); } }
+@keyframes at-wave { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(0.6); } }
+@keyframes at-twinkle { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.5); opacity: 0.4; } }
+@keyframes at-bubble { 0% { transform: translateY(0); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(-3.5px); opacity: 0; } }
+@keyframes at-conduct { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-24deg); } }
+.at-task { position: absolute; left: 0; top: 0; z-index: 2; white-space: nowrap; font-size: 10px; font-weight: 600; line-height: 1; padding: 4px 8px; border-radius: 10px; background: var(--bt, var(--about-light)); border: 1px solid var(--bc, var(--about-border)); color: var(--bd, var(--about-dark)); box-shadow: 0 2px 6px rgba(26, 25, 22, 0.08); pointer-events: none; }
+.at-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 16px; min-height: 22px; }
+.at-status { font-family: var(--mono); font-size: 11px; color: var(--text-3); }
+.at-replay { font: inherit; font-size: 11px; color: var(--text-3); background: none; border: 1px solid var(--border); border-radius: 6px; padding: 2px 9px; cursor: pointer; }
+.at-replay:hover { color: var(--text); border-color: var(--about-border); }
+.at-replay[hidden] { display: none; }
+@media (max-width: 700px) {
+  .sbot-rail { padding: 0 16px; }
+  .at-agents { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px 6px; }
+  .at-bus, .at-agent::before { display: none; }
+  .at-orch { padding-bottom: 10px; }
+  .at-orch::after { display: none; }
+  .at-agent { padding-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sbot.is-walking .b-leg-l, .sbot.is-walking .b-leg-r, .sbot.is-walking .b-arm-l, .sbot.is-walking .b-arm-r, .sbot.is-walking .bot { animation: none; }
+}
+@media print {
+  .sbot-rail, .at-task, .at-foot { display: none !important; }
+  .at-stage .at-agent { opacity: 1 !important; }
+  .at-stage .at-agent .at-meter i { width: 100% !important; background: var(--green) !important; }
+  .at-stage .at-agent .at-check { opacity: 1 !important; transform: none !important; }
+  .at-stage .b-eyes, .at-stage .b-sleep { opacity: 0 !important; }
+  .at-stage .b-happy { opacity: 1 !important; }
+  .at-stage .b-light { fill: #fff !important; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .jump-flash { animation: none; }
   .vol-track span, .chip, .loop-step { transition: none; }
@@ -520,6 +640,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <button class="tab-btn" data-tab="contact">Contact</button>
     <button class="jump-btn" type="button" aria-label="Jump to a project or section" aria-haspopup="dialog"><span class="jump-label">Jump to</span><kbd class="jump-kbd">⌘K</kbd></button>
   </div>
+  <div class="sbot-rail" aria-hidden="true"><div class="sbot-line"><div class="sbot-fill"></div><div class="sbot-ticks"></div><div class="sbot"><svg class="bot b-scroll" viewBox="3.6 1.2 24.8 27" focusable="false" aria-hidden="true"><rect class="b-leg b-leg-l" x="11.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-leg b-leg-r" x="17.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-arm b-arm-l" x="4.4" y="14.6" width="3.6" height="6" rx="1.8"/><rect class="b-arm b-arm-r" x="24" y="14.6" width="3.6" height="6" rx="1.8"/><line class="b-ant" x1="16" y1="5.2" x2="16" y2="8.4"/><circle class="b-light" cx="16" cy="3.8" r="2"/><rect class="b-body" x="6.8" y="8" width="18.4" height="16" rx="6.4"/><rect class="b-visor" x="9.4" y="11" width="13.2" height="8.6" rx="3.8"/><g class="b-eyes"><rect x="12.1" y="13.1" width="2.5" height="4" rx="1.25"/><rect x="17.4" y="13.1" width="2.5" height="4" rx="1.25"/></g><g class="b-happy"><path d="M12 16.3q1.35-2 2.7 0"/><path d="M17.3 16.3q1.35-2 2.7 0"/></g><g class="b-sleep"><path d="M12.1 15.6h2.5"/><path d="M17.4 15.6h2.5"/></g><ellipse class="b-blush" cx="9.5" cy="21.5" rx="1.5" ry=".85"/><ellipse class="b-blush" cx="22.5" cy="21.5" rx="1.5" ry=".85"/></svg></div></div></div>
 </div>
 
 <div class="page">
@@ -1639,6 +1760,27 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <p>Before Toast, I spent four years at Torres Financial Services in San Antonio, moving from Junior Analyst to Portfolio Management Advisor, where I built KPI dashboards for risk, budgeting, and long-term planning and worked with compliance teams on financial regulations.</p>
       <p>Outside of Toast, I founded Ghost Strategies LLC in November 2023, a registered investment advisory practice where I build LLM-powered financial tools: a portfolio analysis terminal for client reviews, a macro research terminal, a blind model evaluation bench, and a LangGraph earnings agent. The practice itself runs on a governed multi-agent operating model that requires human approval before anything is sent or published.</p>
       <p>I'm based in San Antonio, Texas, and I work remote-only. I'm targeting Senior Manager-track or Senior IC roles in strategy, operations, risk, or AI-process work at companies where the AI-native operating model is the default, not the exception.</p>
+    </div>
+
+    <div class="sec">Agent team</div>
+    <div class="about-card at-card" id="agent-team">
+      <p class="at-lead">Every tool I ship goes through this team. The orchestrator routes each task to the agent built for it, so nothing ships until it has been audited, tested, and documented.</p>
+      <div class="at-stage" aria-hidden="true">
+        <div class="at-orch"><svg class="bot b-orch" viewBox="0 0 32 32" focusable="false" aria-hidden="true"><rect class="b-leg b-leg-l" x="11.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-leg b-leg-r" x="17.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-arm b-arm-l" x="4.4" y="14.6" width="3.6" height="6" rx="1.8"/><rect class="b-arm b-arm-r" x="24" y="14.6" width="3.6" height="6" rx="1.8"/><line class="b-ant" x1="16" y1="5.2" x2="16" y2="8.4"/><circle class="b-light" cx="16" cy="3.8" r="2"/><rect class="b-body" x="6.8" y="8" width="18.4" height="16" rx="6.4"/><rect class="b-visor" x="9.4" y="11" width="13.2" height="8.6" rx="3.8"/><g class="b-eyes"><rect x="12.1" y="13.1" width="2.5" height="4" rx="1.25"/><rect x="17.4" y="13.1" width="2.5" height="4" rx="1.25"/></g><g class="b-happy"><path d="M12 16.3q1.35-2 2.7 0"/><path d="M17.3 16.3q1.35-2 2.7 0"/></g><g class="b-sleep"><path d="M12.1 15.6h2.5"/><path d="M17.4 15.6h2.5"/></g><ellipse class="b-blush" cx="9.5" cy="21.5" rx="1.5" ry=".85"/><ellipse class="b-blush" cx="22.5" cy="21.5" rx="1.5" ry=".85"/><path class="p-ink" d="M13.4 20.5l2.6 1.2-2.6 1.2zM18.6 20.5l-2.6 1.2 2.6 1.2z"/><circle class="p-ink" cx="16" cy="21.7" r=".75"/><g class="p-baton"><line class="p-line" x1="26.2" y1="16" x2="30.4" y2="9.2"/><circle cx="30.5" cy="9" r=".95" fill="#fff" stroke="#2A2833" stroke-width=".6"/></g></svg><span class="at-name">Orchestrator</span></div>
+        <div class="at-bus"></div>
+        <ol class="at-agents">
+          <li class="at-agent" data-agent="workflow" style="--bc:#4DB6A9;--bd:#24786E;--bt:#E4F4F1"><span class="at-botwrap"><svg class="bot b-agent" viewBox="0 0 32 32" focusable="false" aria-hidden="true"><rect class="b-leg b-leg-l" x="11.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-leg b-leg-r" x="17.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-arm b-arm-l" x="4.4" y="14.6" width="3.6" height="6" rx="1.8"/><rect class="b-arm b-arm-r" x="24" y="14.6" width="3.6" height="6" rx="1.8"/><line class="b-ant" x1="16" y1="5.2" x2="16" y2="8.4"/><circle class="b-light" cx="16" cy="3.8" r="2"/><rect class="b-body" x="6.8" y="8" width="18.4" height="16" rx="6.4"/><rect class="b-visor" x="9.4" y="11" width="13.2" height="8.6" rx="3.8"/><g class="b-eyes"><rect x="12.1" y="13.1" width="2.5" height="4" rx="1.25"/><rect x="17.4" y="13.1" width="2.5" height="4" rx="1.25"/></g><g class="b-happy"><path d="M12 16.3q1.35-2 2.7 0"/><path d="M17.3 16.3q1.35-2 2.7 0"/></g><g class="b-sleep"><path d="M12.1 15.6h2.5"/><path d="M17.4 15.6h2.5"/></g><ellipse class="b-blush" cx="9.5" cy="21.5" rx="1.5" ry=".85"/><ellipse class="b-blush" cx="22.5" cy="21.5" rx="1.5" ry=".85"/><g class="p-gear"><circle cx="16" cy="3.8" r="2.4" fill="var(--bc)" stroke="var(--bd)" stroke-width="1.7" stroke-dasharray="1.25 1.05"/><circle cx="16" cy="3.8" r=".85" fill="var(--bd)"/></g></svg><span class="at-check"></span></span><span class="at-name">Workflow automation</span><span class="at-meter"><i></i></span></li>
+          <li class="at-agent" data-agent="audit" style="--bc:#7C78E6;--bd:#3F3AA8;--bt:#ECEBFC"><span class="at-botwrap"><svg class="bot b-agent" viewBox="0 0 32 32" focusable="false" aria-hidden="true"><rect class="b-leg b-leg-l" x="11.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-leg b-leg-r" x="17.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-arm b-arm-l" x="4.4" y="14.6" width="3.6" height="6" rx="1.8"/><rect class="b-arm b-arm-r" x="24" y="14.6" width="3.6" height="6" rx="1.8"/><line class="b-ant" x1="16" y1="5.2" x2="16" y2="8.4"/><circle class="b-light" cx="16" cy="3.8" r="2"/><rect class="b-body" x="6.8" y="8" width="18.4" height="16" rx="6.4"/><rect class="b-visor" x="9.4" y="11" width="13.2" height="8.6" rx="3.8"/><g class="b-eyes"><rect x="12.1" y="13.1" width="2.5" height="4" rx="1.25"/><rect x="17.4" y="13.1" width="2.5" height="4" rx="1.25"/></g><g class="b-happy"><path d="M12 16.3q1.35-2 2.7 0"/><path d="M17.3 16.3q1.35-2 2.7 0"/></g><g class="b-sleep"><path d="M12.1 15.6h2.5"/><path d="M17.4 15.6h2.5"/></g><ellipse class="b-blush" cx="9.5" cy="21.5" rx="1.5" ry=".85"/><ellipse class="b-blush" cx="22.5" cy="21.5" rx="1.5" ry=".85"/><g class="p-glass"><line class="p-line" x1="25.4" y1="20" x2="27.3" y2="17.9" stroke-width="1.7"/><circle cx="28.6" cy="15.8" r="2.8" fill="rgba(255,255,255,.8)" stroke="#2A2833" stroke-width="1.2"/><path d="M27.3 14.8q.8-.9 1.9-.7" fill="none" stroke="var(--bc)" stroke-width=".8" stroke-linecap="round"/></g></svg><span class="at-check"></span></span><span class="at-name">Code audit</span><span class="at-meter"><i></i></span></li>
+          <li class="at-agent" data-agent="planning" style="--bc:#F0B455;--bd:#A8630F;--bt:#FDF2DF"><span class="at-botwrap"><svg class="bot b-agent" viewBox="0 0 32 32" focusable="false" aria-hidden="true"><rect class="b-leg b-leg-l" x="11.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-leg b-leg-r" x="17.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-arm b-arm-l" x="4.4" y="14.6" width="3.6" height="6" rx="1.8"/><rect class="b-arm b-arm-r" x="24" y="14.6" width="3.6" height="6" rx="1.8"/><line class="b-ant" x1="16" y1="5.2" x2="16" y2="8.4"/><circle class="b-light" cx="16" cy="3.8" r="2"/><rect class="b-body" x="6.8" y="8" width="18.4" height="16" rx="6.4"/><rect class="b-visor" x="9.4" y="11" width="13.2" height="8.6" rx="3.8"/><g class="b-eyes"><rect x="12.1" y="13.1" width="2.5" height="4" rx="1.25"/><rect x="17.4" y="13.1" width="2.5" height="4" rx="1.25"/></g><g class="b-happy"><path d="M12 16.3q1.35-2 2.7 0"/><path d="M17.3 16.3q1.35-2 2.7 0"/></g><g class="b-sleep"><path d="M12.1 15.6h2.5"/><path d="M17.4 15.6h2.5"/></g><ellipse class="b-blush" cx="9.5" cy="21.5" rx="1.5" ry=".85"/><ellipse class="b-blush" cx="22.5" cy="21.5" rx="1.5" ry=".85"/><g class="p-clip"><rect x=".7" y="13.3" width="6.4" height="8.4" rx="1" fill="#fff" stroke="#2A2833" stroke-width=".9"/><rect x="2.6" y="12.5" width="2.6" height="1.7" rx=".5" fill="#2A2833"/><path d="M2 16.3h3.8M2 18.2h3.8M2 20.1h2.4" stroke="var(--bd)" stroke-width=".75" stroke-linecap="round"/></g></svg><span class="at-check"></span></span><span class="at-name">Project planning</span><span class="at-meter"><i></i></span></li>
+          <li class="at-agent" data-agent="tpm" style="--bc:#63B884;--bd:#2D7A4B;--bt:#E6F4EB"><span class="at-botwrap"><svg class="bot b-agent" viewBox="0 0 32 32" focusable="false" aria-hidden="true"><rect class="b-leg b-leg-l" x="11.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-leg b-leg-r" x="17.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-arm b-arm-l" x="4.4" y="14.6" width="3.6" height="6" rx="1.8"/><rect class="b-arm b-arm-r" x="24" y="14.6" width="3.6" height="6" rx="1.8"/><line class="b-ant" x1="16" y1="5.2" x2="16" y2="8.4"/><circle class="b-light" cx="16" cy="3.8" r="2"/><rect class="b-body" x="6.8" y="8" width="18.4" height="16" rx="6.4"/><rect class="b-visor" x="9.4" y="11" width="13.2" height="8.6" rx="3.8"/><g class="b-eyes"><rect x="12.1" y="13.1" width="2.5" height="4" rx="1.25"/><rect x="17.4" y="13.1" width="2.5" height="4" rx="1.25"/></g><g class="b-happy"><path d="M12 16.3q1.35-2 2.7 0"/><path d="M17.3 16.3q1.35-2 2.7 0"/></g><g class="b-sleep"><path d="M12.1 15.6h2.5"/><path d="M17.4 15.6h2.5"/></g><ellipse class="b-blush" cx="9.5" cy="21.5" rx="1.5" ry=".85"/><ellipse class="b-blush" cx="22.5" cy="21.5" rx="1.5" ry=".85"/><line class="p-line" x1="27.3" y1="21.4" x2="27.3" y2="9"/><path class="p-flag" d="M27.4 9.2l4.3 1.8-4.3 1.8z" fill="var(--bd)"/></svg><span class="at-check"></span></span><span class="at-name">Technical PM</span><span class="at-meter"><i></i></span></li>
+          <li class="at-agent" data-agent="devops" style="--bc:#5A9BE0;--bd:#1F5C9E;--bt:#E6F0FB"><span class="at-botwrap"><svg class="bot b-agent" viewBox="0 0 32 32" focusable="false" aria-hidden="true"><rect class="b-leg b-leg-l" x="11.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-leg b-leg-r" x="17.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-arm b-arm-l" x="4.4" y="14.6" width="3.6" height="6" rx="1.8"/><rect class="b-arm b-arm-r" x="24" y="14.6" width="3.6" height="6" rx="1.8"/><line class="b-ant" x1="16" y1="5.2" x2="16" y2="8.4"/><circle class="b-light" cx="16" cy="3.8" r="2"/><rect class="b-body" x="6.8" y="8" width="18.4" height="16" rx="6.4"/><rect class="b-visor" x="9.4" y="11" width="13.2" height="8.6" rx="3.8"/><g class="b-eyes"><rect x="12.1" y="13.1" width="2.5" height="4" rx="1.25"/><rect x="17.4" y="13.1" width="2.5" height="4" rx="1.25"/></g><g class="b-happy"><path d="M12 16.3q1.35-2 2.7 0"/><path d="M17.3 16.3q1.35-2 2.7 0"/></g><g class="b-sleep"><path d="M12.1 15.6h2.5"/><path d="M17.4 15.6h2.5"/></g><ellipse class="b-blush" cx="9.5" cy="21.5" rx="1.5" ry=".85"/><ellipse class="b-blush" cx="22.5" cy="21.5" rx="1.5" ry=".85"/><path d="M8.6 10.5C8.6 5.3 11.8 3.2 16 3.2s7.4 2.1 7.4 7.3z" fill="#F4C430" stroke="#B8860B" stroke-width="1"/><path d="M16 3.7v6.2" stroke="#B8860B" stroke-width=".9"/><rect x="6.4" y="9.7" width="19.2" height="2" rx="1" fill="#F4C430" stroke="#B8860B" stroke-width=".9"/><g class="p-wrench"><path d="M25.8 19.8l3.7-3.7" stroke="#7A8496" stroke-width="1.5" stroke-linecap="round"/><circle cx="29.9" cy="15.7" r="1.45" fill="none" stroke="#7A8496" stroke-width="1.1"/></g></svg><span class="at-check"></span></span><span class="at-name">DevOps</span><span class="at-meter"><i></i></span></li>
+          <li class="at-agent" data-agent="writing" style="--bc:#A487E0;--bd:#5F3BAA;--bt:#F1ECFB"><span class="at-botwrap"><svg class="bot b-agent" viewBox="0 0 32 32" focusable="false" aria-hidden="true"><rect class="b-leg b-leg-l" x="11.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-leg b-leg-r" x="17.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-arm b-arm-l" x="4.4" y="14.6" width="3.6" height="6" rx="1.8"/><rect class="b-arm b-arm-r" x="24" y="14.6" width="3.6" height="6" rx="1.8"/><line class="b-ant" x1="16" y1="5.2" x2="16" y2="8.4"/><circle class="b-light" cx="16" cy="3.8" r="2"/><rect class="b-body" x="6.8" y="8" width="18.4" height="16" rx="6.4"/><rect class="b-visor" x="9.4" y="11" width="13.2" height="8.6" rx="3.8"/><g class="b-eyes"><rect x="12.1" y="13.1" width="2.5" height="4" rx="1.25"/><rect x="17.4" y="13.1" width="2.5" height="4" rx="1.25"/></g><g class="b-happy"><path d="M12 16.3q1.35-2 2.7 0"/><path d="M17.3 16.3q1.35-2 2.7 0"/></g><g class="b-sleep"><path d="M12.1 15.6h2.5"/><path d="M17.4 15.6h2.5"/></g><ellipse class="b-blush" cx="9.5" cy="21.5" rx="1.5" ry=".85"/><ellipse class="b-blush" cx="22.5" cy="21.5" rx="1.5" ry=".85"/><g class="p-pencil"><g transform="rotate(32 27 15)"><rect x="25.9" y="9.4" width="2.2" height="8" rx=".5" fill="#F4C430" stroke="#2A2833" stroke-width=".7"/><path d="M25.9 17.4l1.1 2.2 1.1-2.2z" fill="#F3D9B1" stroke="#2A2833" stroke-width=".6" stroke-linejoin="round"/><rect x="25.9" y="8.3" width="2.2" height="1.5" rx=".4" fill="#F49AA8"/></g></g></svg><span class="at-check"></span></span><span class="at-name">Technical writing</span><span class="at-meter"><i></i></span></li>
+          <li class="at-agent" data-agent="demos" style="--bc:#EE8AA6;--bd:#A84468;--bt:#FCEAF0"><span class="at-botwrap"><svg class="bot b-agent" viewBox="0 0 32 32" focusable="false" aria-hidden="true"><rect class="b-leg b-leg-l" x="11.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-leg b-leg-r" x="17.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-arm b-arm-l" x="4.4" y="14.6" width="3.6" height="6" rx="1.8"/><rect class="b-arm b-arm-r" x="24" y="14.6" width="3.6" height="6" rx="1.8"/><line class="b-ant" x1="16" y1="5.2" x2="16" y2="8.4"/><circle class="b-light" cx="16" cy="3.8" r="2"/><rect class="b-body" x="6.8" y="8" width="18.4" height="16" rx="6.4"/><rect class="b-visor" x="9.4" y="11" width="13.2" height="8.6" rx="3.8"/><g class="b-eyes"><rect x="12.1" y="13.1" width="2.5" height="4" rx="1.25"/><rect x="17.4" y="13.1" width="2.5" height="4" rx="1.25"/></g><g class="b-happy"><path d="M12 16.3q1.35-2 2.7 0"/><path d="M17.3 16.3q1.35-2 2.7 0"/></g><g class="b-sleep"><path d="M12.1 15.6h2.5"/><path d="M17.4 15.6h2.5"/></g><ellipse class="b-blush" cx="9.5" cy="21.5" rx="1.5" ry=".85"/><ellipse class="b-blush" cx="22.5" cy="21.5" rx="1.5" ry=".85"/><rect x=".4" y="12.4" width="7.3" height="5.7" rx="1" fill="#fff" stroke="#2A2833" stroke-width=".9"/><path d="M3.2 13.8l2.5 1.4-2.5 1.4z" fill="var(--bd)"/><path d="M4 18.1v2.4" stroke="#2A2833" stroke-width=".8"/><path class="p-spark" d="M27.8 5.6l.6 1.5 1.5.6-1.5.6-.6 1.5-.6-1.5-1.5-.6 1.5-.6z" fill="#F4C430"/></svg><span class="at-check"></span></span><span class="at-name">Product demos</span><span class="at-meter"><i></i></span></li>
+          <li class="at-agent" data-agent="qa" style="--bc:#8E9AAF;--bd:#465063;--bt:#EEF0F4"><span class="at-botwrap"><svg class="bot b-agent" viewBox="0 0 32 32" focusable="false" aria-hidden="true"><rect class="b-leg b-leg-l" x="11.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-leg b-leg-r" x="17.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-arm b-arm-l" x="4.4" y="14.6" width="3.6" height="6" rx="1.8"/><rect class="b-arm b-arm-r" x="24" y="14.6" width="3.6" height="6" rx="1.8"/><line class="b-ant" x1="16" y1="5.2" x2="16" y2="8.4"/><circle class="b-light" cx="16" cy="3.8" r="2"/><rect class="b-body" x="6.8" y="8" width="18.4" height="16" rx="6.4"/><rect class="b-visor" x="9.4" y="11" width="13.2" height="8.6" rx="3.8"/><g class="b-eyes"><rect x="12.1" y="13.1" width="2.5" height="4" rx="1.25"/><rect x="17.4" y="13.1" width="2.5" height="4" rx="1.25"/></g><g class="b-happy"><path d="M12 16.3q1.35-2 2.7 0"/><path d="M17.3 16.3q1.35-2 2.7 0"/></g><g class="b-sleep"><path d="M12.1 15.6h2.5"/><path d="M17.4 15.6h2.5"/></g><ellipse class="b-blush" cx="9.5" cy="21.5" rx="1.5" ry=".85"/><ellipse class="b-blush" cx="22.5" cy="21.5" rx="1.5" ry=".85"/><path d="M27.2 12.3v2.4l-1.9 4.4a1 1 0 0 0 .9 1.4h4a1 1 0 0 0 .9-1.4l-1.9-4.4v-2.4" fill="#fff" stroke="#2A2833" stroke-width=".9" stroke-linejoin="round"/><path d="M26.6 12.3h3.6" stroke="#2A2833" stroke-width="1" stroke-linecap="round"/><path d="M25.9 17.8h4.6l.8 1.8a.7.7 0 0 1-.6 1h-5a.7.7 0 0 1-.6-1z" fill="#5BC489"/><circle class="p-bubble" cx="28.4" cy="16.4" r=".7" fill="#5BC489"/></svg><span class="at-check"></span></span><span class="at-name">QA evaluation</span><span class="at-meter"><i></i></span></li>
+        </ol>
+      </div>
+      <p class="sr-only">An orchestrator routes each task to one of eight specialized agents: workflow automation, code audit, project planning, technical PM, devops, technical writing, product demos, and QA evaluation.</p>
+      <div class="at-foot"><span class="at-status" aria-hidden="true">8 of 8 tasks routed: audited, tested, and documented</span><button type="button" class="at-replay" aria-label="Replay the agent team animation" hidden>Replay</button></div>
     </div>
 
     <div class="sec">How I work</div>
@@ -3123,6 +3265,165 @@ if (savedY == null && location.hash && document.fonts) {
     if (t && t.closest('.tab-panel')) t.scrollIntoView({ block: 'start' });
   });
 }
+</script>
+<script>
+// Robots. Decorative only: hidden from screen readers, still under reduced motion, hidden in print.
+(function () {
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Scroll bot: walks the tab bar's progress line while the page scrolls, and its
+  // antenna lights as it passes the dot for each section heading
+  const rail = document.querySelector('.sbot-rail');
+  if (rail) {
+    const line = rail.querySelector('.sbot-line'), fill = rail.querySelector('.sbot-fill');
+    const ticksBox = rail.querySelector('.sbot-ticks'), sb = rail.querySelector('.sbot');
+    const ACCENT = { toast: 'var(--toast)', ghost: 'var(--ghost)', about: 'var(--about)', contact: 'var(--contact)' };
+    let ticks = [], lastP = 0, lastY = window.scrollY, idleT = 0, pingT = 0, queued = false;
+    const maxScroll = () => Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const bar = document.querySelector('.tab-bar'), jump = document.querySelector('.jump-btn');
+    // The line ends just short of the Jump to button, so the bot never walks behind it
+    function fitLine() {
+      line.style.marginRight = '0px';
+      if (!jump) return;
+      const gap = line.getBoundingClientRect().right - jump.getBoundingClientRect().left + 14;
+      if (gap > 0) line.style.marginRight = Math.min(gap, line.clientWidth * 0.5) + 'px';
+    }
+    function layoutTicks() {
+      fitLine();
+      const panel = document.querySelector('.tab-panel.active');
+      const m = (panel && panel.className.match(/theme-(\w+)/)) || null;
+      rail.style.setProperty('--sbot-accent', (m && ACCENT[m[1]]) || '#D97757');
+      ticksBox.textContent = '';
+      ticks = [];
+      if (!panel) return;
+      const max = maxScroll();
+      panel.querySelectorAll('.sec, .detail').forEach(n => {
+        const p = (n.getBoundingClientRect().top + window.scrollY - 64) / max;
+        if (p <= 0.01 || p >= 0.995 || ticks.some(t => Math.abs(t.p - p) < 0.015)) return;
+        const d = document.createElement('div');
+        d.className = 'sbot-tick';
+        d.style.left = (p * 100) + '%';
+        ticksBox.appendChild(d);
+        ticks.push({ p, d });
+      });
+      update(false);
+    }
+    function update(moving) {
+      queued = false;
+      const p = Math.min(1, Math.max(0, window.scrollY / maxScroll()));
+      const w = line.clientWidth;
+      fill.style.width = (p * 100) + '%';
+      sb.style.transform = 'translateX(' + Math.round(p * w - 7) + 'px)';
+      ticks.forEach(t => t.d.classList.toggle('passed', p >= t.p));
+      if (moving) {
+        const crossed = ticks.some(t => (lastP < t.p && p >= t.p) || (lastP > t.p && p <= t.p));
+        if (crossed && !still) {
+          sb.classList.add('is-ping');
+          clearTimeout(pingT);
+          pingT = setTimeout(() => sb.classList.remove('is-ping'), 700);
+        }
+        if (window.scrollY !== lastY) sb.classList.toggle('is-left', window.scrollY < lastY);
+        sb.classList.add('is-walking');
+        clearTimeout(idleT);
+        idleT = setTimeout(() => sb.classList.remove('is-walking'), 180);
+      }
+      lastP = p;
+      lastY = window.scrollY;
+    }
+    window.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(() => update(true)); } }, { passive: true });
+    window.addEventListener('resize', layoutTicks);
+    if (bar) bar.addEventListener('scroll', () => requestAnimationFrame(() => { fitLine(); update(false); }), { passive: true });
+    // Re-lay the dots when the tab changes or a demo changes the page height
+    const mo = new MutationObserver(() => requestAnimationFrame(layoutTicks));
+    document.querySelectorAll('.tab-panel').forEach(p => mo.observe(p, { attributes: true, attributeFilter: ['class'] }));
+    if (window.ResizeObserver) {
+      let rt = 0;
+      new ResizeObserver(() => { clearTimeout(rt); rt = setTimeout(layoutTicks, 120); }).observe(document.querySelector('.page'));
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutTicks);
+    layoutTicks();
+    // A blink now and then while it stands still
+    if (!still) setInterval(() => {
+      if (sb.classList.contains('is-walking') || document.hidden) return;
+      sb.classList.add('is-blink');
+      setTimeout(() => sb.classList.remove('is-blink'), 140);
+    }, 5200);
+  }
+
+  // Agent team: when the card scrolls into view, the orchestrator hands one task to each agent
+  const stage = document.querySelector('.at-stage');
+  if (stage && !still && 'IntersectionObserver' in window) {
+    const card = stage.closest('.at-card');
+    const status = card.querySelector('.at-status'), replay = card.querySelector('.at-replay');
+    const orchName = stage.querySelector('.at-orch .at-name');
+    const FINAL = status.textContent;
+    const TASKS = [
+      ['planning', 'Plan the phases'],
+      ['workflow', 'Build the data pipeline'],
+      ['audit', 'Review the code'],
+      ['qa', 'Run the test cases'],
+      ['devops', 'Set up deployment'],
+      ['writing', 'Write the SOP'],
+      ['demos', 'Build the demo'],
+      ['tpm', 'Write the changelog'],
+    ];
+    const agent = k => stage.querySelector('.at-agent[data-agent="' + k + '"]');
+    let timers = [], running = false;
+    function finish() {
+      timers.forEach(clearTimeout); timers = [];
+      stage.querySelectorAll('.at-task').forEach(t => t.remove());
+      stage.querySelectorAll('.at-agent').forEach(a => { a.classList.remove('is-working'); a.classList.add('is-done'); });
+      stage.classList.remove('is-sending');
+      status.textContent = FINAL;
+      replay.hidden = false;
+      running = false;
+    }
+    function arm() {
+      stage.classList.add('is-armed');
+      stage.querySelectorAll('.at-agent').forEach(a => a.classList.remove('is-working', 'is-done'));
+      status.textContent = 'Waiting for a task';
+      replay.hidden = true;
+    }
+    const at = (ms, fn) => timers.push(setTimeout(() => { if (!stage.offsetParent) return finish(); fn(); }, ms));
+    function run() {
+      if (running) return;
+      running = true;
+      arm();
+      stage.classList.add('is-sending');
+      const GAP = 720, FLY = 640, WORK = 560;
+      TASKS.forEach(([k, label], i) => {
+        at(i * GAP, () => {
+          const a = agent(k), base = stage.getBoundingClientRect();
+          const on = orchName.getBoundingClientRect(), b = a.querySelector('.bot').getBoundingClientRect();
+          const t = document.createElement('span');
+          t.className = 'at-task';
+          t.setAttribute('style', a.getAttribute('style') || '');
+          t.textContent = label;
+          stage.appendChild(t);
+          const tw = t.offsetWidth, th = t.offsetHeight;
+          const x0 = on.left + on.width / 2 - base.left - tw / 2, y0 = on.bottom - base.top + 3;
+          const x1 = b.left + b.width / 2 - base.left - tw / 2, y1 = b.top - base.top - th / 2;
+          status.textContent = 'Routing: ' + label + ' → ' + a.querySelector('.at-name').textContent;
+          t.animate([
+            { transform: 'translate(' + x0 + 'px,' + y0 + 'px) scale(0.6)', opacity: 0 },
+            { transform: 'translate(' + x0 + 'px,' + (y0 + 6) + 'px) scale(1)', opacity: 1, offset: 0.18 },
+            { transform: 'translate(' + x1 + 'px,' + y1 + 'px) scale(0.9)', opacity: 1, offset: 0.85 },
+            { transform: 'translate(' + x1 + 'px,' + (y1 + 8) + 'px) scale(0.4)', opacity: 0 },
+          ], { duration: FLY, easing: 'ease-in-out', fill: 'forwards' });
+          at(FLY, () => { t.remove(); a.classList.add('is-working'); });
+          at(FLY + WORK, () => { a.classList.remove('is-working'); a.classList.add('is-done'); });
+        });
+      });
+      at((TASKS.length - 1) * GAP + FLY + WORK + 200, finish);
+    }
+    arm();
+    const io = new IntersectionObserver(es => {
+      if (es.some(e => e.isIntersecting)) { io.disconnect(); setTimeout(run, 250); }
+    }, { threshold: 0.6 });
+    io.observe(stage);
+    replay.addEventListener('click', run);
+  }
+})();
 </script>
 
 </body>
