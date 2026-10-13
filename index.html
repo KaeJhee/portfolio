@@ -454,23 +454,22 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .detail p a { color: var(--text); text-decoration: underline; text-decoration-color: var(--text-3); text-underline-offset: 2px; }
 .print-only { display: none; }
 
-/* Robots: scroll bot in the tab bar, and the agent team in About */
+/* Robots: the scroll bot in the tab bar, drawn to match the 3D agent team (no outlines, soft shading, glossy visor) */
 .bot { display: block; overflow: visible; }
-.bot .b-body, .bot .b-arm { fill: var(--bc, #D97757); stroke: var(--bd, #A2543B); stroke-width: 1.2; }
+.bot .b-body, .bot .b-arm { fill: var(--bc, #D97757); }
+.bot .b-shade { fill: url(#sbot-shade); pointer-events: none; }
 .bot .b-leg { fill: var(--bd, #A2543B); }
-.bot .b-ant { stroke: var(--bd, #A2543B); stroke-width: 1.3; stroke-linecap: round; }
-.bot .b-light { fill: #fff; stroke: var(--bd, #A2543B); stroke-width: 1.1; transition: fill 0.2s; }
+.bot .b-ant { stroke: var(--bd, #A2543B); stroke-width: 1; stroke-linecap: round; }
+.bot .b-light { fill: url(#sbot-ball); transition: fill 0.2s; }
 .bot .b-visor { fill: #24222C; }
+.bot .b-gloss { fill: #fff; opacity: 0.22; }
 .bot .b-eyes rect { fill: #EAF7FF; }
+.bot .b-eyes { filter: drop-shadow(0 0 0.5px #BFE8FF); }
 .bot .b-happy path, .bot .b-sleep path { fill: none; stroke: #EAF7FF; stroke-width: 1.3; stroke-linecap: round; }
 .bot .b-happy, .bot .b-sleep { opacity: 0; }
-.bot .b-blush { fill: #FF8FA3; opacity: 0.6; }
-.bot .p-ink { fill: #2A2833; }
-.bot .p-line { stroke: #2A2833; stroke-width: 1.2; stroke-linecap: round; }
-.bot .b-leg, .bot .b-arm, .bot .b-eyes, .bot [class^="p-"] { transform-box: fill-box; transform-origin: center; }
-.bot .p-baton { transform-origin: 0% 100%; }
-.bot .p-flag { transform-origin: 0% 50%; }
-.bot .p-pencil { transform-origin: 30% 100%; }
+.bot .b-blush { fill: #FF8FA3; opacity: 0.7; }
+.bot .b-tie { fill: #2A2833; }
+.bot .b-leg, .bot .b-arm, .bot .b-eyes { transform-box: fill-box; transform-origin: center; }
 
 .sbot-rail { position: absolute; left: 0; right: 0; bottom: -1px; max-width: 920px; margin: 0 auto; padding: 0 24px; height: 1px; pointer-events: none; --sbot-accent: #D97757; }
 .sbot-line { position: relative; height: 1px; }
@@ -479,7 +478,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .sbot-tick.passed { opacity: 0.5; }
 .sbot { position: absolute; left: 0; bottom: 1px; width: 15px; height: 16px; will-change: transform; }
 .sbot .bot { width: 15px; height: 16px; --bc: var(--sbot-accent); --bd: color-mix(in srgb, var(--sbot-accent) 70%, #000); }
-.sbot .b-blush { display: none; }
 .sbot.is-left .bot { transform: scaleX(-1); }
 .sbot.is-walking .b-leg-l { animation: sbot-step 0.32s steps(2, jump-none) infinite; }
 .sbot.is-walking .b-leg-r { animation: sbot-step 0.32s steps(2, jump-none) infinite reverse; }
@@ -487,7 +485,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .sbot.is-walking .b-arm-r { animation: sbot-swing 0.32s ease-in-out infinite reverse; }
 .sbot.is-walking .bot { animation: sbot-bob 0.32s ease-in-out infinite; }
 .sbot.is-left.is-walking .bot { animation-name: sbot-bob-left; }
-.sbot.is-ping .b-light { fill: #FFD34D; }
+.sbot.is-ping .b-light { fill: #FFD34D; filter: drop-shadow(0 0 1.2px #FFD34D); }
 .sbot.is-blink .b-eyes { transform: scaleY(0.15); }
 @keyframes sbot-step { 0% { transform: translateY(0); } 100% { transform: translateY(-1.6px); } }
 @keyframes sbot-swing { 0%, 100% { transform: rotate(-12deg); } 50% { transform: rotate(12deg); } }
@@ -596,7 +594,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <button class="tab-btn" data-tab="contact">Contact</button>
     <button class="jump-btn" type="button" aria-label="Jump to a project or section" aria-haspopup="dialog"><span class="jump-label">Jump to</span><kbd class="jump-kbd">⌘K</kbd></button>
   </div>
-  <div class="sbot-rail" aria-hidden="true"><div class="sbot-line"><div class="sbot-fill"></div><div class="sbot-ticks"></div><div class="sbot"><svg class="bot b-scroll" viewBox="3.6 1.2 24.8 27" focusable="false" aria-hidden="true"><rect class="b-leg b-leg-l" x="11.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-leg b-leg-r" x="17.2" y="23" width="3.6" height="4.6" rx="1.6"/><rect class="b-arm b-arm-l" x="4.4" y="14.6" width="3.6" height="6" rx="1.8"/><rect class="b-arm b-arm-r" x="24" y="14.6" width="3.6" height="6" rx="1.8"/><line class="b-ant" x1="16" y1="5.2" x2="16" y2="8.4"/><circle class="b-light" cx="16" cy="3.8" r="2"/><rect class="b-body" x="6.8" y="8" width="18.4" height="16" rx="6.4"/><rect class="b-visor" x="9.4" y="11" width="13.2" height="8.6" rx="3.8"/><g class="b-eyes"><rect x="12.1" y="13.1" width="2.5" height="4" rx="1.25"/><rect x="17.4" y="13.1" width="2.5" height="4" rx="1.25"/></g><g class="b-happy"><path d="M12 16.3q1.35-2 2.7 0"/><path d="M17.3 16.3q1.35-2 2.7 0"/></g><g class="b-sleep"><path d="M12.1 15.6h2.5"/><path d="M17.4 15.6h2.5"/></g><ellipse class="b-blush" cx="9.5" cy="21.5" rx="1.5" ry=".85"/><ellipse class="b-blush" cx="22.5" cy="21.5" rx="1.5" ry=".85"/></svg></div></div></div>
+  <div class="sbot-rail" aria-hidden="true"><div class="sbot-line"><div class="sbot-fill"></div><div class="sbot-ticks"></div><div class="sbot"><svg class="bot b-scroll" viewBox="3.6 1.2 24.8 27" focusable="false" aria-hidden="true"><defs><linearGradient id="sbot-shade" x1="0" y1="0" x2=".3" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".3"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".18"/></linearGradient><radialGradient id="sbot-ball" cx=".35" cy=".32" r=".8"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#CFCAC1"/></radialGradient></defs><rect class="b-leg b-leg-l" x="10.65" y="22.8" width="3.9" height="4.8" rx="1.4"/><rect class="b-leg b-leg-r" x="17.45" y="22.8" width="3.9" height="4.8" rx="1.4"/><rect class="b-arm b-arm-l" x="4.5" y="13.6" width="3.4" height="6.2" rx="1.7"/><rect class="b-arm b-arm-r" x="24.1" y="13.6" width="3.4" height="6.2" rx="1.7"/><line class="b-ant" x1="16" y1="5.2" x2="16" y2="8.4"/><circle class="b-light" cx="16" cy="3.8" r="1.8"/><rect class="b-body" x="6.8" y="8" width="18.4" height="16" rx="4.4"/><rect class="b-shade" x="6.8" y="8" width="18.4" height="16" rx="4.4"/><rect class="b-visor" x="9.2" y="10.7" width="13.6" height="8.5" rx="2.6"/><rect class="b-gloss" x="10.3" y="11.4" width="5.2" height="1.1" rx=".55"/><g class="b-eyes"><rect x="11.95" y="13" width="2.2" height="3.8" rx="1.1"/><rect x="17.85" y="13" width="2.2" height="3.8" rx="1.1"/></g><g class="b-happy"><path d="M11.7 16.1q1.35-2 2.7 0"/><path d="M17.6 16.1q1.35-2 2.7 0"/></g><g class="b-sleep"><path d="M11.9 15.6h2.3"/><path d="M17.8 15.6h2.3"/></g><ellipse class="b-blush" cx="9.6" cy="20.7" rx="1.3" ry=".7"/><ellipse class="b-blush" cx="22.4" cy="20.7" rx="1.3" ry=".7"/><path class="b-tie" d="M13.5 19.6 16 20.7 13.5 21.8ZM18.5 19.6 16 20.7 18.5 21.8Z"/><circle class="b-tie" cx="16" cy="20.7" r=".6"/></svg></div></div></div>
 </div>
 
 <div class="page">
