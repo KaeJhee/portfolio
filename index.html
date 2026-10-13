@@ -3307,17 +3307,17 @@ if (savedY == null && location.hash && document.fonts) {
     }, 5200);
   }
 
-  // Agent team: a prerendered loop whose first frame is the still. The video loads only once the card is on screen,
-  // pauses off screen, and stops on the still after three loops; under reduced motion it waits for Play.
-  // CUE times are seconds into the video file, taken from the scene's timing table.
+  // Agent team: a prerendered video whose first and last frames match the still. It plays once, the first time the
+  // card is on screen (pausing while it is off screen), and ends on the still with a Replay button. Under reduced
+  // motion it waits for Play. CUE times are seconds into the video file, taken from the scene's timing table.
   const film = document.querySelector('#agent-team .at-film');
   if (film && 'IntersectionObserver' in window) {
     const card = film.closest('.at-card'), status = card.querySelector('.at-status'), btn = card.querySelector('.at-replay');
     const items = [...card.querySelectorAll('.at-legend li[data-agent]')];
-    const FINAL = status.textContent, LOOPS = 3;
-    const CUE = {"off": 0.667, "launch": [1.95, 3.05, 4.05, 4.95, 5.75, 6.47, 7.12, 7.77], "done": [3.7, 4.8, 5.8, 6.7, 7.5, 8.22, 8.87, 9.52]};
+    const FINAL = status.textContent;
+    const CUE = {"off": 0.733, "launch": [2.05, 3.58, 5.06, 6.49, 7.87, 9.2, 10.53, 11.86], "done": [3.58, 5.06, 6.49, 7.87, 9.2, 10.53, 11.86, 13.19]};
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let v = null, loops = 0, lastT = 0, hold = motion.matches, seen = false, raf = 0;
+    let v = null, hold = motion.matches, seen = false, raf = 0;
     function paint(ft) {
       let n = 0;
       items.forEach((li, i) => {
@@ -3329,38 +3329,34 @@ if (savedY == null && location.hash && document.fonts) {
       const text = n === items.length ? FINAL : ft < CUE.launch[0] ? 'Waiting for a task' : n + ' of 8 tasks done';
       if (status.textContent !== text) status.textContent = text;
     }
-    function setBtn(playing) {
+    function setBtn(label) {
       btn.hidden = false;
-      btn.textContent = playing ? 'Pause' : 'Play';
-      btn.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' the agent team animation');
+      btn.textContent = label;
+      btn.setAttribute('aria-label', label + ' the agent team animation');
     }
-    // the video loops natively (seamless); a pass is counted when its time wraps back to the start
     function tick() {
-      raf = 0;
-      if (!v) return;
-      const t = v.currentTime;
-      if (t + 1 < lastT && ++loops >= LOOPS) return stop();
-      lastT = t; paint(t);
-      if (!v.paused) raf = requestAnimationFrame(tick);
+      raf = v && !v.paused ? requestAnimationFrame(tick) : 0;
+      if (v) paint(v.currentTime);
     }
-    function stop() {
-      hold = true; loops = 0; lastT = 0;
+    function finish() {
+      hold = true;
       if (v) { v.pause(); v.classList.remove('is-on'); }
-      paint(0); setBtn(false);
+      paint(0); setBtn('Replay');
     }
     function make() {
       v = document.createElement('video');
-      v.muted = v.defaultMuted = true; v.playsInline = true; v.loop = true; v.preload = 'auto';
+      v.muted = v.defaultMuted = true; v.playsInline = true; v.preload = 'auto';
       ['muted', 'playsinline', 'disablepictureinpicture', 'disableremoteplayback'].forEach(a => v.setAttribute(a, ''));
       v.setAttribute('aria-hidden', 'true'); v.tabIndex = -1;
       v.src = window.matchMedia('(max-width: 700px)').matches ? 'agent-team-960.mp4' : 'agent-team.mp4';
-      v.addEventListener('playing', () => { v.classList.add('is-on'); setBtn(true); if (!raf) raf = requestAnimationFrame(tick); });
-      v.addEventListener('pause', () => setBtn(false));
+      v.addEventListener('playing', () => { v.classList.add('is-on'); setBtn('Pause'); if (!raf) raf = requestAnimationFrame(tick); });
+      v.addEventListener('pause', () => { if (!v.ended) setBtn('Play'); });
+      v.addEventListener('ended', finish);
       film.appendChild(v);
     }
     function play() {
       if (!v) make();
-      v.play().catch(() => { hold = true; setBtn(false); });
+      v.play().catch(() => { hold = true; setBtn('Play'); });
     }
     function resume() { if (!hold && seen && !document.hidden) play(); }
     new IntersectionObserver(es => {
@@ -3370,15 +3366,20 @@ if (savedY == null && location.hash && document.fonts) {
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) { if (v && !v.paused) v.pause(); } else resume();
     });
-    motion.addEventListener('change', e => { if (e.matches) { stop(); if (v) { v.remove(); v = null; } } });
+    motion.addEventListener('change', e => {
+      if (!e.matches) return;
+      hold = true;
+      if (v) { v.pause(); v.remove(); v = null; }
+      paint(0); setBtn('Play');
+    });
     btn.addEventListener('click', () => {
       if (v && !v.paused) { hold = true; v.pause(); return; }
       hold = false;
-      if (v && !v.classList.contains('is-on')) { v.currentTime = 0; loops = 0; lastT = 0; }
+      if (v && !v.classList.contains('is-on')) v.currentTime = 0;
       play();
     });
     paint(0);
-    if (hold) setBtn(false);
+    if (hold) setBtn('Play');
   }
 })();
 </script>
