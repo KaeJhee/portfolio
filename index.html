@@ -243,6 +243,59 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 .demo-status.ok { background: var(--green-light); border-color: var(--green-border); color: var(--green); }
 .demo-status.bad { background: #FDECEC; border-color: #F5C2C2; color: #B42318; }
 
+/* Expandable section details */
+details.more { margin-top: 16px; border-top: 1px solid var(--border); }
+details.more > summary { list-style: none; cursor: pointer; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; padding: 12px 0 2px; border-radius: 6px; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::before { content: "\25B8"; content: "\25B8" / ""; display: inline-block; width: 10px; font-size: 12px; color: var(--text-3); transition: transform 0.15s; }
+details.more[open] > summary::before { transform: rotate(90deg); }
+details.more > summary:focus-visible { outline: 2px solid var(--accent-border); outline-offset: 3px; }
+.more-label { font-size: 13px; font-weight: 600; }
+.theme-toast .more-label { color: #9A4300; }
+.theme-ghost .more-label { color: var(--ghost-dark); }
+details.more > summary:hover .more-label { text-decoration: underline; text-underline-offset: 3px; }
+details.more[open] .m-closed, details.more:not([open]) .m-open { display: none; }
+.more-list { font-size: 11px; color: var(--text-2); }
+details.more[open] > summary { margin-bottom: 4px; }
+.more-bar { display: flex; justify-content: flex-end; margin: -4px 0 10px; }
+@media (prefers-reduced-motion: reduce) { details.more > summary::before { transition: none; } }
+
+/* Send beta demo */
+.sb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.sb-pane { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; min-width: 0; }
+.sb-pane-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 12px; font-weight: 600; color: var(--text); padding-bottom: 8px; margin-bottom: 10px; border-bottom: 1px solid var(--border); }
+.sb-pane-head small { font-size: 10px; font-weight: 600; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.06em; }
+.sb-fields { display: grid; gap: 4px; margin: 0 0 10px; font-size: 12px; }
+.sb-fields div { display: flex; justify-content: space-between; gap: 10px; }
+.sb-fields dt { color: var(--text-2); }
+.sb-fields dd { margin: 0; color: var(--text); text-align: right; overflow-wrap: anywhere; }
+.sb-fields dd.from-page, .sb-email .val { background: var(--toast-light); border-radius: 4px; padding: 0 5px; color: var(--text); }
+.sb-meter { height: 6px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; overflow: hidden; margin: 6px 0 4px; }
+.sb-meter span { display: block; width: 100%; height: 100%; background: var(--green); }
+.sb-cap { font-size: 11px; color: var(--text-2); margin-bottom: 6px; }
+.sb-kit, .sb-log { font-family: var(--mono); font-size: 11px; line-height: 1.6; background: var(--surface-2); border: 1px dashed var(--accent-border); border-radius: 6px; padding: 8px 10px; margin: 10px 0; color: var(--text-2); white-space: pre-wrap; overflow-wrap: anywhere; }
+.sb-kit .bad { color: #B42318; font-weight: 600; }
+.sb-log { border-style: solid; border-color: var(--green-border); background: var(--green-light); color: #1F6B3A; }
+.detail .sb-steps { list-style: none; margin: 0 0 10px; padding: 0; font-size: 12px; }
+.detail .sb-steps li { display: flex; gap: 8px; align-items: baseline; padding: 3px 0; margin: 0; font-size: 12px; color: var(--text-2); }
+.detail .sb-steps li::before { content: none; }
+.sb-mark { width: 14px; flex-shrink: 0; text-align: center; font-weight: 700; }
+.sb-detail { margin-left: auto; padding-left: 8px; font-size: 11px; color: var(--text-2); text-align: right; }
+.detail .sb-steps li.ok, .detail .sb-steps li.wait { color: var(--text); }
+.sb-steps li.ok .sb-mark { color: var(--green); }
+.sb-steps li.wait .sb-mark { color: #9A4300; }
+.detail .sb-steps li.bad, .sb-steps li.bad .sb-mark, .sb-steps li.bad .sb-detail { color: #B42318; }
+.detail .sb-steps li.warn, .sb-steps li.warn .sb-mark, .sb-steps li.warn .sb-detail { color: var(--about-dark); }
+.sb-email { display: grid; gap: 5px; border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; margin-bottom: 10px; font-size: 11px; color: var(--text-2); }
+.sb-email[hidden] { display: none; }
+.sb-email b { color: var(--text-2); font-weight: 600; margin-right: 4px; }
+.sb-email .bar { display: inline-block; height: 7px; border-radius: 4px; background: var(--border); vertical-align: middle; }
+.sb-guards { margin-top: 12px; }
+.sb-guards .demo-sub { margin: 0 4px 0 0; }
+.sb-pane .demo-btn[hidden] { display: none; }
+.theme-toast .demo-btn.primary:disabled { background: var(--surface); border-color: var(--border); color: var(--text-2); }
+@media (max-width: 700px) { .sb-grid { grid-template-columns: 1fr; } }
+
 /* Routing-number lookup */
 .aba-input { font-family: var(--mono); font-size: 16px; letter-spacing: 0.2em; width: 156px; padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); }
 .aba-input:focus { outline: 2px solid var(--toast-border); outline-offset: 1px; }
@@ -534,7 +587,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
   .arrival td.bank.filled { animation: none; }
 }
 @media print {
-  .filter-bar, .jump-btn, .jump-overlay, .race-btn, .demo-controls, .fill-btn, .sim-btn, .demo-sub { display: none !important; }
+  .filter-bar, .jump-btn, .jump-overlay, .race-btn, .demo-controls, .fill-btn, .sim-btn, .demo-sub, .more-bar, details.more > summary { display: none !important; }
+  details.more { border-top: none; margin-top: 0; }
   .project.is-hidden { display: block !important; }
   .loop-panel[hidden] { display: block !important; }
   .project-link::after { content: none; }
@@ -645,6 +699,23 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <span class="filter-status" aria-live="polite"></span>
     </div>
     <div class="project-grid">
+      <div class="project" data-color="toast" data-tags="python js">
+        <div class="project-head">
+          <div class="project-icon">ET</div>
+          <div>
+            <div class="project-title"><a class="project-link" href="#email-template-automation-suite">Email Template Automation Suite</a></div>
+            <div class="project-org">Toast · Send beta connecting SPA to Salesforce · app for a 14-person team · 13 phases</div>
+          </div>
+          <div class="project-tag">Toast</div>
+        </div>
+        <div class="project-summary">The first phase of our agentic layer, built without a model: a send beta, now with selected reps, that connects SPA, our internal application system, to Salesforce. On SPA's application page, a bookmarklet panel reads a fixed set of application details, prefills the template and builds a validated send kit. In Salesforce Classic the same bookmarklet finds the account, creates or finds the case, fills the email, confirms it went out after the rep clicks Send and closes the case. Its receipt goes back to the panel that built the kit, which turns it into the SPA log line, ready to paste. On a clean run the rep types nothing into Salesforce and retypes nothing into SPA. It builds on twelve phases that took the suite from a CLI script to a cross-platform desktop app for a 14-person team, which now ships 27 built-in templates that copy with rich formatting intact and cut retrieval from 30 seconds to under 3, with zero AI tokens and no customer data sent to any model.</div>
+        <div class="race" data-race="et"></div>
+        <div class="project-meta">
+          <span><b>Stack</b>Python, Flask, PowerShell, AppleScript, PyInstaller, pystray</span>
+          <span><b>Platforms</b>macOS + Windows</span>
+        </div>
+      </div>
+
       <div class="project" data-color="ghost" data-tags="agents llm python data finance">
         <div class="project-head">
           <div class="project-icon">EA</div>
@@ -658,22 +729,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <div class="project-meta">
           <span><b>Stack</b>Python, LangGraph, LangChain, OpenRouter</span>
           <span><b>Design</b>Code-validated · bounded retries · human-approved</span>
-        </div>
-      </div>
-
-      <div class="project" data-color="ghost" data-tags="llm python js data finance">
-        <div class="project-head">
-          <div class="project-icon">PT</div>
-          <div>
-            <div class="project-title"><a class="project-link" href="#ghost-strategies-portfolio-terminal">Ghost Strategies Portfolio Terminal</a></div>
-            <div class="project-org">Ghost Strategies LLC · RIA practice suite · Ghost Suite v1.3.1</div>
-          </div>
-          <div class="project-tag">Independent</div>
-        </div>
-        <div class="project-summary">A Bloomberg-style terminal for a registered investment advisory practice that grew from a portfolio review tool into the practice's working suite: 31 tabs of portfolio analysis, financial planning, markets research, and firm operations in one browser page (about 18,000 lines across the page and 30 modules), a Cloudflare Worker that fronts market data, five AI providers, and a Schwab OAuth relay, and a local forecast service. Client records live in an encrypted household store in the browser and never reach a model. The engine computes returns, beta, correlation-matrix standard deviation, Sharpe, drift, look-through concentration, tax-aware rebalance moves, and 2008/2000/2020/2022 stress scenarios client-side, and the AI Analysis tab draws every chart from the terminal's own numbers under an analysis-not-advice frame. The Ghost Suite build ran nine days and ten tagged releases, and no release merged until over 1,400 automated checks passed with the network blocked, along with a real-Chrome check.</div>
-        <div class="project-meta">
-          <span><b>Stack</b>Vanilla JS, IndexedDB + Web Crypto, Cloudflare Workers, Python</span>
-          <span><b>Verification</b>1,400+ automated checks · gated, tagged releases</span>
         </div>
       </div>
 
@@ -695,22 +750,6 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
       <div class="project" data-color="toast" data-tags="js data finance">
         <div class="project-head">
-          <div class="project-icon">RC</div>
-          <div>
-            <div class="project-title"><a class="project-link" href="#coo-cole-reconciler">COO/COLE Reconciler</a></div>
-            <div class="project-org">Toast · Legal and Risk · application-to-completion reconciliation</div>
-          </div>
-          <div class="project-tag">Toast</div>
-        </div>
-        <div class="project-summary">A single HTML file that tells Legal and Risk which submitted applications actually ended in a completed COO, COLE, or both, by joining a Snowflake applications export to the dashboard's case export on the restaurant GUID. Every application lands in one of eleven written outcomes, so each one that did not complete has a stated reason, and the files never leave the user's computer.</div>
-        <div class="project-meta">
-          <span><b>Stack</b>Vanilla JavaScript, SheetJS, Intl API</span>
-          <span><b>Users</b>Legal and Risk</span>
-        </div>
-      </div>
-
-      <div class="project" data-color="toast" data-tags="js data finance">
-        <div class="project-head">
           <div class="project-icon">FV</div>
           <div>
             <div class="project-title"><a class="project-link" href="#funding-verification-tool">Funding Verification Tool</a></div>
@@ -726,51 +765,19 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         </div>
       </div>
 
-      <div class="project" data-color="toast" data-tags="js data finance">
+      <div class="project" data-color="ghost" data-tags="llm python js data finance">
         <div class="project-head">
-          <div class="project-icon">UC</div>
+          <div class="project-icon">PT</div>
           <div>
-            <div class="project-title"><a class="project-link" href="#underwriting-collections-toolkit">Underwriting &amp; Collections Toolkit</a></div>
-            <div class="project-org">Toast · Capital Underwriting &amp; Collections</div>
-          </div>
-          <div class="project-tag">Toast</div>
-        </div>
-        <div class="project-summary">Three client-side tools: a lien docket tool that de-dupes and type-classifies UCC &amp; tax-lien filings with per-row badges, shipped as both a dashboard and an in-page bookmarklet that run the identical parse/classify engine so results never diverge (the bookmarklet runs it against the logged-in data provider); a color-coded application-routing advisor; and a collections extractor that defeats an AG-Grid's row and column virtualization by stitching cells into whole rows by stable column ID, with a paste fallback that parses multi-line, JSON-valued cells. All in-browser, nothing transmitted; part of a toolset that cut review time ~60%.</div>
-        <div class="project-meta">
-          <span><b>Stack</b>React, Vanilla JS, Bookmarklets</span>
-          <span><b>Impact</b>Part of a toolset that cut review time ~60%</span>
-        </div>
-      </div>
-
-      <div class="project" data-color="toast" data-tags="sql llm js">
-        <div class="project-head">
-          <div class="project-icon">SQ</div>
-          <div>
-            <div class="project-title"><a class="project-link" href="#self-serve-snowflake-query-helper">Self-Serve Snowflake Query Helper</a></div>
-            <div class="project-org">Toast · Capital Underwriting</div>
-          </div>
-          <div class="project-tag">Toast</div>
-        </div>
-        <div class="project-summary">Plain English in, Snowflake SQL out. A teaching layer maps each phrase of the request to the exact clause it became, so non-analysts learn while the ad-hoc-query bottleneck on senior analysts disappears. Under the hood: one normalized contract over nine LLM providers with live model discovery (new models appear with zero code changes), a single effort control translated per model family into three different reasoning mechanisms, and a token-gated, fail-closed proxy that sends only schema metadata, never a row of data. The same engine ships three ways: web app (including a fully local Ollama mode), Cowork skill, and a claude.ai artifact that bills the viewer's own subscription.</div>
-        <div class="project-meta">
-          <span><b>Stack</b>Vanilla JS, Cloudflare Workers, 9-provider LLM proxy, Ollama</span>
-          <span><b>Forms</b>Web app · Cowork skill · Claude artifact</span>
-        </div>
-      </div>
-
-      <div class="project" data-color="ghost" data-tags="agents llm python js finance">
-        <div class="project-head">
-          <div class="project-icon">GS</div>
-          <div>
-            <div class="project-title"><a class="project-link" href="#ghost-strategies">Ghost Strategies Terminal Suite</a></div>
-            <div class="project-org">Ghost Strategies LLC · LLM-powered financial tooling</div>
+            <div class="project-title"><a class="project-link" href="#ghost-strategies-portfolio-terminal">Ghost Strategies Portfolio Terminal</a></div>
+            <div class="project-org">Ghost Strategies LLC · RIA practice suite · Ghost Suite v1.3.1</div>
           </div>
           <div class="project-tag">Independent</div>
         </div>
-        <div class="project-summary">Six production tools built with Anthropic's Claude, plus the practice that runs on them: Wealth Compass (a 13-sheet, 755-formula workbook parsed entirely client-side; no data leaves the device), Training Terminal (SQL, Python, JavaScript, and Rust, 200 questions graded in the page; Rust is checked against a canonical answer and is not compiled), Model Bench Terminal (blind LLM evaluation and a decision engine that assign the other tools' model slots on recorded evidence), Economic Indicators Terminal (a macro dashboard whose research desk never charts a number the model wrote; the page computes the statistics), Garage Terminal (collector car market prices refreshed by a weekly GitHub Actions scrape), and Ghost Lead Terminal (the CRM behind a governed, human-in-the-loop agent operating model).</div>
+        <div class="project-summary">A Bloomberg-style terminal for a registered investment advisory practice that grew from a portfolio review tool into the practice's working suite: 31 tabs of portfolio analysis, financial planning, markets research, and firm operations in one browser page (about 18,000 lines across the page and 30 modules), a Cloudflare Worker that fronts market data, five AI providers, and a Schwab OAuth relay, and a local forecast service. Client records live in an encrypted household store in the browser and never reach a model. The engine computes returns, beta, correlation-matrix standard deviation, Sharpe, drift, look-through concentration, tax-aware rebalance moves, and 2008/2000/2020/2022 stress scenarios client-side, and the AI Analysis tab draws every chart from the terminal's own numbers under an analysis-not-advice frame. The Ghost Suite build ran nine days and ten tagged releases, and no release merged until over 1,400 automated checks passed with the network blocked, along with a real-Chrome check.</div>
         <div class="project-meta">
-          <span><b>Stack</b>Python, JavaScript, GitHub Actions, Pyodide, sql.js</span>
-          <span><b>Discipline</b>I own the logic, the LLM writes the code, I validate every output</span>
+          <span><b>Stack</b>Vanilla JS, IndexedDB + Web Crypto, Cloudflare Workers, Python</span>
+          <span><b>Verification</b>1,400+ automated checks · gated, tagged releases</span>
         </div>
       </div>
 
@@ -791,20 +798,67 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         </div>
       </div>
 
-      <div class="project" data-color="toast" data-tags="python js">
+      <div class="project" data-color="toast" data-tags="js data finance">
         <div class="project-head">
-          <div class="project-icon">ET</div>
+          <div class="project-icon">UC</div>
           <div>
-            <div class="project-title"><a class="project-link" href="#email-template-automation-suite">Email Template Automation Suite</a></div>
-            <div class="project-org">Toast · 14-person Capital Underwriting and Change of Ownership · 13 phases</div>
+            <div class="project-title"><a class="project-link" href="#underwriting-collections-toolkit">Underwriting &amp; Collections Toolkit</a></div>
+            <div class="project-org">Toast · Capital Underwriting &amp; Collections</div>
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">Thirteen phases from CLI script to native-feeling desktop app for a 14-person team, now with a refreshed three-pane interface: 27 built-in templates that copy with rich formatting intact (via AppleScript's «class HTML» on macOS and hand-built CF_HTML byte-offset headers on Windows), cutting retrieval from 30 seconds to under 3. Deliberately shipped as a 15KB Flask app instead of a 200MB Electron bundle, with zero AI tokens consumed and zero customer data exposure by design: placeholders fill locally, and the send beta moves the filled email only into the rep's own Salesforce session, by paste. The Salesforce-embedded concept is now a working send beta: a bookmarklet takes a validated send kit, creates or finds the case in Salesforce Classic, fills the email and closes the case after the send, while the rep keeps the Send click.</div>
-        <div class="race" data-race="et"></div>
+        <div class="project-summary">Three client-side tools: a lien docket tool that de-dupes and type-classifies UCC &amp; tax-lien filings with per-row badges, shipped as both a dashboard and an in-page bookmarklet that run the identical parse/classify engine so results never diverge (the bookmarklet runs it against the logged-in data provider); a color-coded application-routing advisor; and a collections extractor that defeats an AG-Grid's row and column virtualization by stitching cells into whole rows by stable column ID, with a paste fallback that parses multi-line, JSON-valued cells. All in-browser, nothing transmitted; part of a toolset that cut review time ~60%.</div>
         <div class="project-meta">
-          <span><b>Stack</b>Python, Flask, PowerShell, AppleScript, PyInstaller, pystray</span>
-          <span><b>Platforms</b>macOS + Windows</span>
+          <span><b>Stack</b>React, Vanilla JS, Bookmarklets</span>
+          <span><b>Impact</b>Part of a toolset that cut review time ~60%</span>
+        </div>
+      </div>
+
+      <div class="project" data-color="ghost" data-tags="agents llm python js finance">
+        <div class="project-head">
+          <div class="project-icon">GS</div>
+          <div>
+            <div class="project-title"><a class="project-link" href="#ghost-strategies">Ghost Strategies Terminal Suite</a></div>
+            <div class="project-org">Ghost Strategies LLC · LLM-powered financial tooling</div>
+          </div>
+          <div class="project-tag">Independent</div>
+        </div>
+        <div class="project-summary">Six production tools built with Anthropic's Claude, plus the practice that runs on them: Wealth Compass (a 13-sheet, 755-formula workbook parsed entirely client-side; no data leaves the device), Training Terminal (SQL, Python, JavaScript, and Rust, 200 questions graded in the page; Rust is checked against a canonical answer and is not compiled), Model Bench Terminal (blind LLM evaluation and a decision engine that assign the other tools' model slots on recorded evidence), Economic Indicators Terminal (a macro dashboard whose research desk never charts a number the model wrote; the page computes the statistics), Garage Terminal (collector car market prices refreshed by a weekly GitHub Actions scrape), and Ghost Lead Terminal (the CRM behind a governed, human-in-the-loop agent operating model).</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Python, JavaScript, GitHub Actions, Pyodide, sql.js</span>
+          <span><b>Discipline</b>I own the logic, the LLM writes the code, I validate every output</span>
+        </div>
+      </div>
+
+      <div class="project" data-color="toast" data-tags="js data finance">
+        <div class="project-head">
+          <div class="project-icon">RC</div>
+          <div>
+            <div class="project-title"><a class="project-link" href="#coo-cole-reconciler">COO/COLE Reconciler</a></div>
+            <div class="project-org">Toast · Legal and Risk · application-to-completion reconciliation</div>
+          </div>
+          <div class="project-tag">Toast</div>
+        </div>
+        <div class="project-summary">A single HTML file that tells Legal and Risk which submitted applications actually ended in a completed COO, COLE, or both, by joining a Snowflake applications export to the dashboard's case export on the restaurant GUID. Every application lands in one of eleven written outcomes, so each one that did not complete has a stated reason, and the files never leave the user's computer.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Vanilla JavaScript, SheetJS, Intl API</span>
+          <span><b>Users</b>Legal and Risk</span>
+        </div>
+      </div>
+
+      <div class="project" data-color="toast" data-tags="sql llm js">
+        <div class="project-head">
+          <div class="project-icon">SQ</div>
+          <div>
+            <div class="project-title"><a class="project-link" href="#self-serve-snowflake-query-helper">Self-Serve Snowflake Query Helper</a></div>
+            <div class="project-org">Toast · Capital Underwriting</div>
+          </div>
+          <div class="project-tag">Toast</div>
+        </div>
+        <div class="project-summary">Plain English in, Snowflake SQL out. A teaching layer maps each phrase of the request to the exact clause it became, so non-analysts learn while the ad-hoc-query bottleneck on senior analysts disappears. Under the hood: one normalized contract over nine LLM providers with live model discovery (new models appear with zero code changes), a single effort control translated per model family into three different reasoning mechanisms, and a token-gated, fail-closed proxy that sends only schema metadata, never a row of data. The same engine ships three ways: web app (including a fully local Ollama mode), Cowork skill, and a claude.ai artifact that bills the viewer's own subscription.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>Vanilla JS, Cloudflare Workers, 9-provider LLM proxy, Ollama</span>
+          <span><b>Forms</b>Web app · Cowork skill · Claude artifact</span>
         </div>
       </div>
     </div>
@@ -823,6 +877,188 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       </div>
     </div>
 
+    <!-- Email Template Suite -->
+    <div class="detail" id="email-template-automation-suite">
+      <h3>Email Template Automation Suite</h3>
+      <div class="sub">Send beta connecting SPA to Salesforce · 13 phases · cross-platform desktop app · 14-person team · retrieval 30s to under 3s</div>
+
+      <p>Phase 13 is a send beta, now with selected reps, and the first step of our agentic layer, built without a model: it connects SPA, our internal application system, to Salesforce. A send kit, built in the app or in a panel on SPA's application page that prefills the application details, carries a filled template through the account, the case, the email and the close, and the receipt comes back as the SPA log line, while the rep keeps the Send click. It consumes zero AI tokens. The kit and the receipt are defined as a data contract, written so they can become the request and response of a server-side send if SPA takes this on natively.</p>
+
+      <p>Underneath is a cross-platform desktop application that ships 27 built-in email templates across three categories, with rich-text formatting preserved on paste. It grew over the twelve phases before the beta from a CLI tool to a full Flask web app, then to a PyInstaller-bundled native application with a system tray icon and a Salesforce-embedded NOIA generator concept presented to engineering stakeholders, then into a redesigned three-pane interface built around finding, filling and copying a template in a few keystrokes.</p>
+
+      <h4>Send beta, before and after</h4>
+      <div class="ba">
+        <div class="ba-card">
+          <div class="ba-label">Before · by hand in Salesforce and SPA</div>
+          <div class="ba-step"><div class="ba-num">1</div><div>Search for the account and open it</div></div>
+          <div class="ba-step"><div class="ba-num">2</div><div>Create the case: pick the record type, set Type and the required fields, Save</div></div>
+          <div class="ba-step"><div class="ba-num">3</div><div>Open the email, set From and the subject, paste the body</div></div>
+          <div class="ba-step"><div class="ba-num">4</div><div>Send, then edit the case to close it and Save</div></div>
+          <div class="ba-step"><div class="ba-num">5</div><div>Retype the details into SPA</div></div>
+        </div>
+        <div class="ba-card after">
+          <div class="ba-label">After · send beta</div>
+          <div class="ba-step"><div class="ba-num">1</div><div><b>Rep:</b> copy the send kit from the prefilled panel on SPA's application page and paste it into the bookmarklet</div></div>
+          <div class="ba-step"><div class="ba-num">2</div><div><b>Automatic:</b> account found, case created or found, case settings filled</div></div>
+          <div class="ba-step"><div class="ba-num">3</div><div><b>Automatic:</b> From, Subject, the recipient and the body filled for review</div></div>
+          <div class="ba-step"><div class="ba-num">4</div><div><b>Rep:</b> click Send. <b>Automatic:</b> send verified, case closed</div></div>
+          <div class="ba-step"><div class="ba-num">5</div><div><b>Rep:</b> paste the receipt back, then paste the SPA log line and case number it produces into SPA and save</div></div>
+        </div>
+      </div>
+
+      <h4>Try the flow</h4>
+      <div class="demo" id="demo-send">
+        <div class="demo-head">
+          <div class="demo-title">Send beta, end to end</div>
+          <div class="demo-note">Invented data. A simulation of the flow and its guards, not the real tool.</div>
+        </div>
+        <p class="demo-why"><b>You are the rep.</b> Copy the send kit from the panel on SPA's application page, paste it into the bookmarklet in Salesforce, and click Send when the email is ready. Then try the guards: tamper with the kit, let it expire, or give it two matching accounts.</p>
+        <div class="sb-grid">
+          <section class="sb-pane" aria-label="SPA application page, demo">
+            <div class="sb-pane-head"><span>SPA · application page</span><small>Bookmarklet panel</small></div>
+            <dl class="sb-fields">
+              <div><dt>Business</dt><dd class="from-page">Juniper Street Diner LLC</dd></div>
+              <div><dt>Contact</dt><dd class="from-page">A. Owner</dd></div>
+              <div><dt>Contact email</dt><dd class="from-page">owner@example.com</dd></div>
+              <div><dt>Application date</dt><dd class="from-page">10/27/2026</dd></div>
+              <div><dt>Restaurant ID</dt><dd class="from-page">demo-7f3a-21c9</dd></div>
+            </dl>
+            <div class="sb-cap">Template: <b>Notice of incomplete application</b></div>
+            <div class="sb-meter" aria-hidden="true"><span></span></div>
+            <div class="sb-cap">3 of 3 template fields filled, plus the restaurant ID and recipient, all read from the page (highlighted). Bank, tax and offer fields are never read.</div>
+            <div class="sb-kit" data-sb-kit hidden></div>
+            <div class="sb-log" data-sb-log hidden></div>
+            <div class="demo-controls">
+              <button class="demo-btn primary" type="button" data-sb="copy">Copy send kit</button>
+              <button class="demo-btn" type="button" data-sb="receipt" disabled>Paste receipt</button>
+            </div>
+          </section>
+          <section class="sb-pane" aria-label="Salesforce console, demo">
+            <div class="sb-pane-head"><span>Salesforce console</span><small>Bookmarklet</small></div>
+            <ol class="sb-steps">
+              <li data-step="paste"><span class="sb-mark" aria-hidden="true">·</span><span>Kit pasted and checked</span><span class="sb-detail"></span></li>
+              <li data-step="account"><span class="sb-mark" aria-hidden="true">·</span><span>Account found</span><span class="sb-detail"></span></li>
+              <li data-step="case"><span class="sb-mark" aria-hidden="true">·</span><span>Case created, settings filled, Save</span><span class="sb-detail"></span></li>
+              <li data-step="email"><span class="sb-mark" aria-hidden="true">·</span><span>Email filled for review</span><span class="sb-detail"></span></li>
+              <li data-step="send"><span class="sb-mark" aria-hidden="true">·</span><span>Rep clicks Send</span><span class="sb-detail"></span></li>
+              <li data-step="verify"><span class="sb-mark" aria-hidden="true">·</span><span>Send verified</span><span class="sb-detail"></span></li>
+              <li data-step="close"><span class="sb-mark" aria-hidden="true">·</span><span>Case closed, receipt ready</span><span class="sb-detail"></span></li>
+            </ol>
+            <div class="sb-email" data-sb-email hidden>
+              <div><b>From</b> the team's shared address</div>
+              <div><b>Additional To</b> owner@example.com</div>
+              <div><b>Subject</b> <span class="bar" style="width:46%"></span> <span class="val">Juniper Street Diner LLC</span></div>
+              <div><span class="bar" style="width:88%"></span></div>
+              <div><span class="bar" style="width:30%"></span> <span class="val">10/27/2026</span> <span class="bar" style="width:34%"></span></div>
+              <div><span class="bar" style="width:64%"></span></div>
+            </div>
+            <div class="demo-controls">
+              <button class="demo-btn" type="button" data-sb="paste" disabled>Paste kit into the bookmarklet</button>
+              <button class="demo-btn primary" type="button" data-sb="save" disabled hidden>Save the case</button>
+              <button class="demo-btn primary" type="button" data-sb="send" disabled>Send</button>
+            </div>
+          </section>
+        </div>
+        <div class="demo-controls sb-guards">
+          <span class="demo-sub">Guards</span>
+          <button class="demo-btn" type="button" data-sb-guard="tamper" aria-pressed="false">Tamper with the kit</button>
+          <button class="demo-btn" type="button" data-sb-guard="expire" aria-pressed="false">Let the kit expire</button>
+          <button class="demo-btn" type="button" data-sb-guard="twins" aria-pressed="false">Two matching accounts</button>
+          <button class="demo-btn" type="button" data-sb="reset">↺ Start over</button>
+        </div>
+        <div class="demo-status" data-sb-status role="status" aria-live="polite">Start on the SPA side: the panel has already read the application, so the kit is ready to copy.</div>
+        <a class="print-only demo-live" href="https://kaejhee.github.io/portfolio/#demo-send">Try it live: kaejhee.github.io/portfolio/#demo-send</a>
+      </div>
+
+      <details class="more">
+        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">Send beta flow · Template retrieval, before and after · Mock view · Phase progression · Engineering decisions · Stack</span></summary>
+      <h4>Send beta flow</h4>
+      <div class="mockup" style="padding: 12px 16px;">
+        <span style="font-family: var(--mono); font-size: 12px;">Application details prefilled on SPA's page → copy kit → paste into the bookmarklet → account found → case created or found → email filled → rep clicks Send → send verified → case closed → receipt pasted back → SPA log line and case number → paste into SPA and save</span>
+      </div>
+
+      <h4>Template retrieval, before and after</h4>
+      <div class="race" data-race="et"></div>
+
+      <h4>Mock view</h4>
+      <div class="mockup et-mock">
+        <div class="mockup-head">
+          <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+          <span>Email Templates · 27 templates · 14-person team</span>
+        </div>
+        <div class="et-grid">
+          <div class="et-nav">
+            <div class="et-cap">Templates 27</div>
+            <div class="et-cat on"><span>Capital Underwriting</span><b>4</b></div>
+            <div class="et-cat"><span>NOIA</span><b>13</b></div>
+            <div class="et-cat"><span>Change of Ownership</span><b>10</b></div>
+            <div class="et-keys"><kbd>/</kbd> Search &nbsp; <kbd>↵</kbd> Copy top match</div>
+          </div>
+          <div class="et-list">
+            <div class="et-search"><span>Search templates</span><kbd>⌘K</kbd></div>
+            <div class="et-greet">Good afternoon · 27 templates</div>
+            <div class="et-row on"><div><b>Received Response</b><small>Customer replies to an application confirmation</small></div><span class="et-badge">Instant</span><span class="et-copy"></span></div>
+            <div class="et-row"><div><b>NOIA MCA</b><small>Notice of incomplete application</small></div><span class="et-badge">4 fields</span><span class="et-copy"></span></div>
+            <div class="et-row"><div><b>COO DS Sent</b><small>Ownership forms sent for signature</small></div><span class="et-badge">1 field</span><span class="et-copy"></span></div>
+          </div>
+          <div class="et-detail">
+            <div class="et-dhead"><small>Capital Underwriting</small><b>Received Response</b><span class="et-star">☆</span></div>
+            <div class="et-cap">Preview</div>
+            <div class="et-lines"><i></i><i></i><i style="width:72%"></i><i></i><i style="width:46%"></i></div>
+            <div class="et-actions"><span><kbd>⌘</kbd> <kbd>↵</kbd> to copy</span><span class="et-btn">Copy</span></div>
+          </div>
+        </div>
+        <div class="mockup-row">
+          <div style="color:var(--text-3); font-size:10px;">Retrieval: avg 2.1s · Tokens consumed: 0 · Customer data sent to model: 0</div>
+        </div>
+      </div>
+
+      <h4>Phase progression</h4>
+      <ul>
+        <li>Phases 1 to 3: CLI tool, cross-platform GUI launcher, then a full Flask web app</li>
+        <li>Phase 4: Dark mode, brand logo, and accordion drawer system for the editor</li>
+        <li>Phase 5: PyInstaller-bundled standalone executable with platform-appropriate data directories (macOS app support, Windows AppData), port discovery to dodge AirPlay on macOS, and a system tray icon for clean exits</li>
+        <li>Phase 6: Salesforce-embedded NOIA template generator concept, with function-based template rendering (eight templates, conditional logic for variable-length entity lists)</li>
+        <li>Phases 7 to 9: Placeholder fill modal with confirmation toasts, multi-line field support, two-panel preview modal, and product demo enhancements</li>
+        <li>Phase 10: Template-sync bug fix (silent failure mode on every launch caught and resolved)</li>
+        <li>Phase 11: Stakeholder presentation HTML with Apps Script architecture diagrams and a NOIA automation proposal for engineering review</li>
+        <li>Phase 12: A refreshed three-pane interface: a Toast-branded shell with a collapsible category sidebar and counts, a template list whose rows show how many fields each template needs (or Instant when none) with one-click copy, and a detail panel with a live preview, favorites and a time-of-day greeting, in light and dark themes</li>
+        <li>Phase 12 workflow: ranked search opened with / or ⌘K where Enter copies the top match, favorites and recents for repeat sends, guided field filling with a draft kept per template where Enter moves to the next field and copies on the last, rich-text copy with a plain-text fallback, Email submitted with Undo, and custom templates written in a rich-text editor with placeholder insertion</li>
+        <li>Phase 13, send beta (October to November 2026): Send mode turns copy and paste into a guarded round trip with Salesforce Classic. The rep enters the restaurant ID and the recipient's email (and a case number for a follow-up) and copies a validated send kit. Clicked on SPA's application page, the send bookmarklet instead opens a template panel that reads a fixed set of application details (never bank, tax or offer fields), prefills the template fields and builds the kit there. In the Service Console, the same bookmarklet takes the pasted kit, finds the account, creates or finds the case, fills From, Subject, the recipient and the body, waits for the rep to click Send, confirms the email went out, closes the case and hands back a receipt that produces the SPA log line. Every built-in template is send-enabled across three send profiles, and a Test run fills everything like a real send, with the rep's own address as the only recipient</li>
+      </ul>
+
+      <h4>Engineering decisions</h4>
+      <ul>
+        <li>Zero AI tokens consumed by design: templates use placeholders that the user fills locally, so no customer data goes to any model, and the send beta moves the filled email only into the rep's own Salesforce session, by paste</li>
+        <li>Cross-platform clipboard formatting: macOS uses AppleScript with the «class HTML» format; Windows uses CF_HTML byte-offset headers with precise UTF-8 byte counting</li>
+        <li>15KB Flask app deliverable instead of a 150 to 200MB Electron bundle, deliberately avoiding the Apple Developer Program signing requirement</li>
+        <li>Per-machine identity: no authentication needed, each install is local-only</li>
+        <li>Send beta, the rep keeps the irreversible step: the bookmarklet fills the email but never clicks Send. Its only automated clicks are Salesforce's own Save on the new case and on the close page, each re-checked at click time (same page load, tab on screen, the right case; for the new case, exactly one matching account; for the close page, Status and Stage both Closed)</li>
+        <li>Safety rules enforced by the build, not by review: the bookmarklet build fails on 15 forbidden patterns (eval, clipboard reads, form submits, synthetic clicks and any selector that targets the Send button among them) and on any click or network call outside the single Save helper and the single guarded same-origin fetch</li>
+        <li>The pasted kit's email is not trusted: the bookmarklet rebuilds the email and the case settings from its own copy of the templates and the kit's raw field text, and refuses any difference, so a forged or stale kit cannot change the template wording, markup, case settings or sender. Kits expire after 10 minutes and must match the bookmarklet's build and template stamp</li>
+        <li>Provenance over text matching: subjects repeat per merchant, so the saved case is bound by window identity and its opened time against the Save moment, and a send is verified only when the case shows one more outbound email than a baseline taken after the send started; anything else is flagged and the rep closes the case by hand</li>
+        <li>One shared code path: the generator and the bookmarklet run the same kit builder and field code, extracted at build time, and a build or template-stamp mismatch between them is refused, so the two sides stay in step. Field values are escaped and the email HTML passes an allowlist sanitizer before it reaches Salesforce</li>
+        <li>Release integrity and testing: every panel shows a content-hash code ID, each release ships SHA-256 checksums, and the send code is covered by 37 unit tests and a 37-scenario browser suite (417 assertions) against stateful mocks of the Classic console and the application page, including 11 forged kits and sentinel data that must never reach the panel, the clipboard or storage</li>
+      </ul>
+
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Python</span>
+        <span class="stack-item">Flask</span>
+        <span class="stack-item">Bash</span>
+        <span class="stack-item">PowerShell</span>
+        <span class="stack-item">JavaScript</span>
+        <span class="stack-item">AppleScript</span>
+        <span class="stack-item">Quill.js</span>
+        <span class="stack-item">PyInstaller</span>
+        <span class="stack-item">pystray</span>
+        <span class="stack-item">Node.js</span>
+        <span class="stack-item">Playwright</span>
+        <span class="stack-item">Pillow</span>
+      </div>
+      </details>
+    </div>
+
     <!-- COO/COLE Dashboard -->
     <div class="detail" id="coo-cole-case-management-dashboard">
       <h3>COO/COLE Case Management Dashboard</h3>
@@ -830,6 +1066,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
       <p>A full-stack web application built on top of a live Google Sheet (no separate backend or hosting) that replaced manual spreadsheet workflows for case tracking, analytics, and address-change requests across a 10-person team and 700+ cases. The Cases tab tracks the full lifecycle with optimistic-UI edits written straight back to the sheet, the Address Change tab manages a parallel five-status workflow on its own sheet, and the Analytics tab is an operational scorecard with team-level, per-rep, and Bizops-funnel views, all scopeable by year from a single header filter. Over successive iterations the tool evolved from a case tracker into a largely self-running system: non-technical leads administer it with zero code changes, it runs its own scheduled maintenance, and it documents itself for whoever maintains it next. Leadership's ad-hoc data questions now run through a built-in Data Lookup that brings the Snowflake Query Helper's SQL model into the dashboard, and its case export feeds a separate tool, the COO/COLE Reconciler, which gives Legal and Risk a repeatable answer to how many submitted applications actually completed a COO or COLE.</p>
 
+      <details class="more">
+        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">Mock view · Try it: Data Lookup · Key features · Stack</span></summary>
       <h4>Mock view</h4>
       <div class="mockup" tabindex="0" role="region" aria-label="Case Management Dashboard mock view">
         <div class="mockup-head">
@@ -946,6 +1184,240 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Time-driven triggers</span>
         <span class="stack-item">Google OAuth</span>
       </div>
+      </details>
+    </div>
+
+    <!-- Funding Verification Tool -->
+    <div class="detail" id="funding-verification-tool">
+      <h3>Funding Verification Tool</h3>
+      <div class="sub">Single-file HTML · 20-35 minute workflow cut to 40 seconds</div>
+
+      <p>A single-file HTML application that replaced a fragile VLOOKUP chain in Google Sheets used to verify merchant banking data for capital deployments. Performs an in-browser JOIN across four sources (New Funding file, Snowflake export, Original CSV funding records, and DSL bank files), produces match results with processor-specific logic, supports real-time manual overrides, and exports a multi-sheet XLSX workbook from a bundled template that preserves the master sheet's conditional formatting. The tool grew to 10 tabs, including a TCA Check tab that auto-flags Toast Checking accounts and matches pasted GUIDs against an auto-detected canonical GUID column, an External MCA Refi tab that tracks refi lineage between loans, and a Funding Edits tab that turns every row still holding placeholder banking data into an editable worklist with FedACH routing-number verification and bank lookup built in. The full funding verification workflow used to take 20 to 35 minutes per batch; the latest measured time (June 2026) clocked it at 40 seconds end-to-end.</p>
+
+      <h4>Before and after</h4>
+      <div class="race" data-race="fv"></div>
+      <div class="ba">
+        <div class="ba-card">
+          <div class="ba-label">Before · 20-35 minutes</div>
+          <div class="ba-step"><div class="ba-num">1</div><div>Manually maintain VLOOKUP chains across four Google Sheets</div></div>
+          <div class="ba-step"><div class="ba-num">2</div><div>#N/A errors propagate when Snowflake data is delayed, no path to manual fix</div></div>
+          <div class="ba-step"><div class="ba-num">3</div><div>No audit trail for manual SPA verifications or Toast Checking accounts</div></div>
+          <div class="ba-step"><div class="ba-num">4</div><div>WORLDPAY and CHASE rules embedded in formulas, easily broken</div></div>
+        </div>
+        <div class="ba-card after">
+          <div class="ba-label">After · 40 seconds</div>
+          <div class="ba-step"><div class="ba-num">1</div><div>Drag-drop four files, JOIN runs in milliseconds across 10 tabs</div></div>
+          <div class="ba-step"><div class="ba-num">2</div><div>Manual Overrides tab surfaces Check Data rows, recompute on entry</div></div>
+          <div class="ba-step"><div class="ba-num">3</div><div>Toast Checking and Verified in Merchant labels persist across re-uploads</div></div>
+          <div class="ba-step"><div class="ba-num">4</div><div>Processor logic in code, 4-sheet XLSX export preserves master sheet formatting</div></div>
+        </div>
+      </div>
+
+      <details class="more">
+        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">Try the logic · Mock view · Key engineering decisions · Stack</span></summary>
+      <h4>Try the logic</h4>
+      <div class="demo" id="demo-aba">
+        <div class="demo-head">
+          <div class="demo-title">Routing-number lookup</div>
+          <div class="demo-note">A handful of real routing numbers. The real tool searches the Fed's full FedACH directory through a local Python service.</div>
+        </div>
+        <p class="demo-why"><b>Why it exists:</b> funding files often arrive with a real routing number but no bank name. The Bank column reads <span class="ph">Unavailable</span>, <span class="ph">External</span>, or <span class="ph">UNKNOWN</span>, and each one used to mean a manual search to find the bank. Now the tool looks it up in place.</p>
+        <div class="arrival-head"><span>A funding file as it arrives</span><button class="demo-btn primary sim-btn" type="button" data-simulate>▶ Simulate the fill</button></div>
+        <table class="mockup-table arrival">
+          <thead><tr><th>Routing</th><th>Bank</th><th><span class="sr-only">Action</span><span class="print-only">After lookup</span></th></tr></thead>
+          <tbody>
+            <tr><td>021000021</td><td class="bank"><span class="ph">Unavailable</span></td><td class="act"><button class="demo-btn fill-btn" type="button" data-fill>Look up</button><span class="print-only fill-after">JPMorgan Chase Bank, NA</span></td></tr>
+            <tr><td>026009593</td><td class="bank"><span class="ph">External</span></td><td class="act"><button class="demo-btn fill-btn" type="button" data-fill>Look up</button><span class="print-only fill-after">Bank of America, N.A.</span></td></tr>
+            <tr><td>121000248</td><td class="bank"><span class="ph">UNKNOWN</span></td><td class="act"><button class="demo-btn fill-btn" type="button" data-fill>Look up</button><span class="print-only fill-after">Wells Fargo Bank, NA</span></td></tr>
+          </tbody>
+        </table>
+        <div class="demo-sub">Or try any routing number</div>
+        <div class="demo-controls">
+          <label class="sr-only" for="aba-input">Nine-digit routing number</label>
+          <input id="aba-input" class="aba-input" type="text" inputmode="numeric" maxlength="9" autocomplete="off" spellcheck="false" value="021000021" aria-describedby="aba-status">
+          <button class="demo-btn primary" type="button" data-lookup>Look up</button>
+          <button class="demo-btn" type="button" data-aba="021000021">Sample: ACH participant</button>
+          <button class="demo-btn" type="button" data-aba="555555550">Sample: not in FedACH</button>
+          <button class="demo-btn" type="button" data-aba="021000012">Sample: mistyped</button>
+        </div>
+        <div class="lookup-path" aria-hidden="true"><span class="lookup-step" data-step="typo">1 · Typo check</span><span class="agent-sep">→</span><span class="lookup-step" data-step="dir">2 · FedACH directory</span></div>
+        <table class="mockup-table lookup-dir">
+          <caption>Directory entries used in this demo</caption>
+          <thead><tr><th>Routing</th><th>Bank</th><th>Location</th></tr></thead>
+          <tbody>
+            <tr><td>021000021</td><td>JPMorgan Chase Bank, NA</td><td>New York, NY</td></tr>
+            <tr><td>021000089</td><td>Citibank, N.A.</td><td>New York, NY</td></tr>
+            <tr><td>026009593</td><td>Bank of America, N.A.</td><td>New York, NY</td></tr>
+            <tr><td>121000248</td><td>Wells Fargo Bank, NA</td><td>San Francisco, CA</td></tr>
+          </tbody>
+        </table>
+        <div class="demo-status" id="aba-status" role="status"></div>
+        <a class="print-only demo-live" href="https://kaejhee.github.io/portfolio/#demo-aba">Try it live: kaejhee.github.io/portfolio/#demo-aba</a>
+      </div>
+
+      <h4>Mock view</h4>
+      <div class="mockup" tabindex="0" role="region" aria-label="Funding Verification Tool mock view">
+        <div class="mockup-head">
+          <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+          <span>Funding Verification · Ops SPA Deals (12 rows)</span>
+        </div>
+        <table class="mockup-table">
+          <thead><tr><th>Ext ID</th><th>Proc</th><th>Match R</th><th>Match A</th><th>Label</th></tr></thead>
+          <tbody>
+            <tr><td>EXT-8821</td><td>WORLDPAY</td><td><span class="pill-green">YES</span></td><td><span class="pill-green">YES</span></td><td><span class="pill-blue">Toast Checking</span></td></tr>
+            <tr><td>EXT-8820</td><td>CHASE</td><td><span class="pill-green">YES</span></td><td><span class="pill-orange">Check Data</span></td><td><span class="pill-gray">Pending</span></td></tr>
+            <tr><td>EXT-8819</td><td>WORLDPAY</td><td><span class="pill-orange">NO</span></td><td><span class="pill-green">YES</span></td><td><span class="pill-green">Verified</span></td></tr>
+            <tr><td>EXT-8818</td><td>CHASE</td><td><span class="pill-green">YES</span></td><td><span class="pill-green">YES</span></td><td><span class="pill-green">Verified</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>Key engineering decisions</h4>
+      <ul>
+        <li>Custom RFC 4180 CSV parser written from scratch to replace SheetJS's unreliable CSV mode (BOM stripping, mixed line endings, embedded quotes)</li>
+        <li>MID normalization for JavaScript scientific notation: Snowflake XLSX exports return Merchant IDs as 1.23E+9, breaking direct string compares</li>
+        <li>Hash-join via Map objects: equivalent to NewFunding LEFT JOIN Snowflake LEFT JOIN OriginalCsv LEFT JOIN DSL, executes in milliseconds for hundreds of thousands of rows</li>
+        <li>Persistent DSL Worker Pool (size 3): operators routinely drop 4 to 10 large DSL files at once, so XLSX parsing runs through a fixed pool of three Web Workers fed by a queue and dispatcher, with zero-copy ArrayBuffer transfer and workers reused across drops rather than re-spawned</li>
+        <li>Processor-specific match logic isolated in code: WORLDPAY requires exact DSL-to-file match; CHASE requires file value to differ from a known placeholder</li>
+        <li>Real-time override injection: when a Snowflake lookup misses, manual GUID/MID/Proc Partner entry constructs a synthetic Snowflake-like object and the JOIN re-runs without a page refresh</li>
+        <li>Labels and overrides keyed to External ID, survive re-uploads of any source file within the same session</li>
+        <li>Template-based XLSX export: bundles the master Google Sheet's exact conditional formatting rules in a base64 template and edits the template XML at runtime via JSZip to inject the live data, preserving every YES/NO/Check Data cell fill from the original</li>
+        <li>TCA Check subsystem: auto-detects the canonical Toast GUID column per source using a UUID-density times uniqueness score, and matches pasted GUIDs against in-batch records with per-loan and per-merchant dedup modes</li>
+        <li>Automatic TCA labeling: rows whose source record already carries the balance-account tag are cross-referenced against the current batch and flagged Toast Checking on load; the paste path is now the exception, not the default, and out-of-batch records are deliberately left alone</li>
+        <li>Funding Edits worklist: scans the source funding file for every row still carrying placeholder banking data (unresolved routing and account values, bank names left as a placeholder, and external MCA refi rows), classifies each by type, opens only the cells that type is allowed to edit, and tracks per-row completion so a row clears only once its placeholders are genuinely replaced rather than merely touched. Finished rows export in one click for the tracker</li>
+        <li>Routing-number verification against the FedACH directory: bank names that arrive as Unavailable, External, or UNKNOWN no longer need a manual search. A local Python service loads the Federal Reserve's FedACH and Fedwire directories, so each routing number is confirmed as a real ACH participant and resolved to its bank name, with a public routing API as a fallback. Routing and bank pairs already in the batch file answer first at no cost, results are cached per session, a quick checksum catches mistyped numbers before any lookup, and a configurable routing number is flagged on sight</li>
+        <li>Refi lineage tracking: the External MCA Refi tab links each refi loan to its original (matching the External ID minus its suffix) and highlights the original loans magenta in the XLSX export</li>
+        <li>Dual audit export: a multi-sheet XLSX workbook (Ops sheet plus additional audit sheets) and a landscape PDF audit record that reproduces the on-screen match colors and row tints for reviewers who never open the spreadsheet. Both are date-stamped at export</li>
+        <li>10-tab structure: Ops SPA Deals (primary output with stat-pill filter shortcuts), four source upload tabs, TCA Check, Refi, External MCA Refi, Manual Overrides, and Funding Edits</li>
+        <li>Ships with two companion artifacts: a 13-page Standard Operating Procedure (built with a python-docx script, 11 embedded screenshots, data-flow diagram, troubleshooting guide, and a domain glossary), and a standalone Funding File Validator that round-trip-checks the exported file against the source before handoff</li>
+      </ul>
+
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">SheetJS 0.18.5</span>
+        <span class="stack-item">JSZip 3.10.1</span>
+        <span class="stack-item">jsPDF</span>
+        <span class="stack-item">Custom RFC 4180 parser</span>
+        <span class="stack-item">FedACH directory lookup (Python)</span>
+        <span class="stack-item">Web Worker pool</span>
+        <span class="stack-item">Web FileReader API</span>
+        <span class="stack-item">Base64 template embedding</span>
+        <span class="stack-item">Clipboard API</span>
+      </div>
+      </details>
+    </div>
+
+    <!-- CSV Column Extractor -->
+    <div class="detail" id="csv-column-extractor">
+      <h3>CSV Column Extractor</h3>
+      <div class="sub">Single-file HTML · 9-minute workflow cut to under 55 seconds</div>
+
+      <p>A single-file HTML dashboard for combining up to five large spreadsheet files, each potentially exceeding one million rows, and extracting three specific columns for paste into a destination Google Sheet. Iterative performance engineering took the full open-to-paste workflow on three 25MB XLSX files from approximately nine minutes (manual baseline) to under 55 seconds.</p>
+
+      <h4>Before and after</h4>
+      <div class="race" data-race="cx"></div>
+      <div class="ba">
+        <div class="ba-card">
+          <div class="ba-label">Before · ~9 minutes</div>
+          <div class="ba-step"><div class="ba-num">1</div><div>Open three files sequentially in Excel or Sheets</div></div>
+          <div class="ba-step"><div class="ba-num">2</div><div>Manually select and copy three columns from each file</div></div>
+          <div class="ba-step"><div class="ba-num">3</div><div>Paste each chunk into the destination sheet, watch for cell-limit failures</div></div>
+          <div class="ba-step"><div class="ba-num">4</div><div>Retry failed pastes after Google Sheets silently truncates</div></div>
+        </div>
+        <div class="ba-card after">
+          <div class="ba-label">After · under 55 seconds</div>
+          <div class="ba-step"><div class="ba-num">1</div><div>Drag-drop all three files into the tool</div></div>
+          <div class="ba-step"><div class="ba-num">2</div><div>Pre-read and pre-warm pipeline starts in the background</div></div>
+          <div class="ba-step"><div class="ba-num">3</div><div>Auto-parse fires 400ms after the last file, all three parse in parallel</div></div>
+          <div class="ba-step"><div class="ba-num">4</div><div>Copy each column with one click, live cell-limit warnings prevent silent failures</div></div>
+        </div>
+      </div>
+
+      <details class="more">
+        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">Mock view · Performance pipeline · Base engineering decisions · Stack</span></summary>
+      <h4>Mock view</h4>
+      <div class="mockup" tabindex="0" role="region" aria-label="CSV Column Extractor mock view">
+        <div class="mockup-head">
+          <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+          <span>CSV Column Extractor · 3 files queued · auto-parse in 0.4s</span>
+        </div>
+        <div class="mockup-kpis">
+          <div class="mockup-kpi"><div class="mockup-kpi-val">847,302</div><div class="mockup-kpi-lbl">Total Rows</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val">3</div><div class="mockup-kpi-lbl">Files Parsed</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val">~22s</div><div class="mockup-kpi-lbl">Parse Time</div></div>
+          <div class="mockup-kpi"><div class="mockup-kpi-val">3.9M</div><div class="mockup-kpi-lbl">Cells / Chunk</div></div>
+        </div>
+        <table class="mockup-table">
+          <thead><tr><th>Column</th><th>Rows</th><th>Cell Estimate</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Column B (MID)</td><td>847,302</td><td>22.0M cells</td><td><span class="pill-orange">Chunk Required</span></td></tr>
+            <tr><td>Column L (R&amp;T)</td><td>847,302</td><td>22.0M cells</td><td><span class="pill-orange">Chunk Required</span></td></tr>
+            <tr><td>Column M (DDA)</td><td>847,302</td><td>22.0M cells</td><td><span class="pill-orange">Chunk Required</span></td></tr>
+            <tr><td colspan="4" style="text-align:center; color:var(--text-3); font-family:'Inter', sans-serif; font-size:10px;">Chunk size 150K rows · 6 chunks per column · safely under 10M cell limit</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>Performance pipeline</h4>
+      <ul>
+        <li>Parallel parsing via Promise.all: all files parse simultaneously in independent workers with local accumulators, merged in original file order after all Promises resolve</li>
+        <li>Pre-read FileReader cache: readAsArrayBuffer fires the moment a file enters the queue, not when Parse is clicked, eliminating I/O wait from the critical path</li>
+        <li>Pre-warmed worker pool: a Web Worker is spawned per XLSX file on drop, compiling SheetJS (about 500KB) inside the worker during the user's file-review window</li>
+        <li>Auto-parse with 400ms debounce: no Parse button click required, handles single-file and multi-file drops uniformly, guards against re-triggering once results are displayed</li>
+        <li>Selective XLSX cell extraction: the worker constructs only three required cell addresses per row (B+n, L+n, M+n) instead of allocating the full 2D array via sheet_to_json</li>
+        <li>Batch and chunk sizes increased 4x: worker message batches went from 25K to 100K rows; CSV chunk size went from 5MB to 20MB, reducing postMessage round-trips proportionally</li>
+      </ul>
+
+      <h4>Base engineering decisions</h4>
+      <ul>
+        <li>Papa Parse with worker: true for CSV streaming; hand-written Blob Worker for SheetJS XLSX parsing to keep the UI responsive during 1M+ row binary parses</li>
+        <li>ArrayBuffer transferred via postMessage transferables to eliminate the memory cost of a second copy on large files</li>
+        <li>150K-row clipboard chunks: 150K rows times 26 default Google Sheets columns equals 3.9M cells, safely under the 10M limit</li>
+        <li>Push-in-loop array construction instead of spread or push.apply, avoiding call-stack overflow on arrays exceeding 125K elements</li>
+        <li>Three primary copy buttons (one per column) because the destination sheet uses non-adjacent columns; combined tab-separated copy preserved as a secondary option</li>
+      </ul>
+
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">Web Workers</span>
+        <span class="stack-item">Papa Parse 5.4.1</span>
+        <span class="stack-item">SheetJS 0.18.5</span>
+        <span class="stack-item">Blob Workers</span>
+        <span class="stack-item">Promise.all parallelism</span>
+        <span class="stack-item">FileReader API</span>
+        <span class="stack-item">Clipboard API</span>
+      </div>
+      </details>
+    </div>
+
+    <!-- Underwriting & Collections Toolkit -->
+    <div class="detail" id="underwriting-collections-toolkit">
+      <h3>Underwriting &amp; Collections Toolkit</h3>
+      <div class="sub">Client-side underwriting &amp; collections tools · React + vanilla-JS bookmarklets</div>
+      <p>A suite of zero-dependency, browser-based tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details and get parsed, de-duplicated, recency-filtered, type-classified output (or a color-coded routing recommendation) to drop straight into notes. The same shared-engine pattern was extended to collections, extracting parent-account default and churn history from a virtualized data grid into a standardized, paste-ready summary. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
+      <details class="more">
+        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">What's unique · Stack</span></summary>
+      <h4>What's unique</h4>
+      <ul>
+        <li>Lien Docket, one tool in two forms: the dashboard ingests pasted card text or raw API JSON, extracts per-filing fields, de-dupes, sorts newest-first, applies recency windows, and tags each filing by type with per-row badges so misclassification is obvious at a glance, with summary metrics, diagnostics, one-click copy, and .txt/.csv export; the bookmarklet runs the identical parse/classify engine in-page against the logged-in provider, sidestepping cross-origin and authentication limits</li>
+        <li>App Router: a decision-support bookmarklet that reads live application fields and renders a color-coded review-depth recommendation</li>
+        <li>Parent Default &amp; Churn Extractor: reads parent-account default and churn history from a virtualized AG-Grid tracker into a standardized, paste-ready summary. It defeats row- and column-virtualization by stitching cells into whole rows by stable column ID (not screen position), with a paste fallback that record-splits multi-line, JSON-valued cells; the grid was reverse-engineered first with a read-only DOM probe</li>
+        <li>Shared engines, not copies: the Lien Docket's dashboard and bookmarklet run one parse/classify/format engine, and the Churn Extractor's bookmarklet and paste paths share one format engine, so results never diverge; fail-loud by design: unreadable dates are kept and flagged, never silently dropped</li>
+        <li>Config over hard-coding: keyword lists, recency windows, routing thresholds, and field labels live in editable config blocks so rule changes don't touch the logic</li>
+      </ul>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">React 18</span>
+        <span class="stack-item">Babel Standalone</span>
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">Bookmarklets</span>
+        <span class="stack-item">AG-Grid extraction</span>
+        <span class="stack-item">Clipboard API</span>
+        <span class="stack-item">Blob/URL export</span>
+      </div>
+      </details>
     </div>
 
     <!-- COO/COLE Reconciler -->
@@ -955,6 +1427,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
       <p>A single HTML file that answers one question for Legal and Risk: of the applications submitted in a given window, which actually ended in a completed COO, COLE, or both? It joins an applications export from Snowflake with a cases export from the COO/COLE Case Management Dashboard's Data Lookup, matched on the restaurant GUID. It needs no install, server, or login, and files are processed on the user's computer and never uploaded.</p>
 
+      <details class="more">
+        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">Try it · Key features · Stack</span></summary>
       <h4>Try it</h4>
       <div class="demo" id="demo-recon">
         <div class="demo-head">
@@ -1053,149 +1527,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Intl API (time zones)</span>
         <span class="stack-item">JavaScriptCore tests</span>
       </div>
-    </div>
-
-    <!-- Funding Verification Tool -->
-    <div class="detail" id="funding-verification-tool">
-      <h3>Funding Verification Tool</h3>
-      <div class="sub">Single-file HTML · 20-35 minute workflow cut to 40 seconds</div>
-
-      <p>A single-file HTML application that replaced a fragile VLOOKUP chain in Google Sheets used to verify merchant banking data for capital deployments. Performs an in-browser JOIN across four sources (New Funding file, Snowflake export, Original CSV funding records, and DSL bank files), produces match results with processor-specific logic, supports real-time manual overrides, and exports a multi-sheet XLSX workbook from a bundled template that preserves the master sheet's conditional formatting. The tool grew to 10 tabs, including a TCA Check tab that auto-flags Toast Checking accounts and matches pasted GUIDs against an auto-detected canonical GUID column, an External MCA Refi tab that tracks refi lineage between loans, and a Funding Edits tab that turns every row still holding placeholder banking data into an editable worklist with FedACH routing-number verification and bank lookup built in. The full funding verification workflow used to take 20 to 35 minutes per batch; the latest measured time (June 2026) clocked it at 40 seconds end-to-end.</p>
-
-      <h4>Before and after</h4>
-      <div class="race" data-race="fv"></div>
-      <div class="ba">
-        <div class="ba-card">
-          <div class="ba-label">Before · 20-35 minutes</div>
-          <div class="ba-step"><div class="ba-num">1</div><div>Manually maintain VLOOKUP chains across four Google Sheets</div></div>
-          <div class="ba-step"><div class="ba-num">2</div><div>#N/A errors propagate when Snowflake data is delayed, no path to manual fix</div></div>
-          <div class="ba-step"><div class="ba-num">3</div><div>No audit trail for manual SPA verifications or Toast Checking accounts</div></div>
-          <div class="ba-step"><div class="ba-num">4</div><div>WORLDPAY and CHASE rules embedded in formulas, easily broken</div></div>
-        </div>
-        <div class="ba-card after">
-          <div class="ba-label">After · 40 seconds</div>
-          <div class="ba-step"><div class="ba-num">1</div><div>Drag-drop four files, JOIN runs in milliseconds across 10 tabs</div></div>
-          <div class="ba-step"><div class="ba-num">2</div><div>Manual Overrides tab surfaces Check Data rows, recompute on entry</div></div>
-          <div class="ba-step"><div class="ba-num">3</div><div>Toast Checking and Verified in Merchant labels persist across re-uploads</div></div>
-          <div class="ba-step"><div class="ba-num">4</div><div>Processor logic in code, 4-sheet XLSX export preserves master sheet formatting</div></div>
-        </div>
-      </div>
-
-      <h4>Try the logic</h4>
-      <div class="demo" id="demo-aba">
-        <div class="demo-head">
-          <div class="demo-title">Routing-number lookup</div>
-          <div class="demo-note">A handful of real routing numbers. The real tool searches the Fed's full FedACH directory through a local Python service.</div>
-        </div>
-        <p class="demo-why"><b>Why it exists:</b> funding files often arrive with a real routing number but no bank name. The Bank column reads <span class="ph">Unavailable</span>, <span class="ph">External</span>, or <span class="ph">UNKNOWN</span>, and each one used to mean a manual search to find the bank. Now the tool looks it up in place.</p>
-        <div class="arrival-head"><span>A funding file as it arrives</span><button class="demo-btn primary sim-btn" type="button" data-simulate>▶ Simulate the fill</button></div>
-        <table class="mockup-table arrival">
-          <thead><tr><th>Routing</th><th>Bank</th><th><span class="sr-only">Action</span><span class="print-only">After lookup</span></th></tr></thead>
-          <tbody>
-            <tr><td>021000021</td><td class="bank"><span class="ph">Unavailable</span></td><td class="act"><button class="demo-btn fill-btn" type="button" data-fill>Look up</button><span class="print-only fill-after">JPMorgan Chase Bank, NA</span></td></tr>
-            <tr><td>026009593</td><td class="bank"><span class="ph">External</span></td><td class="act"><button class="demo-btn fill-btn" type="button" data-fill>Look up</button><span class="print-only fill-after">Bank of America, N.A.</span></td></tr>
-            <tr><td>121000248</td><td class="bank"><span class="ph">UNKNOWN</span></td><td class="act"><button class="demo-btn fill-btn" type="button" data-fill>Look up</button><span class="print-only fill-after">Wells Fargo Bank, NA</span></td></tr>
-          </tbody>
-        </table>
-        <div class="demo-sub">Or try any routing number</div>
-        <div class="demo-controls">
-          <label class="sr-only" for="aba-input">Nine-digit routing number</label>
-          <input id="aba-input" class="aba-input" type="text" inputmode="numeric" maxlength="9" autocomplete="off" spellcheck="false" value="021000021" aria-describedby="aba-status">
-          <button class="demo-btn primary" type="button" data-lookup>Look up</button>
-          <button class="demo-btn" type="button" data-aba="021000021">Sample: ACH participant</button>
-          <button class="demo-btn" type="button" data-aba="555555550">Sample: not in FedACH</button>
-          <button class="demo-btn" type="button" data-aba="021000012">Sample: mistyped</button>
-        </div>
-        <div class="lookup-path" aria-hidden="true"><span class="lookup-step" data-step="typo">1 · Typo check</span><span class="agent-sep">→</span><span class="lookup-step" data-step="dir">2 · FedACH directory</span></div>
-        <table class="mockup-table lookup-dir">
-          <caption>Directory entries used in this demo</caption>
-          <thead><tr><th>Routing</th><th>Bank</th><th>Location</th></tr></thead>
-          <tbody>
-            <tr><td>021000021</td><td>JPMorgan Chase Bank, NA</td><td>New York, NY</td></tr>
-            <tr><td>021000089</td><td>Citibank, N.A.</td><td>New York, NY</td></tr>
-            <tr><td>026009593</td><td>Bank of America, N.A.</td><td>New York, NY</td></tr>
-            <tr><td>121000248</td><td>Wells Fargo Bank, NA</td><td>San Francisco, CA</td></tr>
-          </tbody>
-        </table>
-        <div class="demo-status" id="aba-status" role="status"></div>
-        <a class="print-only demo-live" href="https://kaejhee.github.io/portfolio/#demo-aba">Try it live: kaejhee.github.io/portfolio/#demo-aba</a>
-      </div>
-
-      <h4>Mock view</h4>
-      <div class="mockup" tabindex="0" role="region" aria-label="Funding Verification Tool mock view">
-        <div class="mockup-head">
-          <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
-          <span>Funding Verification · Ops SPA Deals (12 rows)</span>
-        </div>
-        <table class="mockup-table">
-          <thead><tr><th>Ext ID</th><th>Proc</th><th>Match R</th><th>Match A</th><th>Label</th></tr></thead>
-          <tbody>
-            <tr><td>EXT-8821</td><td>WORLDPAY</td><td><span class="pill-green">YES</span></td><td><span class="pill-green">YES</span></td><td><span class="pill-blue">Toast Checking</span></td></tr>
-            <tr><td>EXT-8820</td><td>CHASE</td><td><span class="pill-green">YES</span></td><td><span class="pill-orange">Check Data</span></td><td><span class="pill-gray">Pending</span></td></tr>
-            <tr><td>EXT-8819</td><td>WORLDPAY</td><td><span class="pill-orange">NO</span></td><td><span class="pill-green">YES</span></td><td><span class="pill-green">Verified</span></td></tr>
-            <tr><td>EXT-8818</td><td>CHASE</td><td><span class="pill-green">YES</span></td><td><span class="pill-green">YES</span></td><td><span class="pill-green">Verified</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h4>Key engineering decisions</h4>
-      <ul>
-        <li>Custom RFC 4180 CSV parser written from scratch to replace SheetJS's unreliable CSV mode (BOM stripping, mixed line endings, embedded quotes)</li>
-        <li>MID normalization for JavaScript scientific notation: Snowflake XLSX exports return Merchant IDs as 1.23E+9, breaking direct string compares</li>
-        <li>Hash-join via Map objects: equivalent to NewFunding LEFT JOIN Snowflake LEFT JOIN OriginalCsv LEFT JOIN DSL, executes in milliseconds for hundreds of thousands of rows</li>
-        <li>Persistent DSL Worker Pool (size 3): operators routinely drop 4 to 10 large DSL files at once, so XLSX parsing runs through a fixed pool of three Web Workers fed by a queue and dispatcher, with zero-copy ArrayBuffer transfer and workers reused across drops rather than re-spawned</li>
-        <li>Processor-specific match logic isolated in code: WORLDPAY requires exact DSL-to-file match; CHASE requires file value to differ from a known placeholder</li>
-        <li>Real-time override injection: when a Snowflake lookup misses, manual GUID/MID/Proc Partner entry constructs a synthetic Snowflake-like object and the JOIN re-runs without a page refresh</li>
-        <li>Labels and overrides keyed to External ID, survive re-uploads of any source file within the same session</li>
-        <li>Template-based XLSX export: bundles the master Google Sheet's exact conditional formatting rules in a base64 template and edits the template XML at runtime via JSZip to inject the live data, preserving every YES/NO/Check Data cell fill from the original</li>
-        <li>TCA Check subsystem: auto-detects the canonical Toast GUID column per source using a UUID-density times uniqueness score, and matches pasted GUIDs against in-batch records with per-loan and per-merchant dedup modes</li>
-        <li>Automatic TCA labeling: rows whose source record already carries the balance-account tag are cross-referenced against the current batch and flagged Toast Checking on load; the paste path is now the exception, not the default, and out-of-batch records are deliberately left alone</li>
-        <li>Funding Edits worklist: scans the source funding file for every row still carrying placeholder banking data (unresolved routing and account values, bank names left as a placeholder, and external MCA refi rows), classifies each by type, opens only the cells that type is allowed to edit, and tracks per-row completion so a row clears only once its placeholders are genuinely replaced rather than merely touched. Finished rows export in one click for the tracker</li>
-        <li>Routing-number verification against the FedACH directory: bank names that arrive as Unavailable, External, or UNKNOWN no longer need a manual search. A local Python service loads the Federal Reserve's FedACH and Fedwire directories, so each routing number is confirmed as a real ACH participant and resolved to its bank name, with a public routing API as a fallback. Routing and bank pairs already in the batch file answer first at no cost, results are cached per session, a quick checksum catches mistyped numbers before any lookup, and a configurable routing number is flagged on sight</li>
-        <li>Refi lineage tracking: the External MCA Refi tab links each refi loan to its original (matching the External ID minus its suffix) and highlights the original loans magenta in the XLSX export</li>
-        <li>Dual audit export: a multi-sheet XLSX workbook (Ops sheet plus additional audit sheets) and a landscape PDF audit record that reproduces the on-screen match colors and row tints for reviewers who never open the spreadsheet. Both are date-stamped at export</li>
-        <li>10-tab structure: Ops SPA Deals (primary output with stat-pill filter shortcuts), four source upload tabs, TCA Check, Refi, External MCA Refi, Manual Overrides, and Funding Edits</li>
-        <li>Ships with two companion artifacts: a 13-page Standard Operating Procedure (built with a python-docx script, 11 embedded screenshots, data-flow diagram, troubleshooting guide, and a domain glossary), and a standalone Funding File Validator that round-trip-checks the exported file against the source before handoff</li>
-      </ul>
-
-      <h4>Stack</h4>
-      <div class="stack">
-        <span class="stack-item">Vanilla JavaScript</span>
-        <span class="stack-item">SheetJS 0.18.5</span>
-        <span class="stack-item">JSZip 3.10.1</span>
-        <span class="stack-item">jsPDF</span>
-        <span class="stack-item">Custom RFC 4180 parser</span>
-        <span class="stack-item">FedACH directory lookup (Python)</span>
-        <span class="stack-item">Web Worker pool</span>
-        <span class="stack-item">Web FileReader API</span>
-        <span class="stack-item">Base64 template embedding</span>
-        <span class="stack-item">Clipboard API</span>
-      </div>
-    </div>
-
-    <!-- Underwriting & Collections Toolkit -->
-    <div class="detail" id="underwriting-collections-toolkit">
-      <h3>Underwriting &amp; Collections Toolkit</h3>
-      <div class="sub">Client-side underwriting &amp; collections tools · React + vanilla-JS bookmarklets</div>
-      <p>A suite of zero-dependency, browser-based tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details and get parsed, de-duplicated, recency-filtered, type-classified output (or a color-coded routing recommendation) to drop straight into notes. The same shared-engine pattern was extended to collections, extracting parent-account default and churn history from a virtualized data grid into a standardized, paste-ready summary. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
-      <h4>What's unique</h4>
-      <ul>
-        <li>Lien Docket, one tool in two forms: the dashboard ingests pasted card text or raw API JSON, extracts per-filing fields, de-dupes, sorts newest-first, applies recency windows, and tags each filing by type with per-row badges so misclassification is obvious at a glance, with summary metrics, diagnostics, one-click copy, and .txt/.csv export; the bookmarklet runs the identical parse/classify engine in-page against the logged-in provider, sidestepping cross-origin and authentication limits</li>
-        <li>App Router: a decision-support bookmarklet that reads live application fields and renders a color-coded review-depth recommendation</li>
-        <li>Parent Default &amp; Churn Extractor: reads parent-account default and churn history from a virtualized AG-Grid tracker into a standardized, paste-ready summary. It defeats row- and column-virtualization by stitching cells into whole rows by stable column ID (not screen position), with a paste fallback that record-splits multi-line, JSON-valued cells; the grid was reverse-engineered first with a read-only DOM probe</li>
-        <li>Shared engines, not copies: the Lien Docket's dashboard and bookmarklet run one parse/classify/format engine, and the Churn Extractor's bookmarklet and paste paths share one format engine, so results never diverge; fail-loud by design: unreadable dates are kept and flagged, never silently dropped</li>
-        <li>Config over hard-coding: keyword lists, recency windows, routing thresholds, and field labels live in editable config blocks so rule changes don't touch the logic</li>
-      </ul>
-      <h4>Stack</h4>
-      <div class="stack">
-        <span class="stack-item">React 18</span>
-        <span class="stack-item">Babel Standalone</span>
-        <span class="stack-item">Vanilla JavaScript</span>
-        <span class="stack-item">Bookmarklets</span>
-        <span class="stack-item">AG-Grid extraction</span>
-        <span class="stack-item">Clipboard API</span>
-        <span class="stack-item">Blob/URL export</span>
-      </div>
+      </details>
     </div>
 
     <!-- Self-Serve Snowflake Query Helper -->
@@ -1203,6 +1535,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <h3>Self-Serve Snowflake Query Helper</h3>
       <div class="sub">Teaching-oriented text-to-SQL · web app + Worker proxy · Cowork skill · Claude artifact</div>
       <p>A browser tool that lets non-analyst teammates draft accurate, schema-aware Snowflake queries in plain English, and learn the SQL as they go, through an explicit phrase-to-clause mapping. It removes the bottleneck of senior analysts writing every ad-hoc query while keeping execution in the user's own Snowflake session. By design it never connects to Snowflake and never sees a row of data: it handles only schema metadata (table and column names, types, comments) plus the user's generic natural-language ask. All model calls route through a Cloudflare Worker that holds provider keys server-side and normalizes nine LLM providers behind one contract. The same schema-plus-teaching engine ships in three forms: the full web app, a Cowork skill that runs on the team's existing Claude seats, and a claude.ai artifact that runs on the viewer's own subscription. The last two run with no API keys or infrastructure at all.</p>
+      <details class="more">
+        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">What's unique · Stack</span></summary>
       <h4>What's unique</h4>
       <ul>
         <li>Multi-provider proxy: one normalized request/response contract over nine LLM providers (Anthropic, OpenAI, Gemini, xAI, DeepSeek, Moonshot, Zhipu, Mistral, Qwen) via an adapter pattern (seven OpenAI-compatible plus dedicated Anthropic and Gemini adapters), resolving browser CORS and removing API keys from the client</li>
@@ -1224,180 +1558,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Ollama</span>
         <span class="stack-item">React (artifact)</span>
       </div>
-    </div>
-
-    <!-- CSV Column Extractor -->
-    <div class="detail" id="csv-column-extractor">
-      <h3>CSV Column Extractor</h3>
-      <div class="sub">Single-file HTML · 9-minute workflow cut to under 55 seconds</div>
-
-      <p>A single-file HTML dashboard for combining up to five large spreadsheet files, each potentially exceeding one million rows, and extracting three specific columns for paste into a destination Google Sheet. Iterative performance engineering took the full open-to-paste workflow on three 25MB XLSX files from approximately nine minutes (manual baseline) to under 55 seconds.</p>
-
-      <h4>Before and after</h4>
-      <div class="race" data-race="cx"></div>
-      <div class="ba">
-        <div class="ba-card">
-          <div class="ba-label">Before · ~9 minutes</div>
-          <div class="ba-step"><div class="ba-num">1</div><div>Open three files sequentially in Excel or Sheets</div></div>
-          <div class="ba-step"><div class="ba-num">2</div><div>Manually select and copy three columns from each file</div></div>
-          <div class="ba-step"><div class="ba-num">3</div><div>Paste each chunk into the destination sheet, watch for cell-limit failures</div></div>
-          <div class="ba-step"><div class="ba-num">4</div><div>Retry failed pastes after Google Sheets silently truncates</div></div>
-        </div>
-        <div class="ba-card after">
-          <div class="ba-label">After · under 55 seconds</div>
-          <div class="ba-step"><div class="ba-num">1</div><div>Drag-drop all three files into the tool</div></div>
-          <div class="ba-step"><div class="ba-num">2</div><div>Pre-read and pre-warm pipeline starts in the background</div></div>
-          <div class="ba-step"><div class="ba-num">3</div><div>Auto-parse fires 400ms after the last file, all three parse in parallel</div></div>
-          <div class="ba-step"><div class="ba-num">4</div><div>Copy each column with one click, live cell-limit warnings prevent silent failures</div></div>
-        </div>
-      </div>
-
-      <h4>Mock view</h4>
-      <div class="mockup" tabindex="0" role="region" aria-label="CSV Column Extractor mock view">
-        <div class="mockup-head">
-          <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
-          <span>CSV Column Extractor · 3 files queued · auto-parse in 0.4s</span>
-        </div>
-        <div class="mockup-kpis">
-          <div class="mockup-kpi"><div class="mockup-kpi-val">847,302</div><div class="mockup-kpi-lbl">Total Rows</div></div>
-          <div class="mockup-kpi"><div class="mockup-kpi-val">3</div><div class="mockup-kpi-lbl">Files Parsed</div></div>
-          <div class="mockup-kpi"><div class="mockup-kpi-val">~22s</div><div class="mockup-kpi-lbl">Parse Time</div></div>
-          <div class="mockup-kpi"><div class="mockup-kpi-val">3.9M</div><div class="mockup-kpi-lbl">Cells / Chunk</div></div>
-        </div>
-        <table class="mockup-table">
-          <thead><tr><th>Column</th><th>Rows</th><th>Cell Estimate</th><th>Action</th></tr></thead>
-          <tbody>
-            <tr><td>Column B (MID)</td><td>847,302</td><td>22.0M cells</td><td><span class="pill-orange">Chunk Required</span></td></tr>
-            <tr><td>Column L (R&amp;T)</td><td>847,302</td><td>22.0M cells</td><td><span class="pill-orange">Chunk Required</span></td></tr>
-            <tr><td>Column M (DDA)</td><td>847,302</td><td>22.0M cells</td><td><span class="pill-orange">Chunk Required</span></td></tr>
-            <tr><td colspan="4" style="text-align:center; color:var(--text-3); font-family:'Inter', sans-serif; font-size:10px;">Chunk size 150K rows · 6 chunks per column · safely under 10M cell limit</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h4>Performance pipeline</h4>
-      <ul>
-        <li>Parallel parsing via Promise.all: all files parse simultaneously in independent workers with local accumulators, merged in original file order after all Promises resolve</li>
-        <li>Pre-read FileReader cache: readAsArrayBuffer fires the moment a file enters the queue, not when Parse is clicked, eliminating I/O wait from the critical path</li>
-        <li>Pre-warmed worker pool: a Web Worker is spawned per XLSX file on drop, compiling SheetJS (about 500KB) inside the worker during the user's file-review window</li>
-        <li>Auto-parse with 400ms debounce: no Parse button click required, handles single-file and multi-file drops uniformly, guards against re-triggering once results are displayed</li>
-        <li>Selective XLSX cell extraction: the worker constructs only three required cell addresses per row (B+n, L+n, M+n) instead of allocating the full 2D array via sheet_to_json</li>
-        <li>Batch and chunk sizes increased 4x: worker message batches went from 25K to 100K rows; CSV chunk size went from 5MB to 20MB, reducing postMessage round-trips proportionally</li>
-      </ul>
-
-      <h4>Base engineering decisions</h4>
-      <ul>
-        <li>Papa Parse with worker: true for CSV streaming; hand-written Blob Worker for SheetJS XLSX parsing to keep the UI responsive during 1M+ row binary parses</li>
-        <li>ArrayBuffer transferred via postMessage transferables to eliminate the memory cost of a second copy on large files</li>
-        <li>150K-row clipboard chunks: 150K rows times 26 default Google Sheets columns equals 3.9M cells, safely under the 10M limit</li>
-        <li>Push-in-loop array construction instead of spread or push.apply, avoiding call-stack overflow on arrays exceeding 125K elements</li>
-        <li>Three primary copy buttons (one per column) because the destination sheet uses non-adjacent columns; combined tab-separated copy preserved as a secondary option</li>
-      </ul>
-
-      <h4>Stack</h4>
-      <div class="stack">
-        <span class="stack-item">Vanilla JavaScript</span>
-        <span class="stack-item">Web Workers</span>
-        <span class="stack-item">Papa Parse 5.4.1</span>
-        <span class="stack-item">SheetJS 0.18.5</span>
-        <span class="stack-item">Blob Workers</span>
-        <span class="stack-item">Promise.all parallelism</span>
-        <span class="stack-item">FileReader API</span>
-        <span class="stack-item">Clipboard API</span>
-      </div>
-    </div>
-
-    <!-- Email Template Suite -->
-    <div class="detail" id="email-template-automation-suite">
-      <h3>Email Template Automation Suite</h3>
-      <div class="sub">13 phases · cross-platform desktop app · Salesforce send beta · 14-person team · 30s to under 3s</div>
-
-      <p>A cross-platform desktop application that ships 27 built-in email templates across three categories, with rich-text formatting preserved on paste. Grew over 13 phases from a CLI tool to a full Flask web app, then to a PyInstaller-bundled native application with a system tray icon and a Salesforce-embedded NOIA generator concept presented to engineering stakeholders, then into a redesigned three-pane interface built around finding, filling and copying a template in a few keystrokes, and most recently into a send beta that carries a filled template into Salesforce and through to a closed case.</p>
-
-      <h4>Before and after</h4>
-      <div class="race" data-race="et"></div>
-
-      <h4>Mock view</h4>
-      <div class="mockup et-mock">
-        <div class="mockup-head">
-          <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
-          <span>Email Templates · 27 templates · 14-person team</span>
-        </div>
-        <div class="et-grid">
-          <div class="et-nav">
-            <div class="et-cap">Templates 27</div>
-            <div class="et-cat on"><span>Capital Underwriting</span><b>4</b></div>
-            <div class="et-cat"><span>NOIA</span><b>13</b></div>
-            <div class="et-cat"><span>Change of Ownership</span><b>10</b></div>
-            <div class="et-keys"><kbd>/</kbd> Search &nbsp; <kbd>↵</kbd> Copy top match</div>
-          </div>
-          <div class="et-list">
-            <div class="et-search"><span>Search templates</span><kbd>⌘K</kbd></div>
-            <div class="et-greet">Good afternoon · 27 templates</div>
-            <div class="et-row on"><div><b>Received Response</b><small>Customer replies to an application confirmation</small></div><span class="et-badge">Instant</span><span class="et-copy"></span></div>
-            <div class="et-row"><div><b>NOIA MCA</b><small>Notice of incomplete application</small></div><span class="et-badge">4 fields</span><span class="et-copy"></span></div>
-            <div class="et-row"><div><b>COO DS Sent</b><small>Ownership forms sent for signature</small></div><span class="et-badge">1 field</span><span class="et-copy"></span></div>
-          </div>
-          <div class="et-detail">
-            <div class="et-dhead"><small>Capital Underwriting</small><b>Received Response</b><span class="et-star">☆</span></div>
-            <div class="et-cap">Preview</div>
-            <div class="et-lines"><i></i><i></i><i style="width:72%"></i><i></i><i style="width:46%"></i></div>
-            <div class="et-actions"><span><kbd>⌘</kbd> <kbd>↵</kbd> to copy</span><span class="et-btn">Copy</span></div>
-          </div>
-        </div>
-        <div class="mockup-row">
-          <div style="color:var(--text-3); font-size:10px;">Retrieval: avg 2.1s · Tokens consumed: 0 · Customer data sent to model: 0</div>
-        </div>
-      </div>
-
-      <h4>Phase progression</h4>
-      <ul>
-        <li>Phases 1 to 3: CLI tool, cross-platform GUI launcher, then a full Flask web app</li>
-        <li>Phase 4: Dark mode, brand logo, and accordion drawer system for the editor</li>
-        <li>Phase 5: PyInstaller-bundled standalone executable with platform-appropriate data directories (macOS app support, Windows AppData), port discovery to dodge AirPlay on macOS, and a system tray icon for clean exits</li>
-        <li>Phase 6: Salesforce-embedded NOIA template generator concept, with function-based template rendering (eight templates, conditional logic for variable-length entity lists)</li>
-        <li>Phases 7 to 9: Placeholder fill modal with confirmation toasts, multi-line field support, two-panel preview modal, and product demo enhancements</li>
-        <li>Phase 10: Template-sync bug fix (silent failure mode on every launch caught and resolved)</li>
-        <li>Phase 11: Stakeholder presentation HTML with Apps Script architecture diagrams and a NOIA automation proposal for engineering review</li>
-        <li>Phase 12: A refreshed three-pane interface: a Toast-branded shell with a collapsible category sidebar and counts, a template list whose rows show how many fields each template needs (or Instant when none) with one-click copy, and a detail panel with a live preview, favorites and a time-of-day greeting, in light and dark themes</li>
-        <li>Phase 12 workflow: ranked search opened with / or ⌘K where Enter copies the top match, favorites and recents for repeat sends, guided field filling with a draft kept per template where Enter moves to the next field and copies on the last, rich-text copy with a plain-text fallback, Email submitted with Undo, and custom templates written in a rich-text editor with placeholder insertion</li>
-        <li>Phase 13, send beta (October to November 2026): Send mode turns copy and paste into a guarded round trip with Salesforce Classic. The rep enters the restaurant ID and the recipient's email (and a case number for a follow-up) and copies a validated send kit. A bookmarklet in the Service Console takes the pasted kit, finds the account, creates or finds the case, fills From, Subject, the recipient and the body, waits for the rep to click Send, confirms the email went out, closes the case and hands back a receipt that produces the admin-system log line. Every built-in template is send-enabled across three send profiles, and a Test run fills everything like a real send, with the rep's own address as the only recipient</li>
-      </ul>
-
-      <h4>Send beta flow</h4>
-      <div class="mockup" style="padding: 12px 16px;">
-        <span style="font-family: var(--mono); font-size: 12px;">Copy kit → paste into the bookmarklet → account found → case created or found → email filled → rep clicks Send → send verified → case closed → receipt → log line → Finish</span>
-      </div>
-
-      <h4>Engineering decisions</h4>
-      <ul>
-        <li>Zero AI tokens consumed by design: templates use placeholders that the user fills locally, so no customer data goes to any model, and the send beta moves the filled email only into the rep's own Salesforce session, by paste</li>
-        <li>Cross-platform clipboard formatting: macOS uses AppleScript with the «class HTML» format; Windows uses CF_HTML byte-offset headers with precise UTF-8 byte counting</li>
-        <li>15KB Flask app deliverable instead of a 150 to 200MB Electron bundle, deliberately avoiding the Apple Developer Program signing requirement</li>
-        <li>Per-machine identity: no authentication needed, each install is local-only</li>
-        <li>Send beta, the rep keeps the irreversible step: the bookmarklet fills the email but never clicks Send. Its only automated clicks are Salesforce's own Save on the new case and on the close page, each re-checked at click time (same page load, tab on screen, the right case; for the new case, exactly one matching account; for the close page, Status and Stage both Closed)</li>
-        <li>Safety rules enforced by the build, not by review: the bookmarklet build fails on 15 forbidden patterns (eval, clipboard reads, form submits, synthetic clicks and any selector that targets the Send button among them) and on any click or network call outside the single Save helper and the single guarded same-origin fetch</li>
-        <li>The pasted kit's email is not trusted: the bookmarklet rebuilds the email and the case settings from its own copy of the templates and the kit's raw field text, and refuses any difference, so a forged or stale kit cannot change the template wording, markup, case settings or sender. Kits expire after 10 minutes and must match the bookmarklet's build and template stamp</li>
-        <li>Provenance over text matching: subjects repeat per merchant, so the saved case is bound by window identity and its opened time against the Save moment, and a send is verified only when the case shows one more outbound email than a baseline taken after the send started; anything else is flagged and the rep closes the case by hand</li>
-        <li>One shared code path: the generator and the bookmarklet run the same kit builder and field code, extracted at build time, and a build or template-stamp mismatch between them is refused, so the two sides stay in step. Field values are escaped and the email HTML passes an allowlist sanitizer before it reaches Salesforce</li>
-        <li>Release integrity and testing: every panel shows a content-hash code ID, each release ships SHA-256 checksums, and the send code is covered by 37 unit tests and a 37-scenario browser suite (417 assertions) against stateful mocks of the Classic console and the application page, including 11 forged kits and sentinel data that must never reach the panel, the clipboard or storage</li>
-      </ul>
-
-      <h4>Stack</h4>
-      <div class="stack">
-        <span class="stack-item">Python</span>
-        <span class="stack-item">Flask</span>
-        <span class="stack-item">Bash</span>
-        <span class="stack-item">PowerShell</span>
-        <span class="stack-item">JavaScript</span>
-        <span class="stack-item">AppleScript</span>
-        <span class="stack-item">Quill.js</span>
-        <span class="stack-item">PyInstaller</span>
-        <span class="stack-item">pystray</span>
-        <span class="stack-item">Node.js</span>
-        <span class="stack-item">Playwright</span>
-        <span class="stack-item">Pillow</span>
-      </div>
+      </details>
     </div>
 
   </div>
@@ -1433,6 +1594,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <div class="mockup" style="padding: 12px 16px;">
         <span style="font-family: var(--mono); font-size: 12px;">START → fetch → route_by_shape → (format_fast | extract) → validate ⟲ → human checkpoint → synthesize → END</span>
       </div>
+      <details class="more">
+        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">Step through a run · What's unique · Stack</span></summary>
       <h4>Step through a run</h4>
       <div class="demo" id="demo-agent">
         <div class="demo-head">
@@ -1476,6 +1639,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Human-in-the-loop</span>
         <span class="stack-item">CLI</span>
       </div>
+      </details>
     </div>
 
     <div class="detail" id="ghost-strategies-portfolio-terminal">
@@ -1485,6 +1649,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <div class="mockup" style="padding: 12px 16px;">
         <span style="font-family: var(--mono); font-size: 12px;">workbook · brokerage CSV/XLSX · custodian bookmarklet · manual · encrypted household store → review grid → compute (returns · beta · σ · Sharpe · drift · look-through · rebalance · stress) → planning · markets · ops → AI Analysis (anonymized) → Worker proxy → 12 models</span>
       </div>
+      <details class="more">
+        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">Try the math · Key features · Stack</span></summary>
       <h4>Try the math</h4>
       <div class="demo" id="demo-vol">
         <div class="demo-head">
@@ -1549,41 +1715,15 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">jsPDF</span>
         <span class="stack-item">Headless Chrome (CDP)</span>
       </div>
-    </div>
-
-    <div class="detail" id="economic-indicators-terminal">
-      <h3>Economic Indicators Terminal</h3>
-      <div class="sub">Bloomberg-style macro dashboard · grounded LLM research desk · single HTML file · v2.2</div>
-      <div class="source-row"><a class="source-link" href="https://github.com/KaeJhee/economic-terminal" target="_blank" rel="noopener">View source on GitHub: KaeJhee/economic-terminal ↗</a></div>
-      <p>A dark, data-dense economic terminal with seven views (Overview, CPI detail, PPI detail, employment, projections, a correlation matrix, and a News &amp; Analysis research desk) in one HTML file of about 3,900 lines. It boots from an embedded snapshot of official releases and can replace the headline series with live FRED when a key is saved. The correlation matrix is computed in the page from the quarterly levels it is showing. Chart.js 4.4.1 ships in the repo, so the charts render without the CDN. The research desk follows one rule: <em>the model never supplies a number that gets charted. Statistics are computed in the page.</em></p>
-      <h4>What's unique</h4>
-      <ul>
-        <li>Headline cards are the latest monthly observation, not a quarterly average. FRED dates are parsed from the YYYY-MM-DD string, so the calendar month stays put west of UTC. Real GDP is on the page from BEA's series as carried on FRED; the badge says BEA only after the BEA API returns NIPA T10101 line 1. The six summary cards are August 2026. JOLTS in the snapshot is July 2026, and real GDP runs through 2026-Q2. CPI Education, Recreation, and Other Goods, most PPI component rows, and the employment sector table are still March 2026 and are labeled on the page</li>
-        <li>Grounded LLM pipeline: a router classifies each question into a structured plan, the page fetches prices and computes every statistic (returns, CAGR, volatility, drawdowns, divergence windows), and a web-grounded narrator explains those date windows, cited and streamed token-by-token, with the chart shading the windows the math found. Current-events claims need a source. With no OpenRouter key, the tab explains that design and shows a labeled example layout. No recorded News run is embedded</li>
-        <li>Tiered routing by query difficulty: fast, standard, or deep narrator chosen per question. After a real run, the answer names its model and shows that query's cost</li>
-        <li>Price history tries Twelve Data first, then Alpha Vantage compact (about the last 100 sessions), then Stooq on localhost only. Each provider failure is named with the reason. Mismatched price-adjustment bases skip pair statistics rather than chart a distorted comparison. Projection bands are a fixed illustrative formula and are labeled that way on the chart</li>
-        <li>The News tab caches the price and FRED series it fetched in IndexedDB for 20 hours. The dashboard refresh does not. A News answer stays in memory and does not survive a reload. Google Fonts still come from Google; the charts do not</li>
-        <li>Keys stay in localStorage. Connection-test errors are escaped, and News markdown is escaped before links render (http and https only). Both system prompts tell the model to ignore instructions embedded in the question or in web results. GitHub Actions runs a secret scan and the 37 embedded tests, with the suite in America/Chicago. The pre-push hook stays off until you run sh scripts/install-hooks.sh. The Cloudflare Worker in the repo is an example template for the live site; it is not deployed from the project. On localhost, server.py proxies FRED</li>
-      </ul>
-      <h4>Stack</h4>
-      <div class="stack">
-        <span class="stack-item">Vanilla JavaScript</span>
-        <span class="stack-item">Chart.js 4.4.1 (vendored)</span>
-        <span class="stack-item">IndexedDB</span>
-        <span class="stack-item">OpenRouter</span>
-        <span class="stack-item">FRED / BEA APIs</span>
-        <span class="stack-item">Twelve Data</span>
-        <span class="stack-item">Alpha Vantage compact</span>
-        <span class="stack-item">Stooq (localhost)</span>
-        <span class="stack-item">Python localhost proxy</span>
-        <span class="stack-item">Example Worker template</span>
-      </div>
+      </details>
     </div>
 
     <div class="detail" id="model-bench-terminal">
       <h3>Model Bench Terminal</h3>
       <div class="sub">Blind LLM evaluation with code judges, planned batches and a decision engine · model defaults decided per task, on the record</div>
       <p>A single-file evaluation bench that turns model selection from vibes into recorded evidence. One prompt broadcasts to 2–4 models chosen from a live catalog of ~340; responses stream side by side with live time-to-first-token, throughput, and cost; votes are cast <em>blind</em> (panes shuffled, and names, costs and speed hidden until the vote locks); and answers with an expected result are graded by code instead: strict JSON-schema checks, field-by-field answer matching, and unit tests run in a locked-down sandbox. An Evaluate mode runs a frozen test set against a baseline and up to three challengers as a planned batch: its size and rules are recorded before the first request, and the planner states the chance the batch can reach a decision before anything is spent. Subjective answers wait in a blind rate-later queue, one keypress per judgment, and names appear only once the whole batch is rated. Default slots are decided one task at a time, from head-to-head shares with a 95% plausible range and at least 12 prompts behind them, never from a pooled win rate. A decision engine turns that evidence into a verdict under a written policy: it recommends a new champion only from a completed planned batch, when a challenger is proven better or proven no worse and at least 20% cheaper, and it blocks one shown to fail more often than the champion. Promotion still takes a click and a one-line rationale; every promotion, hold and override (flagged as an override) goes into an append-only decision log, and a decision is flagged for re-evaluation when the ground shifts. The models that fill the other Ghost tools earn their slots this way, and each task's champion exports as a model card and a defaults file for those tools.</p>
+      <details class="more">
+        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">Try a round: blind votes and code judges · What's unique · Stack</span></summary>
       <h4>Try a round: blind votes and code judges</h4>
       <div class="demo" id="demo-bench">
         <div class="demo-head">
@@ -1638,35 +1778,15 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">SSE streaming</span>
         <span class="stack-item">Zero build step</span>
       </div>
-    </div>
-
-    <div class="detail" id="training-terminal">
-      <h3>Training Terminal</h3>
-      <div class="sub">Browser coding trainer · SQL, Python, JavaScript, Rust</div>
-      <div class="source-row"><a class="source-link" href="https://github.com/KaeJhee/training-terminal" target="_blank" rel="noopener">View source on GitHub: KaeJhee/training-terminal ↗</a></div>
-      <p>A browser coding terminal (xterm.js) for SQL, Python, JavaScript, and Rust. 200 questions: 50 per track across five gated tiers (Introductory, Amateur, Intermediate, Experienced, Master), 10 questions per gate, are graded in the page. SQL runs through sql.js against a seeded database that is rebuilt between the answer and the expected query. Python runs through Pyodide in a worker, loaded only when that track starts. JavaScript answers run in a fresh worker. Network and storage APIs are deleted on the worker global and its prototypes before the answer runs, and the page's Content-Security-Policy limits connections to this site and jsDelivr. It is a practice sandbox, not a sealed one, and not a place to paste secrets. Rust is checked against a canonical answer after whitespace, comments, and a few equivalent spellings are normalized. It is not compiled. Progress, attempts, accuracy, and streak stay in localStorage, with a this-session clock and an engine-status header. Educational coding tool, not investment advice.</p>
-      <h4>What's unique</h4>
-      <ul>
-        <li>Four grading paths, all in the page: sql.js on a seeded database rebuilt between the answer and the expected query (SQL), Pyodide in a worker that loads only for that track (Python), a fresh Web Worker per JavaScript attempt, and a canonical-string compare for Rust, with no compiler in the page</li>
-        <li>Real xterm.js REPL: a command bar (start, hint, concepts, cheatsheet, examples, schema, reset, export/import), multi-line editing, command history, and emacs-style key bindings</li>
-        <li>Learning layer baked in: per-tier concepts auto-surface on first entry, a toggleable cheatsheet panel, worked examples, and per-question hints</li>
-        <li>Written with AI coding agents and checked by programs: CI grades the SQL, Python, and JavaScript answer keys in the real engines, and Rust's 319 accept/reject cases run through the same grader the page uses. Ten-question gates unlock the next rank. Progress stays in this browser, with no backend</li>
-      </ul>
-      <h4>Stack</h4>
-      <div class="stack">
-        <span class="stack-item">Vanilla JavaScript</span>
-        <span class="stack-item">xterm.js</span>
-        <span class="stack-item">Pyodide</span>
-        <span class="stack-item">sql.js</span>
-        <span class="stack-item">Web Workers</span>
-        <span class="stack-item">localStorage</span>
-      </div>
+      </details>
     </div>
 
     <div class="detail" id="ghost-lead-terminal">
       <h3>Ghost Lead Terminal</h3>
       <div class="sub">Single-file CRM · pipeline, outreach, and a validated import gate</div>
       <p>A single-file HTML CRM that runs the practice's client pipeline end to end: a kanban board by stage, a sortable table with a full record drawer, a Today view for due and stale follow-ups, and a dashboard with honest funnel math. Data lives in a synced JSON file (no backend, no vendor lock), with conflict-merge prompts when two devices disagree. Agent-produced lead batches can only enter through a validated import gate, and outreach ships through a template system with a Gmail handoff and an explicit send-confirmation step, so nothing leaves without a human action.</p>
+      <details class="more">
+        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">What's unique · Stack</span></summary>
       <h4>What's unique</h4>
       <ul>
         <li>Validated import gate with dedupe: agent research lands as schema-checked batch files, reviewed and merged deliberately; agents never write to the live data file</li>
@@ -1682,6 +1802,56 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Synced JSON store</span>
         <span class="stack-item">Smoke-test suite</span>
       </div>
+      </details>
+    </div>
+
+    <div class="detail" id="garage-terminal">
+      <h3>Garage Terminal</h3>
+      <div class="sub">Collector car market tracker · static dashboard refreshed by a weekly GitHub Actions scrape</div>
+      <div class="source-row"><a class="source-link" href="https://github.com/KaeJhee/garage-terminal" target="_blank" rel="noopener">View source on GitHub: KaeJhee/garage-terminal ↗</a></div>
+      <p>A Bloomberg-style dashboard that tracks market prices for 37 collector and exotic cars across JDM, exotic, European, muscle, and Chinese EV segments. A weekly GitHub Actions pipeline scrapes recent auction results with Python, commits the refreshed data, and updates the static dashboard, so it stays current with no server to run.</p>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Python</span>
+        <span class="stack-item">BeautifulSoup</span>
+        <span class="stack-item">httpx</span>
+        <span class="stack-item">GitHub Actions</span>
+        <span class="stack-item">JavaScript</span>
+        <span class="stack-item">Chart.js</span>
+        <span class="stack-item">Static hosting</span>
+      </div>
+    </div>
+
+    <div class="detail" id="economic-indicators-terminal">
+      <h3>Economic Indicators Terminal</h3>
+      <div class="sub">Bloomberg-style macro dashboard · grounded LLM research desk · single HTML file · v2.2</div>
+      <div class="source-row"><a class="source-link" href="https://github.com/KaeJhee/economic-terminal" target="_blank" rel="noopener">View source on GitHub: KaeJhee/economic-terminal ↗</a></div>
+      <p>A dark, data-dense economic terminal with seven views (Overview, CPI detail, PPI detail, employment, projections, a correlation matrix, and a News &amp; Analysis research desk) in one HTML file of about 3,900 lines. It boots from an embedded snapshot of official releases and can replace the headline series with live FRED when a key is saved. The correlation matrix is computed in the page from the quarterly levels it is showing. Chart.js 4.4.1 ships in the repo, so the charts render without the CDN. The research desk follows one rule: <em>the model never supplies a number that gets charted. Statistics are computed in the page.</em></p>
+      <details class="more">
+        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">What's unique · Stack</span></summary>
+      <h4>What's unique</h4>
+      <ul>
+        <li>Headline cards are the latest monthly observation, not a quarterly average. FRED dates are parsed from the YYYY-MM-DD string, so the calendar month stays put west of UTC. Real GDP is on the page from BEA's series as carried on FRED; the badge says BEA only after the BEA API returns NIPA T10101 line 1. The six summary cards are August 2026. JOLTS in the snapshot is July 2026, and real GDP runs through 2026-Q2. CPI Education, Recreation, and Other Goods, most PPI component rows, and the employment sector table are still March 2026 and are labeled on the page</li>
+        <li>Grounded LLM pipeline: a router classifies each question into a structured plan, the page fetches prices and computes every statistic (returns, CAGR, volatility, drawdowns, divergence windows), and a web-grounded narrator explains those date windows, cited and streamed token-by-token, with the chart shading the windows the math found. Current-events claims need a source. With no OpenRouter key, the tab explains that design and shows a labeled example layout. No recorded News run is embedded</li>
+        <li>Tiered routing by query difficulty: fast, standard, or deep narrator chosen per question. After a real run, the answer names its model and shows that query's cost</li>
+        <li>Price history tries Twelve Data first, then Alpha Vantage compact (about the last 100 sessions), then Stooq on localhost only. Each provider failure is named with the reason. Mismatched price-adjustment bases skip pair statistics rather than chart a distorted comparison. Projection bands are a fixed illustrative formula and are labeled that way on the chart</li>
+        <li>The News tab caches the price and FRED series it fetched in IndexedDB for 20 hours. The dashboard refresh does not. A News answer stays in memory and does not survive a reload. Google Fonts still come from Google; the charts do not</li>
+        <li>Keys stay in localStorage. Connection-test errors are escaped, and News markdown is escaped before links render (http and https only). Both system prompts tell the model to ignore instructions embedded in the question or in web results. GitHub Actions runs a secret scan and the 37 embedded tests, with the suite in America/Chicago. The pre-push hook stays off until you run sh scripts/install-hooks.sh. The Cloudflare Worker in the repo is an example template for the live site; it is not deployed from the project. On localhost, server.py proxies FRED</li>
+      </ul>
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">Chart.js 4.4.1 (vendored)</span>
+        <span class="stack-item">IndexedDB</span>
+        <span class="stack-item">OpenRouter</span>
+        <span class="stack-item">FRED / BEA APIs</span>
+        <span class="stack-item">Twelve Data</span>
+        <span class="stack-item">Alpha Vantage compact</span>
+        <span class="stack-item">Stooq (localhost)</span>
+        <span class="stack-item">Python localhost proxy</span>
+        <span class="stack-item">Example Worker template</span>
+      </div>
+      </details>
     </div>
 
     <div class="detail" id="wealth-compass-terminal">
@@ -1704,21 +1874,30 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <p>A separate workstream under Ghost Strategies focused on financial modeling rather than terminal apps. Includes a probability-weighted valuation model and a $3M TRS retirement planner. I own the financial logic and architecture while directing Claude to generate the code. Every output is validated against standard financial formulas before being trusted, and I only prompt with test or sample data to keep any real client information out of the model.</p>
     </div>
 
-    <div class="detail" id="garage-terminal">
-      <h3>Garage Terminal</h3>
-      <div class="sub">Collector car market tracker · static dashboard refreshed by a weekly GitHub Actions scrape</div>
-      <div class="source-row"><a class="source-link" href="https://github.com/KaeJhee/garage-terminal" target="_blank" rel="noopener">View source on GitHub: KaeJhee/garage-terminal ↗</a></div>
-      <p>A Bloomberg-style dashboard that tracks market prices for 37 collector and exotic cars across JDM, exotic, European, muscle, and Chinese EV segments. A weekly GitHub Actions pipeline scrapes recent auction results with Python, commits the refreshed data, and updates the static dashboard, so it stays current with no server to run.</p>
+    <div class="detail" id="training-terminal">
+      <h3>Training Terminal</h3>
+      <div class="sub">Browser coding trainer · SQL, Python, JavaScript, Rust</div>
+      <div class="source-row"><a class="source-link" href="https://github.com/KaeJhee/training-terminal" target="_blank" rel="noopener">View source on GitHub: KaeJhee/training-terminal ↗</a></div>
+      <p>A browser coding terminal (xterm.js) for SQL, Python, JavaScript, and Rust. 200 questions: 50 per track across five gated tiers (Introductory, Amateur, Intermediate, Experienced, Master), 10 questions per gate, are graded in the page. SQL runs through sql.js against a seeded database that is rebuilt between the answer and the expected query. Python runs through Pyodide in a worker, loaded only when that track starts. JavaScript answers run in a fresh worker. Network and storage APIs are deleted on the worker global and its prototypes before the answer runs, and the page's Content-Security-Policy limits connections to this site and jsDelivr. It is a practice sandbox, not a sealed one, and not a place to paste secrets. Rust is checked against a canonical answer after whitespace, comments, and a few equivalent spellings are normalized. It is not compiled. Progress, attempts, accuracy, and streak stay in localStorage, with a this-session clock and an engine-status header. Educational coding tool, not investment advice.</p>
+      <details class="more">
+        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">What's unique · Stack</span></summary>
+      <h4>What's unique</h4>
+      <ul>
+        <li>Four grading paths, all in the page: sql.js on a seeded database rebuilt between the answer and the expected query (SQL), Pyodide in a worker that loads only for that track (Python), a fresh Web Worker per JavaScript attempt, and a canonical-string compare for Rust, with no compiler in the page</li>
+        <li>Real xterm.js REPL: a command bar (start, hint, concepts, cheatsheet, examples, schema, reset, export/import), multi-line editing, command history, and emacs-style key bindings</li>
+        <li>Learning layer baked in: per-tier concepts auto-surface on first entry, a toggleable cheatsheet panel, worked examples, and per-question hints</li>
+        <li>Written with AI coding agents and checked by programs: CI grades the SQL, Python, and JavaScript answer keys in the real engines, and Rust's 319 accept/reject cases run through the same grader the page uses. Ten-question gates unlock the next rank. Progress stays in this browser, with no backend</li>
+      </ul>
       <h4>Stack</h4>
       <div class="stack">
-        <span class="stack-item">Python</span>
-        <span class="stack-item">BeautifulSoup</span>
-        <span class="stack-item">httpx</span>
-        <span class="stack-item">GitHub Actions</span>
-        <span class="stack-item">JavaScript</span>
-        <span class="stack-item">Chart.js</span>
-        <span class="stack-item">Static hosting</span>
+        <span class="stack-item">Vanilla JavaScript</span>
+        <span class="stack-item">xterm.js</span>
+        <span class="stack-item">Pyodide</span>
+        <span class="stack-item">sql.js</span>
+        <span class="stack-item">Web Workers</span>
+        <span class="stack-item">localStorage</span>
       </div>
+      </details>
     </div>
 
   </div>
@@ -1937,11 +2116,16 @@ function hashKey() {
 }
 // The goal only stands in for scrollY while that one smooth scroll is still running
 const goalY = () => scrollGoal != null && performance.now() - scrollGoalAt < 1500 ? scrollGoal : null;
+const openRows = () => [...document.querySelectorAll('details.more[open]')].map(d => d.closest('.detail').id);
 function saveState(extra) {
-  try { history.replaceState(Object.assign({}, history.state, { y: goalY() ?? window.scrollY }, extra), ''); } catch (e) {}
+  try { history.replaceState(Object.assign({}, history.state, { y: goalY() ?? window.scrollY, open: openRows() }, extra), ''); } catch (e) {}
+}
+function openAround(t) {
+  for (let d = t.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')) d.open = true;
 }
 function reveal(t, instant) {
   scrollGoal = null;
+  openAround(t);
   t.scrollIntoView({ behavior: instant || REDUCED_MOTION ? 'auto' : 'smooth', block: 'start' });
   t.classList.remove('jump-flash'); void t.offsetWidth; t.classList.add('jump-flash');
   if (t.tabIndex < 0) t.setAttribute('tabindex', '-1');
@@ -1955,7 +2139,9 @@ function route(o = {}) {
   const tab = tabKey ? key : panel ? panel.id.slice(4) : 'overview';
   const had = document.activeElement;
   showTab(tab, !panel && o.y == null && !o.instant);
+  if (o.open) document.querySelectorAll('details.more').forEach(d => { d.open = o.open.includes(d.closest('.detail').id); });
   if (o.y != null) {
+    if (panel) openAround(t);
     window.scrollTo(0, o.y);
     if (o.f && o.f.getClientRects().length) { o.f.focus({ preventScroll: true }); return; }
   } else if (panel) {
@@ -2041,7 +2227,7 @@ document.addEventListener('click', e => {
   const RACES = {
     fv: { before: 1200, after: 40, note: 'Replayed at 200x. Uses the low end of the 20 to 35 minute manual range.' },
     cx: { before: 540, after: 55, note: 'Replayed at 90x. Three 25MB files, open to paste.' },
-    et: { before: 30, after: 3, note: 'Replayed at 5x. One template, open to paste.' },
+    et: { before: 30, after: 3, note: 'Template retrieval, replayed at 5x. One template, open to paste.' },
   };
   const REPLAY_SECONDS = 6;
   const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
@@ -2521,6 +2707,171 @@ document.addEventListener('click', e => {
     was.focus();
   });
   run();
+})();
+
+// ── Expandable section details: one "Expand all" per tab, and everything opens for printing ──
+(function () {
+  ['toast', 'ghost'].forEach(tab => {
+    const panel = document.getElementById('tab-' + tab);
+    const rows = [...panel.querySelectorAll('details.more')];
+    if (!rows.length) return;
+    const bar = el('div', 'more-bar');
+    const b = el('button', 'demo-btn');
+    b.type = 'button';
+    const sync = () => { b.textContent = rows.every(d => d.open) ? 'Collapse all details' : 'Expand all details'; };
+    b.addEventListener('click', () => { const open = !rows.every(d => d.open); rows.forEach(d => { d.open = open; }); sync(); });
+    rows.forEach(d => d.addEventListener('toggle', () => { sync(); saveState(); }));
+    sync();
+    bar.append(b);
+    panel.querySelector('.detail').before(bar);
+  });
+  let closed = [];
+  window.addEventListener('beforeprint', () => { closed = [...document.querySelectorAll('details.more:not([open])')]; closed.forEach(d => { d.open = true; }); });
+  window.addEventListener('afterprint', () => { closed.forEach(d => { d.open = false; }); closed = []; });
+})();
+
+// ── Send beta: the rep's round trip from SPA to Salesforce and back, with its guards (invented data) ──
+(function () {
+  const box = document.getElementById('demo-send');
+  if (!box) return;
+  const btn = k => box.querySelector(`[data-sb="${k}"]`);
+  const kitBox = box.querySelector('[data-sb-kit]'), logBox = box.querySelector('[data-sb-log]');
+  const email = box.querySelector('[data-sb-email]'), status = box.querySelector('[data-sb-status]');
+  const steps = {};
+  box.querySelectorAll('.sb-steps li').forEach(li => { steps[li.dataset.step] = li; });
+  const guardBtns = [...box.querySelectorAll('[data-sb-guard]')];
+  const guard = k => box.querySelector(`[data-sb-guard="${k}"]`).getAttribute('aria-pressed') === 'true';
+  const MARK = { ok: '✓', wait: '→', bad: '✕', warn: '!' };
+  const SAY = { ok: 'done', wait: 'in progress', bad: 'refused', warn: 'needs the rep' };
+  Object.values(steps).forEach(li => li.append(el('span', 'sr-only sb-state', 'not started')));
+  // The pressed button disables itself, so hand focus to the next action (only if focus was in the demo)
+  const next = k => { const a = document.activeElement; if (a === document.body || box.contains(a)) btn(k).focus({ preventScroll: true }); };
+  const pause = ms => REDUCED_MOTION ? Promise.resolve() : new Promise(r => setTimeout(r, ms));
+  let run = 0;
+
+  function show(cls, text) { status.className = 'demo-status' + (cls ? ' ' + cls : ''); status.textContent = text; }
+  function mark(step, state, detail) {
+    const li = steps[step];
+    li.className = state || '';
+    li.querySelector('.sb-mark').textContent = MARK[state] || '·';
+    li.querySelector('.sb-detail').textContent = detail || '';
+    li.querySelector('.sb-state').textContent = SAY[state] || 'not started';
+  }
+  function renderKit() {
+    const lines = [
+      ['kit', 'k-4c81 · build demo-2026.11 · template stamp ok'],
+      ['template', 'Notice of incomplete application'],
+      ['fields', '3 template fields + ID and recipient, from the page'],
+      ['email', guard('tamper') ? 'edited after copying: one sentence added' : 'matches the template'],
+      ['expires', guard('expire') ? 'copied 11 minutes ago' : 'in 10:00'],
+    ];
+    kitBox.replaceChildren(...lines.flatMap(([k, v], i) => {
+      const bad = (k === 'email' && guard('tamper')) || (k === 'expires' && guard('expire'));
+      return [document.createTextNode((i ? '\n' : '') + k.padEnd(9)), el('span', bad ? 'bad' : null, v)];
+    }));
+  }
+  function reset() {
+    run++;
+    Object.keys(steps).forEach(k => mark(k));
+    kitBox.hidden = logBox.hidden = email.hidden = true;
+    btn('copy').disabled = false;
+    ['paste', 'save', 'send', 'receipt'].forEach(k => { btn(k).disabled = true; });
+    btn('save').hidden = true;
+    guardBtns.forEach(b => { b.disabled = false; });
+    show('', 'Start on the SPA side: the panel has already read the application, so the kit is ready to copy.');
+  }
+  function stop(cls, text) {
+    show(cls, text);
+    btn('paste').disabled = true;
+    btn('copy').disabled = false;
+    guardBtns.forEach(b => { b.disabled = false; });
+    next('copy');
+  }
+  function copy() {
+    reset();
+    renderKit();
+    kitBox.hidden = false;
+    btn('copy').disabled = true;
+    btn('paste').disabled = false;
+    show('', 'Kit copied. It carries the raw field values and a template stamp, and it expires in 10 minutes. Paste it into the bookmarklet in Salesforce.');
+    next('paste');
+  }
+  async function paste() {
+    const id = ++run;
+    btn('paste').disabled = true;
+    guardBtns.forEach(b => { b.disabled = true; });
+    mark('paste', 'wait');
+    show('', 'Checking the kit: the bookmarklet rebuilds the email from its own copy of the template and compares.');
+    await pause(700); if (id !== run) return;
+    if (guard('expire')) { mark('paste', 'bad', 'expired'); return stop('bad', 'Refused: this kit was copied 11 minutes ago, and kits expire after 10, so an old kit left on the clipboard can\'t be used later. Copy a fresh kit.'); }
+    if (guard('tamper')) { mark('paste', 'bad', 'email differs'); return stop('bad', 'Refused: the email in the kit differs from the bookmarklet\'s own copy of the template, so an edited or forged kit cannot change the template wording, the markup, the case settings or the sender. Copy a fresh kit.'); }
+    mark('paste', 'ok', 'matches');
+    mark('account', 'wait');
+    await pause(600); if (id !== run) return;
+    if (guard('twins')) {
+      mark('account', 'warn', '2 matches, Customer picked');
+      mark('case', 'warn', 'Save is yours');
+      btn('save').hidden = false;
+      btn('save').disabled = false;
+      show('warn', 'Two accounts match this restaurant ID. The bookmarklet picks the one Customer account (or asks you to choose) and opens the prefilled New Case, but it clicks Save only when exactly one account matches. Check the account and click Save, and it carries on from there.');
+      next('save');
+      return;
+    }
+    mark('account', 'ok', '1 match');
+    mark('case', 'wait');
+    await pause(600); if (id !== run) return;
+    mark('case', 'ok', 'case 00012345');
+    fill(id);
+  }
+  async function save() {
+    btn('save').disabled = true;
+    mark('case', 'ok', 'saved by the rep');
+    fill(run);
+  }
+  async function fill(id) {
+    mark('email', 'wait');
+    await pause(600); if (id !== run) return;
+    email.hidden = false;
+    mark('email', 'ok', 'From, recipient, Subject, body');
+    mark('send', 'wait', 'your click');
+    btn('send').disabled = false;
+    show('', 'The email is filled and waiting for review. The bookmarklet never clicks Send: that click is yours.');
+    next('send');
+  }
+  async function send() {
+    const id = run;
+    btn('send').disabled = true;
+    mark('send', 'ok', 'sent by the rep');
+    mark('verify', 'wait');
+    show('', 'Checking the case for one more outbound email than the count taken before the email was filled.');
+    await pause(800); if (id !== run) return;
+    mark('verify', 'ok', '1 more email than before');
+    mark('close', 'wait');
+    await pause(700); if (id !== run) return;
+    mark('close', 'ok', 'Status and Stage Closed');
+    btn('receipt').disabled = false;
+    show('ok', 'Case closed and read back as Closed. Paste the receipt into the SPA panel that built the kit to get the log line.');
+    next('receipt');
+  }
+  function receipt() {
+    btn('receipt').disabled = true;
+    logBox.textContent = 'SPA log line (demo format)\n11/08/2026 · Notice of incomplete application · sent via Salesforce case 00012345\nCase number: 00012345\nPaste both into SPA and save. The panel never saves anything in SPA.';
+    logBox.hidden = false;
+    guardBtns.forEach(b => { b.disabled = false; });
+    btn('copy').disabled = false;
+    show('ok', 'Done. Nothing was typed into Salesforce and nothing was retyped into SPA: you pasted the kit, clicked Send, pasted the receipt back, then pasted the log line and case number into SPA and saved.');
+    next('reset');
+  }
+  guardBtns.forEach(b => b.addEventListener('click', () => {
+    b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true'));
+    if (!kitBox.hidden) { copy(); b.focus({ preventScroll: true }); }
+  }));
+  btn('copy').addEventListener('click', copy);
+  btn('paste').addEventListener('click', paste);
+  btn('save').addEventListener('click', save);
+  btn('send').addEventListener('click', send);
+  btn('receipt').addEventListener('click', receipt);
+  btn('reset').addEventListener('click', () => { guardBtns.forEach(b => b.setAttribute('aria-pressed', 'false')); reset(); });
 })();
 
 // ── Routing-number lookup: a quick typo check, then the FedACH directory ──
@@ -3126,7 +3477,7 @@ document.addEventListener('click', e => {
       items.push({ title: h.textContent, where: TAB_NAMES[tab], tab, target: d, keys });
     });
   });
-  [['demo-lookup', 'Try: COO/COLE Data Lookup', 'toast'], ['demo-recon', 'Try: COO/COLE reconciler', 'toast'], ['demo-aba', 'Try: routing-number lookup', 'toast'], ['demo-agent', 'Try: replay the earnings agent', 'ghost'], ['demo-vol', 'Try: portfolio volatility math', 'ghost'], ['agent-operated-practice', 'How the Ghost Strategies practice runs', 'ghost'], ['demo-bench', 'Try: blind votes and code judges', 'ghost']].forEach(([id, title, tab]) => {
+  [['demo-send', 'Try: the send beta flow', 'toast'], ['demo-lookup', 'Try: COO/COLE Data Lookup', 'toast'], ['demo-recon', 'Try: COO/COLE reconciler', 'toast'], ['demo-aba', 'Try: routing-number lookup', 'toast'], ['demo-agent', 'Try: replay the earnings agent', 'ghost'], ['demo-vol', 'Try: portfolio volatility math', 'ghost'], ['agent-operated-practice', 'How the Ghost Strategies practice runs', 'ghost'], ['demo-bench', 'Try: blind votes and code judges', 'ghost']].forEach(([id, title, tab]) => {
     const t = document.getElementById(id);
     if (t) items.push({ title, where: TAB_NAMES[tab], tab, target: t, keys: 'demo interactive' });
   });
@@ -3231,11 +3582,11 @@ document.addEventListener('click', e => {
 history.scrollRestoration = 'manual';
 window.addEventListener('popstate', e => {
   const s = e.state || {};
-  route({ y: s.y, f: s.k != null ? leftFrom.get(s.k) : null });
+  route({ y: s.y, f: s.k != null ? leftFrom.get(s.k) : null, open: s.open });
 });
 // A reload returns to the reading position; a fresh visit routes to the address
 const savedY = history.state && history.state.y;
-route(savedY != null ? { y: savedY } : { instant: true });
+route(savedY != null ? { y: savedY, open: history.state.open } : { instant: true });
 // Web fonts can shift layout after a deep-link landing: re-align once, unless the reader has already moved
 if (savedY == null && location.hash && document.fonts) {
   const landed = location.hash;
@@ -3243,7 +3594,7 @@ if (savedY == null && location.hash && document.fonts) {
     if (userMoved || location.hash !== landed) return;
     const key = hashKey();
     const t = !isTab(key) && document.getElementById(key);
-    if (t && t.closest('.tab-panel')) t.scrollIntoView({ block: 'start' });
+    if (t && t.closest('.tab-panel')) { openAround(t); t.scrollIntoView({ block: 'start' }); }
   });
 }
 </script>
