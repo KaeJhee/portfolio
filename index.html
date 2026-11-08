@@ -796,11 +796,11 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
           <div class="project-icon">ET</div>
           <div>
             <div class="project-title"><a class="project-link" href="#email-template-automation-suite">Email Template Automation Suite</a></div>
-            <div class="project-org">Toast · 14-person Capital Underwriting and Change of Ownership · 12 phases</div>
+            <div class="project-org">Toast · 14-person Capital Underwriting and Change of Ownership · 13 phases</div>
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">Twelve phases from CLI script to native-feeling desktop app for a 14-person team, now with a refreshed three-pane interface: 26 built-in templates that copy with rich formatting intact (via AppleScript's «class HTML» on macOS and hand-built CF_HTML byte-offset headers on Windows), cutting retrieval from 30 seconds to under 3. Deliberately shipped as a 15KB Flask app instead of a 200MB Electron bundle, with zero AI tokens consumed and zero customer data exposure by design: placeholders fill locally, so nothing ever leaves the machine. Grew into a Salesforce-embedded generator concept presented to engineering stakeholders.</div>
+        <div class="project-summary">Thirteen phases from CLI script to native-feeling desktop app for a 14-person team, now with a refreshed three-pane interface: 27 built-in templates that copy with rich formatting intact (via AppleScript's «class HTML» on macOS and hand-built CF_HTML byte-offset headers on Windows), cutting retrieval from 30 seconds to under 3. Deliberately shipped as a 15KB Flask app instead of a 200MB Electron bundle, with zero AI tokens consumed and zero customer data exposure by design: placeholders fill locally, and the send beta moves the filled email only into the rep's own Salesforce session, by paste. The Salesforce-embedded concept is now a working send beta: a bookmarklet takes a validated send kit, creates or finds the case in Salesforce Classic, fills the email and closes the case after the send, while the rep keeps the Send click.</div>
         <div class="race" data-race="et"></div>
         <div class="project-meta">
           <span><b>Stack</b>Python, Flask, PowerShell, AppleScript, PyInstaller, pystray</span>
@@ -1310,9 +1310,9 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
     <!-- Email Template Suite -->
     <div class="detail" id="email-template-automation-suite">
       <h3>Email Template Automation Suite</h3>
-      <div class="sub">12 phases · cross-platform desktop app · 14-person team · 30s to under 3s</div>
+      <div class="sub">13 phases · cross-platform desktop app · Salesforce send beta · 14-person team · 30s to under 3s</div>
 
-      <p>A cross-platform desktop application that ships 26 built-in email templates across three categories, with rich-text formatting preserved on paste. Grew over 12 phases from a CLI tool to a full Flask web app, then to a PyInstaller-bundled native application with a system tray icon and a Salesforce-embedded NOIA generator concept presented to engineering stakeholders, and most recently into a redesigned three-pane interface built around finding, filling and copying a template in a few keystrokes.</p>
+      <p>A cross-platform desktop application that ships 27 built-in email templates across three categories, with rich-text formatting preserved on paste. Grew over 13 phases from a CLI tool to a full Flask web app, then to a PyInstaller-bundled native application with a system tray icon and a Salesforce-embedded NOIA generator concept presented to engineering stakeholders, then into a redesigned three-pane interface built around finding, filling and copying a template in a few keystrokes, and most recently into a send beta that carries a filled template into Salesforce and through to a closed case.</p>
 
       <h4>Before and after</h4>
       <div class="race" data-race="et"></div>
@@ -1321,19 +1321,19 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
       <div class="mockup et-mock">
         <div class="mockup-head">
           <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
-          <span>Email Templates · 26 templates · 14-person team</span>
+          <span>Email Templates · 27 templates · 14-person team</span>
         </div>
         <div class="et-grid">
           <div class="et-nav">
-            <div class="et-cap">Templates 26</div>
+            <div class="et-cap">Templates 27</div>
             <div class="et-cat on"><span>Capital Underwriting</span><b>4</b></div>
-            <div class="et-cat"><span>NOIA</span><b>12</b></div>
+            <div class="et-cat"><span>NOIA</span><b>13</b></div>
             <div class="et-cat"><span>Change of Ownership</span><b>10</b></div>
             <div class="et-keys"><kbd>/</kbd> Search &nbsp; <kbd>↵</kbd> Copy top match</div>
           </div>
           <div class="et-list">
             <div class="et-search"><span>Search templates</span><kbd>⌘K</kbd></div>
-            <div class="et-greet">Good afternoon · 26 templates</div>
+            <div class="et-greet">Good afternoon · 27 templates</div>
             <div class="et-row on"><div><b>Received Response</b><small>Customer replies to an application confirmation</small></div><span class="et-badge">Instant</span><span class="et-copy"></span></div>
             <div class="et-row"><div><b>NOIA MCA</b><small>Notice of incomplete application</small></div><span class="et-badge">4 fields</span><span class="et-copy"></span></div>
             <div class="et-row"><div><b>COO DS Sent</b><small>Ownership forms sent for signature</small></div><span class="et-badge">1 field</span><span class="et-copy"></span></div>
@@ -1361,14 +1361,26 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <li>Phase 11: Stakeholder presentation HTML with Apps Script architecture diagrams and a NOIA automation proposal for engineering review</li>
         <li>Phase 12: A refreshed three-pane interface: a Toast-branded shell with a collapsible category sidebar and counts, a template list whose rows show how many fields each template needs (or Instant when none) with one-click copy, and a detail panel with a live preview, favorites and a time-of-day greeting, in light and dark themes</li>
         <li>Phase 12 workflow: ranked search opened with / or ⌘K where Enter copies the top match, favorites and recents for repeat sends, guided field filling with a draft kept per template where Enter moves to the next field and copies on the last, rich-text copy with a plain-text fallback, Email submitted with Undo, and custom templates written in a rich-text editor with placeholder insertion</li>
+        <li>Phase 13, send beta (October to November 2026): Send mode turns copy and paste into a guarded round trip with Salesforce Classic. The rep enters the restaurant ID and the recipient's email (and a case number for a follow-up) and copies a validated send kit. A bookmarklet in the Service Console takes the pasted kit, finds the account, creates or finds the case, fills From, Subject, the recipient and the body, waits for the rep to click Send, confirms the email went out, closes the case and hands back a receipt that produces the admin-system log line. Every built-in template is send-enabled across three send profiles, and a Test run fills everything like a real send, with the rep's own address as the only recipient</li>
       </ul>
+
+      <h4>Send beta flow</h4>
+      <div class="mockup" style="padding: 12px 16px;">
+        <span style="font-family: var(--mono); font-size: 12px;">Copy kit → paste into the bookmarklet → account found → case created or found → email filled → rep clicks Send → send verified → case closed → receipt → log line → Finish</span>
+      </div>
 
       <h4>Engineering decisions</h4>
       <ul>
-        <li>Zero AI tokens consumed by design: templates use placeholders that the user fills locally, so no customer data ever leaves the machine</li>
+        <li>Zero AI tokens consumed by design: templates use placeholders that the user fills locally, so no customer data goes to any model, and the send beta moves the filled email only into the rep's own Salesforce session, by paste</li>
         <li>Cross-platform clipboard formatting: macOS uses AppleScript with the «class HTML» format; Windows uses CF_HTML byte-offset headers with precise UTF-8 byte counting</li>
         <li>15KB Flask app deliverable instead of a 150 to 200MB Electron bundle, deliberately avoiding the Apple Developer Program signing requirement</li>
         <li>Per-machine identity: no authentication needed, each install is local-only</li>
+        <li>Send beta, the rep keeps the irreversible step: the bookmarklet fills the email but never clicks Send. Its only automated clicks are Salesforce's own Save on the new case and on the close page, each re-checked at click time (same page load, tab on screen, the right case; for the new case, exactly one matching account; for the close page, Status and Stage both Closed)</li>
+        <li>Safety rules enforced by the build, not by review: the bookmarklet build fails on 15 forbidden patterns (eval, clipboard reads, form submits, synthetic clicks and any selector that targets the Send button among them) and on any click or network call outside the single Save helper and the single guarded same-origin fetch</li>
+        <li>The pasted kit's email is not trusted: the bookmarklet rebuilds the email and the case settings from its own copy of the templates and the kit's raw field text, and refuses any difference, so a forged or stale kit cannot change the template wording, markup, case settings or sender. Kits expire after 10 minutes and must match the bookmarklet's build and template stamp</li>
+        <li>Provenance over text matching: subjects repeat per merchant, so the saved case is bound by window identity and its opened time against the Save moment, and a send is verified only when the case shows one more outbound email than a baseline taken after the send started; anything else is flagged and the rep closes the case by hand</li>
+        <li>One shared code path: the generator and the bookmarklet run the same kit builder and field code, extracted at build time, and a build or template-stamp mismatch between them is refused, so the two sides stay in step. Field values are escaped and the email HTML passes an allowlist sanitizer before it reaches Salesforce</li>
+        <li>Release integrity and testing: every panel shows a content-hash code ID, each release ships SHA-256 checksums, and the send code is covered by 37 unit tests and a 37-scenario browser suite (417 assertions) against stateful mocks of the Classic console and the application page, including 11 forged kits and sentinel data that must never reach the panel, the clipboard or storage</li>
       </ul>
 
       <h4>Stack</h4>
@@ -1382,6 +1394,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
         <span class="stack-item">Quill.js</span>
         <span class="stack-item">PyInstaller</span>
         <span class="stack-item">pystray</span>
+        <span class="stack-item">Node.js</span>
+        <span class="stack-item">Playwright</span>
         <span class="stack-item">Pillow</span>
       </div>
     </div>
