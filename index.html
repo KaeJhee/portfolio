@@ -708,10 +708,10 @@ details.more[open] > summary { margin-bottom: 4px; }
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">The first phase of our agentic layer, built without a model: a send beta, now with selected reps, that connects SPA, our internal application system, to Salesforce. On SPA's application page, a bookmarklet panel reads a fixed set of application details, prefills the template and builds a validated send kit. In Salesforce Classic the same bookmarklet finds the account, creates or finds the case, fills the email, confirms it went out after the rep clicks Send and closes the case. Its receipt goes back to the panel that built the kit, which turns it into the SPA log line, ready to paste. On a clean run the rep types nothing into Salesforce and retypes nothing into SPA. It builds on twelve phases that took the suite from a CLI script to a cross-platform desktop app for a 14-person team, which now ships 27 built-in templates that copy with rich formatting intact and cut retrieval from 30 seconds to under 3, with zero AI tokens and no customer data sent to any model.</div>
+        <div class="project-summary">The first phase of our agentic layer, built without a model: a send beta, now with selected reps, that connects SPA, our internal application system, to Salesforce through Capital Assistant, a bookmarklet. On SPA's application page, its Emails tab reads a fixed set of application details, prefills the template and builds a validated send kit. In Salesforce Classic the same bookmarklet finds the account, creates or finds the case, fills the email, confirms it went out after the rep clicks Send and closes the case. Pasted back into that tab, the receipt becomes the SPA log line. On a clean run the rep types nothing into Salesforce and retypes nothing into SPA. Capital Assistant has already been run on well over 400 applications. It builds on twelve phases that took the suite from a CLI script to a cross-platform desktop app for a 14-person team, which now ships 27 built-in templates that copy with rich formatting intact and cut retrieval from 30 seconds to under 3, with zero AI tokens and no customer data sent to any model.</div>
         <div class="race" data-race="et"></div>
         <div class="project-meta">
-          <span><b>Stack</b>Python, Flask, PowerShell, AppleScript, PyInstaller, pystray</span>
+          <span><b>Stack</b>Python, Flask, JavaScript, PowerShell, AppleScript, PyInstaller, pystray</span>
           <span><b>Platforms</b>macOS + Windows</span>
         </div>
       </div>
@@ -807,7 +807,7 @@ details.more[open] > summary { margin-bottom: 4px; }
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">Three client-side tools: a lien docket tool that de-dupes and type-classifies UCC &amp; tax-lien filings with per-row badges, shipped as both a dashboard and an in-page bookmarklet that run the identical parse/classify engine so results never diverge (the bookmarklet runs it against the logged-in data provider); a color-coded application-routing advisor; and a collections extractor that defeats an AG-Grid's row and column virtualization by stitching cells into whole rows by stable column ID, with a paste fallback that parses multi-line, JSON-valued cells. All in-browser, nothing transmitted; part of a toolset that cut review time ~60%.</div>
+        <div class="project-summary">Three client-side tools, their in-page forms now folded into Capital Assistant, the bookmarklet behind the email send beta: a lien docket that classifies UCC &amp; tax-lien filings by type, applies each type's lookback window and lists them newest first, shipped as both a dashboard and an in-page reader; a color-coded application-routing advisor; and a collections extractor that defeats an AG-Grid's row and column virtualization by stitching cells into whole rows by stable column ID. Capital Assistant opens the right card on the application page, our KYB provider and our collections tracker. All in-browser, nothing transmitted; part of a toolset that cut review time ~60%.</div>
         <div class="project-meta">
           <span><b>Stack</b>React, Vanilla JS, Bookmarklets</span>
           <span><b>Impact</b>Part of a toolset that cut review time ~60%</span>
@@ -882,7 +882,7 @@ details.more[open] > summary { margin-bottom: 4px; }
       <h3>Email Template Automation Suite</h3>
       <div class="sub">Send beta connecting SPA to Salesforce · 13 phases · cross-platform desktop app · 14-person team · retrieval 30s to under 3s</div>
 
-      <p>Phase 13 is a send beta, now with selected reps, and the first step of our agentic layer, built without a model: it connects SPA, our internal application system, to Salesforce. A send kit, built in the app or in a panel on SPA's application page that prefills the application details, carries a filled template through the account, the case, the email and the close, and the receipt comes back as the SPA log line, while the rep keeps the Send click. It consumes zero AI tokens. The kit and the receipt are defined as a data contract, written so they can become the request and response of a server-side send if SPA takes this on natively.</p>
+      <p>Phase 13 is a send beta, now with selected reps, and the first step of our agentic layer, built without a model: it connects SPA, our internal application system, to Salesforce through Capital Assistant, a bookmarklet. A send kit carries a filled template through the account, the case, the email and the close, and the receipt comes back as the SPA log line, while the rep keeps the Send click. The kit is built in the app or on the Emails tab of Capital Assistant's panel, which reads the application details from SPA's application page and prefills them. The beta consumes zero AI tokens. The kit and the receipt are defined as a data contract, written so they can become the request and response of a server-side send if SPA takes this on natively. The same bookmarklet now also carries my underwriting tools: it opens the right card on the application page, our KYB provider and our collections tracker, and it fills a review form in our team chat from data copied on the application page (see the <a href="#underwriting-collections-toolkit">Underwriting &amp; Collections Toolkit</a>). Capital Assistant has already been run on well over 400 applications.</p>
 
       <p>Underneath is a cross-platform desktop application that ships 27 built-in email templates across three categories, with rich-text formatting preserved on paste. It grew over the twelve phases before the beta from a CLI tool to a full Flask web app, then to a PyInstaller-bundled native application with a system tray icon and a Salesforce-embedded NOIA generator concept presented to engineering stakeholders, then into a redesigned three-pane interface built around finding, filling and copying a template in a few keystrokes.</p>
 
@@ -898,7 +898,7 @@ details.more[open] > summary { margin-bottom: 4px; }
         </div>
         <div class="ba-card after">
           <div class="ba-label">After · send beta</div>
-          <div class="ba-step"><div class="ba-num">1</div><div><b>Rep:</b> copy the send kit from the prefilled panel on SPA's application page and paste it into the bookmarklet</div></div>
+          <div class="ba-step"><div class="ba-num">1</div><div><b>Rep:</b> copy the send kit from Capital Assistant's prefilled Emails tab on SPA's application page and paste it into the same bookmarklet in Salesforce</div></div>
           <div class="ba-step"><div class="ba-num">2</div><div><b>Automatic:</b> account found, case created or found, case settings filled</div></div>
           <div class="ba-step"><div class="ba-num">3</div><div><b>Automatic:</b> From, Subject, the recipient and the body filled for review</div></div>
           <div class="ba-step"><div class="ba-num">4</div><div><b>Rep:</b> click Send. <b>Automatic:</b> send verified, case closed</div></div>
@@ -912,10 +912,10 @@ details.more[open] > summary { margin-bottom: 4px; }
           <div class="demo-title">Send beta, end to end</div>
           <div class="demo-note">Invented data. A simulation of the flow and its guards, not the real tool.</div>
         </div>
-        <p class="demo-why"><b>You are the rep.</b> Copy the send kit from the panel on SPA's application page, paste it into the bookmarklet in Salesforce, and click Send when the email is ready. Then try the guards: tamper with the kit, let it expire, or give it two matching accounts.</p>
+        <p class="demo-why"><b>You are the rep.</b> Copy the send kit from Capital Assistant's Emails tab on SPA's application page, paste it into Capital Assistant in Salesforce, and click Send when the email is ready. Then try the guards: tamper with the kit, let it expire, or give it two matching accounts.</p>
         <div class="sb-grid">
           <section class="sb-pane" aria-label="SPA application page, demo">
-            <div class="sb-pane-head"><span>SPA · application page</span><small>Bookmarklet panel</small></div>
+            <div class="sb-pane-head"><span>SPA · application page</span><small>Capital Assistant</small></div>
             <dl class="sb-fields">
               <div><dt>Business</dt><dd class="from-page">Juniper Street Diner LLC</dd></div>
               <div><dt>Contact</dt><dd class="from-page">A. Owner</dd></div>
@@ -925,7 +925,7 @@ details.more[open] > summary { margin-bottom: 4px; }
             </dl>
             <div class="sb-cap">Template: <b>Notice of incomplete application</b></div>
             <div class="sb-meter" aria-hidden="true"><span></span></div>
-            <div class="sb-cap">3 of 3 template fields filled, plus the restaurant ID and recipient, all read from the page (highlighted). Bank, tax and offer fields are never read.</div>
+            <div class="sb-cap">3 of 3 template fields filled, plus the restaurant ID and recipient, all read from the page (highlighted). No bank, tax or offer field is read from the page for the email.</div>
             <div class="sb-kit" data-sb-kit hidden></div>
             <div class="sb-log" data-sb-log hidden></div>
             <div class="demo-controls">
@@ -934,7 +934,7 @@ details.more[open] > summary { margin-bottom: 4px; }
             </div>
           </section>
           <section class="sb-pane" aria-label="Salesforce console, demo">
-            <div class="sb-pane-head"><span>Salesforce console</span><small>Bookmarklet</small></div>
+            <div class="sb-pane-head"><span>Salesforce console</span><small>Capital Assistant</small></div>
             <ol class="sb-steps">
               <li data-step="paste"><span class="sb-mark" aria-hidden="true">·</span><span>Kit pasted and checked</span><span class="sb-detail"></span></li>
               <li data-step="account"><span class="sb-mark" aria-hidden="true">·</span><span>Account found</span><span class="sb-detail"></span></li>
@@ -953,7 +953,7 @@ details.more[open] > summary { margin-bottom: 4px; }
               <div><span class="bar" style="width:64%"></span></div>
             </div>
             <div class="demo-controls">
-              <button class="demo-btn" type="button" data-sb="paste" disabled>Paste kit into the bookmarklet</button>
+              <button class="demo-btn" type="button" data-sb="paste" disabled>Paste kit into Capital Assistant</button>
               <button class="demo-btn primary" type="button" data-sb="save" disabled hidden>Save the case</button>
               <button class="demo-btn primary" type="button" data-sb="send" disabled>Send</button>
             </div>
@@ -974,7 +974,7 @@ details.more[open] > summary { margin-bottom: 4px; }
         <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">Send beta flow · Template retrieval, before and after · Mock view · Phase progression · Engineering decisions · Stack</span></summary>
       <h4>Send beta flow</h4>
       <div class="mockup" style="padding: 12px 16px;">
-        <span style="font-family: var(--mono); font-size: 12px;">Application details prefilled on SPA's page → copy kit → paste into the bookmarklet → account found → case created or found → email filled → rep clicks Send → send verified → case closed → receipt pasted back → SPA log line and case number → paste into SPA and save</span>
+        <span style="font-family: var(--mono); font-size: 12px;">Application details prefilled on SPA's page → copy kit → paste into Capital Assistant → account found → case created or found → email filled → rep clicks Send → send verified → case closed → receipt pasted back → SPA log line and case number → paste into SPA and save</span>
       </div>
 
       <h4>Template retrieval, before and after</h4>
@@ -1024,21 +1024,22 @@ details.more[open] > summary { margin-bottom: 4px; }
         <li>Phase 11: Stakeholder presentation HTML with Apps Script architecture diagrams and a NOIA automation proposal for engineering review</li>
         <li>Phase 12: A refreshed three-pane interface: a Toast-branded shell with a collapsible category sidebar and counts, a template list whose rows show how many fields each template needs (or Instant when none) with one-click copy, and a detail panel with a live preview, favorites and a time-of-day greeting, in light and dark themes</li>
         <li>Phase 12 workflow: ranked search opened with / or ⌘K where Enter copies the top match, favorites and recents for repeat sends, guided field filling with a draft kept per template where Enter moves to the next field and copies on the last, rich-text copy with a plain-text fallback, Email submitted with Undo, and custom templates written in a rich-text editor with placeholder insertion</li>
-        <li>Phase 13, send beta (October to November 2026): Send mode turns copy and paste into a guarded round trip with Salesforce Classic. The rep enters the restaurant ID and the recipient's email (and a case number for a follow-up) and copies a validated send kit. Clicked on SPA's application page, the send bookmarklet instead opens a template panel that reads a fixed set of application details (never bank, tax or offer fields), prefills the template fields and builds the kit there. In the Service Console, the same bookmarklet takes the pasted kit, finds the account, creates or finds the case, fills From, Subject, the recipient and the body, waits for the rep to click Send, confirms the email went out, closes the case and hands back a receipt that produces the SPA log line. Every built-in template is send-enabled across three send profiles, and a Test run fills everything like a real send, with the rep's own address as the only recipient</li>
+        <li>Phase 13, send beta (October to November 2026): Send mode turns copy and paste into a guarded round trip with Salesforce Classic. The rep enters the restaurant ID and the recipient's email (and a case number for a follow-up) and copies a validated send kit. Clicked on SPA's application page, the Capital Assistant bookmarklet instead opens a four-tab panel whose Emails tab reads a fixed set of application details for the email, never a bank, tax or offer field, prefills the template fields and builds the kit there. In the Service Console, the same bookmarklet takes the pasted kit, finds the account, creates or finds the case, fills From, Subject, the recipient and the body, waits for the rep to click Send, confirms the email went out, closes the case and hands back a receipt that produces the SPA log line. Every built-in template is send-enabled across three send profiles, and a Test run fills everything like a real send, with the rep's own address as the only recipient</li>
       </ul>
 
       <h4>Engineering decisions</h4>
       <ul>
-        <li>Zero AI tokens consumed by design: templates use placeholders that the user fills locally, so no customer data goes to any model, and the send beta moves the filled email only into the rep's own Salesforce session, by paste</li>
+        <li>Zero AI tokens consumed by design: templates use placeholders that the user fills locally, so no customer data goes to any model. Capital Assistant's only fetch is a guarded same-origin lookup inside Salesforce, and data moves between sites only by the rep's own paste</li>
         <li>Cross-platform clipboard formatting: macOS uses AppleScript with the «class HTML» format; Windows uses CF_HTML byte-offset headers with precise UTF-8 byte counting</li>
         <li>15KB Flask app deliverable instead of a 150 to 200MB Electron bundle, deliberately avoiding the Apple Developer Program signing requirement</li>
         <li>Per-machine identity: no authentication needed, each install is local-only</li>
-        <li>Send beta, the rep keeps the irreversible step: the bookmarklet fills the email but never clicks Send. Its only automated clicks are Salesforce's own Save on the new case and on the close page, each re-checked at click time (same page load, tab on screen, the right case; for the new case, exactly one matching account; for the close page, Status and Stage both Closed)</li>
-        <li>Safety rules enforced by the build, not by review: the bookmarklet build fails on 15 forbidden patterns (eval, clipboard reads, form submits, synthetic clicks and any selector that targets the Send button among them) and on any click or network call outside the single Save helper and the single guarded same-origin fetch</li>
+        <li>Send beta, the rep keeps the irreversible step: Capital Assistant fills the email but never clicks Send or Submit anywhere. In Salesforce its only automated clicks are Salesforce's own Save on the new case and on the close page, each re-checked at click time (same page load, tab on screen, the right case; for the new case, exactly one matching account and a kit not already used for a case; for the close page, Status and Stage both Closed). Outside Salesforce its one other automated click is the collections tracker's own Next page button, so it can read every page of its grids</li>
+        <li>Safety rules enforced by the build, not by review: the Capital Assistant build fails on forbidden patterns (eval, clipboard reads, form submits, synthetic clicks and any selector that targets the Send button among them) and on any click or network call outside its two click helpers (Salesforce's Save and the grid's Next page button) and the single guarded same-origin fetch</li>
         <li>The pasted kit's email is not trusted: the bookmarklet rebuilds the email and the case settings from its own copy of the templates and the kit's raw field text, and refuses any difference, so a forged or stale kit cannot change the template wording, markup, case settings or sender. Kits expire after 10 minutes and must match the bookmarklet's build and template stamp</li>
         <li>Provenance over text matching: subjects repeat per merchant, so the saved case is bound by window identity and its opened time against the Save moment, and a send is verified only when the case shows one more outbound email than a baseline taken after the send started; anything else is flagged and the rep closes the case by hand</li>
-        <li>One shared code path: the generator and the bookmarklet run the same kit builder and field code, extracted at build time, and a build or template-stamp mismatch between them is refused, so the two sides stay in step. Field values are escaped and the email HTML passes an allowlist sanitizer before it reaches Salesforce</li>
-        <li>Release integrity and testing: every panel shows a content-hash code ID, each release ships SHA-256 checksums, and the send code is covered by 37 unit tests and a 37-scenario browser suite (417 assertions) against stateful mocks of the Classic console and the application page, including 11 forged kits and sentinel data that must never reach the panel, the clipboard or storage</li>
+        <li>One shared code path: the generator and the bookmarklet run the same kit builder and field code, extracted at build time, and a build or template-stamp mismatch between them is refused, so the two sides stay in step. Field values are escaped and the email HTML passes an allowlist sanitizer before it reaches Salesforce, and the generator's preview and template restore pass the same sanitizer</li>
+        <li>Data that expires and code that is pinned: an unfinished send clears itself after 24 hours, the local send log keeps 90 days and never stores the recipient or the email body, a kit pasted into Salesforce is wiped from the clipboard, and third-party scripts load with integrity hashes</li>
+        <li>Release integrity and testing: every panel shows a content-hash code ID, and the send code is covered by unit tests and by a browser suite that runs forged kits, among other cases, against stateful mocks of the Classic console and the application page</li>
       </ul>
 
       <h4>Stack</h4>
@@ -1395,17 +1396,17 @@ details.more[open] > summary { margin-bottom: 4px; }
     <!-- Underwriting & Collections Toolkit -->
     <div class="detail" id="underwriting-collections-toolkit">
       <h3>Underwriting &amp; Collections Toolkit</h3>
-      <div class="sub">Client-side underwriting &amp; collections tools · React + vanilla-JS bookmarklets</div>
-      <p>A suite of zero-dependency, browser-based tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details and get parsed, de-duplicated, recency-filtered, type-classified output (or a color-coded routing recommendation) to drop straight into notes. The same shared-engine pattern was extended to collections, extracting parent-account default and churn history from a virtualized data grid into a standardized, paste-ready summary. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
+      <div class="sub">Client-side underwriting &amp; collections tools · React dashboard + vanilla-JS bookmarklets, with the in-page tools now also folded into Capital Assistant</div>
+      <p>A suite of zero-dependency, browser-based tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details and get parsed, recency-filtered, type-classified output (or a color-coded routing recommendation) to drop straight into notes. The same approach was extended to collections, extracting parent-account default and churn history from a virtualized data grid into a standardized, paste-ready summary. All three now run as cards in Capital Assistant, the bookmarklet behind the <a href="#email-template-automation-suite">email send beta</a>: it opens the matching card for the site it is on (the routing recommendation on the application page, the lien docket on our KYB provider, the default and churn summary on our collections tracker), reads the page when the card opens and hands back paste-ready text. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
       <details class="more">
         <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">What's unique · Stack</span></summary>
       <h4>What's unique</h4>
       <ul>
-        <li>Lien Docket, one tool in two forms: the dashboard ingests pasted card text or raw API JSON, extracts per-filing fields, de-dupes, sorts newest-first, applies recency windows, and tags each filing by type with per-row badges so misclassification is obvious at a glance, with summary metrics, diagnostics, one-click copy, and .txt/.csv export; the bookmarklet runs the identical parse/classify engine in-page against the logged-in provider, sidestepping cross-origin and authentication limits</li>
-        <li>App Router: a decision-support bookmarklet that reads live application fields and renders a color-coded review-depth recommendation</li>
-        <li>Parent Default &amp; Churn Extractor: reads parent-account default and churn history from a virtualized AG-Grid tracker into a standardized, paste-ready summary. It defeats row- and column-virtualization by stitching cells into whole rows by stable column ID (not screen position), with a paste fallback that record-splits multi-line, JSON-valued cells; the grid was reverse-engineered first with a read-only DOM probe</li>
-        <li>Shared engines, not copies: the Lien Docket's dashboard and bookmarklet run one parse/classify/format engine, and the Churn Extractor's bookmarklet and paste paths share one format engine, so results never diverge; fail-loud by design: unreadable dates are kept and flagged, never silently dropped</li>
-        <li>Config over hard-coding: keyword lists, recency windows, routing thresholds, and field labels live in editable config blocks so rule changes don't touch the logic</li>
+        <li>Lien Docket, one tool in two forms: the dashboard ingests pasted card text or raw API JSON, extracts per-filing fields, sorts newest-first, applies recency windows, and tags each filing by type with per-row badges so misclassification is obvious at a glance, with summary metrics, diagnostics, one-click copy, and .txt/.csv export; the in-page form reads the logged-in provider's page directly, sidestepping cross-origin and authentication limits, and lists every in-window filing plus, separately, the ones a notice has to cite; it now also runs as the Liens card in Capital Assistant, which says plainly when the page has no liens or has not finished loading</li>
+        <li>App Router: a decision-support bookmarklet that reads live application fields and renders a color-coded review-depth recommendation; in Capital Assistant it runs as soon as the panel opens on an application, names any field it could not find and keeps its verdict visible on every tab</li>
+        <li>Parent Default &amp; Churn Extractor: reads parent-account default and churn history from a virtualized AG-Grid tracker into a standardized, paste-ready summary. It defeats row- and column-virtualization by stitching cells into whole rows by stable column ID (not screen position), with a paste fallback in the standalone version that record-splits multi-line, JSON-valued cells; the grid was reverse-engineered first with a read-only DOM probe. Inside Capital Assistant it starts only when each grid is on its first page, checks that every page really turned, and will not hand back a summary when paging fails or a grid has not finished loading</li>
+        <li>Shared engines: inside Capital Assistant the lien, routing and default rules were ported from the standalone tools into one shared core module alongside the send kit code, and the bookmarklet build pulls them from there; the standalone Churn Extractor's bookmarklet and paste paths share one format engine; fail-loud by design: unreadable dates are kept, never silently dropped</li>
+        <li>Config over hard-coding: in the standalone Lien Docket, the keyword list and recency windows live in an editable config block so rule changes don't touch the logic</li>
       </ul>
       <h4>Stack</h4>
       <div class="stack">
@@ -1413,6 +1414,7 @@ details.more[open] > summary { margin-bottom: 4px; }
         <span class="stack-item">Babel Standalone</span>
         <span class="stack-item">Vanilla JavaScript</span>
         <span class="stack-item">Bookmarklets</span>
+        <span class="stack-item">Shadow DOM</span>
         <span class="stack-item">AG-Grid extraction</span>
         <span class="stack-item">Clipboard API</span>
         <span class="stack-item">Blob/URL export</span>
@@ -2793,7 +2795,7 @@ document.addEventListener('click', e => {
     kitBox.hidden = false;
     btn('copy').disabled = true;
     btn('paste').disabled = false;
-    show('', 'Kit copied. It carries the raw field values and a template stamp, and it expires in 10 minutes. Paste it into the bookmarklet in Salesforce.');
+    show('', 'Kit copied. It carries the raw field values and a template stamp, and it expires in 10 minutes. Paste it into Capital Assistant in Salesforce.');
     next('paste');
   }
   async function paste() {
@@ -2801,10 +2803,10 @@ document.addEventListener('click', e => {
     btn('paste').disabled = true;
     guardBtns.forEach(b => { b.disabled = true; });
     mark('paste', 'wait');
-    show('', 'Checking the kit: the bookmarklet rebuilds the email from its own copy of the template and compares.');
+    show('', 'Checking the kit: Capital Assistant rebuilds the email from its own copy of the template and compares.');
     await pause(700); if (id !== run) return;
     if (guard('expire')) { mark('paste', 'bad', 'expired'); return stop('bad', 'Refused: this kit was copied 11 minutes ago, and kits expire after 10, so an old kit left on the clipboard can\'t be used later. Copy a fresh kit.'); }
-    if (guard('tamper')) { mark('paste', 'bad', 'email differs'); return stop('bad', 'Refused: the email in the kit differs from the bookmarklet\'s own copy of the template, so an edited or forged kit cannot change the template wording, the markup, the case settings or the sender. Copy a fresh kit.'); }
+    if (guard('tamper')) { mark('paste', 'bad', 'email differs'); return stop('bad', 'Refused: the email in the kit differs from Capital Assistant\'s own copy of the template, so an edited or forged kit cannot change the template wording, the markup, the case settings or the sender. Copy a fresh kit.'); }
     mark('paste', 'ok', 'matches');
     mark('account', 'wait');
     await pause(600); if (id !== run) return;
@@ -2813,7 +2815,7 @@ document.addEventListener('click', e => {
       mark('case', 'warn', 'Save is yours');
       btn('save').hidden = false;
       btn('save').disabled = false;
-      show('warn', 'Two accounts match this restaurant ID. The bookmarklet picks the one Customer account (or asks you to choose) and opens the prefilled New Case, but it clicks Save only when exactly one account matches. Check the account and click Save, and it carries on from there.');
+      show('warn', 'Two accounts match this restaurant ID. Capital Assistant picks the one Customer account (or asks you to choose) and opens the prefilled New Case, but it clicks Save only when exactly one account matches. Check the account and click Save, and it carries on from there.');
       next('save');
       return;
     }
@@ -2835,7 +2837,7 @@ document.addEventListener('click', e => {
     mark('email', 'ok', 'From, recipient, Subject, body');
     mark('send', 'wait', 'your click');
     btn('send').disabled = false;
-    show('', 'The email is filled and waiting for review. The bookmarklet never clicks Send: that click is yours.');
+    show('', 'The email is filled and waiting for review. Capital Assistant never clicks Send: that click is yours.');
     next('send');
   }
   async function send() {
