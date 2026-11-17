@@ -1,0 +1,1623 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Capital Assistant demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --accent: #FF6B00; --accent-dark: #D95A00; --accent-light: #FFF4EC; --accent-border: #FFCCA3;
+  --bg: #F4F3F0; --surface: #FFFFFF; --surface-2: #F9F8F6; --border: #E5E4E0;
+  --text: #1A1916; --text-2: #6B6A63; --text-3: #A09E98;
+  --green: #2D8A4E; --green-light: #EAF5EF; --green-border: #A3D9B4;
+  --blue: #185FA5; --blue-light: #EAF2FC;
+  --purple: #6E3EC1; --purple-light: #F3EEFF;
+  --radius: 8px; --radius-lg: 14px;
+  --mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Menlo, monospace;
+  --p-line: #DDE3EA; --p-text: #16202B; --p-muted: #6B7683; --p-faint: #9AA3AD;
+  --p-pre: #2F4E9E; --p-ok: #1F6E67; --p-warn: #B45309; --p-stop: #B33A17; --p-blue-bg: #E7F0FB; --p-blue: #1F5FA8;
+}
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--surface-2); color: var(--text); font-size: 14px; line-height: 1.6; }
+code { font-family: var(--mono); font-size: 12px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px; padding: 0 4px; }
+html, body { background: var(--surface-2); }
+body { padding: 2px; }
+.demo-flag { font-size: 11.5px; color: var(--text-3); margin: 0 0 8px; }
+html.framed .demo-flag { display: none; }
+html.framed [id^="pnl-"] { scroll-margin-top: 64px; }
+.sec { font-size: 11px; font-weight: 600; color: var(--text-3); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 12px; padding-left: 2px; }
+.mockup-card { background: var(--surface); border: 1px solid #DDDDD8; border-radius: var(--radius-lg); overflow: hidden; }
+.mock-note { font-size: 12px; color: var(--text-2); margin-bottom: 12px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.copy-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border); color: var(--text); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+.copy-btn:hover { background: var(--surface-2); }
+.copy-btn.copied { background: var(--green-light); border-color: var(--green-border); color: var(--green); }
+.reset-btn { padding: 4px 12px; border-radius: 20px; background: var(--surface); border: 1px solid var(--border); color: var(--text-3); font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 5px; font-family: inherit; }
+.reset-btn:hover { background: var(--surface-2); color: var(--text-2); border-color: #C0BEB8; }
+.tpill { padding: 4px 11px; border-radius: 20px; font-size: 11.5px; font-weight: 600; border: 1px solid var(--accent-border); background: var(--accent-light); color: var(--accent-dark); cursor: pointer; transition: background 0.12s, border-color 0.12s; font-family: inherit; }
+.tpill:hover { background: #FFE8D0; border-color: var(--accent); }
+.tpill.active { background: var(--accent); border-color: var(--accent); color: white; }
+.ca-tabs { display: flex; gap: 2px; background: #E9E8E4; padding: 7px 8px 0; overflow-x: auto; }
+.ca-stab { padding: 7px 12px; font-size: 12px; font-weight: 600; color: var(--text-2); border-radius: 8px 8px 0 0; cursor: pointer; border: none; background: transparent; white-space: nowrap; display: flex; gap: 6px; align-items: center; font-family: inherit; }
+.ca-stab:hover { background: rgba(255,255,255,0.5); }
+.ca-stab.active { background: var(--surface); color: var(--text); }
+.ca-stab .sdot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); display: none; }
+.ca-stab.ping .sdot { display: inline-block; }
+.ca-bar { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.ca-url { flex: 1; min-width: 0; font-family: var(--mono); font-size: 11px; color: var(--text-3); background: var(--surface-2); border: 1px solid var(--border); border-radius: 20px; padding: 3px 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ca-bms { display: flex; align-items: center; gap: 8px; padding: 5px 10px; border-bottom: 1px solid var(--border); background: var(--surface-2); font-size: 11.5px; color: var(--text-3); }
+.ca-bm { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 6px; border: 1px solid var(--accent-border); background: var(--accent-light); color: var(--accent-dark); font-size: 11.5px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.ca-bm:hover { background: #FFE8D0; }
+.ca-bm.hint { box-shadow: 0 0 0 0 rgba(255,107,0,0.5); animation: bmPulse 1.6s infinite; }
+@keyframes bmPulse { 0% { box-shadow: 0 0 0 0 rgba(255,107,0,0.45); } 70% { box-shadow: 0 0 0 9px rgba(255,107,0,0); } 100% { box-shadow: 0 0 0 0 rgba(255,107,0,0); } }
+.ca-stage { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 14px; padding: 14px; background: #F6F5F2; min-height: 540px; }
+.ca-site { display: none; }
+.ca-site.active { display: contents; }
+.ca-page { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; font-size: 12.5px; align-self: start; min-width: 0; }
+.ca-page h4 { font-size: 13px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ca-page .pg-sub { font-size: 11px; color: var(--text-3); font-weight: 500; }
+.kv { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 3px 10px; font-size: 12px; margin-bottom: 10px; }
+.kv dt { color: var(--text-3); }
+.kv dd { color: var(--text); overflow-wrap: anywhere; }
+.kv dd.mono { font-family: var(--mono); font-size: 11px; }
+.pg-sec { font-size: 10.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); margin: 10px 0 6px; padding-top: 8px; border-top: 1px dashed var(--border); }
+.sf-head { background: #1B5297; color: #fff; border-radius: 8px 8px 0 0; margin: -14px -16px 12px; padding: 8px 14px; font-size: 12px; font-weight: 600; display: flex; gap: 10px; align-items: center; }
+.sf-head span { opacity: 0.75; font-weight: 500; }
+.sf-form { border: 1px solid #D8DDE6; border-radius: 6px; padding: 10px 12px; background: #F8FAFC; }
+.sf-row { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 8px; padding: 3px 0; font-size: 12px; align-items: center; }
+.sf-row label { color: #54698D; text-align: right; font-size: 11.5px; }
+.sf-val { background: #fff; border: 1px solid #D8DDE6; border-radius: 4px; padding: 2px 8px; min-height: 22px; overflow-wrap: anywhere; }
+.sf-val.filled { background: #FFFBEA; border-color: #F2D675; }
+.sf-body { background: #fff; border: 1px solid #D8DDE6; border-radius: 4px; padding: 8px 10px; font-size: 12px; line-height: 1.55; max-height: 170px; overflow: auto; }
+.sf-body p { margin-bottom: 6px; }
+.sf-body ul { margin: 0 0 6px 18px; }
+.sf-btns { display: flex; gap: 6px; margin-top: 10px; justify-content: center; }
+.sf-btn { padding: 4px 14px; border-radius: 4px; border: 1px solid #A8B8D0; background: linear-gradient(#fff, #EEF1F6); font-size: 12px; font-weight: 600; color: #333; cursor: pointer; font-family: inherit; }
+.sf-btn.go { border-color: #1B5297; background: #1B5297; color: #fff; }
+.sf-btn.go.pulse { animation: bmPulse 1.6s infinite; }
+.sf-btn[disabled] { opacity: 0.5; cursor: default; animation: none; }
+.sf-auto { font-size: 11px; color: var(--p-ok); font-weight: 600; text-align: center; margin-top: 6px; }
+.grid-mock { border: 1px solid var(--border); border-radius: 6px; overflow-x: auto; margin-bottom: 10px; }
+.grid-mock table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+.grid-mock th { background: var(--surface-2); text-align: left; padding: 4px 8px; color: var(--text-2); font-weight: 600; border-bottom: 1px solid var(--border); }
+.grid-mock td { padding: 4px 8px; border-bottom: 1px solid #F0EFEC; font-family: var(--mono); font-size: 10.5px; white-space: nowrap; }
+.grid-pager { display: flex; justify-content: flex-end; gap: 4px; padding: 4px 8px; font-size: 11px; color: var(--text-2); align-items: center; }
+.grid-pager b, .grid-pager .pg { display: inline-flex; min-width: 20px; justify-content: center; border-radius: 4px; padding: 0 4px; }
+.grid-pager .pg { border: none; background: none; font: inherit; color: inherit; cursor: pointer; }
+.grid-pager b.on, .grid-pager .pg.on { background: var(--blue-light); color: var(--blue); }
+.grid-pager .nx { border: 1px solid var(--border); border-radius: 4px; padding: 0 6px; }
+.grid-pager .nx.flash { background: var(--accent); color: #fff; border-color: var(--accent); }
+.chat-modal { border: 1px solid #DDD; border-radius: 10px; padding: 14px; background: #fff; box-shadow: 0 4px 18px rgba(0,0,0,0.08); }
+.chat-modal h5 { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+.chat-f { margin-bottom: 8px; }
+.chat-f label { display: block; font-size: 11.5px; font-weight: 700; margin-bottom: 3px; }
+.chat-f div { border: 1px solid #BBB; border-radius: 6px; padding: 5px 8px; min-height: 28px; font-size: 12px; color: var(--text); overflow-wrap: anywhere; }
+.chat-f div.ph { color: #999; }
+.chat-f div.filled { background: #F5FBF7; border-color: #7FBF95; }
+.chat-btns { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.chat-btn { padding: 5px 14px; border-radius: 6px; border: 1px solid #BBB; background: #fff; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit; }
+.chat-btn.go { background: var(--green); border-color: var(--green); color: #fff; }
+.chat-btn[disabled] { opacity: 0.45; cursor: default; }
+.cp { background: #fff; border: 1px solid var(--p-line); border-radius: 12px; color: var(--p-text); font-size: 12.5px; line-height: 1.45; align-self: start; box-shadow: 0 6px 22px rgba(22,32,43,0.08); min-width: 0; }
+.cp-closed { border: 1.5px dashed #CFCBC2; border-radius: 12px; padding: 22px 16px; text-align: center; color: var(--text-2); font-size: 12.5px; align-self: start; background: rgba(255,255,255,0.6); }
+.cp-closed b { color: var(--accent-dark); }
+.cp-hd { display: flex; align-items: center; gap: 6px; padding: 10px 12px 2px; flex-wrap: wrap; }
+.cp-hd .nm { font-size: 14px; font-weight: 700; }
+.cp-chip { font-size: 10.5px; padding: 1px 7px; border-radius: 6px; font-weight: 600; }
+.cp-chip.ok { background: #E3F1EF; color: var(--p-ok); }
+.cp-chip.pend { background: #FEF3C7; color: #92400E; }
+.cp-chip.site { margin-left: auto; border: 1px solid var(--p-line); color: var(--p-muted); font-weight: 500; }
+.cp-ic { border: none; background: none; color: var(--p-muted); font-size: 14px; cursor: pointer; padding: 0 3px; font-family: inherit; line-height: 1; }
+.cp-ic:hover { color: var(--p-text); }
+.cp-build { padding: 0 12px 7px; font-size: 10px; color: var(--p-faint); border-bottom: 1px solid var(--p-line); font-family: var(--mono); }
+.cp-det { padding: 6px 12px; border-bottom: 1px solid var(--p-line); color: var(--p-muted); font-size: 12px; }
+.cp.cp-off .cp-det, .cp.cp-off .cp-tabs, .cp.cp-off .cp-chip.sev-pre, .cp.cp-off .cp-chip.sev-ok, .cp.cp-off .cp-chip.sev-warn, .cp.cp-off .cp-chip.sev-stop { opacity: .45; pointer-events: none; }
+.ca-applist { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.ca-applist button { text-align: left; border: 1px solid var(--border); background: var(--surface); border-radius: 8px; padding: 8px 10px; font: inherit; cursor: pointer; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.ca-applist button:hover { border-color: var(--accent-border); }
+.ca-applist span { color: var(--text-3); font-size: 11.5px; }
+.cp-tabs { display: flex; flex-wrap: wrap; gap: 4px; padding: 7px 12px; border-bottom: 1px solid var(--p-line); }
+.cp-tab { padding: 3px 10px; border-radius: 6px; color: var(--p-muted); background: none; border: none; cursor: pointer; font-size: 12.5px; font-family: inherit; }
+.cp-tab:hover { color: var(--p-text); }
+.cp-tab.on { background: var(--p-blue-bg); color: var(--p-blue); }
+.cp-tab .rd { color: var(--p-stop); }
+.cp-body { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 8px; }
+.cp-note { border-radius: 8px; padding: 7px 10px; font-size: 12px; font-weight: 600; }
+.cp-note.green { background: #E6F4EA; color: #1E7B3C; }
+.cp-note.blue { background: var(--p-blue-bg); color: var(--p-blue); }
+.cp-note.amber { background: #FEF3C7; color: #92400E; }
+.cp-note .lnk { font-weight: 700; text-decoration: underline; cursor: pointer; background: none; border: none; color: inherit; font: inherit; padding: 0; }
+.card { --c: var(--p-pre); border: 1px solid var(--p-line); border-left: 5px solid var(--c); border-radius: 0 10px 10px 0; padding: 10px 12px; }
+.card.ok { --c: var(--p-ok); } .card.warn { --c: var(--p-warn); } .card.stop { --c: var(--p-stop); } .card.pre { --c: var(--p-pre); }
+.card .tool { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 12.5px; }
+.card .n { display: inline-flex; width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--p-line); align-items: center; justify-content: center; font-size: 10px; color: var(--p-muted); font-weight: 600; }
+.card .src { color: var(--p-muted); font-size: 11.5px; margin: 2px 0 6px; }
+.card .big { font-weight: 700; font-size: 16px; margin: 0 0 2px; line-height: 1.3; overflow-wrap: anywhere; }
+.card .meta { color: var(--p-muted); font: 11px var(--mono); margin-bottom: 8px; overflow-wrap: anywhere; }
+.card ul { margin: 0 0 9px; padding-left: 18px; }
+.card li { margin: 3px 0; overflow-wrap: anywhere; }
+.pbtn { display: block; width: 100%; padding: 7px 8px; border-radius: 8px; font: 600 12.5px 'Inter', sans-serif; border: 1px solid var(--c, var(--p-ok)); background: var(--c, var(--p-ok)); color: #fff; margin-bottom: 6px; text-align: center; cursor: pointer; }
+.pbtn:hover { filter: brightness(1.07); }
+.pbtn.sec { background: #fff; color: var(--c, var(--p-ok)); }
+.pbtn.copied { background: #1E7B3C; border-color: #1E7B3C; color: #fff; }
+.pbtn[disabled] { opacity: 0.45; cursor: default; filter: none; }
+.two { display: flex; gap: 6px; } .two .pbtn { flex: 1; }
+.cfoot { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--p-faint); margin-top: 2px; gap: 8px; }
+.plink { color: var(--c, var(--p-blue)); font-weight: 600; background: none; border: none; cursor: pointer; font: 600 11px 'Inter', sans-serif; padding: 0; text-decoration: underline; }
+.off { display: flex; align-items: center; gap: 6px; padding: 6px 4px; color: var(--p-faint); font-size: 12px; border-top: 1px dashed var(--p-line); }
+.off b { color: var(--p-muted); font-weight: 600; }
+.off .r { margin-left: auto; text-align: right; }
+.off .n { display: inline-flex; width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--p-line); align-items: center; justify-content: center; font-size: 10px; color: var(--p-muted); font-weight: 600; }
+.plbl { font-size: 10.5px; font-weight: 700; color: var(--p-faint); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px; }
+.psearch { width: 100%; padding: 6px 9px; border: 1px solid var(--p-line); border-radius: 8px; font: 12.5px 'Inter', sans-serif; color: var(--p-text); }
+.psearch:focus, .pin:focus, .pta:focus { outline: none; border-color: var(--p-blue); box-shadow: 0 0 0 3px rgba(31,95,168,0.12); }
+.pcount { font-size: 11px; color: var(--p-muted); }
+.ppills { display: flex; flex-wrap: wrap; gap: 5px; max-height: 150px; overflow: auto; }
+.pgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 8px; }
+.pf label { display: block; font-size: 11px; font-weight: 600; color: var(--p-muted); margin-bottom: 2px; }
+.pin, .pta { width: 100%; padding: 4px 7px; border: 1px solid var(--p-line); border-radius: 6px; font: 12px 'Inter', sans-serif; color: var(--p-text); background: #fff; }
+.pin.read, .pta.read { background: #EAF2FD; border-color: #B9D2F1; color: #1F4E8A; }
+.pin.need, .pta.need { border-color: #E3A008; background: #FFFBEB; }
+.pin.mono { font-family: var(--mono); font-size: 10.5px; }
+.pta { min-height: 56px; resize: vertical; }
+.pchips { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; font-size: 11px; color: var(--p-muted); }
+.pchip { border: 1px solid var(--p-line); border-radius: 6px; padding: 1px 7px; background: #fff; font: 11px var(--mono); cursor: pointer; color: var(--p-text); }
+.pchip:hover { border-color: var(--p-blue); }
+.pbar { height: 4px; background: #E8ECF1; border-radius: 4px; overflow: hidden; }
+.pbar i { display: block; height: 100%; background: var(--p-ok); transition: width 0.2s; }
+.pprev { border: 1px solid var(--p-line); border-radius: 8px; background: #FAFBFC; padding: 8px 10px; font-size: 11.5px; line-height: 1.5; max-height: 190px; overflow: auto; }
+.pprev .sub { font-weight: 700; margin-bottom: 6px; padding-bottom: 5px; border-bottom: 1px dashed var(--p-line); }
+.pprev p { margin-bottom: 5px; }
+.pprev ul { margin: 0 0 5px 16px; }
+.pv { background: #EAF2FD; color: #1F4E8A; border-radius: 3px; padding: 0 2px; font-weight: 600; }
+.pv.typed { background: #FFF4EC; color: var(--accent-dark); }
+.pv-muted { color: var(--p-faint); font-style: italic; }
+.rspot { border: 2px solid #F08A3C; background: #FFF4EC; border-radius: 10px; padding: 9px 10px; box-shadow: 0 0 0 3px rgba(255,107,0,0.12); }
+.rspot .rt { display: flex; gap: 8px; align-items: center; }
+.rspot .kcap { font: 700 11px var(--mono); color: var(--accent-dark); border: 1.5px solid var(--accent); border-radius: 6px; padding: 2px 5px; background: #fff; }
+.rspot .rh { font-weight: 700; font-size: 13px; }
+.rspot .rs { font-size: 11px; color: var(--p-muted); }
+.rspot input { margin-top: 7px; width: 100%; padding: 5px 8px; border: 1.5px solid var(--p-blue); border-radius: 6px; font: 11.5px var(--mono); }
+.spa-line { font: 12px var(--mono); background: #F4F5F7; border: 1px solid var(--p-line); border-radius: 6px; padding: 6px 8px; margin: 6px 0 8px; overflow-wrap: anywhere; }
+.sfsteps { list-style: none; display: flex; flex-direction: column; gap: 4px; margin: 0; padding: 0; }
+.sfsteps li { display: flex; gap: 7px; align-items: flex-start; font-size: 12px; color: var(--p-faint); }
+.sfsteps li i { font-style: normal; width: 14px; flex-shrink: 0; text-align: center; }
+.sfsteps li.done { color: var(--p-text); }
+.sfsteps li.done i { color: var(--p-ok); }
+.sfsteps li.now { color: var(--p-blue); font-weight: 600; }
+.spin { display: inline-block; width: 10px; height: 10px; border: 2px solid #B9D2F1; border-top-color: var(--p-blue); border-radius: 50%; animation: spin 0.8s linear infinite; margin-top: 3px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.bcc { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 6px; background: #E6F4EA; color: #1E7B3C; }
+.ex-checks { list-style: none; margin: 6px 0 0; padding: 0; font-size: 11.5px; }
+.ex-checks li { margin: 2px 0; color: var(--p-ok); }
+.ex-checks li::before { content: '✓ '; font-weight: 700; }
+.seg { display: inline-flex; border: 1px solid var(--p-line); border-radius: 7px; overflow: hidden; }
+.seg button { border: none; background: #fff; padding: 3px 10px; font: 600 11.5px 'Inter', sans-serif; color: var(--p-muted); cursor: pointer; }
+.seg button.on { background: var(--p-blue-bg); color: var(--p-blue); }
+.psel { width: 100%; padding: 3px 6px; border: 1px solid var(--p-line); border-radius: 6px; font: 12px 'Inter', sans-serif; background: #fff; color: var(--p-text); }
+.shared { background: #FEF3C7; color: #92400E; border-radius: 6px; padding: 4px 8px; font-size: 11.5px; font-weight: 600; }
+.ca-apps-h { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); margin-bottom: 6px; }
+.ca-apps { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(150px, 100%), 1fr)); gap: 6px; margin-bottom: 8px; }
+.ca-app { text-align: left; border: 1px solid var(--border); background: var(--surface-2); border-radius: 8px; padding: 6px 9px; cursor: pointer; font-family: inherit; display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.ca-app b { font-size: 12px; color: var(--text); font-weight: 600; }
+.ca-app span { font-size: 10.5px; color: var(--text-3); }
+.ca-app:hover { border-color: var(--accent-border); }
+.ca-app.on { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 2px rgba(255,107,0,0.12); }
+.ca-app-pend { font-style: normal; font-size: 10px; font-weight: 700; color: #92400E; background: #FEF3C7; border-radius: 4px; padding: 0 5px; align-self: flex-start; margin-top: 2px; }
+.ca-tip { font-size: 11.5px; color: var(--text-2); background: var(--blue-light); border-radius: 8px; padding: 6px 9px; margin-bottom: 10px; }
+.muted { color: var(--text-3); }
+button.cp-chip { border: none; cursor: pointer; font-family: inherit; }
+.cp-chip.sev-pre { background: #E8EDF8; color: var(--p-pre); }
+.cp-chip.sev-ok { background: #E3F1EF; color: var(--p-ok); }
+.cp-chip.sev-warn { background: #FEF3C7; color: var(--p-warn); }
+.cp-chip.sev-stop { background: #FBE9E4; color: var(--p-stop); }
+.cp-sum { background: none; border: none; color: inherit; font: inherit; cursor: pointer; padding: 0; text-align: left; }
+.readbox { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 3px 8px; margin-top: 6px; font-size: 11.5px; }
+.readbox .rl { color: var(--p-faint); }
+.cv { display: inline-block; background: var(--p-blue-bg); color: var(--p-blue); border-radius: 4px; padding: 0 5px; margin: 0 3px 2px 0; overflow-wrap: anywhere; }
+.cv.mono { font: 10.5px var(--mono); }
+.cv.nf { background: #FEF3C7; color: #92400E; }
+.cnote { font-size: 12px; margin: -4px 0 8px; }
+.cnote.strong { font-weight: 700; }
+.dnote { font-size: 10.5px; color: var(--p-faint); text-align: center; }
+.aodst { font-size: 11px; color: var(--p-muted); margin-top: 2px; }
+.aodst.bad { color: var(--p-stop); }
+.aodst.hit { color: var(--p-ok); font-weight: 600; }
+.hit { background: #FEF3C7; border-radius: 3px; padding: 0 2px; font-weight: 600; }
+.pv.ph { background: #F1F3F6; color: var(--p-faint); font-weight: 500; }
+.spot-err { margin-top: 6px; font-size: 11.5px; color: var(--p-stop); font-weight: 600; }
+.nextrow { display: flex; gap: 8px; align-items: center; width: 100%; padding: 8px 10px; border: 1px dashed var(--p-line); border-radius: 8px; background: #fff; color: var(--p-blue); font: 600 12.5px 'Inter', sans-serif; cursor: pointer; }
+.rrow { display: flex; gap: 6px; align-items: flex-end; margin-bottom: 4px; }
+.rrow .pf { flex: 1; min-width: 0; }
+.pta.sm { min-height: 40px; font-size: 11.5px; }
+.pta.mono { font-family: var(--mono); font-size: 10.5px; }
+.pgrid .pf.wide { grid-column: 1 / -1; }
+@media (max-width: 360px) { .pin.mono { font-size: 10px; } }
+div.pin { line-height: 1.35; min-height: 25px; overflow-wrap: anywhere; }
+.pta.sm.mono { line-height: 1.35; min-height: 56px; }
+div.pin.mono, .pta.sm.mono { word-break: break-all; }
+.sfsteps li > span { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 300px) { .pgrid { grid-template-columns: minmax(0, 1fr); } .two { flex-direction: column; gap: 0; } .rrow { flex-wrap: wrap; } .rrow .pf { flex-basis: 100%; } .cfoot { flex-wrap: wrap; } }
+.excdef { border: 1px dashed var(--p-line); border-radius: 8px; padding: 6px; margin-bottom: 6px; }
+.xcalc { font-size: 12px; font-weight: 600; color: var(--p-muted); margin: 2px 0 6px; }
+.xcalc.good { color: var(--p-ok); }
+.notes { white-space: pre-wrap; font: 11px var(--mono); background: #FAFBFC; border: 1px solid var(--p-line); border-radius: 8px; padding: 7px 9px; max-height: 200px; overflow: auto; margin: 0 0 6px; overflow-wrap: anywhere; }
+.xprob { white-space: pre-wrap; font-size: 11.5px; color: var(--p-stop); margin-bottom: 6px; }
+.cells { width: 100%; border-collapse: collapse; font-size: 11px; margin: 6px 0; }
+.cells td { border-top: 1px solid var(--p-line); padding: 3px 5px; vertical-align: top; overflow-wrap: anywhere; }
+.cells td:first-child { color: var(--p-muted); width: 42%; }
+.cells .notes { margin: 0; }
+.sf-title { font-size: 17px; font-weight: 700; line-height: 1.3; margin: 0 0 6px; }
+.sfpill { display: inline-block; font-size: 10.5px; font-weight: 600; color: var(--p-blue); background: var(--p-blue-bg); border-radius: 10px; padding: 1px 8px; margin-bottom: 4px; }
+.sfsteps li.bad, .sfsteps li.bad i { color: var(--p-stop); }
+.mcard { border: 1px solid var(--border); border-radius: 8px; padding: 7px 9px; margin-bottom: 6px; font-size: 12px; }
+.mst { font-size: 10.5px; font-weight: 600; border-radius: 4px; padding: 0 5px; background: var(--green-light); color: var(--green); }
+.mst.cl { background: #F1F0EC; color: var(--text-3); }
+.mrow { font-size: 11.5px; color: var(--text-2); }
+.mrow span { color: var(--text-3); }
+.cp-note.red { background: #FDECEA; color: #B33A17; }
+.card li.more { list-style: none; margin-left: -18px; color: var(--p-muted); }
+@media (max-width: 760px) {
+  .ca-stage { grid-template-columns: minmax(0, 1fr); padding: 10px; }
+  .kv { grid-template-columns: 1fr; }
+  .kv dt { margin-top: 4px; }
+  .sf-row { grid-template-columns: 1fr; }
+  .sf-row label { text-align: left; }
+}
+</style>
+<script>try { if (window.self !== window.top) document.documentElement.classList.add('framed'); } catch (e) { document.documentElement.classList.add('framed'); }</script>
+</head>
+<body>
+<p class="demo-flag">Invented data. A simulation of Capital Assistant and its guards, not the real tool.</p>
+<div class="mockup-wrap">
+  <div class="mock-note">
+    <span>Six invented applications, each on a different path. Pick one in the application list on the SPA tab, click <b>★ Capital Assistant</b> on the bookmarks bar, and follow its <b>Try</b> line. Switch applications at any time: the panel follows SPA to the new one, as the real one does, and a send waiting for its receipt stays with its own application. The KYB provider and collections tracker tabs show the business of the application on screen.</span>
+    <button class="reset-btn" onclick="resetDemo()">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.37"/></svg>
+      Reset demo
+    </button>
+  </div>
+  <div class="mockup-card">
+    <div class="ca-tabs" role="tablist" aria-label="Browser tabs">
+      <button class="ca-stab active" id="stab-spa" onclick="goSite('spa')"><span class="sdot"></span>SPA · Application</button>
+      <button class="ca-stab" id="stab-sf" onclick="goSite('sf')"><span class="sdot"></span>Salesforce console</button>
+      <button class="ca-stab" id="stab-kyb" onclick="goSite('kyb')"><span class="sdot"></span>KYB provider · Liens</button>
+      <button class="ca-stab" id="stab-trk" onclick="goSite('trk')"><span class="sdot"></span>Collections tracker</button>
+      <button class="ca-stab" id="stab-chat" onclick="goSite('chat')"><span class="sdot"></span>Team chat</button>
+      <button class="ca-stab" id="stab-other" onclick="goSite('other')"><span class="sdot"></span>Look-alike site</button>
+    </div>
+    <div class="ca-bar"><span class="ca-url" id="caUrl"></span></div>
+    <div class="ca-bms">
+      <button class="ca-bm hint" id="caBm" onclick="bookmarkClick()">★ Capital Assistant</button>
+    </div>
+    <div class="ca-stage">
+      <div class="ca-site active" id="site-spa">
+        <div class="ca-page">
+          <div class="ca-apps-h">Capital applications · invented</div>
+          <div class="ca-apps" id="spaApps"></div>
+          <div class="ca-tip" id="spaTip"></div>
+          <div id="spaPage"></div>
+        </div>
+        <div id="pnl-spa"></div>
+      </div>
+      <div class="ca-site" id="site-sf">
+        <div class="ca-page" id="sfPage"></div>
+        <div id="pnl-sf"></div>
+      </div>
+      <div class="ca-site" id="site-kyb">
+        <div class="ca-page" id="kybPage"></div>
+        <div id="pnl-kyb"></div>
+      </div>
+      <div class="ca-site" id="site-trk">
+        <div class="ca-page" id="trkPage"></div>
+        <div id="pnl-trk"></div>
+      </div>
+      <div class="ca-site" id="site-chat">
+        <div class="ca-page">
+          <h4>Risk channel <span class="pg-sub">Team chat · risk review workflow</span></h4>
+          <div class="chat-modal" id="chatForm"></div>
+        </div>
+        <div id="pnl-chat"></div>
+      </div>
+      <div class="ca-site" id="site-other">
+        <div class="ca-page">
+          <h4>kyb.example.evil.test <span class="pg-sub">a look-alike host</span></h4>
+          <p style="font-size:12px;color:var(--text-2)">The host check in the script compares the page's host name exactly. This address only looks like the KYB provider's, so clicking the bookmark here reads nothing and shows only "Not available on this site".</p>
+        </div>
+        <div id="pnl-other"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const SendCore = (() => {
+  const TRK_DASHBOARD_PATH = '/dashboards/collections';
+  const GUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+  function normalizeGuid(s) { return String(s == null ? '' : s).trim().toLowerCase(); }
+  function isGuid(s) { return GUID_RE.test(normalizeGuid(s)); }
+  function extractPlaceholders(s) {
+    return [...new Set([...String(s || '').matchAll(/\{([^{}]+)\}/g)].map(m => m[1]))];
+  }
+  function fillTokens(s, values) {
+    return String(s || '').replace(/\{([^{}]+)\}/g, (m, k) =>
+      values && values[k] !== undefined && values[k] !== null && values[k] !== '' ? String(values[k]) : m);
+  }
+  function unfilledTokens(s) { return extractPlaceholders(s); }
+  const EXC_KIND = 'ca-exception';
+  const EXC_HIDDEN = /[\u00AD\u034F\u061C\u115F\u1160\u180E\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u2069\u2028\u2029\u2800\u3164\uFE00-\uFE0F\uFEFF\uFFFC\u{E0000}-\u{E007F}]/u;
+  const EXC_DECISIONS = ['Decline', 'Approve', 'Refer'];
+  const EXC_KEYS = ['kind', 'v', 'at', 'exceptionKind', 'merchantName', 'appId', 'applicationDate', 'excDecision', 'offer', 'term', 'model1', 'model2',
+    'model3', 'liveSince', 'compensating', 'policyDecision', 'registeredOn', 'creditNotes'];
+  const EXC_KIND_KEYS = { coo: ['changeType', 'defaultVerb', 'defaults'], partner: ['legalEntity', 'partnerPct', 'statementMonth', 'statementAmount'] };
+  const excNum = t => { const m = String(t == null ? '' : t).replace(/[$,\s]/g, '').match(/^-?\d+(\.\d+)?$/); return m ? +m[0] : null; };
+  const parseMoney = t => { const n = excNum(t); return n != null && n >= 0 ? n : null; };
+  const round6 = n => Math.round(n * 1e6) / 1e6;
+  const EXC_MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+  function parseExcDate(t) {
+    const s = String(t == null ? '' : t).trim();
+    let y, m, d, x;
+    if ((x = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})\b/))) { m = +x[1]; d = +x[2]; y = +x[3]; }
+    else if ((x = s.match(/^(\d{4})-(\d{2})-(\d{2})\b/))) { y = +x[1]; m = +x[2]; d = +x[3]; }
+    else if ((x = s.match(/^([A-Za-z]{3})[a-z]*\.?\s+(\d{1,2}),?\s+(\d{4})\b/))) { m = EXC_MONTHS.indexOf(x[1].toLowerCase()) + 1; d = +x[2]; y = +x[3]; }
+    else return '';
+    const dt = new Date(y, m - 1, d);
+    if (!m || dt.getFullYear() !== y || dt.getMonth() !== m - 1 || dt.getDate() !== d) return '';
+    return String(m).padStart(2, '0') + '/' + String(d).padStart(2, '0') + '/' + y;
+  }
+  const excMoney = n => '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  function exceptionNotes(d) {
+    if (d.exceptionKind === 'partner') {
+      return '[Credit Notes text not shown on this page] Merchant: ' + d.merchantName + '. Legal entity: ' + d.legalEntity + '. Term: ' + d.term + ' days. Statement: ' + d.statementMonth + ', ' + excMoney(d.statementAmount) +
+        ' (' + Number(d.partnerPct).toFixed(2) + '%).';
+    }
+    return '[Credit Notes text not shown on this page] Merchant: ' + d.merchantName + '. Application date: ' + d.applicationDate + '. Change type: ' + d.changeType + '. Loan status: ' + d.defaultVerb + '.' +
+      (d.defaults || []).map((x, i) => '\nDefault ' + (i + 1) + ': ' + x.loanId + ', ' + x.reason + ', ' + x.date + ', ' + excMoney(x.balance)).join('');
+  }
+  function buildException(f, now) {
+    const one = s => String(s == null ? '' : s).replace(/\s+/g, ' ').trim();
+    const d = { kind: EXC_KIND, v: 1, at: new Date(now).toISOString(), exceptionKind: f.exceptionKind, merchantName: one(f.merchantName), appId: one(f.appId),
+      applicationDate: f.applicationDate, excDecision: f.excDecision, offer: f.offer, term: f.term, model1: f.model1, model2: f.model2, model3: f.model3,
+      liveSince: f.liveSince, compensating: f.compensating, policyDecision: f.policyDecision, registeredOn: f.registeredOn };
+    if (f.exceptionKind === 'coo') Object.assign(d, { changeType: f.changeType, defaultVerb: f.defaultVerb,
+      defaults: (f.defaults || []).map(x => ({ loanId: one(x.loanId), reason: one(x.reason), date: x.date, balance: x.balance })) });
+    else Object.assign(d, { legalEntity: one(f.legalEntity), partnerPct: f.partnerPct, statementMonth: one(f.statementMonth), statementAmount: f.statementAmount });
+    d.creditNotes = exceptionNotes(d);
+    return d;
+  }
+  function validateException(d, now) {
+    const e = [];
+    if (!d || typeof d !== 'object' || Array.isArray(d)) return { ok: false, errors: ['That is not exception data'] };
+    if (d.kind !== EXC_KIND) e.push('That is not exception data');
+    if (d.v !== 1) e.push('Data version ' + d.v + ' is not 1');
+    const kind = d.exceptionKind;
+    if (kind !== 'coo' && kind !== 'partner') return { ok: false, errors: e.concat('Exception kind must be coo or partner') };
+    const want = EXC_KEYS.concat(EXC_KIND_KEYS[kind]).sort();
+    if (Object.keys(d).sort().join() !== want.join()) e.push('The data has other fields than expected');
+    const at = Date.parse(d.at);
+    if (isNaN(at) || now - at > 30 * 60000) e.push('The data is older than 30 minutes: copy it again');
+    else if (at - now > 60000) e.push('The data is dated in the future');
+    const text = (k, max, label) => {
+      const v = d[k];
+      if (typeof v !== 'string' || !v.trim()) return e.push(label + ' is empty');
+      if (v.length > max) return e.push(label + ' is longer than ' + max + ' characters');
+      if (/[\u0000-\u001F\u007F-\u009F]/.test(v)) return e.push(label + ' must be one line');
+      if (v !== v.trim()) return e.push(label + ' has spaces at the start or the end');
+      if (EXC_HIDDEN.test(v)) return e.push(label + ' has hidden characters (zero-width or text-direction)');
+      if (/^[=+\-@]/.test(v)) e.push(label + ' must not start with = + - or @');
+    };
+    const date = (k, label) => { if (typeof d[k] !== 'string' || parseExcDate(d[k]) !== d[k]) e.push(label + ' is not a date (MM/DD/YYYY)'); };
+    const num = (k, lo, hi, label, int) => { const v = d[k]; if (typeof v !== 'number' || !isFinite(v) || v < lo || v > hi || (int && v !== Math.floor(v))) e.push(label + ' is not a number from ' + lo + ' to ' + hi); };
+    const pick = (k, list, label) => { if (!list.includes(d[k])) e.push(label + ' must be one of: ' + list.join(', ')); };
+    text('merchantName', 200, 'Business');
+    if (!isGuid(d.appId) || normalizeGuid(d.appId) !== d.appId) e.push('Application ID is not a GUID');
+    date('applicationDate', 'Applied on'); date('liveSince', 'Live since'); date('registeredOn', 'Registered on');
+    pick('excDecision', EXC_DECISIONS, 'Exception decision'); pick('policyDecision', EXC_DECISIONS, 'Policy decision'); pick('compensating', ['Yes', 'No'], 'Compensating factors');
+    num('offer', 0.01, 10000000, 'Offer'); num('term', 1, 1000, 'Term (days)', true); num('model1', 0, 1, 'Model value 1'); num('model2', 0, 1, 'Model value 2'); num('model3', 0, 1, 'Model value 3');
+    if (kind === 'coo') {
+      pick('changeType', ['Ownership', 'Legal Entity'], 'Change type'); pick('defaultVerb', ['Will default', 'In default'], 'Loan status');
+      if (!Array.isArray(d.defaults) || d.defaults.length > 10) e.push('Defaults must be a list of at most 10');
+      else d.defaults.forEach((x, i) => {
+        const n = 'Default ' + (i + 1);
+        if (!x || typeof x !== 'object' || Object.keys(x).sort().join() !== 'balance,date,loanId,reason') return e.push(n + ' has other fields than expected');
+        ['loanId', 'reason'].forEach(k => { if (typeof x[k] !== 'string' || !x[k].trim() || x[k].length > (k === 'reason' ? 200 : 100) || /[\u0000-\u001F\u007F-\u009F]/.test(x[k]) || x[k] !== x[k].trim() || EXC_HIDDEN.test(x[k])) e.push(n + ': ' + (k === 'reason' ? 'Reason' : 'Loan ID') + ' is empty, too long, or has extra spaces or hidden characters'); });
+        if (typeof x.date !== 'string' || parseExcDate(x.date) !== x.date) e.push(n + ': Defaulted on is not a date');
+        if (typeof x.balance !== 'number' || !isFinite(x.balance) || x.balance < 0 || x.balance > 100000000) e.push(n + ': Balance is not an amount');
+      });
+    } else {
+      text('legalEntity', 200, 'Legal entity'); text('statementMonth', 30, 'Statement month');
+      num('partnerPct', 0, 100, '% of revenue'); num('statementAmount', 0.01, 100000000, 'Statement amount');
+    }
+    if (!e.length && d.creditNotes !== exceptionNotes(d)) e.push('The Credit Notes do not match the fields: copy it again');
+    return { ok: e.length === 0, errors: e };
+  }
+  const RISK_KIND = 'ca-risk-review';
+  const RISK_REASON_TEXT = 'Sample adverse action reason';
+  const RISK_KEYS = ['kind', 'v', 'bizName', 'guid', 'reqAmount', 'reviewReason', 'reviewNotes', 'at'];
+  const RISK_MAX = { bizName: 200, guid: 100, reqAmount: 100, reviewReason: 100, reviewNotes: 500 };
+  const RISK_LABEL = { bizName: 'Business', guid: 'Business ID', reqAmount: 'Amount', reviewReason: 'Reason', reviewNotes: 'Notes' };
+  const riskOneLine = s => String(s == null ? '' : s).replace(/\s+/g, ' ').trim();
+  function buildRiskReview(v, now) {
+    return { kind: RISK_KIND, v: 1, bizName: riskOneLine(v.bizName), guid: riskOneLine(v.guid), reqAmount: riskOneLine(v.reqAmount),
+      reviewReason: riskOneLine(v.reviewReason), reviewNotes: riskOneLine(v.reviewNotes), at: new Date(now).toISOString() };
+  }
+  const CHAT_STRIP = /[\u0000-\u001F\u007F-\u009F\u200B-\u200F\u202A-\u202E\u2060\u2066-\u2069\uFEFF\u061C]/g;
+  const chatSafe = s => String(s).replace(CHAT_STRIP, '')
+    .replace(/:\/\//g, '\uA789//').replace(/\bwww\./gi, m => m.slice(0, 3) + '\u2024')
+    .replace(/\b(?:[a-z0-9-]+\.)+[a-z]{2,}\b/gi, m => m.replace(/\./g, '\u2024'))
+    .replace(/:([a-z0-9_+-]+):/gi, '\uA789$1\uA789')
+    .replace(/</g, '＜').replace(/>/g, '＞').replace(/@/g, '＠')
+    .replace(/&/g, '＆').replace(/\*/g, '＊').replace(/_/g, '＿').replace(/~/g, '～').replace(/`/g, '｀');
+  function validateRiskReview(o, now) {
+    const e = [];
+    if (!o || typeof o !== 'object' || Array.isArray(o)) return { ok: false, errors: ['That is not the risk review data'] };
+    const keys = Object.keys(o).sort(), want = RISK_KEYS.slice().sort();
+    if (keys.join() !== want.join()) e.push('The data has other fields than expected');
+    if (o.kind !== RISK_KIND) e.push('That is not the risk review data');
+    if (o.v !== 1) e.push('Data version ' + o.v + ' is not 1');
+    const at = Date.parse(o.at);
+    if (isNaN(at) || now - at > 30 * 60000) e.push('The data is older than 30 minutes: click Copy for team chat in the SPA panel again');
+    else if (at - now > 60000) e.push('The data is dated in the future');
+    const values = {};
+    Object.keys(RISK_MAX).forEach(k => {
+      if (typeof o[k] !== 'string') { e.push(RISK_LABEL[k] + ' is not text'); return; }
+      if (/[\r\n\u2028\u2029]/.test(o[k])) { e.push(RISK_LABEL[k] + ' must be one line'); return; }
+      const v = o[k].replace(CHAT_STRIP, '').trim();
+      if (v.length > RISK_MAX[k]) { e.push(RISK_LABEL[k] + ' is longer than ' + RISK_MAX[k] + ' characters'); return; }
+      values[k] = v;
+    });
+    if (values.guid != null && !isGuid(values.guid)) e.push('Business ID is not a GUID');
+    if (values.reqAmount != null && !/^\$?[0-9]{1,3}(,[0-9]{3})*(\.[0-9]{2})?$/.test(values.reqAmount)) e.push('Amount is not an amount like $9,500.00');
+    if (values.reviewReason && riskOneLine(values.reviewReason).toLowerCase() !== RISK_REASON_TEXT.toLowerCase()) e.push('Reason is not the known adverse action');
+    if (values.bizName === '') e.push('Business is empty');
+    if (e.length) return { ok: false, errors: e };
+    Object.keys(values).forEach(k => { values[k] = chatSafe(values[k]); });
+    return { ok: true, errors: [], values };
+  }
+  const hostName = host => String(host || '').toLowerCase().replace(/:\d+$/, '').replace(/\.$/, '');
+  const SF_NAME = /^crm\.example$/, SPA_APP_PATH = /^\/applications\/[0-9a-f-]{36}(\/|$)/i;
+  function spaAppGuid(pathname) {
+    const m = String(pathname || '').match(/^\/applications\/([0-9a-f-]{36})(\/|$)/i);
+    return m && isGuid(m[1]) ? normalizeGuid(m[1]) : '';
+  }
+  function properName(s) {
+    const t = String(s == null ? '' : s).replace(/\s+/g, ' ').trim();
+    if (!t || (t !== t.toLocaleLowerCase('en-US') && t !== t.toLocaleUpperCase('en-US'))) return t;
+    return t.toLocaleLowerCase('en-US').replace(/(^|[\s\-'\u2019.])([^\s\-'\u2019.])/gu, (m, sep, c) => sep + c.toLocaleUpperCase('en-US'));
+  }
+  function formatDate(iso, now) {
+    const d = iso ? new Date(iso) : new Date(now);
+    if (isNaN(d)) return '';
+    return (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+  }
+  function formatMonthDay(iso, now) {
+    const d = iso ? new Date(iso) : new Date(now);
+    if (isNaN(d)) return '';
+    return String(d.getMonth() + 1).padStart(2, '0') + '/' + String(d.getDate()).padStart(2, '0');
+  }
+  function buildSpaLog(pattern, data) {
+    const line = fillTokens(pattern, data);
+    return { line, missing: unfilledTokens(line) };
+  }
+  const Aod = (function () {
+    var PCT=String.fromCharCode(37);
+    function tc(s){return s.replace(/\s+/g," ").toLowerCase().replace(/(^|[\s\-'\u2019])([a-z])/g,function(m,p,c){return p+c.toUpperCase();}).replace(/\b(Ii|Iii|Iv)\b/g,function(r){return r.toUpperCase();});}
+    function nk(s){return s.toLowerCase().replace(/[^a-z0-9]+/g," ").trim();}
+    function parse(raw){var L=raw.split(/\r?\n/).map(function(l){return l.trim();}).filter(Boolean);var le="",P=[],cur=null,m;for(var i=0;i<L.length;i++){var l=L[i];if(!le&&(m=l.match(/^legal entity name\s*:?\s*(.*)$/i))){if(m[1]){le=m[1];}else if(L[i+1]){le=L[i+1];i++;}continue;}if((m=l.match(/^ownership\b\s*:?\s*([\d.]*)/i))){var v=m[1];if(!v&&L[i+1]&&/^[\d.]+/.test(L[i+1])){v=L[i+1].match(/^[\d.]+/)[0];i++;}if(cur&&v)cur.pct=v;continue;}if((m=l.match(/^(owner|control person)\b\s*\d*\s*:?\s*(.*)$/i))){var nm=m[2];if(!nm&&L[i+1]&&!/^ownership\b/i.test(L[i+1])){nm=L[i+1];i++;}if(!nm)continue;cur={name:tc(nm),pct:null,ctrl:/^control/i.test(m[1])};P.push(cur);continue;}}var seen={},out=[];P.forEach(function(p){if(!p.ctrl)seen[nk(p.name)]=1;});P.forEach(function(p){var k=nk(p.name);if(p.ctrl){if(seen[k])return;seen[k]=1;}out.push(p);});return{le:le,people:out};}
+    function who(p){return p.name+" ("+(p.pct!=null?p.pct+PCT:(p.ctrl?"control":""))+")";}
+    function line(label,r){return label+": "+r.people.map(who).join(", ")+"; legal entity: "+r.le;}
+    function output(applying, defaulted) {
+      var rows=[];if(String(applying||"").trim())rows.push({label:"Applicant",r:parse(applying)});var n=0;
+      (defaulted||[]).forEach(function(t){if(String(t||"").trim()){n++;rows.push({label:"Defaulted business "+n,r:parse(t)});}});
+      return rows.map(function(o){return line(o.label,o.r);}).join("\n");
+    }
+    function status(text, applying) {
+      if(!String(text||"").trim())return {text:"",bad:false,matches:[]};var r=parse(text);
+      if(!r.people.length)return {text:"No owners found",bad:true,matches:[]};if(!r.le)return {text:"No legal entity name found",bad:true,matches:[]};
+      var ak={};if(applying!=null)parse(applying).people.forEach(function(p){ak[nk(p.name)]=1;});
+      var mt=applying==null?[]:r.people.filter(function(p){return ak[nk(p.name)];}).map(function(p){return p.name;});
+      return {text:r.people.length+" owner(s) \u00b7 "+r.le+(mt.length?" \u00b7 matches applicant: "+mt.join(", "):""),bad:false,matches:mt};
+    }
+    return { tc: tc, nk: nk, parse: parse, who: who, line: line, output: output, status: status };
+  })();
+  const DefaultChurn = (function () {
+    function norm(s){return (""+s).toUpperCase().replace(/[^A-Z0-9]/g,"");}
+    function cell(v){if(v==null)return"";v=(""+v).trim();var l=v.toLowerCase();if(v===""||l==="null"||l==="none"||l==="<na>"||l==="na"||l==="n/a"||v==="–"||v==="-")return"";return v;}
+    function get(r,c){return cell(r[norm(c)]);}
+    function cleanReasons(v){if(!v)return"";try{var a=JSON.parse(v);if(Array.isArray(a))return a.join(", ");}catch(e){}return String(v).replace(/[\[\]"]/g,"").replace(/\s+/g," ").trim();}
+    function buildDefaults(rows){var b=[];rows.forEach(function(r){if(!get(r,"DEFAULTED_ON"))return;var rp=get(r,"REPAID_ON");var bal=rp?"$0.00":get(r,"BALANCE");var rs=cleanReasons(get(r,"REASON"));b.push("Default "+(b.length+1)+": loan "+get(r,"LOAN_ID")+", defaulted "+get(r,"DEFAULTED_ON")+(rs?", reason "+rs:"")+", balance "+bal+", "+(rp?"repaid "+rp:get(r,"DAYS_SINCE_PAYMENT")+" days since payment"));});return b.join("\n");}
+    function buildChurns(rows){var L=[];rows.forEach(function(r){if(!/churn/i.test(get(r,"ACCOUNT_KIND")))return;L.push("Churn "+(L.length+1)+": account "+get(r,"ACCOUNT_ID")+", churned "+get(r,"CHURNED_ON")+(get(r,"CHURN_NOTE")?", "+get(r,"CHURN_NOTE"):""));});return L.join("\n");}
+    function summary(dRoot, cRoot, dRows, cRows) {
+    var dText=buildDefaults(dRows),cText=buildChurns(cRows);
+    var noLending=!!dRoot&&dRows.length===0;
+    var dN=dRows.filter(function(r){return get(r,"DEFAULTED_ON");}).length;
+    var cN=cRows.filter(function(r){return /churn/i.test(get(r,"ACCOUNT_KIND"));}).length;
+    var hasDefDate=dRows.some(function(r){return "DEFAULTEDON" in r;});
+    var allT=[dText,cText].filter(Boolean).join("\n\n");var noFindings=(dRoot||cRoot)&&!dText&&!cText;if(noFindings)allT="Tracker: No findings";
+    var status=(dRoot?(noLending?"No lending history":(dRows.length+" default rows, "+dN+" with a default date")):"Defaults grid not found")+"; "+(cRoot?(cRows.length+" churn rows, "+cN+" churned"):"Churn grid not found");
+    var warn=(dRoot&&!hasDefDate&&!noLending)?"Default date not captured: click Read again.":"";
+    return {dText:dText,cText:cText,allT:allT,noFindings:!!noFindings,status:status,warn:warn};
+    }
+    return { norm: norm, summary: summary };
+  })();
+  function routeHost(host, pathname) {
+    const h = hostName(host), path = String(pathname || '');
+    if (h === 'spa.example') return SPA_APP_PATH.test(path) ? 'spa' : 'spaOther';
+    if (SF_NAME.test(h)) return 'salesforce';
+    if (h === 'chat.example') return 'chat';
+    if (h === 'kyb.example') return 'kyb';
+    if (h === 'tracker.example' && (path === TRK_DASHBOARD_PATH || path.indexOf(TRK_DASHBOARD_PATH + '/') === 0)) return 'trk';
+    return null;
+  }
+  return { TRK_DASHBOARD_PATH, normalizeGuid, isGuid, parseMoney, parseExcDate, excMoney, exceptionNotes, buildException, validateException,
+    buildRiskReview, validateRiskReview, chatSafe, spaAppGuid, properName, formatDate, formatMonthDay, buildSpaLog, Aod, DefaultChurn, routeHost };
+})();
+const SEND_CONFIG = {
+  spaLogPattern: '{sent_md} {template_name}, case {case_number}',
+  testPrefix: '[TEST] ',
+};
+const isTestReceipt = st => !!(st && st.receipt && (st.receipt.test || (st.kit && st.kit.test)));
+function buildSpaLine(templateName, st, user) {
+  return SendCore.buildSpaLog(SEND_CONFIG.spaLogPattern, {
+    sent_date: SendCore.formatDate(st.receipt.emailSentAt, Date.now()),
+    sent_md: SendCore.formatMonthDay(st.receipt.emailSentAt, Date.now()),
+    template_name: templateName,
+    sender: SEND_CONFIG.sender,
+    case_number: st.receipt.caseNumber,
+    guid: st.kit.guid,
+    app_id: st.kit.appId,
+    user: user || '',
+  });
+}
+function spaLineToCopy(templateName, st, user) {
+  const r = buildSpaLine(templateName, st, user);
+  return { line: (isTestReceipt(st) ? SEND_CONFIG.testPrefix : '') + r.line, missing: r.missing };
+}
+function routerCopy(title, lines, footer) {
+    var copyText=title+"\n"+lines.map(function(l){return "- "+l;}).join("\n")+(footer?"\n\n"+footer:"");
+  return copyText;
+}
+const Docket = (function () {
+    function pd(s){if(!s)return null;s=(""+s).trim();var m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);if(m)return new Date(+m[3],+m[1]-1,+m[2]);m=s.match(/^(\d{4})-(\d{2})-(\d{2})/);if(m)return new Date(+m[1],+m[2]-1,+m[3]);var d=new Date(s);return isNaN(d.getTime())?null:d;}
+    function lv(v){if(!v)return false;var t=(""+v).trim();return t!==""&&t!=="-"&&t!=="\u2013";}
+  function lienRow(f){var own=f.partyName.toUpperCase().indexOf("OUR LENDER")===0;var d=pd(f.filedDate),vl=lv(f.amountText),li=f.amountText.trim();var fs=f.filedDate+", "+(own?(f.ours?"our lender, our filing":"our lender, other filing"):(f.partyName||"party not listed")+", filing "+f.filingNo)+(vl?", amount "+li:"");return{own:own,inw:f.inw,fs:fs,k:d?d.getTime():-8640000000000000};}
+  return { lienRow: lienRow };
+})();
+const RISK_TEXT = 'Sample adverse action reason';
+const G = n => '00000000-0000-0000-0000-00000000000' + n, AID = n => '00000000-0000-0000-0000-0000000000a' + n;
+const F = (type, status, filedDate, partyName, filingNo, amountText, inw, ours) => ({ type, status, filedDate, partyName, filingNo, amountText: amountText || '', inw: !!inw, ours: !!ours });
+const DR = (ext, date, repaid, bal, days, reason) => ({ LOAN_ID: ext, DEFAULTED_ON: date || '', REPAID_ON: repaid || '', BALANCE: bal || '', DAYS_SINCE_PAYMENT: days || '', REASON: reason ? '["' + reason + '"]' : '' });
+const CR = (loc, type, date, reason) => ({ ACCOUNT_ID: loc, ACCOUNT_KIND: type, CHURNED_ON: date || '', CHURN_NOTE: reason || '' });
+const OWN = (le, people) => ['Legal entity name', le].concat(...people.map((p, i) => ['Owner ' + (i + 1) + ': ' + p[0], 'Ownership: ' + p[1] + '%'])).join('\n');
+const APPS = [
+  { n: 1, restaurant: 'Sample Noodle Co.', legal: 'Sample Noodle Hospitality LLC', contact: 'dana sample', email: 'dana.s@example.com',
+    submitted: '11/12/2026', top: 'Established', term: '360', offer: '$25,000.00', debt: 'MCA: $18,000.00', judgement: 'No', reasons: 'None', cases: [], liveDate: '06/01/2022',
+    router: { title: '360-day term', lines: ['PD = [redacted]', 'Standard lien check'], footer: 'Existing advance: $18,000.00', sev: 'warn' },
+    owners: OWN('Sample Noodle Hospitality LLC', [['Dana Sample', 60], ['Sam Example', 40]]),
+    liens: [F('UCC Filing', 'Open', '09/30/2026', 'Sample Capital Advance LLC', '000000101', '', 1), F('UCC Filing', 'Open', '06/11/2026', 'Example Funding LLC', '000000102', '$40,000.00', 1),
+      F('UCC Filing', 'Open', '03/02/2026', 'OUR LENDER', '000000103', '', 1, 1), F('UCC Filing', 'Closed', '04/18/2026', 'Placeholder Bank NA', '000000104', '', 1), F('UCC Filing', 'Open', '01/05/2015', 'Demo Equipment Leasing', '000000105', '', 0)],
+    trkParent: 'Sample Noodle Group', dRows: [[DR('SAMPLE-0101', '', '', '$0.00', '3')]], cRows: [CR('Location 1', 'Customer')],
+    tip: 'KYB provider tab: Copy NOIA Listings. Emails → NOIA MCA (Use example values pastes the same listings), Copy kit, then Salesforce and back to SPA for the receipt.' },
+  { n: 2, restaurant: 'Example Kettle Cafe', legal: 'Example Kettle Partners LLC', contact: 'MARISOL DEMO', email: 'marisol.d@example.com',
+    submitted: '11/10/2026', top: 'New', term: '180', offer: '$12,500.00', debt: 'None', judgement: 'No', reasons: 'None', cases: [], liveDate: '09/14/2026',
+    router: { title: 'New account', lines: ['Tax and lien check'], footer: '', sev: 'pre' },
+    owners: OWN('Example Kettle Partners LLC', [['Marisol Demo', 100]]),
+    liens: [F('Federal Tax Lien', 'Open', '08/14/2026', 'SAMPLE FEDERAL TAX AGENCY', '000000201', '$6,250.00', 1), F('State Tax Lien', 'Open', '02/03/2026', 'STATE OF EXAMPLE DEPARTMENT OF REVENUE', '000000202', '$1,980.00', 1),
+      F('UCC Filing', 'Open', '07/22/2026', 'Sample Lender Inc', '000000203', '', 1), F('UCC Filing', 'Open', '05/10/2016', 'Sample Oven Leasing Co', '000000204', '', 0)],
+    trkParent: 'Example Kettle Group', dRows: [[DR('SAMPLE-0201', '', '', '$0.00', '1')]], cRows: [CR('Location 3', 'Churned', '05/02/2025', 'Sample reason')],
+    tip: 'UW notes shows New account · Tax and lien check. The KYB provider lists the tax liens and the UCC filing for the NOIA. Collections tracker: a churn only (amber). The contact is in capitals; the email preview still shows "Marisol".' },
+  { n: 3, restaurant: 'Demo Taqueria', legal: 'Demo Taqueria Foods LLC', contact: 'mary-jane placeholder', email: 'mj.p@example.com',
+    submitted: '10/28/2026', top: 'Established', term: '180', offer: '$18,000.00', debt: 'None', judgement: 'No', reasons: 'None', cases: ['20000102'], liveDate: '02/20/2020',
+    router: { title: '180-day term', lines: ['PD = [redacted]', 'Lien check window [redacted]'], footer: '', sev: 'warn' },
+    owners: 'Legal entity name\nDemo Taqueria Foods LLC\nOwner 1:',
+    liens: [F('UCC Filing', 'Open', '08/02/2026', 'OUR LENDER', '000000301', '', 1, 1)],
+    trkParent: 'Demo Taqueria Group', dRows: [[DR('SAMPLE-0301', '', '', '$0.00', '2')]], cRows: [CR('Location 1', 'Customer')],
+    tip: 'Emails → Received Response, click 20000102 under Cases in SPA. Salesforce finds the case and checks it for the sent email before it closes it. AOD says No owners found: click Edit.' },
+  { n: 4, restaurant: 'Placeholder Diner', legal: 'Placeholder Diner Holdings LLC', contact: 'Theo Mockup', email: 'theo.m@example.com',
+    submitted: '11/11/2026', top: 'Established', term: '270', offer: '$30,000.00', debt: 'None', judgement: 'No', reasons: 'None', cases: [], liveDate: '03/15/2021',
+    router: { title: '270-day term', lines: ['PD = [redacted]', 'Lien check window [redacted]', 'Use of funds: working capital'], footer: '', sev: 'stop' },
+    owners: OWN('Placeholder Diner Holdings LLC', [['Theo Mockup', 50], ['Sam Example', 50]]),
+    liens: [], liensEmpty: true,
+    trkParent: 'Placeholder Diner Group', dRows: [[DR('SAMPLE-0401', '03/01/2025', '', '$4,200.00', '210', 'Sample reason'), DR('SAMPLE-0402', '08/19/2024', '01/10/2025', '', '', 'Sample reason')], [DR('SAMPLE-0403', '', '', '$0.00', '4')]],
+    cRows: [CR('Location 2', 'Churned', '05/02/2025', 'Sample reason')],
+    exDefaults: [['SAMPLE-0401', 'Sample reason', '03/01/2025', '$4,200.00'], ['SAMPLE-0402', 'Sample reason', '08/19/2024', '$0.00']],
+    tip: 'The collections tracker reads both pages: 2 defaults · 1 churn (red). To read again, click page 1 of the defaults grid first. More → Exceptions, set Exception to COO/COLE (or pick a COO or COLE template in Emails and click Open Exceptions (scorecard)), Use example values, Copy for scorecard, then Open Create scorecard. AOD: Copy this owner block, then paste it into Sample Noodle Co.\'s Defaulted business 1 to see the shared owner.' },
+  { n: 5, restaurant: 'Mockup Bistro', legal: 'Mockup Bistro Hospitality Group LLC', contact: 'priya fictional', email: 'priya.f@example.com',
+    submitted: '11/09/2026', top: 'Established', term: '180', offer: '$20,000.00', debt: 'None', judgement: 'No', reasons: 'None', cases: [], liveDate: '07/07/2019',
+    router: { title: '180-day term', lines: ['PD = [redacted]', 'Standard lien check'], footer: '', sev: 'ok' },
+    owners: OWN('Mockup Bistro Hospitality Group LLC', [['Priya Fictional', 100]]),
+    liens: [F('UCC Filing', 'Open', '10/01/2026', 'SAMPLE PARTNER PROGRAM INC', '000000501', '', 1)],
+    trkParent: 'Mockup Bistro Group', dRows: [[DR('SAMPLE-0501', '', '', '$0.00', '1')]], cRows: [CR('Location 1', 'Customer')],
+    partner: { ytd: '$412,500.00', stmt: '$13,200.00', month: 'October 2026', verdict: 'limit check not shown in this demo', good: false },
+    tip: 'The KYB provider shows the partner program UCC filing. More → Exceptions → Partner program, Use example values: % = statement amount ÷ year-to-date revenue. The Credit Notes show the legal entity and the merchant name.' },
+  { n: 6, restaurant: 'Fictional Smokehouse', legal: 'Fictional BBQ LLC', contact: 'josé ejemplo', email: 'jose.e@example.com',
+    submitted: '11/13/2026', top: 'Established', term: '360', offer: '$9,500.00', debt: 'None', judgement: 'Yes', reasons: RISK_TEXT, cases: [], liveDate: '04/30/2018',
+    router: { title: '360-day term', lines: ['PD = [redacted]', 'Standard lien check', 'Judgment or lawsuit reported'], footer: '', sev: 'stop' },
+    owners: OWN('Fictional BBQ LLC', [['José Ejemplo', 70], ['Ana Muestra', 30]]),
+    liens: [F('UCC Filing', 'Open', '07/30/2026', 'Sample Lender Inc', '000000601', '', 1)],
+    trkParent: 'Fictional Smokehouse Group', dRows: [[DR('SAMPLE-0601', '', '', '$0.00', '2')]], cRows: [CR('Location 1', 'Customer')],
+    tip: 'More has a red dot: the risk review card opened by itself. Copy for team chat, then on the Team chat tab click Capital Assistant and paste: five boxes filled, no clicks.' }
+];
+function properFirst(contact) { return SendCore.properName(String(contact).replace(/\s+/g, ' ').trim().split(' ')[0] || ''); }
+APPS.forEach((a, i) => { a.i = i; a.guid = G(a.n); a.appId = AID(a.n); a.first = properFirst(a.contact); });
+const DEMO_REP_BCC = 'rep@example.com';
+const IS_MAC = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent || '');
+const MODK = IS_MAC ? 'Cmd' : 'Ctrl';
+const KCAP = MODK === 'Cmd' ? '⌘V' : 'Ctrl+V';
+const byId = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const uwTime = () => new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+const todayMdy = () => { const d = new Date(); return String(d.getMonth() + 1).padStart(2, '0') + '/' + String(d.getDate()).padStart(2, '0') + '/' + d.getFullYear(); };
+const cur = () => APPS[S.app];
+const INPUTS = {
+  source_of_debt:     { label: 'Source of debt', ph: 'One filing per line (KYB provider: Copy NOIA Listings)', multi: true },
+  date_changed:       { label: 'Date of bank account change', ph: 'e.g., 11/02/2026', ex: '11/02/2026' },
+  lender:             { label: 'Lender name', ph: 'e.g., Sample Lender Inc', ex: 'Sample Lender Inc' },
+  original_noia_date: { label: 'Original NOIA date', ph: 'e.g., 11/13/2026', ex: '11/13/2026' },
+  time_frame:         { label: 'Time frame', ph: 'e.g., August to October 2026', ex: 'August to October 2026' },
+  comparison_period:  { label: 'Comparison period', ph: 'e.g., the same months last year', ex: 'the same months last year' },
+  legal_entities:     { label: 'Legal entities', ph: 'Comma-separated', ex: '' }
+};
+const SUBJ = {
+  NOIA: 'Application notice (subject not shown)',
+  REGB: 'Information request (subject not shown)',
+  COO: 'Ownership update (subject not shown)',
+  COLE: 'Legal entity update (subject not shown)'
+};
+const pvr = x => '<span class="pv">' + esc(x) + '</span>';
+const pvt = (x, label) => x ? '<span class="pv typed">' + esc(x) + '</span>' : '<span class="pv ph">' + esc(label) + '</span>';
+const intro = v => '<p class="pv-muted">[Template text not shown on this page]</p><p>Applicant: ' + pvr(v.first) + ' · Restaurant: ' + pvr(v.restaurant) + ' · Date: ' + pvr(v.date) + '</p>';
+const generic = () => intro;
+const debtList = t => { const l = String(t || '').split('\n').map(s => s.trim()).filter(Boolean); return l.length ? l.map(x => '<li><b>' + pvt(x) + '</b></li>').join('') : '<li>' + pvt('', 'Source of debt') + '</li>'; };
+const T = (name, cat, modes, profile, subject, inputs, body) => ({ name, cat, modes, profile, subject, inputs: inputs || [], body: body || generic(name) });
+const NEW = ['new'], FOLLOW = ['followup'], BOTH = ['new', 'followup'];
+const TEMPLATES = [
+  T('NOIA MCA', 'NOIA', BOTH, 'REGB', SUBJ.NOIA, ['source_of_debt'], v => intro(v) + '<p>Source of debt:</p><ul>' + debtList(v.source_of_debt) + '</ul>'),
+  T('NOIA Bank Change', 'NOIA', BOTH, 'REGB', SUBJ.NOIA, ['date_changed'], v => intro(v) + '<p>Date of bank account change: <b>' + pvt(v.date_changed, 'Date of bank account change') + '</b></p>'),
+  T('NOIA Bank History', 'NOIA', BOTH, 'REGB', SUBJ.NOIA),
+  T('NOIA Bankruptcy', 'NOIA', BOTH, 'REGB', SUBJ.NOIA),
+  T('NOIA Judgement', 'NOIA', BOTH, 'REGB', SUBJ.NOIA),
+  T('NOIA MCA Refinance', 'NOIA', BOTH, 'REGB', SUBJ.NOIA),
+  T('NOIA Payoff', 'NOIA', BOTH, 'REGB', SUBJ.NOIA, ['lender', 'original_noia_date'], v => intro(v) + '<p>Lender: <b>' + pvt(v.lender, 'Lender name') + '</b>. Original NOIA date: <b>' + pvt(v.original_noia_date, 'Original NOIA date') + '</b></p>'),
+  T('NOIA Deposit', 'NOIA', BOTH, 'REGB', SUBJ.NOIA),
+  T('NOIA Sales', 'NOIA', BOTH, 'REGB', SUBJ.NOIA, ['time_frame', 'comparison_period'], v => intro(v) + '<p>Time frame: <b>' + pvt(v.time_frame, 'Time frame') + '</b>. Comparison period: <b>' + pvt(v.comparison_period, 'Comparison period') + '</b></p>'),
+  T('NOIA Outstanding Default', 'NOIA', BOTH, 'REGB', SUBJ.NOIA),
+  T('NOIA Brand', 'NOIA', BOTH, 'REGB', SUBJ.NOIA, ['legal_entities'], v => intro(v) + '<p>Legal entities:</p><ul>' + (String(v.legal_entities || '').split(',').map(s => s.trim()).filter(Boolean).map(e => '<li><b>' + pvt(e) + '</b></li>').join('') || '<li>' + pvt('', 'Legal entities') + '</li>') + '</ul>'),
+  T('NOIA AOD', 'NOIA', BOTH, 'REGB', SUBJ.NOIA),
+  T('Need Docs', 'Underwriting', FOLLOW, 'REGB', SUBJ.NOIA),
+  T('RegB Info Request', 'Underwriting', NEW, 'REGB', SUBJ.REGB),
+  T('RegB Owners', 'Underwriting', NEW, 'REGB', SUBJ.REGB),
+  T('Received Response', 'Underwriting', FOLLOW, 'REPLY', ''),
+  T('MCA Lender Response', 'Underwriting', FOLLOW, 'REPLY', ''),
+  T('COO Request', 'Change of Ownership', BOTH, 'COO', SUBJ.COO),
+  T('COO Request Active', 'Change of Ownership', BOTH, 'COO', SUBJ.COO),
+  T('COLE Request', 'Change of Ownership', BOTH, 'COO', SUBJ.COLE),
+  T('COLE Request Active', 'Change of Ownership', BOTH, 'COO', SUBJ.COLE),
+  T('COO Signing Sent', 'Change of Ownership', FOLLOW, 'COO', SUBJ.COO),
+  T('COO Complete', 'Change of Ownership', FOLLOW, 'COO', SUBJ.COO),
+  T('COLE New Signing Sent', 'Change of Ownership', FOLLOW, 'COO', SUBJ.COLE),
+  T('COLE Same Signing Sent', 'Change of Ownership', FOLLOW, 'COO', SUBJ.COLE),
+  T('COLE New Complete', 'Change of Ownership', FOLLOW, 'COO', SUBJ.COLE),
+  T('COLE Complete', 'Change of Ownership', FOLLOW, 'COO', SUBJ.COLE)
+];
+const PROFILES = {
+  REGB: { label: 'Reg B notice', followUpSubjects: [SUBJ.NOIA, SUBJ.REGB], category: 'Notices' },
+  COO: { label: 'COO or COLE', followUpSubjects: [SUBJ.COO, SUBJ.COLE], category: 'Ownership' },
+  REPLY: { label: 'Reply on a case', subjectFromCase: true, followUpSubjects: null, category: '' }
+};
+const CAT_OF = { REGB: 'Notices', COO: 'Ownership', REPLY: '' };
+const CASES0 = { '20000102': { app: 2, subject: SUBJ.NOIA, category: CAT_OF.REGB } };
+const allowsMode = (t, m) => t.modes.includes(m);
+const isCooTemplate = t => !!t && t.cat === 'Change of Ownership';
+let S, GEN = 0, TIMERS = [];
+function panelFor(i) {
+  return { app: i, loading: false, tab: 'uw', notice: null, det: false, q: '', tpl: null, vals: {}, follow: '', done: null, collapsed: false, spotMsg: '',
+    aodText: null, aodEdit: false, aodDefs: [''], risk: APPS[i].reasons.indexOf(RISK_TEXT) >= 0, riskVals: null, riskCopied: false, exc: null, scoreCopied: false, create: null };
+}
+function fresh() {
+  return {
+    site: 'spa', app: 0, noApp: true, spaMsg: false, open: { spa: false, sf: false, kyb: false, trk: false, chat: false, other: false }, pings: {},
+    apps: APPS.map(() => ({ pend: null })),
+    added: APPS.map(() => []),
+    cases: JSON.parse(JSON.stringify(CASES0)), log: {}, nextCase: 20000101, clip: null,
+    P: null, sf: { step: 'idle', kit: null, msg: null, receipt: null, waitFrom: 0, copied: false, details: false, unverified: false },
+    kyb: null, trk: null, close: { kyb: 0, trk: 0 }, closeTok: { kyb: 0, trk: 0 }, copied: { kyb: false, trk: false },
+    chat: { filled: null, submitted: false, view: null }, otherTok: 0, spaMsgTok: 0, spaMsgLeft: 0, trkGridPage: 1
+  };
+}
+function later(fn, ms) { const g = GEN; TIMERS.push(setTimeout(() => { if (g === GEN) fn(); }, ms)); }
+async function copyText(text) {
+  try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); return true; } } catch (e) {  }
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.top = '-1000px'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    const ok = document.execCommand('copy');
+    ta.remove();
+    return ok;
+  } catch (e) { return false; }
+}
+async function demoCopy(text, btn, done) {
+  const ok = await copyText(text);
+  S.clip = text;
+  if (btn) {
+    const orig = btn.dataset.orig || btn.innerHTML;
+    btn.dataset.orig = orig; btn.classList.add('copied');
+    btn.innerHTML = ok ? esc(done || 'Copied ✓') : 'Copy blocked: select the text and press ' + MODK + '+C';
+    later(() => { if (btn.isConnected) { btn.classList.remove('copied'); btn.innerHTML = orig; } }, ok ? 1400 : 2400);
+  }
+  return ok;
+}
+async function clearClip(btn) { await copyText(''); S.clip = ''; if (btn) { btn.textContent = 'Clipboard cleared'; later(() => { if (btn.isConnected) btn.textContent = 'Clear clipboard'; }, 1400); } }
+const SITES = {
+  spa: { host: 'spa.example', path: () => S.noApp ? '/applications' : '/applications/' + cur().appId },
+  sf: { host: 'crm.example', path: () => '/console' },
+  kyb: { host: 'kyb.example', path: () => '/reports/demo-' + cur().n + '/liens' },
+  trk: { host: 'tracker.example', path: () => SendCore.TRK_DASHBOARD_PATH },
+  chat: { host: 'chat.example', path: () => '/channels/risk-review' },
+  other: { host: 'kyb.example.evil.test', path: () => '/liens' }
+};
+const SITE_KEYS = Object.keys(SITES);
+const ROUTE_TO_SITE = { spa: 'spa', salesforce: 'sf', kyb: 'kyb', trk: 'trk', chat: 'chat' };
+function goSite(site) {
+  S.site = site; S.pings[site] = false; renderChrome();
+  if (site === 'spa' && S.open.spa && S.P && !S.P.loading && S.apps[S.P.app].pend) { S.P.tab = 'emails'; renderSpa(); const r = byId('spaReceipt'); if (r) r.focus({ preventScroll: true }); }
+}
+function ping(site) { if (S.site !== site) S.pings[site] = true; }
+function renderChrome() {
+  SITE_KEYS.forEach(s => {
+    byId('stab-' + s).classList.toggle('active', S.site === s);
+    byId('stab-' + s).classList.toggle('ping', !!S.pings[s]);
+    byId('site-' + s).classList.toggle('active', S.site === s);
+  });
+  byId('caUrl').textContent = SITES[S.site].host + SITES[S.site].path();
+  byId('caBm').classList.toggle('hint', !S.open[S.site] || (S.site === 'spa' && S.spaMsg && !S.noApp));
+}
+function panelIntoView() {
+  if (!window.matchMedia || !window.matchMedia('(max-width: 760px)').matches) return;
+  const el = byId('pnl-' + S.site);
+  if (el) later(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 250);
+}
+function bookmarkClick() {
+  const s = S.site, route = SendCore.routeHost(SITES[s].host, SITES[s].path());
+  if (!route) { S.open.other = true; S.otherTok++; renderOther(); otherAutoClose(S.otherTok); renderChrome(); panelIntoView(); return; }
+  if (route === 'spaOther') {
+    if (S.open.spa && S.P) return panelIntoView();
+    S.open.spa = true; S.spaMsg = true; S.P = null; S.spaMsgLeft = 8;
+    const tok = ++S.spaMsgTok;
+    const tick = () => later(() => {
+      if (S.spaMsgTok !== tok || !S.open.spa || !S.spaMsg) return;
+      if (--S.spaMsgLeft <= 0) { S.open.spa = false; S.spaMsg = false; renderSpa(); renderChrome(); return; }
+      renderSpa(); tick();
+    }, 1000);
+    tick();
+    renderAll(); panelIntoView();
+    return;
+  }
+  const site = ROUTE_TO_SITE[route];
+  if (site === 'spa' && S.spaMsg) { S.open.spa = false; S.spaMsg = false; S.spaMsgTok++; }
+  if (S.open[site]) return panelIntoView();
+  S.open[site] = true;
+  if (site === 'spa') S.P = panelFor(S.app);
+  if (site === 'sf' && (['idle', 'done'].indexOf(S.sf.step) >= 0 || (S.sf.step === 'stopped' && !S.sf.caseFound))) S.sf = sfFresh();
+  if (site === 'kyb') kybRead();
+  if (site === 'trk') trkRead();
+  if (site === 'chat') S.chat.view = null;
+  renderAll(); panelIntoView();
+}
+function hdr(site, label, chips, refresh) {
+  return '<div class="cp-hd"><span class="nm">Capital Assistant</span>' + (chips || '') + (label ? '<span class="cp-chip site">' + label + '</span>' : '') +
+    (refresh ? '<button class="cp-ic" title="Refresh for this page" onclick="' + refresh + '">↻</button>' : '') +
+    '<button class="cp-ic" title="Close (clears the panel)" onclick="closePanel(\'' + site + '\')">×</button></div>' +
+    '<div class="cp-build">demo build · invented data</div>';
+}
+const closedBox = () => '<div class="cp-closed">Panel closed.<br>Click <b>★ Capital Assistant</b> on the bookmarks bar.</div>';
+const noteHtml = n => n ? '<div class="cp-note ' + n.k + '">' + n.t + '</div>' : '';
+function closePanel(s, force) {
+  if (s === 'sf' && !force && S.sf.step === 'done' && !S.sf.copied) { S.sf.askClose = true; renderSf(); return; }
+  S.open[s] = false;
+  if (s === 'spa') { S.P = null; S.spaMsg = false; S.spaMsgTok++; }
+  if (s === 'kyb') S.kyb = null;
+  if (s === 'trk') S.trk = null;
+  if (s === 'kyb' || s === 'trk') { S.closeTok[s]++; S.close[s] = 0; S.copied[s] = false; }
+  renderAll();
+}
+function renderSpaPage() {
+  byId('spaApps').innerHTML = S.noApp ? '' : '<button class="ca-app" onclick="goList()"><b>← Applications list</b><span>back to the list</span></button>';
+  if (S.noApp) {
+    byId('spaTip').innerHTML = '<b>Try:</b> Pick an application, then click Capital Assistant. On this list it only says Open an application. A panel that is already open greys out here and follows the next application you pick.';
+    byId('spaPage').innerHTML = '<h4>Capital applications <span class="pg-sub">SPA · list</span></h4><div class="ca-applist">' + APPS.map(x => '<button onclick="goApp(' + x.i + ')"><b>' + esc(x.restaurant) + '</b><span>Submitted ' + esc(x.submitted) + (S.apps[x.i].pend ? ' · <i class="ca-app-pend">receipt pending</i>' : '') + '</span></button>').join('') + '</div>';
+    return;
+  }
+  const a = cur(), cases = a.cases.concat(S.added[a.i]);
+  byId('spaTip').innerHTML = '<b>Try:</b> ' + esc(a.tip);
+  const kv = [['Business', a.restaurant], ['Legal entity', a.legal], ['Contact', a.contact], ['Email', a.email], ['Business ID', a.guid, 1], ['Application ID', a.appId, 1],
+    ['Time on platform', a.top], ['Term (days)', a.term], ['Offer', a.offer], ['PD', '[redacted]'], ['Debts', a.debt], ['Judgment or lawsuit', a.judgement], ['Adverse action', a.reasons]];
+  const own = SendCore.Aod.parse(a.owners).people;
+  byId('spaPage').innerHTML = '<h4>' + esc(a.restaurant) + ' <span class="pg-sub">Capital application · SPA</span></h4><dl class="kv">' +
+    kv.map(r => '<dt>' + r[0] + '</dt><dd' + (r[2] ? ' class="mono"' : '') + '>' + esc(r[1]) + '</dd>').join('') + '</dl>' +
+    '<div class="pg-sec">Emails</div><dl class="kv"><dt>Submitted</dt><dd>' + esc(a.submitted) + '</dd></dl>' +
+    '<div class="pg-sec">Owners</div><dl class="kv">' +
+    (own.length ? own.map(p => '<dt>Owner</dt><dd>' + esc(p.name) + (p.pct != null ? ' · ' + esc(p.pct) + '%' : '') + '</dd>').join('') : '<dt>Owner 1:</dt><dd class="muted">(no name entered)</dd>') + '</dl>' +
+    '<div class="pg-sec">Cases</div><dl class="kv"><dt>Cases</dt><dd class="mono">' + (cases.length ? cases.map(c => esc(c) + (S.added[a.i].indexOf(c) >= 0 ? ' <span class="muted">(pasted by you)</span>' : '')).join(', ') : '-') + '</dd></dl>';
+}
+function goList() {
+  if (S.noApp) return;
+  S.noApp = true;
+  if (S.site !== 'spa') { S.site = 'spa'; S.pings.spa = false; }
+  renderChrome(); renderSpaPage();
+  if (S.open.spa && S.P) { S.P.off = true; S.P.loading = false; S.P.notice = { k: 'blue', t: 'Open an application to use this panel' }; renderSpa(); }
+}
+function goApp(i) {
+  if (S.app === i && !S.noApp) return;
+  S.noApp = false;
+  S.app = i; S.trkGridPage = 1;
+  if (S.site !== 'spa') { S.site = 'spa'; S.pings.spa = false; }
+  renderChrome(); renderSpaPage(); renderKybPage(); renderTrkPage();
+  if (!S.open.spa || !S.P) return;
+  if (S.P.loading) return;
+  S.P.loading = true; S.P.notice = { k: 'blue', t: 'Loading this application…' };
+  renderSpa();
+  later(() => {
+    if (!S.open.spa || !S.P) return;
+    const a = cur();
+    S.P = panelFor(a.i);
+    S.P.notice = { k: 'blue', t: 'Now showing ' + esc(a.restaurant) + ' · application …' + SendCore.spaAppGuid(SITES.spa.path()).slice(-6) };
+    renderSpa();
+  }, 900);
+}
+function act(fn) {
+  return function () {
+    if (S.P && S.P.loading) { S.P.notice = { k: 'blue', t: 'Still loading this application: nothing was copied. Try again in a moment.' }; renderSpa(); return; }
+    return fn.apply(this, arguments);
+  };
+}
+function renderSpa() {
+  const el = byId('pnl-spa');
+  if (S.open.spa && S.spaMsg) { el.innerHTML = '<div class="cp">' + hdr('spa', 'SPA', '', '') + '<div class="cp-body"><div class="cp-note blue"><b>Open an application</b><br>Capital Assistant works on a Capital application page. Open one, then click Capital Assistant on your bookmarks bar.</div><div class="pcount">Closes in ' + S.spaMsgLeft + 's</div></div></div>'; return; }
+  if (!S.open.spa || !S.P) { el.innerHTML = closedBox(); return; }
+  const P = S.P, a = APPS[P.app], pend = S.apps[P.app].pend, r = a.router;
+  const chips = '<button class="cp-chip sev-' + r.sev + '" title="App Router: ' + esc(r.title) + ' (UW notes)" onclick="spaTab(\'uw\')">' + esc(r.title) + '</button>' + (pend ? '<span class="cp-chip pend">Receipt pending</span>' : '');
+  let h = '<div class="cp' + (P.off ? ' cp-off' : '') + '">' + hdr('spa', pend ? '' : 'SPA', chips, 'spaRefresh()');
+  h += '<div class="cp-det"><button class="cp-sum" onclick="S.P.det=!S.P.det;renderSpa()">' + (P.det ? '⌄' : '›') + ' ' + esc(appSummary(a)) + '</button>' + (P.det ? readBox(a) : '') + '</div>';
+  h += '<div class="cp-tabs" role="tablist">' + [['uw', 'UW notes'], ['aod', 'AOD'], ['emails', 'Emails'], ['more', 'More']].map(t =>
+    '<button class="cp-tab' + (P.tab === t[0] ? ' on' : '') + '" role="tab" onclick="spaTab(\'' + t[0] + '\')">' + t[1] +
+    ((t[0] === 'more' && a.reasons.indexOf(RISK_TEXT) >= 0) || (t[0] === 'emails' && pend) ? ' <span class="rd">•</span>' : '') + '</button>').join('') + '</div>';
+  h += '<div class="cp-body">' + noteHtml(P.notice) + (P.off ? '' : ({ uw: uwHtml, aod: aodHtml, emails: emailsHtml, more: moreHtml })[P.tab](a, pend)) + '</div></div>';
+  el.innerHTML = h;
+}
+function spaTab(t) { S.P.tab = t; renderSpa(); }
+const appSummary = a => [a.restaurant, a.term + ' days', a.offer].join(' · ');
+function readBox(a) {
+  const rows = [['Restaurant GUID', a.guid, 1], ['Application ID', a.appId, 1], ['Recipient', a.email], ['Restaurant', a.restaurant], ['Customer first name', a.first],
+    ['Legal entity', a.legal], ['Application date', a.submitted], ['Cases in SPA', a.cases.concat(S.added[a.i]).join(' ')]];
+  return '<div class="readbox">' + rows.map(r => '<span class="rl">' + r[0] + '</span><span>' + (r[1] ? '<span class="cv' + (r[2] ? ' mono' : '') + '">' + esc(r[1]) + '</span>' : '<span class="cv nf">not found</span>') + '</span>').join('') +
+    '</div><div class="pcount" style="margin-top:4px">Contact on SPA: "' + esc(a.contact) + '" → first name "' + esc(a.first) + '" (the name formatter)</div>';
+}
+function spaRefresh() {
+  if (!S.P || S.P.loading || S.P.off) return;
+  const a = APPS[S.P.app], kept = !!S.apps[a.i].pend;
+  S.P = panelFor(a.i);
+  S.P.notice = { k: 'green', t: 'Refreshed for ' + esc(a.restaurant) + ' · application …' + a.appId.slice(-6) + (kept ? '. A send is still waiting for its receipt: kept. Use Finish without receipt to drop it.' : '') };
+  renderSpa();
+  if (!kept) later(() => { if (S.P && S.P.notice && /^Refreshed/.test(S.P.notice.t)) { S.P.notice = null; renderSpa(); } }, 4000);
+}
+function uwHtml(a) {
+  const r = a.router;
+  return '<div class="card ' + r.sev + '"><div class="tool"><span class="n">1</span>App Router</div><div class="src">Read from the page</div>' +
+    '<div class="big">' + esc(r.title) + '</div><div class="meta">' + esc(a.top + ' · term ' + a.term + ' · PD [redacted]') + '</div><ul>' + r.lines.map(l => '<li>' + esc(l) + '</li>').join('') + '</ul>' +
+    (r.footer ? '<div class="cnote strong">' + esc(r.footer) + '</div>' : '') +
+    '<button class="pbtn" onclick="uwCopy(this)">Copy recommendation</button><div class="dnote">Decision thresholds are internal and not shown.</div></div>' +
+    '<div class="off"><span class="n">2</span><b>Liens</b><span class="r"><button class="plink" onclick="goSite(\'kyb\')">click Capital Assistant on the KYB provider tab</button></span></div>' +
+    '<div class="off"><span class="n">3</span><b>Default</b><span class="r"><button class="plink" onclick="goSite(\'trk\')">click Capital Assistant on the collections tracker tab</button></span></div>';
+}
+const uwCopy = act(btn => { const r = APPS[S.P.app].router; return demoCopy(routerCopy(r.title, r.lines, r.footer), btn); });
+const aodText = () => S.P.aodText != null ? S.P.aodText : APPS[S.P.app].owners;
+function aodHtml(a) {
+  const A = SendCore.Aod, P = S.P, text = aodText(), edited = P.aodText != null;
+  const st = A.status(text, null), parsed = A.parse(text), none = !!text.trim() && !parsed.people.length, sev = !text.trim() ? 'pre' : st.bad ? 'warn' : 'ok';
+  const head = !text.trim() ? 'Owner section not on this page' : none ? 'No owners found' : st.bad ? st.text : A.line('Applicant', parsed);
+  const out = A.output(text, P.aodDefs);
+  let h = '<div class="card ' + sev + '"><div class="tool">Applicant</div><div class="src">Read from the page · Owners' + (edited ? ' · edited' : '') + '</div>' +
+    '<div class="big">' + esc(head) + '</div><div class="meta">' + esc(none ? parsed.le : text.trim() && !st.bad ? st.text : '') + '</div>';
+  if (out && !none) h += '<button class="pbtn" onclick="aodCopy(this)">Copy output</button><div class="two"><button class="pbtn sec" onclick="aodBlock(this)">Copy this owner block</button></div>';
+  h += none ? '<button class="pbtn" onclick="aodToggle()">' + (P.aodEdit ? 'Hide text' : 'Edit') + '</button>'
+    : '<div class="cfoot"><span></span><button class="plink" onclick="aodToggle()">' + (P.aodEdit ? 'Hide text' : 'Edit') + '</button></div>';
+  h += '</div>';
+  if (P.aodEdit) h += '<textarea class="pta" id="aodApp" spellcheck="false" placeholder="Paste the legal entity and owner lines here" oninput="aodEdit(this.value)">' + esc(text) + '</textarea>' +
+    '<div class="aodst' + (st.bad ? ' bad' : '') + '">' + esc(st.text) + '</div>' + (none ? '<div class="cfoot"><span>Owner lines: <code>Owner 1: Name</code>, then <code>Ownership: 100%</code></span><button class="plink" onclick="aodExample()">Type an example</button></div>' : '');
+  h += P.aodDefs.map((v, i) => { const s = A.status(v, text); return '<div class="plbl">Defaulted business ' + (i + 1) + (i ? ' <button class="plink" onclick="aodRm(' + i + ')">−</button>' : '') + ' <button class="plink" onclick="aodPaste(' + i + ')">Simulate ' + MODK + '+V</button></div>' +
+    '<textarea class="pta" spellcheck="false" placeholder="Paste the defaulted business\'s owner block here (Copy this owner block on its SPA page)" oninput="aodDef(' + i + ', this.value)">' + esc(v) + '</textarea>' +
+    '<div class="aodst' + (s.bad ? ' bad' : s.matches.length ? ' hit' : '') + '" id="aodSt' + i + '">' + esc(s.text) + '</div>'; }).join('') +
+    '<button class="pbtn sec" style="--c:var(--p-muted)" onclick="aodAdd()">+ Add defaulted business</button><div class="plbl">Output</div><div class="pprev" id="aodPv">' + aodPreview(text) + '</div>';
+  return h;
+}
+function aodPreview(text) {
+  const A = SendCore.Aod, ak = {}, rows = text.trim() ? [{ label: 'Applicant', r: A.parse(text), hl: false }] : [];
+  A.parse(text).people.forEach(p => { ak[A.nk(p.name)] = 1; });
+  let n = 0;
+  S.P.aodDefs.forEach(v => { if (String(v).trim()) rows.push({ label: 'Defaulted business ' + (++n), r: A.parse(v), hl: true }); });
+  if (!rows.length) return '<span class="pv-muted">Nothing pasted yet.</span>';
+  return rows.map(o => '<div>' + esc(o.label) + ': ' + o.r.people.map(p => '<span' + (o.hl && ak[A.nk(p.name)] ? ' class="hit"' : '') + '>' + esc(A.who(p)) + '</span>').join(', ') + '; legal entity: ' + esc(o.r.le) + '</div>').join('');
+}
+const aodCopy = act(btn => demoCopy(SendCore.Aod.output(aodText(), S.P.aodDefs), btn));
+const aodBlock = act(btn => demoCopy(APPS[S.P.app].owners, btn));
+function aodToggle() { S.P.aodEdit = !S.P.aodEdit; renderSpa(); }
+function aodEdit(v) { S.P.aodText = v; renderSpa(); const t = byId('aodApp'); if (t) { t.focus(); t.setSelectionRange(v.length, v.length); } }
+function aodExample() { S.P.aodText = APPS[S.P.app].owners.replace(/Owner 1:$/, 'Owner 1: Mary-Jane Placeholder\nOwnership: 100%'); renderSpa(); }
+function aodDef(i, v) {
+  S.P.aodDefs[i] = v;
+  const s = SendCore.Aod.status(v, aodText()), st = byId('aodSt' + i);
+  if (st) { st.textContent = s.text; st.className = 'aodst' + (s.bad ? ' bad' : s.matches.length ? ' hit' : ''); }
+  byId('aodPv').innerHTML = aodPreview(aodText());
+}
+function aodAdd() { S.P.aodDefs.push(''); renderSpa(); }
+function aodRm(i) { S.P.aodDefs.splice(i, 1); renderSpa(); }
+function aodPaste(i) { S.P.aodDefs[i] = S.clip || ''; renderSpa(); }
+function matches() {
+  const q = S.P.q.trim().toLowerCase();
+  return TEMPLATES.filter(t => !q || t.name.toLowerCase().indexOf(q) >= 0 || t.cat.toLowerCase().indexOf(q) >= 0);
+}
+function pillsHtml() {
+  const m = matches();
+  return '<div class="pcount">' + m.length + ' of ' + TEMPLATES.length + ' templates</div><div class="ppills">' +
+    m.map(t => '<button class="tpill' + (S.P.tpl === t ? ' active' : '') + '" onclick="pickTpl(' + TEMPLATES.indexOf(t) + ')">' + esc(t.name) + '</button>').join('') + '</div>';
+}
+function spaSearch(v) { S.P.q = v; byId('spaPills').innerHTML = pillsHtml(); }
+function spaSearchKey(e) { if (e.key === 'Enter' && !e.metaKey && !e.ctrlKey) { const m = matches(); if (m.length) pickTpl(TEMPLATES.indexOf(m[0])); } }
+function pickTpl(i) { const P = S.P; P.tpl = TEMPLATES[i]; P.vals = {}; P.follow = ''; P.notice = null; P.collapsed = false; renderSpa(); }
+function vars() { const a = APPS[S.P.app]; return Object.assign({ first: a.first, date: a.submitted, restaurant: a.restaurant }, S.P.vals); }
+const PREFILLED = 3;
+function missingFields() { return S.P.tpl.inputs.filter(k => !String(S.P.vals[k] || '').trim()).map(k => INPUTS[k].label); }
+function progHtml() {
+  const total = PREFILLED + S.P.tpl.inputs.length, done = total - missingFields().length;
+  return '<div class="pcount">' + done + ' of ' + total + ' filled</div><div class="pbar"><i style="width:' + Math.round(100 * done / total) + '%"></i></div>';
+}
+function previewHtml() { const t = S.P.tpl; return '<div class="sub">' + (t.profile === 'REPLY' ? '<span class="pv-muted">(the case\'s own subject)</span>' : esc(t.subject)) + '</div>' + t.body(vars()); }
+function emailsLive() { byId('spaProg').innerHTML = progHtml(); byId('spaPrev').innerHTML = previewHtml(); }
+function spaField(k, v) { S.P.vals[k] = v; emailsLive(); }
+function spaFollowIn(v) { S.P.follow = v; }
+function useCase(c) { S.P.follow = c; renderSpa(); }
+function fillExample() {
+  const a = APPS[S.P.app];
+  S.P.tpl.inputs.forEach(k => { S.P.vals[k] = k === 'source_of_debt' ? docket(a).noiaT || '' : k === 'legal_entities' ? a.legal : INPUTS[k].ex; });
+  renderSpa();
+}
+function emailsHtml(a, pend) {
+  const P = S.P;
+  let h = '';
+  if (pend) h += spotHtml(pend);
+  if (P.done) h += doneHtml(P.done);
+  if (P.collapsed) return h + '<button class="nextrow" onclick="nextEmail()"><span>⌕</span> ＋ Next email</button>';
+  h += '<div class="plbl">Template</div><input class="psearch" placeholder="Type to search the send templates ( / )" value="' + esc(P.q) + '" oninput="spaSearch(this.value)" onkeydown="spaSearchKey(event)" aria-label="Search templates">' +
+    '<div id="spaPills">' + pillsHtml() + '</div>';
+  if (!P.tpl) return h + '<div class="src" style="font-size:11.5px">Type a few letters (try <b>mca</b>, <b>rec</b> or <b>coo</b>) and press Enter, or click a template.</div>';
+  const t = P.tpl, prof = PROFILES[t.profile], follow = allowsMode(t, 'followup'), onlyFollow = !allowsMode(t, 'new');
+  const ro = (l, v, mono, wide) => '<div class="pf' + (wide ? ' wide' : '') + '"><label>' + l + '</label><div class="pin read' + (mono ? ' mono' : '') + '">' + esc(v) + '</div></div>';
+  const cases = a.cases.concat(S.added[a.i]);
+  h += '<div class="plbl">Send · ' + esc(prof.label) + '</div><div class="pgrid">' + ro('Restaurant GUID', a.guid, true, true) + ro('Application ID (SPA)', a.appId, true, true) + ro('Recipient email (goes in Additional To)', a.email, false, true) +
+    (follow ? '<div class="pf"><label>' + (onlyFollow ? 'Case #' : 'Follow-up on case #') + '</label><input class="pin' + (onlyFollow && !P.follow ? ' need' : '') + '" value="' + esc(P.follow) + '" inputmode="numeric" placeholder="' +
+      (onlyFollow ? 'Required: the existing case' : 'Empty = new case') + '" oninput="spaFollowIn(this.value)"></div>' : '') + '</div>' +
+    (follow && cases.length ? '<div class="pchips">Cases in SPA: ' + cases.map(c => '<button class="pchip" onclick="useCase(\'' + esc(c) + '\')">' + esc(c) + '</button>').join('') + '</div>' : '');
+  h += '<div class="plbl">Fields</div><div id="spaProg">' + progHtml() + '</div><div class="pgrid">' + ro('Restaurant name', a.restaurant, false, true) + ro('Customer first name', a.first) + ro('Application date', a.submitted) + ro('Legal entity', a.legal, false, true) + '</div>';
+  t.inputs.forEach(k => {
+    const f = INPUTS[k], v = esc(P.vals[k] || '');
+    h += '<div class="pf"><label>' + f.label + '</label>' + (f.multi ? '<textarea class="pta" placeholder="' + esc(f.ph) + '" oninput="spaField(\'' + k + '\', this.value)">' + v + '</textarea>'
+      : '<input class="pin" placeholder="' + esc(f.ph) + '" value="' + v + '" oninput="spaField(\'' + k + '\', this.value)">') + '</div>';
+  });
+  h += '<div class="cfoot"><span>Blue values came from SPA.</span>' + (t.inputs.length ? '<button class="plink" onclick="fillExample()">Use example values</button>' : '') + '</div>';
+  h += '<div class="plbl">Preview · template text not shown on this page</div><div class="pprev" id="spaPrev">' + previewHtml() + '</div>' +
+    '<div class="two"><button class="pbtn sec" onclick="testRun(this)">Test run</button><button class="pbtn" onclick="copyKit(this)">Copy kit</button></div>' +
+    '<div class="cfoot"><span>' + (MODK === 'Cmd' ? '⌘↵ Copy kit · ⇧⌘↵ Test run' : 'Ctrl+Enter Copy kit · Ctrl+Shift+Enter Test run') + '</span></div>' +
+    (isCooTemplate(t) ? '<button class="pbtn sec" style="--c:var(--p-pre)" onclick="openExcFromTpl()">Open Exceptions (scorecard)</button>' : '');
+  return h;
+}
+function openExcFromTpl() { if (S.P) S.P.exc = null; excOpen('coo'); }
+function spotHtml(p) {
+  return '<div class="rspot" id="spaSpot"><div class="rt"><span class="kcap">' + KCAP + '</span><div><div class="rh">Press ' + MODK + '+V to finish</div>' +
+    '<div class="rs">' + esc(p.tpl) + ' · kit copied ' + esc(p.time) + '</div></div></div>' +
+    '<input id="spaReceipt" placeholder="The receipt from Salesforce goes here" onpaste="receiptPaste(event)" aria-label="Receipt">' +
+    (S.P.spotMsg ? '<div class="spot-err">' + esc(S.P.spotMsg) + '</div>' : '') +
+    '<div class="cfoot" style="margin-top:6px"><button class="plink" style="--c:var(--p-muted)" onclick="finishWithout()">Finish without receipt</button><button class="plink" onclick="simReceipt()">Simulate ' + MODK + '+V</button></div></div>';
+}
+function doneHtml(d) {
+  return '<div class="card ok"><div class="big">Finished · Case ' + esc(d.caseNo) + '</div><div class="meta">Case # ' + esc(d.caseNo) + '</div>' +
+    '<div class="spa-line">' + esc(d.line) + '</div><div class="src">' + (d.copied ? 'SPA line copied, paste it into Notes' : 'Copy the SPA line and paste it into Notes; the case number goes into Cases') + '</div>' +
+    '<div class="two"><button class="pbtn sec" onclick="copyLine(this)">' + (d.copied ? 'Copy SPA line again' : 'Copy SPA line') + '</button><button class="pbtn sec" onclick="copyCaseNo(this)">Copy case #</button></div>' +
+    '<button class="plink" onclick="clearClip(this)">Clear clipboard</button></div>';
+}
+async function copyLine(btn) { if (await demoCopy(S.P.done.line, btn, 'SPA line copied')) S.P.done.copied = true; }
+function copyCaseNo(btn) { demoCopy(S.P.done.caseNo, btn, 'Case # copied'); }
+function nextEmail() { const P = S.P; P.collapsed = false; P.tpl = null; P.vals = {}; P.follow = ''; P.q = ''; renderSpa(); }
+const testRun = act(() => { S.P.notice = { k: 'blue', t: 'In the real panel, Test run fills the same email addressed only to your own work address, as a preview you then cancel. It is not part of this demo.' }; renderSpa(); });
+const copyKit = act(async btn => {
+  const P = S.P, t = P.tpl, a = APPS[P.app];
+  if (!t) return;
+  const miss = missingFields();
+  if (miss.length) { P.notice = { k: 'red', t: 'Fill in ' + esc(miss.join(', ')) }; return renderSpa(); }
+  const caseNo = allowsMode(t, 'followup') ? P.follow.trim() : '';
+  if (!allowsMode(t, 'new') && !caseNo) { P.notice = { k: 'red', t: esc(t.name) + ' goes on an existing case: enter its case number' }; return renderSpa(); }
+  if (caseNo && !/^\d{5,12}$/.test(caseNo)) { P.notice = { k: 'red', t: 'Follow-up case number must be 5 to 12 digits' }; return renderSpa(); }
+  const now = Date.now(), kitId = 'k' + now.toString(36) + Math.random().toString(36).slice(2, 8).padEnd(6, '0');
+  const html = t.body(vars()).replace(/<span class="pv( typed)?">/g, '<span>'), tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  const kit = { kind: 'ca-send-kit', v: 1, demo: 'fictional data', kitId, build: 'demo', createdAt: new Date(now).toISOString(),
+    guid: a.guid, appId: a.appId, templateName: t.name, profile: t.profile, mode: caseNo ? 'followup' : 'new', followUp: caseNo ? { caseNumber: caseNo } : null,
+    sender: 'the team\'s shared address', email: { to: a.email, subjectFromCase: t.profile === 'REPLY', subject: t.profile === 'REPLY' ? '' : t.subject, text: (tmp.textContent || '').trim() },
+    case: { subject: t.profile === 'REPLY' ? '' : t.subject, description: t.name, label: PROFILES[t.profile].label, category: PROFILES[t.profile].category } };
+  S.log[kitId] = { app: a.i, tpl: t.name, status: 'kit_copied', html };
+  await demoCopy(JSON.stringify(kit), btn, 'Kit copied');
+  S.apps[a.i].pend = { kitId, tpl: t.name, time: uwTime() };
+  P.done = null; P.spotMsg = '';
+  P.notice = { k: 'green', t: 'Kit copied. In the Salesforce console, click Capital Assistant on your bookmarks bar <button class="lnk" onclick="goSite(\'sf\')">Go to Salesforce →</button>' };
+  if (S.open.sf && ['done', 'stopped', 'idle'].indexOf(S.sf.step) >= 0) S.sf = sfFresh();
+  ping('sf');
+  renderAll();
+});
+function receiptPaste(e) { e.preventDefault(); receiptTry((e.clipboardData || window.clipboardData).getData('text')); }
+function simReceipt() { receiptTry(S.clip || ''); }
+function receiptTry(text) {
+  const P = S.P, a = APPS[P.app], pend = S.apps[a.i].pend;
+  if (P.loading) { P.notice = { k: 'blue', t: 'Still loading this application: nothing was copied. Try again in a moment.' }; return renderSpa(); }
+  let r = null;
+  try { r = JSON.parse(String(text || '').trim()); } catch (e) { r = null; }
+  if (!r || r.kind !== 'ca-send-receipt' || !r.caseNumber) { P.spotMsg = 'That is not a receipt'; return renderSpa(); }
+  const row = S.log[r.kitId];
+  if (pend && r.kitId === pend.kitId) return finishSend(r);
+  P.spotMsg = row && row.app !== a.i ? 'This receipt is for ' + row.tpl + ' on another application'
+    : row && row.status !== 'kit_copied' ? 'This receipt was already recorded' + (row.caseNo ? ' (Case ' + row.caseNo + ')' : '')
+    : 'This receipt is for a different kit: copy the kit again or finish without receipt';
+  renderSpa();
+}
+function finishSend(r) {
+  const P = S.P, a = APPS[P.app], pend = S.apps[a.i].pend;
+  const line = spaLineToCopy(pend.tpl, { receipt: { emailSentAt: r.emailSentAt, caseNumber: r.caseNumber, test: false }, kit: { guid: a.guid, appId: a.appId, test: false } }, '').line;
+  S.log[pend.kitId].status = 'finished'; S.log[pend.kitId].caseNo = r.caseNumber;
+  S.apps[a.i].pend = null;
+  if (S.added[a.i].indexOf(r.caseNumber) < 0 && a.cases.indexOf(r.caseNumber) < 0) S.added[a.i].push(r.caseNumber);
+  Object.assign(P, { done: { caseNo: r.caseNumber, line, copied: false }, collapsed: true, tpl: null, vals: {}, follow: '', spotMsg: '', tab: 'emails' });
+  P.notice = { k: 'green', t: 'Case ' + esc(r.caseNumber) + ' recorded, SPA line copied. Send finished' };
+  copyText(line).then(ok => { S.clip = line; if (ok && S.P && S.P.done && S.P.done.line === line) { S.P.done.copied = true; renderSpa(); } });
+  renderAll();
+}
+function finishWithout() {
+  const a = APPS[S.P.app], pend = S.apps[a.i].pend;
+  if (!pend) return;
+  S.log[pend.kitId].status = 'finished';
+  S.apps[a.i].pend = null; S.P.spotMsg = '';
+  S.P.notice = { k: 'green', t: 'Finished without a receipt (noted in the send log)' };
+  renderAll();
+}
+function moreHtml(a) {
+  const P = S.P;
+  let h = '<div class="two"><button class="pbtn sec" style="--c:var(--p-muted)" onclick="riskOpen()">Risk review</button><button class="pbtn sec" style="--c:var(--p-muted)" onclick="excOpen()">Exceptions</button></div>';
+  if (P.risk) h += riskHtml(a);
+  if (P.exc) h += excHtml(a);
+  if (P.create) h += createHtml();
+  if (!P.risk && !P.exc) h += '<div class="src" style="font-size:11.5px">Nothing open. Risk review opens by itself when the application has the flagged adverse action; Exceptions opens the exception scorecard data.</div>';
+  return h;
+}
+const RISK_FIELDS = [['name', 'Business'], ['guid', 'Business ID'], ['amount', 'Amount'], ['reason', 'Reason'], ['other', 'Notes']];
+function riskVals(a) {
+  if (!S.P.riskVals) S.P.riskVals = { name: a.restaurant, guid: a.guid, amount: a.offer, reason: a.reasons.indexOf(RISK_TEXT) >= 0 ? RISK_TEXT : '', other: 'Sample note for the reviewer' };
+  return S.P.riskVals;
+}
+function riskOpen() { S.P.risk = true; renderSpa(); }
+function riskHtml(a) {
+  const v = riskVals(a);
+  return '<div class="card stop"><div class="tool">Risk review</div>' + RISK_FIELDS.map(([k, l]) => '<div class="rrow"><div class="pf"><label>' + l + '</label>' +
+    (k === 'reason' || k === 'other' || k === 'guid' ? '<textarea class="pta sm' + (k === 'guid' ? ' mono" spellcheck="false' : '') + '" oninput="S.P.riskVals.' + k + '=this.value">' + esc(v[k]) + '</textarea>' : '<input class="pin" value="' + esc(v[k]) + '" oninput="S.P.riskVals.' + k + '=this.value">') +
+    '</div><button class="pchip" onclick="riskCopyOne(this,\'' + k + '\')">Copy</button></div>').join('') +
+    '<div class="two"><button class="pbtn" onclick="riskChat(this)">Copy for team chat</button><button class="pbtn sec" onclick="riskAll(this)">Copy all</button></div>' +
+    '<div class="src">In the channel, start the risk review workflow, then click Capital Assistant on your bookmarks bar and paste.</div>' +
+    (S.P.riskCopied ? '<button class="plink" onclick="clearClip(this)">Clear clipboard</button>' : '') + '</div>';
+}
+const riskCopyOne = act((btn, k) => { S.P.riskCopied = true; return demoCopy(S.P.riskVals[k], btn); });
+const riskAll = act(btn => { S.P.riskCopied = true; return demoCopy(RISK_FIELDS.map(([k, l]) => l + ': ' + S.P.riskVals[k]).join('\n'), btn); });
+const riskChat = act(async btn => {
+  const v = S.P.riskVals;
+  const data = SendCore.buildRiskReview({ bizName: v.name, guid: v.guid, reqAmount: v.amount, reviewReason: v.reason, reviewNotes: v.other }, Date.now());
+  await demoCopy(JSON.stringify(data), btn, 'Copied for team chat');
+  S.P.riskCopied = true;
+  S.P.notice = { k: 'green', t: 'Copied for team chat: on the open risk review form, click Capital Assistant on your bookmarks bar and paste it <button class="lnk" onclick="goSite(\'chat\')">Go to team chat →</button>' };
+  ping('chat'); renderSpa(); renderChrome();
+});
+function excOpen(kind) {
+  const P = S.P;
+  if (!P.exc) P.exc = { kind: kind || (isCooTemplate(P.tpl) ? 'coo' : 'partner'), type: '', policy: '', comp: '', reg: '', change: P.tpl && /COLE/i.test(P.tpl.name) ? 'Legal Entity' : 'Ownership',
+    verb: 'In default', defs: [], ytd: '', stmt: '', month: '' };
+  P.tab = 'more'; renderSpa();
+}
+function excSet(k, v) { S.P.exc[k] = v; excLive(); }
+function excDefSet(i, j, v) { S.P.exc.defs[i][j] = v; excLive(); }
+function excKind(v) { S.P.exc.kind = v; S.P.scoreCopied = false; renderSpa(); }
+function excAddDefault() { S.P.exc.defs.push(['', '', '', '']); renderSpa(); }
+function excRmDefault(i) { S.P.exc.defs.splice(i, 1); renderSpa(); }
+function excExample() {
+  const a = APPS[S.P.app], x = S.P.exc;
+  Object.assign(x, { type: 'Approve', policy: 'Decline', comp: 'Yes', reg: '05/14/2019' });
+  if (x.kind === 'coo') x.defs = (a.exDefaults || [['SAMPLE-0001', 'Sample reason', '03/01/2025', '$1,000.00']]).map(d => d.slice());
+  else { const k = a.partner || { ytd: '$250,000.00', stmt: '$5,000.00', month: 'October 2026' }; Object.assign(x, { ytd: k.ytd, stmt: k.stmt, month: k.month }); }
+  renderSpa();
+}
+function excTidy(el, kind) {
+  const v = el.value, n = SendCore.parseMoney(v), out = kind === 'date' ? SendCore.parseExcDate(v) : kind === 'money' && n != null && v.trim() ? SendCore.excMoney(n) : '';
+  if (out && out !== v) { el.value = out; el.dispatchEvent(new Event('input')); }
+}
+function excGather(a) {
+  const x = S.P.exc, problems = [], money = SendCore.parseMoney;
+  const date = (raw, label, empty) => {
+    const d = SendCore.parseExcDate(String(raw).trim()), future = !!d && new Date(+d.slice(6), +d.slice(0, 2) - 1, +d.slice(3, 5)) > new Date();
+    if (!String(raw).trim()) problems.push(empty); else if (!d) problems.push(label + ' is not a date (MM/DD/YYYY)'); else if (future) problems.push(label + ' is in the future');
+    return d && !future ? d : '';
+  };
+  const f = { exceptionKind: x.kind, merchantName: a.restaurant, appId: a.appId, applicationDate: SendCore.parseExcDate(a.submitted), liveSince: SendCore.parseExcDate(a.liveDate),
+    offer: money(a.offer), term: +a.term, model1: '[redacted]', model2: '[redacted]', model3: '[redacted]',
+    excDecision: x.type, policyDecision: x.policy, compensating: x.comp, registeredOn: date(x.reg, 'Registered on', 'Registered on is empty') };
+  if (!f.excDecision) problems.push('Choose the exception decision');
+  if (!f.policyDecision) problems.push('Choose the policy decision');
+  if (!f.compensating) problems.push('Choose Yes or No for compensating factors');
+  let calcLine = '', good = false;
+  if (x.kind === 'coo') {
+    f.changeType = x.change; f.defaultVerb = x.verb;
+    f.defaults = x.defs.map((d, i) => {
+      const k = 'Default ' + (i + 1) + ': ', bal = money(d[3]);
+      if (!d[0].trim()) problems.push(k + 'Loan ID is empty');
+      if (!d[1].trim()) problems.push(k + 'Reason is empty');
+      const dt = date(d[2], k + 'Defaulted on', k + 'Defaulted on is empty') || null;
+      if (bal == null) problems.push(k + 'Balance ' + (d[3].trim() ? 'can\'t be read' : 'is empty'));
+      return { loanId: d[0].trim(), reason: d[1].trim(), date: dt, balance: bal };
+    });
+  } else {
+    f.legalEntity = a.legal;
+    const ytd = money(x.ytd), amt = money(x.stmt);
+    if (ytd == null) problems.push('Year-to-date revenue ' + (x.ytd.trim() ? 'can\'t be read' : 'is empty'));
+    if (amt == null) problems.push('Statement amount ' + (x.stmt.trim() ? 'can\'t be read' : 'is empty'));
+    const calc = ytd && amt != null ? Math.round(amt / ytd * 10000) / 100 : null;
+    const pre = !!a.partner && x.ytd === a.partner.ytd && x.stmt === a.partner.stmt;
+    calcLine = calc == null ? 'Enter both amounts' : calc.toFixed(2) + '% of year-to-date revenue · ' + (pre ? a.partner.verdict : 'limit check not shown in this demo');
+    good = pre && a.partner.good;
+    f.partnerPct = calc == null ? null : Math.round(calc * 100) / 100;
+    if (!x.month.trim()) problems.push('Statement month is empty');
+    f.statementMonth = x.month.trim(); f.statementAmount = amt;
+  }
+  return { data: SendCore.buildException(f, Date.now()), problems, calcLine, good };
+}
+function excHtml(a) {
+  const x = S.P.exc, r = excGather(a);
+  const ro = (l, v, mono, wide) => '<div class="pf' + (wide ? ' wide' : '') + '"><label>' + l + '</label><div class="pin read' + (mono ? ' mono' : '') + '">' + esc(v) + '</div></div>';
+  const sel = (k, l, opts) => '<div class="pf"><label>' + l + '</label><select class="psel" onchange="excSet(\'' + k + '\', this.value);renderSpa()">' + opts.map(o => '<option value="' + esc(o) + '"' + (o === x[k] ? ' selected' : '') + '>' + esc(o || 'Choose…') + '</option>').join('') + '</select></div>';
+  const inp = (k, l, kind, ph) => '<div class="pf"><label>' + l + '</label><input class="pin" value="' + esc(x[k]) + '" placeholder="' + (ph || '') + '" oninput="excSet(\'' + k + '\', this.value)" onblur="excTidy(this,\'' + kind + '\')"></div>';
+  let h = '<div class="card pre"><div class="tool">Exceptions · exception scorecard <button class="plink" style="margin-left:auto" title="Close" onclick="S.P.exc=null;S.P.create=null;renderSpa()">×</button></div>' +
+    '<div class="pf"><label>Exception</label><select class="psel" onchange="excKind(this.value)"><option value="coo"' + (x.kind === 'coo' ? ' selected' : '') + '>COO/COLE</option><option value="partner"' + (x.kind === 'partner' ? ' selected' : '') + '>Partner program</option></select></div>' +
+    '<div class="src">From SPA: check each value and fix it if needed (read-only in this demo).</div><div class="pgrid">' +
+    ro('Business', a.restaurant, false, true) + ro('Application ID', a.appId, true, true) + ro('Applied on', SendCore.parseExcDate(a.submitted)) + ro('Live since', SendCore.parseExcDate(a.liveDate)) +
+    ro('Offer', a.offer) + ro('Term (days)', a.term) + ro('Model value 1', '[redacted]') + ro('Model value 2', '[redacted]') + ro('Model value 3', '[redacted]') + (x.kind === 'partner' ? ro('Legal entity', a.legal, false, true) : '') + '</div>' +
+    '<div class="plbl">Your choices</div><div class="pgrid">' + sel('type', 'Exception decision', ['', 'Decline', 'Approve', 'Refer']) + sel('policy', 'Policy decision', ['', 'Decline', 'Approve', 'Refer']) +
+    sel('comp', 'Compensating factors', ['', 'Yes', 'No']) + inp('reg', 'Registered on (KYB provider)', 'date', 'MM/DD/YYYY') + '</div>';
+  if (x.kind === 'coo') {
+    h += '<div class="pgrid">' + sel('change', 'Change type', ['Ownership', 'Legal Entity']) + sel('verb', 'Loan status', ['Will default', 'In default']) + '</div><div class="plbl">Defaults (KYB provider)</div>' +
+      x.defs.map((d, i) => '<div class="excdef"><div class="pgrid">' + [['Loan ID', ''], ['Reason', ''], ['Defaulted on', 'date'], ['Balance', 'money']].map((fl, j) =>
+        '<div class="pf"><label>' + fl[0] + '</label><input class="pin" value="' + esc(d[j]) + '" oninput="excDefSet(' + i + ',' + j + ',this.value)"' + (fl[1] ? ' onblur="excTidy(this,\'' + fl[1] + '\')"' : '') + '></div>').join('') +
+        '</div><button class="plink" onclick="excRmDefault(' + i + ')">Remove this default</button></div>').join('') +
+      '<button class="pbtn sec" style="--c:var(--p-muted)" onclick="excAddDefault()">+ Add default</button>';
+  } else {
+    h += '<div class="pgrid">' + inp('ytd', 'Year-to-date revenue (from the tracker)', 'money') + inp('stmt', 'Statement amount (partner program balance)', 'money') + '</div>' +
+      '<div class="xcalc' + (r.good ? ' good' : '') + '" id="excCalc">' + esc(r.calcLine) + '</div>' + inp('month', 'Statement month (e.g. October 2026)', '') +
+      '<div class="cfoot"><span>Open the tracker (a link in the real panel)</span><button class="plink" onclick="excGuid(this)">Copy GUID</button></div>';
+  }
+  h += '<div class="plbl">Credit Notes</div><pre class="notes" id="excNotes">' + esc(r.data.creditNotes) + '</pre><div class="xprob" id="excProb">' + esc(r.problems.map(p => '• ' + p).join('\n')) + '</div>' +
+    '<div class="two"><button class="pbtn" style="--c:var(--p-pre)" onclick="excCopy(this)">Copy for scorecard</button><button class="pbtn sec" style="--c:var(--p-pre)" onclick="createOpen()">Open Create scorecard</button></div>' +
+    '<div class="cfoot"><span>Demo shortcut</span><button class="plink" onclick="excExample()">Use example values</button></div>' + (S.P.scoreCopied ? '<button class="plink" onclick="clearClip(this)">Clear clipboard</button>' : '') + '</div>';
+  return h;
+}
+function excLive() {
+  const r = excGather(APPS[S.P.app]);
+  if (byId('excNotes')) byId('excNotes').textContent = r.data.creditNotes;
+  if (byId('excProb')) byId('excProb').textContent = r.problems.map(p => '• ' + p).join('\n');
+  if (byId('excCalc')) { byId('excCalc').textContent = r.calcLine; byId('excCalc').classList.toggle('good', !!r.good); }
+}
+const excGuid = act(btn => demoCopy(APPS[S.P.app].guid, btn));
+const excCopy = act(async btn => {
+  const r = excGather(APPS[S.P.app]);
+  if (r.problems.length) { S.P.notice = { k: 'red', t: 'Not copied: ' + esc(r.problems[0]) }; return renderSpa(); }
+  await demoCopy(JSON.stringify(r.data), btn, 'Copied for scorecard');
+  S.P.scoreCopied = true;
+  S.P.notice = { k: 'green', t: 'Copied for scorecard: open Create scorecard and paste it' };
+  renderSpa();
+});
+const SCORE_TEXT = { coo: '[Scorecard text not shown]', partner: '[Scorecard text not shown]' };
+function createOpen() { S.P.create = { text: '', result: null }; renderSpa(); }
+function createHtml() {
+  const c = S.P.create;
+  let h = '<div class="card ok"><div class="tool">Create exception scorecard <span class="pg-sub">scorecard web app · simulated</span></div>' +
+    '<textarea class="pta sm" placeholder="Paste the Copy for scorecard data here (' + MODK + '+V)" oninput="S.P.create.text=this.value">' + esc(c.text) + '</textarea>' +
+    '<div class="cfoot"><button class="plink" onclick="S.P.create.text=S.clip||\'\';renderSpa()">Simulate ' + MODK + '+V</button><span></span></div><button class="pbtn" onclick="createRun()">Create</button>';
+  if (c.result && c.result.errors) h += '<div class="xprob">' + esc(c.result.errors.join('\n')) + '</div>';
+  if (c.result && c.result.ok) {
+    const d = c.result.d, cells = [['Business', d.merchantName], ['Application ID', d.appId], ['Applied on', d.applicationDate], ['Live since', d.liveSince], ['Offer', SendCore.excMoney(d.offer)], ['Term (days)', d.term],
+      ['Model value 1', '[redacted]'], ['Model value 2', '[redacted]'], ['Model value 3', '[redacted]'], ['Exception decision', d.excDecision], ['Policy decision', d.policyDecision], ['Compensating factors', d.compensating], ['Registered on', d.registeredOn]].concat(d.excDecision === 'Approve' ? [['Approval box', '☑'], ['Approval note', SCORE_TEXT[d.exceptionKind]]] : []);
+    h += '<ul class="ex-checks"><li>Exactly the expected keys for ' + (d.exceptionKind === 'coo' ? 'COO/COLE' : 'Partner program') + '</li><li>Fresh: copied less than 30 minutes ago</li><li>No text starting with = + - or @, no hidden characters</li><li>Credit Notes rebuilt from the fields and identical</li></ul>' +
+      '<div class="src">Created a scorecard for ' + esc(d.merchantName) + ' dated ' + todayMdy() + ' (demo: nothing was created). Cells written:</div>' +
+      '<table class="cells">' + cells.map(x => '<tr><td>' + x[0] + '</td><td>' + esc(x[1]) + '</td></tr>').join('') + '<tr><td>Credit Notes</td><td><pre class="notes">' + esc(d.creditNotes) + '</pre></td></tr></table>' +
+      '<div class="src">The amount formula cell is never written.</div>';
+  }
+  return h + '</div>';
+}
+function createRun() {
+  const c = S.P.create;
+  let d = null;
+  try { d = JSON.parse(String(c.text || '')); } catch (e) { c.result = { errors: ['That is not exception data. In the SPA panel, click Copy for scorecard, then paste it here.'] }; return renderSpa(); }
+  const probe = Object.assign({}, d);
+  if (d && typeof d === 'object') ['model1', 'model2', 'model3'].forEach(k => { if (d[k] === '[redacted]') probe[k] = 0; });
+  const check = SendCore.validateException(probe, Date.now());
+  c.result = check.ok ? { ok: true, d } : { errors: check.errors };
+  renderSpa();
+}
+const SF_TITLES = {
+  paste: { title: 'Paste the send kit' }, find: { title: 'Finding the account' }, open: { title: 'Opening New Case' }, save: { title: 'Saving the case', pill: 'Saving the case…' },
+  findcase: { title: 'Finding the case' }, opencase: { title: 'Opening Case' }, email: { title: 'Opening Send an Email', pill: 'Filling the email' },
+  review: { title: 'Review and send' }, checking: { title: 'Checking the send' }, sentwait: { title: 'Checking the send', pill: 'Checking the send…' },
+  closeopen: { title: 'Opening the close page' }, closemanual: { title: 'Close page is open' }, closecheck: { title: 'Checking the case' }, closing: { title: 'Closing the case', pill: 'Closing the case…' }, stopped: { title: 'Stopped' }
+};
+const ln = (ok, text) => ({ ok, text });
+function sfView() {
+  const s = S.sf, k = s.kit, a = k && APPS.find(x => x.guid === k.guid), num = s.caseNo;
+  switch (s.step) {
+    case 'paste': return { lines: [ln(null, 'Press ' + MODK + '+V to paste the kit you copied in the generator or the SPA panel.')], paste: true };
+    case 'find': return { lines: [ln(null, 'Searching Salesforce for GUID ' + k.guid + '…')] };
+    case 'open': return { lines: [ln(true, 'Account for this GUID: ' + a.restaurant), ln(true, k.templateName + ' kit is valid'), ln(null, 'Case subject: ' + k.case.subject), ln(null, 'Waiting for the New Case tab…')] };
+    case 'save': return { lines: [ln(true, 'Account for this GUID: ' + a.restaurant), ln(true, 'Opened New Case for ' + a.restaurant + '. It matches the kit.'), ln(true, 'Saving the New Case for ' + a.restaurant + '…')], note: 'The panel carries on by itself once Salesforce has saved it.' };
+    case 'findcase': return { lines: [ln(true, 'Account for this GUID: ' + a.restaurant), ln(null, 'Searching Salesforce for Case ' + num + '…')] };
+    case 'opencase': return { title: 'Opening Case ' + num, lines: [ln(true, 'Account for this GUID: ' + a.restaurant), ln(true, k.templateName + ' follow-up kit is valid'), ln(true, 'Case ' + num + ' found. The email goes on this case, and no new case is created.'), ln(null, 'Waiting for the case tab…')] };
+    case 'email': return { lines: [ln(true, 'Case ' + num + ' is linked to the account'), ln(null, 'Opening the email screen…')] };
+    case 'review': return { lines: [ln(true, 'From is the team\'s shared address'), ln(true, 'Additional To: ' + k.email.to + '. Check it matches the contact email on the application.'), ln(true, 'Subject set'), ln(true, 'Body inserted'),
+      ln(null, 'Leave To empty (it only takes Salesforce Contacts), and CC and BCC as they are'), ln(true, 'BCC: ' + DEMO_REP_BCC + ' (you)'), ln(null, 'The panel checks all of this again until you click Send; its last check is as the email page closes.')],
+      note: 'Review the email and click Send yourself. The panel carries on by itself after Send.' };
+    case 'checking': return { lines: [ln(null, 'The email tab closed after Send or Cancel. Opening Case ' + num + ' to check…')] };
+    case 'sentwait': return { lines: [ln(null, 'Checking the case for the sent email… (' + Math.floor((Date.now() - s.waitFrom) / 1000) + 's)')], note: 'The panel checks Case ' + num + ' once your email tab comes back. In the real panel, if no new email shows there, it stops (emails that show up later are not counted) and offers I sent it, continue: the send is flagged, and you save the close page yourself. Click it here to see that path.', buttons: [['I sent it, continue', 'sfSentContinue()']] };
+    case 'closeopen': return { lines: [ln(true, s.unverified ? 'Email confirmed (flagged)' : 'Email confirmed'), ln(null, 'Waiting for the close page…')] };
+    case 'closemanual': return { lines: [ln(true, 'Email confirmed (flagged)'), ln(false, 'Auto-close didn\'t run: the email was not confirmed as sent by the panel. Check the case, then click Save.'), ln(null, 'Status and Stage are set to Closed. Check them and click Save. The panel carries on by itself.')] };
+    case 'closecheck': return { lines: [ln(null, 'The close page closed after Save. Opening Case ' + num + ' to check it is Closed…')] };
+    case 'closing': return { lines: [ln(true, 'Clicked Save on the close page (Status and Stage = Closed).')], note: 'The panel carries on by itself once Salesforce has saved it.' };
+    case 'stopped': return { lines: s.msg.map(t => ln(false, t)) };
+  }
+  return { lines: [] };
+}
+function renderSf() {
+  const el = byId('pnl-sf');
+  renderSfPage();
+  if (!S.open.sf) { el.innerHTML = closedBox(); return; }
+  const s = S.sf;
+  let h = '<div class="cp">' + hdr('sf', 'Salesforce') + '<div class="cp-body">';
+  if (s.step === 'done') {
+    const r = s.receipt;
+    h += '<div class="card ok"><div class="big">Sent · Case ' + esc(r.caseNumber) + '</div><div class="src">' + esc(s.kit.templateName) + ' · created, emailed, closed</div>' +
+      (s.askClose ? '<div class="cp-note amber">Close without copying the receipt? Paste it on SPA to finish the send; once closed, it can only be finished there without a receipt.</div><div class="two" style="margin-top:6px"><button class="pbtn sec" onclick="closePanel(\'sf\', true)">Close anyway</button><button class="pbtn" onclick="S.sf.askClose=false;renderSf()">Keep open</button></div>' : '') +
+      '<button class="pbtn' + (s.copied ? ' copied' : '') + '" onclick="copyReceipt()">' + (s.copied ? 'Receipt copied ✓' : 'Copy receipt') + '</button><div style="font-size:12px">Next: go back to the SPA tab and press ' + MODK + '+V</div>' +
+      '<div class="cfoot"><button class="plink" onclick="S.sf.details=!S.sf.details;renderSf()">Details</button><button class="plink" onclick="goSite(\'spa\')">Go to the SPA tab</button></div>' +
+      (s.details ? (s.unverified ? '<div class="src">Flags: unconfirmed send</div>' : '') + '<textarea class="pta sm" readonly>' + esc(JSON.stringify(r)) + '</textarea>' : '') + '</div>';
+  } else if (s.step === 'idle') {
+    h += '<div class="src">Click Capital Assistant to start.</div>';
+  } else {
+    const v = sfView(), t = SF_TITLES[s.step] || {};
+    h += (t.pill ? '<div class="sfpill">' + esc(t.pill) + '</div>' : '') + '<div class="sf-title">' + esc(v.title || t.title) + '</div><ul class="sfsteps">' +
+      v.lines.map(l => '<li class="' + (l.ok === true ? 'done' : l.ok === false ? 'bad' : 'now') + '"><i>' + (l.ok === true ? '✓' : l.ok === false ? '✖' : '<span class="spin"></span>') + '</i><span>' + esc(l.text) + '</span></li>').join('') + '</ul>' +
+      (v.note ? '<div class="src" style="margin-top:6px">' + esc(v.note) + '</div>' : '');
+    if (v.paste) h += '<textarea class="pta sm" id="sfKit" placeholder="Paste the kit here (' + MODK + '+V)" onpaste="sfPaste(event)"></textarea><button class="pbtn" style="--c:var(--p-pre)" onclick="sfBegin(byId(\'sfKit\').value)">Use this kit</button>' +
+      '<div class="cfoot"><span></span><button class="plink" style="--c:var(--p-pre)" onclick="sfBegin(S.clip||\'\')">Simulate ' + MODK + '+V</button></div>';
+    (v.buttons || []).forEach(b => { h += '<button class="pbtn sec" onclick="' + b[1] + '">' + esc(b[0]) + '</button>'; });
+    if (s.step === 'stopped') h += '<button class="pbtn sec" style="--c:var(--p-muted)" onclick="sfReset()">Reset</button>';
+  }
+  el.innerHTML = h + '</div></div>';
+}
+function sfFresh() { return { step: 'paste', kit: null, msg: null, receipt: null, waitFrom: 0, copied: false, details: false, unverified: false }; }
+function sfReset() { S.sf = sfFresh(); renderSf(); }
+function sfPaste(e) { e.preventDefault(); sfBegin((e.clipboardData || window.clipboardData).getData('text')); }
+function sfStop(errors) { S.sf.step = 'stopped'; S.sf.msg = errors; renderSf(); }
+function sfBegin(text) {
+  if (S.sf.step !== 'paste' && S.sf.step !== 'stopped') return;
+  let kit = null;
+  try { kit = JSON.parse(String(text || '').trim()); } catch (e) { kit = null; }
+  if (!kit || typeof kit !== 'object') return sfStop(['That is not a send kit. Click Copy kit in the generator or the SPA panel, then click Capital Assistant on your bookmarks bar and paste it.']);
+  if (kit.kind !== 'ca-send-kit') return sfStop(['Not a send kit (wrong kind)']);
+  if (Date.now() > Date.parse(kit.createdAt) + 10 * 60000) return sfStop(['Kit expired, copy a fresh one from the generator']);
+  const a = APPS.find(x => x.guid === kit.guid);
+  if (!a) return sfStop(['No account has GUID ' + kit.guid + '. Check the GUID in the generator.']);
+  if (S.clip === text) { S.clip = ''; copyText(''); }
+  S.sf = { step: kit.mode === 'followup' ? 'findcase' : 'find', kit, msg: null, receipt: null, waitFrom: 0, copied: false, details: false, unverified: false, caseNo: kit.followUp ? kit.followUp.caseNumber : '' };
+  renderSf();
+  if (kit.mode === 'followup') {
+    later(() => {
+      const num = kit.followUp.caseNumber, c = S.cases[num], prof = PROFILES[kit.profile];
+      if (!c) return sfStop(['No case has number ' + num + '. Check the case number in the generator.']);
+      S.sf.caseFound = true;
+      if (c.app !== a.i) return sfStop(['Case ' + num + ' is not on the account for this GUID. Check the case number and the GUID in the generator.']);
+      if (prof.followUpSubjects && prof.followUpSubjects.indexOf(c.subject) < 0) return sfStop(['Case ' + num + ' is not a ' + prof.label + ' case (Subject: ' + c.subject + ').']);
+      if (prof.category && c.category.indexOf(prof.category) < 0) return sfStop(['Case ' + num + ' is not a ' + prof.label + ' case (Case Category: ' + c.category + ').']);
+      S.sf.subject = prof.subjectFromCase ? c.subject : kit.email.subject;
+      sfStep('opencase', 900, () => sfStep('email', 900, () => sfStep('review')));
+    }, 900);
+  } else {
+    later(() => {
+      let n = S.nextCase; while (S.cases[String(n)]) n++; S.nextCase = n + 1;
+      S.sf.caseNo = String(n); S.sf.subject = kit.email.subject;
+      sfStep('open', 900, () => sfStep('save', 1000, () => {
+        S.cases[S.sf.caseNo] = { app: a.i, subject: kit.case.subject, category: CAT_OF[kit.profile] };
+        sfStep('email', 900, () => sfStep('review'));
+      }));
+    }, 900);
+  }
+}
+function sfStep(step, wait, next) { S.sf.step = step; renderSf(); if (next) later(next, wait); }
+function sfSendClick() {
+  if (S.sf.step !== 'review') return;
+  if (S.sf.kit.mode === 'followup') {
+    S.sf.step = 'sentwait'; S.sf.waitFrom = Date.now(); renderSf();
+    const tick = n => later(() => { if (S.sf.step !== 'sentwait') return; if (n >= 3) return sfAfterSent(); renderSf(); tick(n + 1); }, 1000);
+    tick(1);
+  } else sfStep('checking', 1100, sfAfterSent);
+}
+function sfSentContinue() { if (S.sf.step === 'sentwait') { S.sf.unverified = true; sfAfterSent(); } }
+function sfAfterSent() {
+  if (S.sf.unverified) return sfStep('closeopen', 900, () => sfStep('closemanual'));
+  sfStep('closeopen', 900, () => sfStep('closing', 1000, sfClosed));
+}
+function sfCloseSave() { if (S.sf.step === 'closemanual') sfStep('closecheck', 1000, sfClosed); }
+function sfClosed() {
+  const k = S.sf.kit;
+  if (S.cases[S.sf.caseNo]) S.cases[S.sf.caseNo].closed = true;
+  S.sf.receipt = { kind: 'ca-send-receipt', v: 1, demo: 'fictional data', kitId: k.kitId, caseNumber: S.sf.caseNo, mode: k.mode, emailSentAt: new Date().toISOString(), closedAt: new Date().toISOString(), flags: S.sf.unverified ? ['unconfirmed_send', 'manual_close'] : [] };
+  S.sf.step = 'done'; ping('spa'); renderAll();
+}
+async function copyReceipt() { await demoCopy(JSON.stringify(S.sf.receipt), null); S.sf.copied = true; S.sf.askClose = false; ping('spa'); renderSf(); renderChrome(); }
+function renderSfPage() {
+  const s = S.sf, k = s.kit, el = byId('sfPage'), a = k && APPS.find(x => x.guid === k.guid), st = s.step;
+  const row = (l, v, f) => '<div class="sf-row"><label>' + l + '</label><div class="sf-val' + (f ? ' filled' : '') + '">' + v + '</div></div>';
+  let h = '<div class="sf-head">Service Console <span>Cases</span></div>';
+  if (!k || st === 'idle' || st === 'paste' || st === 'stopped') {
+    h += '<h4>Recent Cases <span class="pg-sub">waiting for a kit</span></h4><div class="grid-mock"><table><tr><th>Case</th><th>Account</th><th>Subject</th><th>Status</th></tr>' +
+      Object.keys(S.cases).map(n => '<tr><td>' + n + '</td><td>' + esc(APPS[S.cases[n].app].restaurant) + '</td><td>' + esc(S.cases[n].subject) + '</td><td>' + (S.cases[n].closed ? 'Closed' : 'Open') + '</td></tr>').join('') + '</table></div>';
+  } else if (st === 'find' || st === 'findcase') {
+    h += '<h4>' + (st === 'find' ? 'Account lookup (All Fields)' : 'Case search') + ' <span class="pg-sub">a read through the one guarded same-origin fetch</span></h4><div class="sf-form">' + row('Search', esc(st === 'find' ? k.guid : s.caseNo)) + row('Result', '…') + '</div>';
+  } else if (st === 'open' || st === 'save') {
+    h += '<h4>New Case <span class="pg-sub">Request</span></h4><div class="sf-form">' + row('Account', esc(a.restaurant), true) + row('Subject', esc(k.case.subject), true) +
+      row('Description', esc(k.templateName), true) + row('Case Category', CAT_OF[k.profile], true) + row('Case Origin', 'Email', true) + row('Stage', 'Open', true) + row('Application ID', esc(k.appId), true) +
+      '<div class="sf-btns"><button class="sf-btn" disabled>Save</button><button class="sf-btn" disabled>Cancel</button></div>' + (st === 'save' ? '<div class="sf-auto">Saved by Capital Assistant (the panel\'s Save click): one GUID match, every field matches the kit</div>' : '') + '</div>';
+  } else if (st === 'opencase') {
+    const c = S.cases[s.caseNo];
+    h += '<h4>Case ' + esc(s.caseNo) + ' <span class="pg-sub">' + esc(a.restaurant) + '</span></h4><div class="sf-form">' + row('Subject', esc(c.subject)) + row('Case Category', esc(c.category)) + row('Status', 'Open') + '</div>';
+  } else if (st === 'email' || st === 'review') {
+    h += '<h4>Send an Email <span class="pg-sub">Case ' + esc(s.caseNo) + '</span></h4><div class="sf-form">' + row('From', 'The team\'s shared address', true) + row('To', '') +
+      row('Related To', 'Case ' + esc(s.caseNo)) + row('Additional To', esc(k.email.to), true) + row('CC', '') + row('BCC', esc(DEMO_REP_BCC) + ' (Automatic Bcc)') + row('Subject', esc(s.subject), true) +
+      '<div class="sf-body">' + (S.log[k.kitId] ? S.log[k.kitId].html : '') + '</div><div class="sf-btns"><button class="sf-btn go' + (st === 'review' ? ' pulse' : '') + '" ' + (st === 'review' ? '' : 'disabled') + ' onclick="sfSendClick()">Send</button><button class="sf-btn" disabled>Cancel</button></div>' +
+      (st === 'review' ? '<div class="sf-auto" style="color:var(--p-warn)">Your click: Capital Assistant never clicks Send</div>' : '') + '</div>';
+  } else if (st === 'done' || st === 'closecheck') {
+    h += '<h4>Case ' + esc(s.caseNo) + ' <span class="pg-sub">' + esc(a.restaurant) + '</span></h4><div class="sf-form">' + row('Status', 'Closed') + row('Stage', 'Closed') + row('Activity History', 'Email: ' + esc(s.subject)) + '</div>';
+  } else {
+    const closePg = st === 'closeopen' || st === 'closing' || st === 'closemanual';
+    h += '<h4>Case ' + esc(s.caseNo) + ' <span class="pg-sub">' + (closePg ? 'Edit · close page' : esc(a.restaurant)) + '</span></h4><div class="sf-form">' +
+      (closePg ? row('Status', 'Closed', true) + row('Stage', 'Closed', true) + '<div class="sf-btns">' + (st === 'closemanual' ? '<button class="sf-btn go pulse" onclick="sfCloseSave()">Save</button>' : '<button class="sf-btn" disabled>Save</button>') + '</div>' +
+        (st === 'closemanual' ? '<div class="sf-auto" style="color:var(--p-warn)">Your click: auto-close did not run</div>' : '') +
+        (st === 'closing' ? '<div class="sf-auto">Saved by Capital Assistant (the panel\'s Save click): the close page of this same case</div>' : '')
+        : row('Activity History', st === 'checking' ? 'Email: ' + esc(s.subject) + ' (just sent)' : 'refreshing…')) + '</div>';
+  }
+  el.innerHTML = h;
+}
+function docket(a) {
+  let closed = 0;
+  const rows = a.liens.filter(f => f.filedDate && f.filingNo).filter(f => { if (f.status.toLowerCase() === 'closed') { closed++; return false; } return true; })
+    .map(Docket.lienRow).sort((x, y) => y.k - x.k), iw = rows.filter(r => r.inw);
+  return { all: iw.length, noia: iw.filter(r => !r.own).length, parsed: rows.length, closed, allT: iw.map(r => r.fs).join('\n'), noiaT: iw.filter(r => !r.own).map(r => r.fs).join('\n'), empty: !!a.liensEmpty };
+}
+function kybRead() { S.kyb = { app: S.app, at: uwTime(), changed: false }; S.closeTok.kyb++; S.close.kyb = 0; }
+function renderKybPage() {
+  const a = cur();
+  byId('kybPage').innerHTML = '<h4>' + esc(a.legal) + ' <span class="pg-sub">Business report · Liens</span></h4>' + (a.liensEmpty ? '<p class="muted" style="font-size:12px">No liens on file</p>'
+    : a.liens.map(f => '<div class="mcard"><b>' + esc(f.type) + '</b> <span class="mst' + (f.status === 'Closed' ? ' cl' : '') + '">' + esc(f.status) + '</span>' + (f.ours ? ' <span class="mst">Our filing</span>' : '') +
+      '<div class="mrow"><span>Filed</span> ' + esc(f.filedDate) + ' · <span>Number</span> ' + esc(f.filingNo) + (f.amountText ? ' · <span>Amount</span> ' + esc(f.amountText) : '') + '</div><div class="mrow"><span>Party</span> ' + esc(f.partyName) + '</div></div>').join('')) +
+    '<p style="font-size:11.5px;color:var(--text-3);margin-top:8px">Capital Assistant reads this tab\'s text in memory. Only filings are shown or copied; on this site it stores only the light/dark choice.</p>';
+}
+function renderKyb() {
+  const el = byId('pnl-kyb');
+  if (!S.open.kyb || !S.kyb) { el.innerHTML = closedBox(); return; }
+  const a = APPS[S.kyb.app], r = docket(a), meta = r.parsed + ' kept · ' + r.closed + ' closed dropped · read ' + S.kyb.at;
+  const card = r.empty ? liveCard(2, 'Liens', 'ok', 'Read from the page · Liens', 'No filings per the KYB provider', meta, [], [['Copy', 'No filings per the KYB provider']], [], 'kyb')
+    : liveCard(2, 'Liens', r.noia ? 'warn' : 'ok', 'Read from the page · Liens', r.all + ' in window · ' + r.noia + ' NOIA', meta, r.allT ? r.allT.split('\n') : [],
+      [['Copy All Filings (' + r.all + ')', r.allT]], [['Copy NOIA Listings (' + r.noia + ')', r.noiaT]], 'kyb');
+  el.innerHTML = '<div class="cp">' + hdr('kyb', 'KYB provider', '', 'kybAgain()') + '<div class="cp-body"><div class="off"><span class="n">1</span><b>App Router</b><span class="r">open on the SPA application</span></div>' + card +
+    '<div class="off"><span class="n">3</span><b>Default</b><span class="r">open on the collections tracker</span></div></div></div>';
+  showClose('kyb');
+}
+function liveCard(n, name, sev, src, head, meta, bullets, primary, secondary, site) {
+  const B = bullets.slice(0, 5).map(b => '<li>' + esc(b) + '</li>').join('') + (bullets.length > 5 ? '<li class="more">+' + (bullets.length - 5) + ' more</li>' : '');
+  const st = site === 'kyb' ? S.kyb : S.trk;
+  return '<div class="card ' + sev + '"><div class="tool"><span class="n">' + n + '</span>' + name + '</div><div class="src">' + esc(src) + '</div><div class="big">' + esc(head) + '</div><div class="meta">' + esc(meta) + '</div>' +
+    (st.changed ? '<div class="cp-note amber">The page changed: read again. Nothing was copied. Click Copy again.</div>' : '') +
+    (B ? '<ul>' + B + '</ul>' : '') + primary.filter(x => x[1]).map((x, i) => '<button class="pbtn" onclick="cardCopy(this,\'' + site + '\',0,' + i + ')">' + esc(x[0]) + '</button>').join('') +
+    (secondary.filter(x => x[1]).length ? '<div class="two">' + secondary.map((x, i) => x[1] ? '<button class="pbtn sec" onclick="cardCopy(this,\'' + site + '\',1,' + i + ')">' + esc(x[0]) + '</button>' : '').join('') + '</div>' : '') +
+    (S.copied[site] ? '<button class="plink clr" onclick="clearClip(this)">Clear clipboard</button>' : '') +
+    '<div class="cfoot"><span id="' + site + 'Close"></span><button class="plink" onclick="' + (site === 'kyb' ? 'kybAgain()' : 'trkAgain()') + '">Read again</button></div></div>';
+}
+function cardTexts(site) {
+  if (site === 'kyb') { const r = docket(APPS[S.kyb.app]); return r.empty ? [['No filings per the KYB provider'], []] : [[r.allT], [r.noiaT]]; }
+  const d = trkSummary(APPS[S.trk.app]); return [[d.r.allT], [d.r.dText, d.r.cText]];
+}
+async function cardCopy(btn, site, row, i) {
+  const st = site === 'kyb' ? S.kyb : S.trk;
+  if (st.app !== S.app) {
+    if (site === 'kyb') { kybRead(); S.kyb.changed = true; renderKyb(); } else trkRead(true);
+    return;
+  }
+  st.changed = false;
+  const ok = await demoCopy(cardTexts(site)[row][i], btn);
+  if (!ok) return;
+  S.copied[site] = true;
+  const at = btn.closest ? btn.closest('.two') || btn : null;
+  if (at && at.parentNode && !at.parentNode.querySelector('.clr')) at.insertAdjacentHTML('afterend', '<button class="plink clr" onclick="clearClip(this)">Clear clipboard</button>');
+  autoClose(site);
+}
+function kybAgain() { kybRead(); renderKyb(); }
+function autoClose(site) { S.close[site] = 5; S.closeTok[site]++; tickClose(site, S.closeTok[site]); }
+function showClose(site) {
+  const el = byId(site + 'Close');
+  if (el && S.close[site] > 0) el.innerHTML = 'Closes in ' + S.close[site] + 's · <button class="plink" onclick="keepOpen(\'' + site + '\')">Keep open</button>';
+}
+function tickClose(site, tok) {
+  if (!S.open[site] || S.closeTok[site] !== tok) return;
+  showClose(site);
+  later(() => {
+    if (S.closeTok[site] !== tok) return;
+    S.close[site]--;
+    if (S.close[site] <= 0) { closePanel(site); return; }
+    tickClose(site, tok);
+  }, 1000);
+}
+function keepOpen(site) { S.closeTok[site]++; S.close[site] = 0; const el = byId(site + 'Close'); if (el) el.textContent = 'Kept open'; }
+function trkRow(o, parent) { const r = {}; Object.keys(o).forEach(k => { r[SendCore.DefaultChurn.norm(k)] = o[k]; }); r[SendCore.DefaultChurn.norm('PARENT_NAME')] = parent; return r; }
+function trkSummary(a) {
+  const dRows = [].concat(...a.dRows).map(o => trkRow(o, a.trkParent)), cRows = a.cRows.map(o => trkRow(o, a.trkParent));
+  const r = SendCore.DefaultChurn.summary(true, true, dRows, cRows);
+  const defs = dRows.filter(o => String(o.DEFAULTEDON || '').trim()), churns = r.cText ? r.cText.split('\n') : [];
+  const bullets = defs.map(o => 'Default · Loan ID ' + o.LOANID + ' · ' + o.DEFAULTEDON + (String(o.REPAIDON || '').trim() ? ' · Repaid' : ''))
+    .concat(churns.map(l => { const m = l.match(/^Churn \d+: account (.*?), churned (.*?)(?:, (.*))?$/) || ['', '', l, '']; return 'Churn · ' + m[2] + (m[3] ? ' · ' + m[3] : ''); }));
+  return { r, nd: defs.length, nc: churns.length, bullets, dRows, cRows };
+}
+function trkRead(changed) {
+  if (S.trkGridPage > 1) {
+    S.trk = { app: S.app, phase: 'refused', grid: 1, page: S.trkGridPage, pages: 0, at: uwTime(), changed: false, flash: false };
+    S.closeTok.trk++; S.close.trk = 0;
+    renderTrk();
+    return;
+  }
+  S.trk = { app: S.app, phase: 'reading', grid: 1, page: 1, pages: 1, at: '', changed: !!changed, flash: false };
+  S.closeTok.trk++; S.close.trk = 0;
+  renderTrk(); renderTrkPage();
+  const pages = cur().dRows.length;
+  const step = p => later(() => {
+    if (!S.trk || S.trk.phase !== 'reading') return;
+    if (p < pages) { S.trk.flash = true; S.trk.page = p + 1; S.trk.pages++; if (S.trk.app === S.app) S.trkGridPage = p + 1; renderTrk(); renderTrkPage(); S.trk.flash = false; return step(p + 1); }
+    S.trk.grid = 2; S.trk.page = 1; S.trk.pages++; renderTrk(); renderTrkPage();
+    later(() => { if (!S.trk) return; S.trk.phase = 'done'; S.trk.at = uwTime(); renderTrk(); }, 700);
+  }, 800);
+  step(1);
+}
+function trkAgain() { trkRead(); }
+function trkGridGo(n) { if (S.trk && S.trk.app === S.app && S.trk.phase === 'reading') return; S.trkGridPage = n; renderTrkPage(); }
+function renderTrkPage() {
+  const a = cur(), h = S.trk && S.trk.app === S.app ? S.trk : null;
+  const on = Math.min(Math.max(S.trkGridPage, 1), a.dRows.length) - 1, rows1 = a.dRows[on] || [], fill = Math.max(...a.dRows.map(p => p.length)) - rows1.length;
+  byId('trkPage').innerHTML = '<h4>Collections dashboard <span class="pg-sub">Collections tracker · ' + esc(a.trkParent) + '</span></h4>' +
+    '<div class="grid-mock"><table><tr><th>Loan ID</th><th>Defaulted</th><th>Repaid</th><th>Balance</th></tr>' +
+    rows1.map(r => '<tr><td>' + esc(r.LOAN_ID) + '</td><td>' + esc(r.DEFAULTED_ON || '-') + '</td><td>' + esc(r.REPAID_ON || '-') + '</td><td>' + esc(r.BALANCE || '-') + '</td></tr>').join('') + '<tr><td>&nbsp;</td><td></td><td></td><td></td></tr>'.repeat(fill) +
+    '</table><div class="grid-pager">‹ ' + a.dRows.map((x, i) => '<button class="pg' + (i === on ? ' on' : '') + '" onclick="trkGridGo(' + (i + 1) + ')" aria-label="Page ' + (i + 1) + '">' + (i + 1) + '</button>').join('') + ' <span class="nx' + (h && h.flash ? ' flash' : '') + '">›</span></div></div>' +
+    '<div class="grid-mock"><table><tr><th>Account ID</th><th>Account kind</th><th>Churned</th><th>Churn note</th></tr>' +
+    a.cRows.map(r => '<tr><td>' + esc(r.ACCOUNT_ID) + '</td><td>' + esc(r.ACCOUNT_KIND) + '</td><td>' + esc(r.CHURNED_ON || '-') + '</td><td>' + esc(r.CHURN_NOTE || '-') + '</td></tr>').join('') +
+    '</table><div class="grid-pager">‹ <b class="on">1</b> <span class="nx">›</span></div></div>' +
+    '<p style="font-size:11.5px;color:var(--text-3)">The reader notes whether both grids start on page 1, then scrolls them and presses the grid\'s own <b>Next</b> (the grid\'s Next click, the second of only two clicks in the code, on this dashboard only). If a grid did not start on page 1, it reports Read incomplete and copies nothing.</p>';
+}
+function renderTrk() {
+  const el = byId('pnl-trk');
+  if (!S.open.trk || !S.trk) { el.innerHTML = closedBox(); return; }
+  const h = S.trk, a = APPS[h.app];
+  let card;
+  if (h.phase === 'refused') card = '<div class="card pre"><div class="tool"><span class="n">3</span>Default</div><div class="src">Read from the page · both grids</div><div class="big">Read incomplete: a grid was not on its first page</div>' +
+    '<div class="meta">read ' + h.at + '</div><div class="cnote">Go back to page 1 of the defaults grid, then click Read again.</div><div class="cfoot"><span id="trkClose"></span><button class="plink" onclick="trkAgain()">Read again</button></div></div>';
+  else if (h.phase !== 'done') card = '<div class="card pre"><div class="tool"><span class="n">3</span>Default</div><div class="src">Read from the page · both grids</div><div class="big">Reading…</div><div class="meta">grid ' + h.grid + ' · page ' + h.page + '</div></div>';
+  else {
+    const d = trkSummary(a);
+    card = liveCard(3, 'Default', d.nd ? 'stop' : d.nc ? 'warn' : 'ok', 'Read from the page · both grids, ' + h.pages + ' page' + (h.pages === 1 ? '' : 's'),
+      d.r.noFindings ? 'No findings' : d.nd + ' default' + (d.nd === 1 ? '' : 's') + ' · ' + d.nc + ' churn' + (d.nc === 1 ? '' : 's'),
+      a.trkParent + ' · ' + d.dRows.length + ' default rows · ' + d.cRows.length + ' churn rows · read ' + h.at, d.bullets,
+      [[d.r.noFindings ? 'Copy "Tracker: No findings"' : 'Copy All', d.r.allT]], [['Copy Defaults', d.r.dText], ['Copy Churns', d.r.cText]], 'trk');
+  }
+  el.innerHTML = '<div class="cp">' + hdr('trk', 'Tracker', '', 'trkAgain()') + '<div class="cp-body"><div class="off"><span class="n">1</span><b>App Router</b><span class="r">open on the SPA application</span></div>' +
+    '<div class="off"><span class="n">2</span><b>Liens</b><span class="r">open on the KYB provider</span></div>' + card + '</div></div>';
+  showClose('trk');
+}
+const CHAT_FIELDS = [['bizName', 'Business'], ['guid', 'Business ID'], ['reqAmount', 'Amount'], ['reviewReason', 'Reason (optional)'], ['reviewNotes', 'Notes (optional)']];
+function renderChatForm() {
+  const f = S.chat.filled;
+  byId('chatForm').innerHTML = '<h5>Risk review</h5>' + CHAT_FIELDS.map(([k, l]) => '<div class="chat-f"><label>' + esc(l) + '</label><div class="' + (f ? 'filled' : 'ph') + '">' + (f ? esc(f[k] || '') : 'Type here') + '</div></div>').join('') +
+    '<div class="chat-btns"><button class="chat-btn" onclick="chatFormClose()">Close</button><button class="chat-btn go" ' + (f && !S.chat.submitted ? '' : 'disabled') + ' onclick="chatSubmit()">' + (S.chat.submitted ? 'Submitted' : 'Submit') + '</button></div>' +
+    (S.chat.submitted ? '<p style="font-size:11.5px;color:var(--text-3);margin-top:8px">You clicked Submit (demo: nothing was sent).</p>' : '');
+}
+function renderChat() {
+  const el = byId('pnl-chat');
+  renderChatForm();
+  if (!S.open.chat) { el.innerHTML = closedBox(); return; }
+  const v = S.chat.view;
+  let c;
+  if (!v) c = '<div class="sf-title">Risk review: paste the fields</div><ul class="sfsteps"><li class="now"><i>·</i><span>In the SPA panel, click Copy for team chat on the risk review card. Then click the box below and press ' + MODK + '+V.</span></li></ul>' +
+    '<div class="src">Open the risk review form in team chat first. Capital Assistant fills its five boxes as plain text and never clicks anything here: you check them and click Submit.</div>' +
+    '<textarea class="pta sm" placeholder="Paste the Copy for team chat data here (' + MODK + '+V)" onpaste="chatPaste(event)"></textarea><div class="cfoot"><span></span><button class="plink" style="--c:var(--p-pre)" onclick="chatFill(S.clip||\'\')">Simulate ' + MODK + '+V</button></div>';
+  else c = '<div class="sf-title">' + esc(v.title) + '</div><ul class="sfsteps">' + v.lines.map(l => '<li class="' + (l.ok === true ? 'done' : l.ok === false ? 'bad' : 'now') + '"><i>' + (l.ok === true ? '✓' : l.ok === false ? '✖' : '·') + '</i><span>' + esc(l.text) + '</span></li>').join('') + '</ul>' +
+    '<div class="src">' + esc(v.note) + '</div>' + (v.ok ? '<button class="pbtn sec" onclick="clearClip(this)">Clear clipboard</button>' : '<button class="pbtn sec" style="--c:var(--p-muted)" onclick="S.chat.view=null;renderChat()">Paste again</button>');
+  el.innerHTML = '<div class="cp">' + hdr('chat', 'Team chat') + '<div class="cp-body">' + c + '</div></div>';
+}
+function chatPaste(e) { e.preventDefault(); chatFill((e.clipboardData || window.clipboardData).getData('text')); }
+function chatStop(errors) { S.chat.view = { title: 'Nothing was filled', lines: errors.map(t => ({ ok: false, text: t })), note: 'Fix it, then click Capital Assistant on your bookmarks bar again.' }; renderChat(); }
+function chatFill(text) {
+  let o = null;
+  try { o = JSON.parse(String(text || '').trim()); } catch (e) { o = null; }
+  if (!o) return chatStop(['That is not the risk review data. In the SPA panel, click Copy for team chat, then paste it here.']);
+  const check = SendCore.validateRiskReview(o, Date.now());
+  if (!check.ok) return chatStop(check.errors);
+  if (S.chat.filled) return chatStop(['The form already has text: clear it or open a fresh form']);
+  S.chat.filled = check.values; S.chat.submitted = false;
+  const broken = Object.keys(check.values).some(k => check.values[k] !== String(o[k]).trim());
+  S.chat.view = { ok: true, title: 'Check the form, then click Submit in team chat', lines: CHAT_FIELDS.map(([k, l]) => check.values[k] ? { ok: true, text: l.replace(' (optional)', '') + ': ' + check.values[k] } : { ok: null, text: l.replace(' (optional)', '') + ': nothing to fill' })
+    .concat(broken ? [{ ok: null, text: 'Chat mentions, links and formatting in these values were broken on purpose (shown as look-alike characters).' }] : []),
+    note: 'Capital Assistant filled these as plain text and never clicks anything in team chat. Check each box, then click Submit yourself.' };
+  renderChat();
+}
+function chatSubmit() { if (S.chat.filled) { S.chat.submitted = true; renderChatForm(); } }
+function chatFormClose() { S.chat.filled = null; S.chat.submitted = false; if (S.chat.view && S.chat.view.ok) S.chat.view = null; renderChat(); }
+function renderOther() {
+  byId('pnl-other').innerHTML = S.open.other ? '<div class="cp">' + hdr('other', 'This site') + '<div class="cp-body"><div class="card warn"><div class="big">Not available on this site</div>' +
+    '<div class="src">Capital Assistant works on SPA application pages, the Salesforce console, team chat, the KYB provider and the collections tracker dashboard.</div></div></div></div>' : closedBox();
+}
+function otherAutoClose(tok) { later(() => { if (S.otherTok === tok && S.open.other) { S.open.other = false; renderOther(); renderChrome(); } }, 8000); }
+function renderAll() { renderChrome(); renderSpaPage(); renderSpa(); renderSf(); renderKybPage(); renderKyb(); renderTrkPage(); renderTrk(); renderChat(); renderOther(); }
+function resetDemo() {
+  GEN++; TIMERS.forEach(clearTimeout); TIMERS = [];
+  S = fresh();
+  renderAll();
+}
+
+document.addEventListener('keydown', e => {
+  if (!S) return;
+  if (e.key === 'Enter' && (e.metaKey || e.ctrlKey) && S.site === 'spa' && S.open.spa && S.P && S.P.tab === 'emails' && S.P.tpl) { e.preventDefault(); if (e.shiftKey) testRun(null); else copyKit(null); }
+});
+document.addEventListener('paste', e => {
+  if (!S || e.defaultPrevented) return;
+  const tag = (e.target && e.target.tagName) || '';
+  if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+  const text = (e.clipboardData || window.clipboardData).getData('text');
+  if (S.site === 'sf' && S.open.sf && (S.sf.step === 'paste' || S.sf.step === 'stopped')) { e.preventDefault(); sfBegin(text); }
+  else if (S.site === 'spa' && S.open.spa && S.P && S.apps[S.P.app].pend) { e.preventDefault(); receiptTry(text); }
+  else if (S.site === 'chat' && S.open.chat && !S.chat.view) { e.preventDefault(); chatFill(text); }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  S = fresh();
+  renderAll();
+});
+
+(function () {
+  if (window.parent === window) return;
+  let last = 0;
+  const post = () => {
+    const h = Math.ceil(document.documentElement.getBoundingClientRect().height);
+    if (!h || h === last) return;
+    last = h;
+    window.parent.postMessage({ type: 'ca-demo-height', height: h }, '*');
+  };
+  window.addEventListener('load', () => { last = 0; post(); });
+  window.addEventListener('resize', post);
+  if (window.ResizeObserver) new ResizeObserver(post).observe(document.documentElement);
+  post();
+})();
+</script>
+</body>
+</html>

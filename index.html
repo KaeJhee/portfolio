@@ -229,6 +229,10 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans
 
 /* ── Try-the-logic demos (shared) ── */
 .demo { margin: 14px 0 16px; padding: 16px 18px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); }
+.ca-frame { display: block; width: 100%; height: 820px; border: 0; border-radius: var(--radius); background: var(--surface-2); }
+.ca-open { display: inline-block; margin-top: 10px; font-size: 12px; color: var(--text-2); text-decoration: underline; text-decoration-color: var(--text-3); text-underline-offset: 2px; }
+@media (max-width: 700px) { .ca-frame { width: calc(100vw - 16px); margin-left: calc(50% - 50vw + 8px); } }
+.project.featured { border-color: var(--toast-border); background: linear-gradient(180deg, var(--toast-light) 0, var(--surface) 140px); box-shadow: 0 6px 20px rgba(255, 107, 0, 0.07); }
 .demo-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
 .demo-title { font-size: 13px; font-weight: 600; color: var(--text); }
 .demo-note { font-size: 11px; color: var(--text-3); }
@@ -602,6 +606,8 @@ details.more[open] > summary { margin-bottom: 4px; }
   .demo-scroll .mockup-table td.txt { white-space: normal; }
   .demo-scroll .mockup-table td.note { min-width: 0; }
   .lk-copybox { display: none !important; }
+  .ca-frame, .ca-open { display: none !important; }
+  .project.featured { box-shadow: none !important; }
   .rc-inputs { grid-template-columns: minmax(0, 1fr); }
   #demo-recon [data-rc-all], #demo-recon .rc-press-hint { display: none !important; }
 }
@@ -677,7 +683,7 @@ details.more[open] > summary { margin-bottom: 4px; }
         <div class="stat-lbl">Years in financial services</div>
       </div>
       <div class="stat">
-        <div class="stat-val" style="color: var(--ghost);">18</div>
+        <div class="stat-val" style="color: var(--ghost);">19</div>
         <div class="stat-lbl">Production tools shipped</div>
       </div>
       <div class="stat">
@@ -699,16 +705,32 @@ details.more[open] > summary { margin-bottom: 4px; }
       <span class="filter-status" aria-live="polite"></span>
     </div>
     <div class="project-grid">
+      <div class="project featured" data-color="toast" data-tags="js data">
+        <div class="project-head">
+          <div class="project-icon">CA</div>
+          <div>
+            <div class="project-title"><a class="project-link" href="#capital-assistant">Capital Assistant</a></div>
+            <div class="project-org">Toast · One bookmarklet across SPA, Salesforce and three more sites · send beta with selected reps</div>
+          </div>
+          <div class="project-tag">Featured</div>
+        </div>
+        <div class="project-summary">The first phase of our agentic layer, built without a model: one bookmarklet that checks which site it is on and does the work there. On SPA's application page it opens a four-tab panel with the routing recommendation, the ownership lines, the email send kit and the exception and risk hand-offs. In Salesforce Classic it finds the account, creates or finds the case, fills the email, confirms it went out after the rep clicks Send and closes the case, and the receipt comes back to SPA as the log line. On our KYB provider and collections tracker it reads the lien filings and the default and churn history, and in our team chat it fills the risk review form. On a clean run the rep types nothing into Salesforce. It has already been run on well over 400 applications, with zero AI tokens.</div>
+        <div class="project-meta">
+          <span><b>Stack</b>JavaScript, Bookmarklets, Shadow DOM, Node.js, Playwright</span>
+          <span><b>Runs on</b>SPA, Salesforce + 3 more sites</span>
+        </div>
+      </div>
+
       <div class="project" data-color="toast" data-tags="python js">
         <div class="project-head">
           <div class="project-icon">ET</div>
           <div>
             <div class="project-title"><a class="project-link" href="#email-template-automation-suite">Email Template Automation Suite</a></div>
-            <div class="project-org">Toast · Send beta connecting SPA to Salesforce · app for a 14-person team · 13 phases</div>
+            <div class="project-org">Toast · Template app for a 14-person team · 13 phases</div>
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">The first phase of our agentic layer, built without a model: a send beta, now with selected reps, that connects SPA, our internal application system, to Salesforce through Capital Assistant, a bookmarklet. On SPA's application page, its Emails tab reads a fixed set of application details, prefills the template and builds a validated send kit. In Salesforce Classic the same bookmarklet finds the account, creates or finds the case, fills the email, confirms it went out after the rep clicks Send and closes the case. Pasted back into that tab, the receipt becomes the SPA log line. On a clean run the rep types nothing into Salesforce and retypes nothing into SPA. Capital Assistant has already been run on well over 400 applications. It builds on twelve phases that took the suite from a CLI script to a cross-platform desktop app for a 14-person team, which now ships 27 built-in templates that copy with rich formatting intact and cut retrieval from 30 seconds to under 3, with zero AI tokens and no customer data sent to any model.</div>
+        <div class="project-summary">A cross-platform desktop app for a 14-person team that ships 27 built-in templates that copy with rich formatting intact and cut retrieval from 30 seconds to under 3, with zero AI tokens and no customer data sent to any model. It grew over twelve phases from a CLI script to a native app, and Phase 13 added Send mode, which builds the validated send kit that Capital Assistant carries into Salesforce.</div>
         <div class="race" data-race="et"></div>
         <div class="project-meta">
           <span><b>Stack</b>Python, Flask, JavaScript, PowerShell, AppleScript, PyInstaller, pystray</span>
@@ -807,7 +829,7 @@ details.more[open] > summary { margin-bottom: 4px; }
           </div>
           <div class="project-tag">Toast</div>
         </div>
-        <div class="project-summary">Three client-side tools, their in-page forms now folded into Capital Assistant, the bookmarklet behind the email send beta: a lien docket that classifies UCC &amp; tax-lien filings by type, applies each type's lookback window and lists them newest first, shipped as both a dashboard and an in-page reader; a color-coded application-routing advisor; and a collections extractor that defeats an AG-Grid's row and column virtualization by stitching cells into whole rows by stable column ID. Capital Assistant opens the right card on the application page, our KYB provider and our collections tracker. All in-browser, nothing transmitted; part of a toolset that cut review time ~60%.</div>
+        <div class="project-summary">Three client-side tools, their in-page forms now folded into Capital Assistant: a lien docket that classifies UCC &amp; tax-lien filings by type, applies each type's lookback window and lists them newest first, shipped as both a dashboard and an in-page reader; a color-coded application-routing advisor; and a collections extractor that defeats an AG-Grid's row and column virtualization by stitching cells into whole rows by stable column ID. Capital Assistant opens the right card on the application page, our KYB provider and our collections tracker. All in-browser, nothing transmitted; part of a toolset that cut review time ~60%.</div>
         <div class="project-meta">
           <span><b>Stack</b>React, Vanilla JS, Bookmarklets</span>
           <span><b>Impact</b>Part of a toolset that cut review time ~60%</span>
@@ -873,20 +895,40 @@ details.more[open] > summary { margin-bottom: 4px; }
       <div>
         <div class="eyebrow">Toast Inc · Senior Capital Underwriter, Process Automation</div>
         <h1>Toast Work</h1>
-        <p>Nine production tools across seven projects, built for Capital Underwriting, Change of Ownership, Collections, and Bizops. Each replaced a fragile or manual workflow with a self-contained, browser-based system.</p>
+        <p>Ten production tools across eight projects, built for Capital Underwriting, Change of Ownership, Collections, and Bizops. Each replaced a fragile or manual workflow with a self-contained, browser-based system.</p>
       </div>
     </div>
 
-    <!-- Email Template Suite -->
-    <div class="detail" id="email-template-automation-suite">
-      <h3>Email Template Automation Suite</h3>
-      <div class="sub">Send beta connecting SPA to Salesforce · 13 phases · cross-platform desktop app · 14-person team · retrieval 30s to under 3s</div>
+    <!-- Capital Assistant -->
+    <div class="detail" id="capital-assistant">
+      <h3>Capital Assistant</h3>
+      <div class="sub">One bookmarklet across SPA, Salesforce and three more sites · send beta with selected reps · well over 400 applications · zero AI tokens</div>
 
-      <p>Phase 13 is a send beta, now with selected reps, and the first step of our agentic layer, built without a model: it connects SPA, our internal application system, to Salesforce through Capital Assistant, a bookmarklet. A send kit carries a filled template through the account, the case, the email and the close, and the receipt comes back as the SPA log line, while the rep keeps the Send click. The kit is built in the app or on the Emails tab of Capital Assistant's panel, which reads the application details from SPA's application page and prefills them. The beta consumes zero AI tokens. The kit and the receipt are defined as a data contract, written so they can become the request and response of a server-side send if SPA takes this on natively. The same bookmarklet now also carries my underwriting tools: it opens the right card on the application page, our KYB provider and our collections tracker, and it fills a review form in our team chat from data copied on the application page (see the <a href="#underwriting-collections-toolkit">Underwriting &amp; Collections Toolkit</a>). Capital Assistant has already been run on well over 400 applications.</p>
+      <p>The first phase of our agentic layer, built without a model: Capital Assistant is one bookmarklet, now with selected reps, that connects SPA, our internal application system, to Salesforce and to the sites around it. It checks which site it is on and opens the matching panel, never clicks Send or Submit, and consumes zero AI tokens. It has already been run on well over 400 applications.</p>
 
-      <p>Underneath is a cross-platform desktop application that ships 27 built-in email templates across three categories, with rich-text formatting preserved on paste. It grew over the twelve phases before the beta from a CLI tool to a full Flask web app, then to a PyInstaller-bundled native application with a system tray icon and a Salesforce-embedded NOIA generator concept presented to engineering stakeholders, then into a redesigned three-pane interface built around finding, filling and copying a template in a few keystrokes.</p>
+      <p>Its send flow carries a filled template through the account, the case, the email and the close, and the receipt comes back as the SPA log line, while the rep keeps the Send click. The kit is built on the Emails tab of its SPA panel, which reads the application details from the page and prefills them, or in Send mode in the <a href="#email-template-automation-suite">Email Template Automation Suite</a>. The kit and the receipt are defined as a data contract, written so they can become the request and response of a server-side send if SPA takes this on natively. It also carries the readers from my <a href="#underwriting-collections-toolkit">Underwriting &amp; Collections Toolkit</a>.</p>
 
-      <h4>Send beta, before and after</h4>
+      <h4>What opens where</h4>
+      <ul>
+        <li><b>SPA application page:</b> a four-tab panel. UW notes runs the routing recommendation, AOD builds the legal-entity and ownership lines for the applicant and any defaulted affiliates, Emails builds the send kit, and More holds the credit-exception scorecard builder and the risk review hand-off</li>
+        <li><b>Salesforce:</b> the send flow, from finding the account to closing the case</li>
+        <li><b>Our KYB provider:</b> the Liens card, from the Lien Docket</li>
+        <li><b>Our collections tracker:</b> the Default &amp; Churn card, from the extractor</li>
+        <li><b>Our team chat:</b> fills the risk review form from data copied on the application page, and the rep clicks Submit</li>
+      </ul>
+
+      <h4>Try it</h4>
+      <div class="demo" id="demo-ca">
+        <div class="demo-head">
+          <div class="demo-title">Capital Assistant, across five sites</div>
+          <div class="demo-note">Invented data. A simulation of the tool and its guards, not the real tool.</div>
+        </div>
+        <iframe class="ca-frame" id="ca-demo-frame" src="capital-assistant-demo.html" title="Capital Assistant interactive demo" loading="lazy"></iframe>
+        <a class="ca-open" href="capital-assistant-demo.html" target="_blank" rel="noopener">Open the demo in its own tab</a>
+        <a class="print-only demo-live" href="https://kaejhee.github.io/portfolio/#demo-ca">Try it live: kaejhee.github.io/portfolio/#demo-ca</a>
+      </div>
+
+      <h4>Send flow, before and after</h4>
       <div class="ba">
         <div class="ba-card">
           <div class="ba-label">Before · by hand in Salesforce and SPA</div>
@@ -906,7 +948,9 @@ details.more[open] > summary { margin-bottom: 4px; }
         </div>
       </div>
 
-      <h4>Try the flow</h4>
+      <details class="more">
+        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">Try the send flow · Send flow · Engineering decisions · Stack</span></summary>
+      <h4>Try the send flow</h4>
       <div class="demo" id="demo-send">
         <div class="demo-head">
           <div class="demo-title">Send beta, end to end</div>
@@ -970,16 +1014,46 @@ details.more[open] > summary { margin-bottom: 4px; }
         <a class="print-only demo-live" href="https://kaejhee.github.io/portfolio/#demo-send">Try it live: kaejhee.github.io/portfolio/#demo-send</a>
       </div>
 
-      <details class="more">
-        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">Send beta flow · Template retrieval, before and after · Mock view · Phase progression · Engineering decisions · Stack</span></summary>
-      <h4>Send beta flow</h4>
+      <h4>Send flow</h4>
       <div class="mockup" style="padding: 12px 16px;">
         <span style="font-family: var(--mono); font-size: 12px;">Application details prefilled on SPA's page → copy kit → paste into Capital Assistant → account found → case created or found → email filled → rep clicks Send → send verified → case closed → receipt pasted back → SPA log line and case number → paste into SPA and save</span>
       </div>
 
+      <h4>Engineering decisions</h4>
+      <ul>
+        <li>Zero AI tokens, by design: nothing Capital Assistant reads goes to any model. Its only fetch is a guarded same-origin lookup inside Salesforce, and data moves between sites only by the rep's own paste</li>
+        <li>The rep keeps the irreversible step: Capital Assistant fills the email but never clicks Send or Submit anywhere. In Salesforce its only automated clicks are Salesforce's own Save on the new case and on the close page, each re-checked at click time (same page load, tab on screen, the right case; for the new case, exactly one matching account and a kit not already used for a case; for the close page, Status and Stage both Closed). Outside Salesforce its one other automated click is the collections tracker's own Next page button, so it can read every page of its grids</li>
+        <li>Safety rules enforced by the build, not by review: the Capital Assistant build fails on forbidden patterns (eval, clipboard reads, form submits, synthetic clicks and any selector that targets the Send button among them) and on any click or network call outside its two click helpers (Salesforce's Save and the grid's Next page button) and the single guarded same-origin fetch</li>
+        <li>The pasted kit's email is not trusted: the bookmarklet rebuilds the email and the case settings from its own copy of the templates and the kit's raw field text, and refuses any difference, so a forged or stale kit cannot change the template wording, markup, case settings or sender. Kits expire after 10 minutes and must match the bookmarklet's build and template stamp</li>
+        <li>Provenance over text matching: subjects repeat per merchant, so the saved case is bound by window identity and its opened time against the Save moment, and a send is verified only when the case shows one more outbound email than a baseline taken after the send started; anything else is flagged and the rep closes the case by hand</li>
+        <li>One shared code path: the generator and the bookmarklet run the same kit builder and field code, extracted at build time, and a build or template-stamp mismatch between them is refused, so the two sides stay in step. Field values are escaped and the email HTML passes an allowlist sanitizer before it reaches Salesforce, and the generator's preview and template restore pass the same sanitizer</li>
+        <li>Data that expires and code that is pinned: an unfinished send clears itself after 24 hours, the local send log keeps 90 days and never stores the recipient or the email body, a kit pasted into Salesforce is wiped from the clipboard, and third-party scripts load with integrity hashes</li>
+        <li>Release integrity and testing: every panel shows a content-hash code ID, and the send code is covered by unit tests and by a browser suite that runs forged kits, among other cases, against stateful mocks of the Classic console and the application page</li>
+      </ul>
+
+      <h4>Stack</h4>
+      <div class="stack">
+        <span class="stack-item">JavaScript</span>
+        <span class="stack-item">Bookmarklets</span>
+        <span class="stack-item">Shadow DOM</span>
+        <span class="stack-item">Node.js</span>
+        <span class="stack-item">Playwright</span>
+      </div>
+      </details>
+    </div>
+
+    <!-- Email Template Suite -->
+    <div class="detail" id="email-template-automation-suite">
+      <h3>Email Template Automation Suite</h3>
+      <div class="sub">Cross-platform desktop app · 14-person team · 13 phases · retrieval 30s to under 3s</div>
+
+      <p>A cross-platform desktop application that ships 27 built-in email templates across three categories, with rich-text formatting preserved on paste. It grew over twelve phases from a CLI tool to a full Flask web app, then to a PyInstaller-bundled native application with a system tray icon and a Salesforce-embedded NOIA generator concept presented to engineering stakeholders, then into a redesigned three-pane interface built around finding, filling and copying a template in a few keystrokes. Phase 13 added Send mode, which turns a filled template into the validated send kit that <a href="#capital-assistant">Capital Assistant</a> carries into Salesforce.</p>
+
       <h4>Template retrieval, before and after</h4>
       <div class="race" data-race="et"></div>
 
+      <details class="more">
+        <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">Mock view · Phase progression · Engineering decisions · Stack</span></summary>
       <h4>Mock view</h4>
       <div class="mockup et-mock">
         <div class="mockup-head">
@@ -1024,22 +1098,15 @@ details.more[open] > summary { margin-bottom: 4px; }
         <li>Phase 11: Stakeholder presentation HTML with Apps Script architecture diagrams and a NOIA automation proposal for engineering review</li>
         <li>Phase 12: A refreshed three-pane interface: a Toast-branded shell with a collapsible category sidebar and counts, a template list whose rows show how many fields each template needs (or Instant when none) with one-click copy, and a detail panel with a live preview, favorites and a time-of-day greeting, in light and dark themes</li>
         <li>Phase 12 workflow: ranked search opened with / or ⌘K where Enter copies the top match, favorites and recents for repeat sends, guided field filling with a draft kept per template where Enter moves to the next field and copies on the last, rich-text copy with a plain-text fallback, Email submitted with Undo, and custom templates written in a rich-text editor with placeholder insertion</li>
-        <li>Phase 13, send beta (October to November 2026): Send mode turns copy and paste into a guarded round trip with Salesforce Classic. The rep enters the restaurant ID and the recipient's email (and a case number for a follow-up) and copies a validated send kit. Clicked on SPA's application page, the Capital Assistant bookmarklet instead opens a four-tab panel whose Emails tab reads a fixed set of application details for the email, never a bank, tax or offer field, prefills the template fields and builds the kit there. In the Service Console, the same bookmarklet takes the pasted kit, finds the account, creates or finds the case, fills From, Subject, the recipient and the body, waits for the rep to click Send, confirms the email went out, closes the case and hands back a receipt that produces the SPA log line. Every built-in template is send-enabled across three send profiles, and a Test run fills everything like a real send, with the rep's own address as the only recipient</li>
+        <li>Phase 13, Send mode (October to November 2026): the rep enters the restaurant ID and the recipient's email (and a case number for a follow-up) and copies a validated send kit, the same kit the Emails tab of Capital Assistant builds on SPA's application page. Every built-in template is send-enabled across three send profiles, and a Test run fills everything like a real send, with the rep's own address as the only recipient. <a href="#capital-assistant">Capital Assistant</a> carries the kit through Salesforce</li>
       </ul>
 
       <h4>Engineering decisions</h4>
       <ul>
-        <li>Zero AI tokens consumed by design: templates use placeholders that the user fills locally, so no customer data goes to any model. Capital Assistant's only fetch is a guarded same-origin lookup inside Salesforce, and data moves between sites only by the rep's own paste</li>
+        <li>Zero AI tokens consumed by design: templates use placeholders that the user fills locally, so no customer data goes to any model</li>
         <li>Cross-platform clipboard formatting: macOS uses AppleScript with the «class HTML» format; Windows uses CF_HTML byte-offset headers with precise UTF-8 byte counting</li>
         <li>15KB Flask app deliverable instead of a 150 to 200MB Electron bundle, deliberately avoiding the Apple Developer Program signing requirement</li>
         <li>Per-machine identity: no authentication needed, each install is local-only</li>
-        <li>Send beta, the rep keeps the irreversible step: Capital Assistant fills the email but never clicks Send or Submit anywhere. In Salesforce its only automated clicks are Salesforce's own Save on the new case and on the close page, each re-checked at click time (same page load, tab on screen, the right case; for the new case, exactly one matching account and a kit not already used for a case; for the close page, Status and Stage both Closed). Outside Salesforce its one other automated click is the collections tracker's own Next page button, so it can read every page of its grids</li>
-        <li>Safety rules enforced by the build, not by review: the Capital Assistant build fails on forbidden patterns (eval, clipboard reads, form submits, synthetic clicks and any selector that targets the Send button among them) and on any click or network call outside its two click helpers (Salesforce's Save and the grid's Next page button) and the single guarded same-origin fetch</li>
-        <li>The pasted kit's email is not trusted: the bookmarklet rebuilds the email and the case settings from its own copy of the templates and the kit's raw field text, and refuses any difference, so a forged or stale kit cannot change the template wording, markup, case settings or sender. Kits expire after 10 minutes and must match the bookmarklet's build and template stamp</li>
-        <li>Provenance over text matching: subjects repeat per merchant, so the saved case is bound by window identity and its opened time against the Save moment, and a send is verified only when the case shows one more outbound email than a baseline taken after the send started; anything else is flagged and the rep closes the case by hand</li>
-        <li>One shared code path: the generator and the bookmarklet run the same kit builder and field code, extracted at build time, and a build or template-stamp mismatch between them is refused, so the two sides stay in step. Field values are escaped and the email HTML passes an allowlist sanitizer before it reaches Salesforce, and the generator's preview and template restore pass the same sanitizer</li>
-        <li>Data that expires and code that is pinned: an unfinished send clears itself after 24 hours, the local send log keeps 90 days and never stores the recipient or the email body, a kit pasted into Salesforce is wiped from the clipboard, and third-party scripts load with integrity hashes</li>
-        <li>Release integrity and testing: every panel shows a content-hash code ID, and the send code is covered by unit tests and by a browser suite that runs forged kits, among other cases, against stateful mocks of the Classic console and the application page</li>
       </ul>
 
       <h4>Stack</h4>
@@ -1053,8 +1120,6 @@ details.more[open] > summary { margin-bottom: 4px; }
         <span class="stack-item">Quill.js</span>
         <span class="stack-item">PyInstaller</span>
         <span class="stack-item">pystray</span>
-        <span class="stack-item">Node.js</span>
-        <span class="stack-item">Playwright</span>
         <span class="stack-item">Pillow</span>
       </div>
       </details>
@@ -1397,14 +1462,14 @@ details.more[open] > summary { margin-bottom: 4px; }
     <div class="detail" id="underwriting-collections-toolkit">
       <h3>Underwriting &amp; Collections Toolkit</h3>
       <div class="sub">Client-side underwriting &amp; collections tools · React dashboard + vanilla-JS bookmarklets, with the in-page tools now also folded into Capital Assistant</div>
-      <p>A suite of zero-dependency, browser-based tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details and get parsed, recency-filtered, type-classified output (or a color-coded routing recommendation) to drop straight into notes. The same approach was extended to collections, extracting parent-account default and churn history from a virtualized data grid into a standardized, paste-ready summary. All three now run as cards in Capital Assistant, the bookmarklet behind the <a href="#email-template-automation-suite">email send beta</a>: it opens the matching card for the site it is on (the routing recommendation on the application page, the lien docket on our KYB provider, the default and churn summary on our collections tracker), reads the page when the card opens and hands back paste-ready text. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
+      <p>A suite of zero-dependency, browser-based tools that replaced brittle spreadsheet macros across lien review, application triage, and collections history. Analysts paste or scrape third-party lien/UCC records (from a KYB data provider) and application details and get parsed, recency-filtered, type-classified output (or a color-coded routing recommendation) to drop straight into notes. The same approach was extended to collections, extracting parent-account default and churn history from a virtualized data grid into a standardized, paste-ready summary. All three now run as cards in <a href="#capital-assistant">Capital Assistant</a>: it opens the matching card for the site it is on (the routing recommendation on the application page, the lien docket on our KYB provider, the default and churn summary on our collections tracker), reads the page when the card opens and hands back paste-ready text. Everything runs locally, no backend, and transmits no data. Part of a set of underwriting tools that together cut review time by roughly 60%.</p>
       <details class="more">
         <summary><span class="more-label"><span class="m-closed">More details</span><span class="m-open">Hide details</span></span><span class="more-list">What's unique · Stack</span></summary>
       <h4>What's unique</h4>
       <ul>
         <li>Lien Docket, one tool in two forms: the dashboard ingests pasted card text or raw API JSON, extracts per-filing fields, sorts newest-first, applies recency windows, and tags each filing by type with per-row badges so misclassification is obvious at a glance, with summary metrics, diagnostics, one-click copy, and .txt/.csv export; the in-page form reads the logged-in provider's page directly, sidestepping cross-origin and authentication limits, and lists every in-window filing plus, separately, the ones a notice has to cite; it now also runs as the Liens card in Capital Assistant, which says plainly when the page has no liens or has not finished loading</li>
         <li>App Router: a decision-support bookmarklet that reads live application fields and renders a color-coded review-depth recommendation; in Capital Assistant it runs as soon as the panel opens on an application, names any field it could not find and keeps its verdict visible on every tab</li>
-        <li>Parent Default &amp; Churn Extractor: reads parent-account default and churn history from a virtualized AG-Grid tracker into a standardized, paste-ready summary. It defeats row- and column-virtualization by stitching cells into whole rows by stable column ID (not screen position), with a paste fallback in the standalone version that record-splits multi-line, JSON-valued cells; the grid was reverse-engineered first with a read-only DOM probe. Inside Capital Assistant it starts only when each grid is on its first page, checks that every page really turned, and will not hand back a summary when paging fails or a grid has not finished loading</li>
+        <li>Parent Default &amp; Churn Extractor: reads parent-account default and churn history from a virtualized AG-Grid tracker into a standardized, paste-ready summary. It defeats row- and column-virtualization by stitching cells into whole rows by stable column ID (not screen position), with a paste fallback in the standalone version that record-splits multi-line, JSON-valued cells; the grid was reverse-engineered first with a read-only DOM probe. Inside Capital Assistant it checks that each grid started on its first page and that every page really turned, and will not hand back a summary when either check fails or a grid has not finished loading</li>
         <li>Shared engines: inside Capital Assistant the lien, routing and default rules were ported from the standalone tools into one shared core module alongside the send kit code, and the bookmarklet build pulls them from there; the standalone Churn Extractor's bookmarklet and paste paths share one format engine; fail-loud by design: unreadable dates are kept, never silently dropped</li>
         <li>Config over hard-coding: in the standalone Lien Docket, the keyword list and recency windows live in an editable config block so rule changes don't touch the logic</li>
       </ul>
@@ -1918,7 +1983,7 @@ details.more[open] > summary { margin-bottom: 4px; }
 
     <div class="sec">Background</div>
     <div class="about-card">
-      <p>I'm a Senior Capital Underwriter, Process Automation at Toast, where I support over $500M in capital deployments inside Toast Capital, which scaled from $100M to over $2B in annual volume during my tenure. My core work is capital decisions, customer health monitoring, and scenario planning. What sets my work apart is the systems I build alongside it: eight tools now in daily use across Toast, replacing manual workflows that used to take hours of recurring team effort each week.</p>
+      <p>I'm a Senior Capital Underwriter, Process Automation at Toast, where I support over $500M in capital deployments inside Toast Capital, which scaled from $100M to over $2B in annual volume during my tenure. My core work is capital decisions, customer health monitoring, and scenario planning. What sets my work apart is the systems I build alongside it: nine tools now in daily use across Toast, replacing manual workflows that used to take hours of recurring team effort each week.</p>
       <p>I'm now on Toast's Non-R&amp;D AI Initiatives team, bringing that build-and-validate approach to AI work in the functions outside R&amp;D. I work through a multi-agent system I built: an orchestrator routes each task to one of eight specialized agents (workflow automation, code audit, two project management roles, devops, technical writing, product demos, and QA evaluation), each with its own system prompt, scoped tool access, and isolated context. It ships as a single plugin, so the same agents run as sub-agents in Claude Code and as Skills in Cowork, and every tool I ship goes through it to be audited, tested, and documented with its own SOP. I've also packaged reusable skills for SOP generation and product demo builds for Toast's internal plugin marketplace.</p>
       <p>On the team side, I oversee two teammates on daily funding execution, trained five through onboarding, and built the team's new-hire program, policy and SOP index, and training video library. I'm the operational point of contact across Sales, Risk, and Operations on capital decisions, and I ran the time study and ROI analysis behind a 0-to-1 operational strategy that shipped a 70% improvement with Product, Engineering, and Operations.</p>
       <p>Before Toast, I spent four years at Torres Financial Services in San Antonio, moving from Junior Analyst to Portfolio Management Advisor, where I built KPI dashboards for risk, budgeting, and long-term planning and worked with compliance teams on financial regulations.</p>
@@ -3460,6 +3525,17 @@ document.addEventListener('click', e => {
   });
 })();
 
+// ── Capital Assistant demo frame: the demo page reports its height ──
+(function () {
+  const f = document.getElementById('ca-demo-frame');
+  if (!f) return;
+  window.addEventListener('message', e => {
+    if (e.source !== f.contentWindow || !e.data || e.data.type !== 'ca-demo-height') return;
+    const h = Math.ceil(Number(e.data.height));
+    if (h > 200 && h < 8000) f.style.height = h + 'px';
+  });
+})();
+
 // ── Jump menu (⌘K / Ctrl+K) ──
 (function () {
   const isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
@@ -3479,7 +3555,7 @@ document.addEventListener('click', e => {
       items.push({ title: h.textContent, where: TAB_NAMES[tab], tab, target: d, keys });
     });
   });
-  [['demo-send', 'Try: the send beta flow', 'toast'], ['demo-lookup', 'Try: COO/COLE Data Lookup', 'toast'], ['demo-recon', 'Try: COO/COLE reconciler', 'toast'], ['demo-aba', 'Try: routing-number lookup', 'toast'], ['demo-agent', 'Try: replay the earnings agent', 'ghost'], ['demo-vol', 'Try: portfolio volatility math', 'ghost'], ['agent-operated-practice', 'How the Ghost Strategies practice runs', 'ghost'], ['demo-bench', 'Try: blind votes and code judges', 'ghost']].forEach(([id, title, tab]) => {
+  [['demo-ca', 'Try: Capital Assistant', 'toast'], ['demo-send', 'Try: the send beta flow', 'toast'], ['demo-lookup', 'Try: COO/COLE Data Lookup', 'toast'], ['demo-recon', 'Try: COO/COLE reconciler', 'toast'], ['demo-aba', 'Try: routing-number lookup', 'toast'], ['demo-agent', 'Try: replay the earnings agent', 'ghost'], ['demo-vol', 'Try: portfolio volatility math', 'ghost'], ['agent-operated-practice', 'How the Ghost Strategies practice runs', 'ghost'], ['demo-bench', 'Try: blind votes and code judges', 'ghost']].forEach(([id, title, tab]) => {
     const t = document.getElementById(id);
     if (t) items.push({ title, where: TAB_NAMES[tab], tab, target: t, keys: 'demo interactive' });
   });
